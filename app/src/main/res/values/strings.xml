@@ -23,6 +23,9 @@
     <string name="register_message">注册</string>
     <string name="login_usecapt_hint">使用验证码登录</string>
 
+    <string name="white_list_name">白名单</string>
+
+
     <!-- Strings used for clock setting-->
     <string name="clock_setting_title">设置闹钟</string>
     <string name="clock_setting_store">存储</string>
@@ -32,4 +35,5 @@
     <string name="clock_setting_ring_default">雷达 ></string>
     <string name="clock_setting_game_title">小游戏</string>
     <string name="clock_setting_game_default">随机 ></string>
+
 </resources>
