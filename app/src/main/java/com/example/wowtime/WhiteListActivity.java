@@ -1,15 +1,14 @@
 package com.example.wowtime;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.wowtime.adapter.AppAdapter;
-import com.example.wowtime.entity.AppListItem;
+import com.example.wowtime.component.AppListItem;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class WhiteListActivity extends AppCompatActivity {
 
