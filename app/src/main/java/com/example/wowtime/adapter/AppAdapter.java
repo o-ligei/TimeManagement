@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wowtime.R;
-import com.example.wowtime.entity.AppListItem;
+import com.example.wowtime.component.AppListItem;
 
 import java.util.LinkedList;
 
@@ -53,7 +53,10 @@ public class AppAdapter extends BaseAdapter {
         img_icon.setBackgroundResource(mData.get(position).getIcon());
         txt_aName.setText(mData.get(position).getName());
 //        txt_aAlloc.setText(mData.get(position).getAllowed());
+<<<<<<< HEAD
 
+=======
+>>>>>>> o-ligei-develop
 
         return convertView;
     }

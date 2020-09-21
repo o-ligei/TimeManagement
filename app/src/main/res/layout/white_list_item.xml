@@ -6,7 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> o-ligei-develop
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="75dp"
@@ -49,4 +53,42 @@
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+<<<<<<< HEAD
+=======
+=======
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="app名称" />
+
+        <TextView
+            android:id="@+id/alloc"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="TextView" />
+    </LinearLayout>
+>>>>>>> e44e23c678b9f85b6b246dc04d035dffe7c2495d
+>>>>>>> o-ligei-develop
 </androidx.constraintlayout.widget.ConstraintLayout>
