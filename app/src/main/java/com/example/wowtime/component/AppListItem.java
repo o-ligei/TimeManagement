@@ -1,4 +1,4 @@
-package com.example.wowtime.entity;
+package com.example.wowtime.component;
 
 public class AppListItem {
     private String name;
