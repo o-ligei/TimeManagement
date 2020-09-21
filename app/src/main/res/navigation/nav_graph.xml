@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/navigation_overview">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/navigation_overview"
         android:name="com.example.wowtime.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
