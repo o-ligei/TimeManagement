@@ -9,7 +9,7 @@
         <!--        #FFB6C1  #DB7093  #FF7F50-->
         <!--        #00e5ff  #00b8d4  #64ffda-->
         <item name="colorPrimaryDark">#DB7093</item>
-        <item name="colorAccent">#FF7F50</item>
+        <item name="colorAccent">#FFB499</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
