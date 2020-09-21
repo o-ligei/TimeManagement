@@ -54,6 +54,7 @@ public class AppAdapter extends BaseAdapter {
         txt_aName.setText(mData.get(position).getName());
 //        txt_aAlloc.setText(mData.get(position).getAllowed());
 
+
         return convertView;
     }
 }

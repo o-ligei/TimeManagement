@@ -2,7 +2,9 @@ package com.example.wowtime.entity;
 
 public class AppListItem {
     private String name;
+
 //    private String allowed;
+
     private int icon;
 
     public AppListItem(){
@@ -16,6 +18,7 @@ public class AppListItem {
 
     public String getName(){return this.name;}
     public void setName(String name){this.name = name;}
+
 
 //    public String getAllowed(){return this.allowed;}
 //    public void setAllowed(String allowed){this.allowed = allowed;}
