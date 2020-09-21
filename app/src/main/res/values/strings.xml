@@ -18,4 +18,6 @@
     <string name="login_usepw_hint">使用账号密码登录?</string>
     <string name="login_message">登录</string>
     <string name="white_list_name">白名单</string>
+    <string name="task_success">任务完成!</string>
+    <string name="back_to_home">返回首页</string>
 </resources>
