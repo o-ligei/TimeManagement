@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".WhiteListActivity" />
-        <activity android:name=".RegisActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity2" />
         <activity
             android:name=".ClockSetting"
