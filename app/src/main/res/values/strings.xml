@@ -32,4 +32,7 @@
     <string name="clock_setting_ring_default">雷达 ></string>
     <string name="clock_setting_game_title">小游戏</string>
     <string name="clock_setting_game_default">随机 ></string>
+    <string name="personinfo_name">个人信息</string>
+    <string name="friendslist_name">好友列表</string>
+    <string name="creditdetail_name">积分详情</string>
 </resources>
