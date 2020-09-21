@@ -7,7 +7,6 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="cancel">取消</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="test_message">Enter a message</string>
@@ -23,7 +22,7 @@
     <string name="login_message">登录</string>
     <string name="register_message">注册</string>
     <string name="login_usecapt_hint">使用验证码登录</string>
-
+    <string name="white_list_name">白名单</string>
     <!-- Strings used for clock setting-->
     <string name="clock_setting_title">设置闹钟</string>
     <string name="clock_setting_store">存储</string>
