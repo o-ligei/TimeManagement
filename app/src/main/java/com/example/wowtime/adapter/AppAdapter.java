@@ -46,13 +46,13 @@ public class AppAdapter extends BaseAdapter {
 
         convertView = LayoutInflater.from(mContext).inflate(R.layout.white_list_item,parent,false);
 
-        ImageView img_icon = (ImageView) convertView.findViewById(R.id.icon);
+        ImageView img_icon = (ImageView) convertView.findViewById(R.id.apps_icon);
         TextView txt_aName = (TextView) convertView.findViewById(R.id.name);
-        TextView txt_aAlloc = (TextView) convertView.findViewById(R.id.alloc);
+//        TextView txt_aAlloc = (TextView) convertView.findViewById(R.id.alloc);
 
         img_icon.setBackgroundResource(mData.get(position).getIcon());
         txt_aName.setText(mData.get(position).getName());
-        txt_aAlloc.setText(mData.get(position).getAllowed());
+//        txt_aAlloc.setText(mData.get(position).getAllowed());
 
         return convertView;
     }
