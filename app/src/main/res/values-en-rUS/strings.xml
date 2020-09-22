@@ -35,6 +35,9 @@
     <string name="clock_setting_game_title">Game</string>
     <string name="clock_setting_game_default">Random ></string>
 
+    <!-- Strings used for ring setting -->
+    <string name="ring_setting_title">Setting ring</string>
+
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
     <string name="navigation_login">Log in</string>
