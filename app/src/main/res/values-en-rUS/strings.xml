@@ -50,4 +50,9 @@
     <string name="navigation_achievement">Achievement</string>
     <string name="navigation_setting">Setting</string>
     <string name="navigation_about">About</string>
+
+    <!--strings for task list-->
+    <string name="task_list">TASK LIST</string>
+    <string name="task_name">TASK NAME</string>
+
 </resources>

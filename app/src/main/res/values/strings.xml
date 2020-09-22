@@ -29,7 +29,6 @@
     <string name="back_to_home">返回首页</string>
 
 
-
     <!-- Strings used for clock setting-->
     <string name="clock_setting_title">设置闹钟</string>
     <string name="clock_setting_store">存储</string>
@@ -50,5 +49,9 @@
     <string name="navigation_achievement">成就</string>
     <string name="navigation_setting">设置</string>
     <string name="navigation_about">关于</string>
+
+    <!--strings for task list-->
+    <string name="task_list">任务列表</string>
+    <string name="task_name">任务名称</string>
 
 </resources>
