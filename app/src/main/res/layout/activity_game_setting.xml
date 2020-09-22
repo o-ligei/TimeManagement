@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RingSetting">
+    tools:context=".GameSetting">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/RingSettingToolbar"
+        android:id="@+id/GameSettingToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -15,14 +15,14 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/ring_setting_title" />
+        app:title="@string/game_setting_title" />
 
     <ListView
-        android:id="@+id/RingSettingList"
-        android:layout_width="fill_parent"
+        android:id="@+id/GameSettingList"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RingSettingToolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/GameSettingToolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

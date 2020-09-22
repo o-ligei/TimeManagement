@@ -36,13 +36,14 @@
     <string name="clock_setting_ring_default">Radar ></string>
     <string name="clock_setting_game_title">Game</string>
     <string name="clock_setting_game_default">Random ></string>
-
-    <!-- Strings used for ring setting -->
     <string name="ring_setting_title">Setting ring</string>
+    <string name="game_setting_title">Select game</string>
+    <string name="alarm_list_title">alarm</string>
+
     <string name="task_success">Task Completed Successfully!</string>
     <string name="back_to_home">Back To Home</string>
 
-    
+
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
     <string name="navigation_login">Log in</string>

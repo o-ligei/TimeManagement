@@ -4,10 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RingSetting">
+    tools:context=".AlarmList">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/AlarmCardList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_24" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/RingSettingToolbar"
+        android:id="@+id/AlarmListTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -15,14 +26,15 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/ring_setting_title" />
+        app:title="@string/alarm_list_title" />
 
     <ListView
-        android:id="@+id/RingSettingList"
-        android:layout_width="fill_parent"
+        android:id="@+id/AlarmCardList"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RingSettingToolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/AlarmListTitle" >
 
+    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>
