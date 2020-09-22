@@ -27,6 +27,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:scaleType="fitCenter"
+
                 app:srcCompat="@drawable/qq" />
 
             <LinearLayout
