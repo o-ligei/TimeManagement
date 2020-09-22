@@ -6,29 +6,29 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
     <string name="cancel">取消</string>
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="test_message">Enter a message</string>
     <string name="button_send">send</string>
-    <string name="phone_hint">请输入手机号…</string>
+    <string name="phone_hint">please input phone number…</string>
     <string name="captcha_hint">请输入验证码…</string>
-    <string name="username_hint">请输入用户名…</string>
     <string name="get_captcha_hint">获取验证码</string>
     <string name="password_hint">请输入密码…</string>
-    <string name="logo_description">This is the logo description.</string>
-    <string name="login_usepw_hint">使用账号密码登录</string>
-    <string name="login_useregis_hint">没有账号?注册</string>
-    <string name="login_message">登录</string>
-    <string name="register_message">注册</string>
-    <string name="login_usecapt_hint">使用验证码登录</string>
+    <string name="username_hint">请输入用户名…</string>
 
+    <string name="logo_description">This is the logo description.</string>
+    <string name="login_usepw_hint">使用账号密码登录?</string>
+    <string name="login_message">登录</string>
     <string name="white_list_name">白名单</string>
 
-    <string name="task_success">任务完成!</string>
-    <string name="back_to_home">返回首页</string>
-
-
+    <string name="task_success">Task Completed Successfully!</string>
+    <string name="back_to_home">Back To Home</string>
+    <string name="login_useregis_hint">没有账号?注册</string>
+    <string name="register_message">注册</string>
+    <string name="login_usecapt_hint">使用验证码登录</string>
 
     <!-- Strings used for clock setting-->
     <string name="clock_setting_title">设置闹钟</string>
@@ -41,14 +41,13 @@
     <string name="clock_setting_game_default">随机 ></string>
 
     <!--strings for navigation-->
-    <string name="navigation_person_info">个人信息</string>
-    <string name="navigation_login">登录</string>
-    <string name="navigation_clock">闹钟</string>
-    <string name="navigation_away_from_phone">远离手机</string>
-    <string name="navigation_friends">好友</string>
-    <string name="navigation_statistic">统计</string>
-    <string name="navigation_achievement">成就</string>
-    <string name="navigation_setting">设置</string>
-    <string name="navigation_about">关于</string>
-
+    <string name="navigation_person_info">Personal information</string>
+    <string name="navigation_login">Log in</string>
+    <string name="navigation_clock">Alarm</string>
+    <string name="navigation_away_from_phone">Away from phone</string>
+    <string name="navigation_friends">Friends</string>
+    <string name="navigation_statistic">Statistics</string>
+    <string name="navigation_achievement">Achievement</string>
+    <string name="navigation_setting">Setting</string>
+    <string name="navigation_about">About</string>
 </resources>
