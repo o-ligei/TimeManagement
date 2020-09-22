@@ -9,6 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CreditDetailList"></activity>
+        <activity android:name=".FriendsList" />
+        <activity android:name=".PersonInfoDetail" />
+        <activity android:name=".CreditDetailCard" />
+        <activity android:name=".FriendsListCard" />
+        <activity android:name=".PersonInfoCard" />
+        <activity android:name=".PersonInfo" />
         <activity android:name=".AlarmList"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
