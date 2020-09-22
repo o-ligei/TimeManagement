@@ -32,7 +32,6 @@ public class WhiteListActivity extends AppCompatActivity {
         appListItems.add(new AppListItem("QQ",R.drawable.qq));
 
         AppAdapter appAdapter = new AppAdapter(appListItems,getApplicationContext());
-
         ListView listView = (ListView) findViewById(R.id.white_list);
         listView.setAdapter(appAdapter);
     }
