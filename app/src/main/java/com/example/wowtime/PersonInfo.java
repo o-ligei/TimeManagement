@@ -14,5 +14,9 @@ public class PersonInfo extends AppCompatActivity {
         setContentView(R.layout.activity_person_info);
         View personInfoCard = findViewById(R.id.PersonInfoCard);
         personInfoCard.setOnClickListener(v -> startActivity(new Intent(PersonInfo.this, PersonInfoDetail.class)));
+        View friendsListCard = findViewById(R.id.FriendsListCard);
+        friendsListCard.setOnClickListener(v -> startActivity(new Intent(PersonInfo.this, FriendsList.class)));
+        View creditDetailCard = findViewById(R.id.CreditDetailCard);
+        creditDetailCard.setOnClickListener(v -> startActivity(new Intent(PersonInfo.this, CreditDetailList.class)));
     }
 }

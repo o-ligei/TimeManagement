@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/UserIcon"
+            android:id="@+id/FriendIcon"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="48dp"
@@ -86,7 +86,7 @@
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.389"
-            app:layout_constraintStart_toEndOf="@+id/UserIcon"
+            app:layout_constraintStart_toEndOf="@+id/FriendIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
