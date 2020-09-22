@@ -29,8 +29,20 @@
         <activity android:name=".RegisterActivity" />
 
         <activity android:name=".LoginActivity2" />
+        <activity android:name=".StatisticActivity" />
+        <!--        <activity-->
+        <!--            android:name=".MainActivity"-->
+        <!--            android:label="111"-->
+        <!--            android:launchMode="singleInstance"-->
+        <!--            android:theme="@style/AppTheme.NoActionBar">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.MAIN" />-->
 
-        <activity android:name=".ClockSetting"
+        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
+        <activity
+            android:name=".ClockSetting"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>

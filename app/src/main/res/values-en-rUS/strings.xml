@@ -52,4 +52,8 @@
     <string name="navigation_achievement">Achievement</string>
     <string name="navigation_setting">Setting</string>
     <string name="navigation_about">About</string>
+
+    <!--strings for navigation-->
+    <string name="statistic_day_title">daily summary</string>
+    <string name="statistic_day_content">Come and see what you\'ve done today!</string>
 </resources>
