@@ -26,6 +26,7 @@
         <!--            app:destination="@id/FirstFragment" />-->
     </fragment>
 
+
     <fragment
         android:id="@+id/navigation_away_from_phone"
         android:name="com.example.wowtime.AnotherActivity"
@@ -55,6 +56,7 @@
         android:id="@+id/navigation_setting"
         android:name="com.example.wowtime.AnotherActivity"
         android:label="@string/navigation_setting" />
+
     <activity
         android:id="@+id/navigation_about"
         android:name="com.example.wowtime.AnotherActivity"

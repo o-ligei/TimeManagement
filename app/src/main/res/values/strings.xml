@@ -25,6 +25,10 @@
 
     <string name="white_list_name">白名单</string>
 
+    <string name="task_success">任务完成!</string>
+    <string name="back_to_home">返回首页</string>
+
+
 
     <!-- Strings used for clock setting-->
     <string name="clock_setting_title">设置闹钟</string>
