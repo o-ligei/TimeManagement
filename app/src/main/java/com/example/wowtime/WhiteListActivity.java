@@ -1,5 +1,14 @@
 package com.example.wowtime;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.ListView;
+
+import com.example.wowtime.adapter.AppAdapter;
+
+import java.util.LinkedList;
+import java.util.List;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -19,8 +28,8 @@ public class WhiteListActivity extends AppCompatActivity {
 
         LinkedList<AppListItem> appListItems = new LinkedList<>();
 
-        appListItems.add(new AppListItem("微信",1,R.drawable.wechat));
-        appListItems.add(new AppListItem("QQ",0,R.drawable.qq));
+        appListItems.add(new AppListItem("WeChat",R.drawable.wechat));
+        appListItems.add(new AppListItem("QQ",R.drawable.qq));
 
         AppAdapter appAdapter = new AppAdapter(appListItems,getApplicationContext());
 
