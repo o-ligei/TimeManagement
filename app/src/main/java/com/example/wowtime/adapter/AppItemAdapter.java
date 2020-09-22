@@ -14,12 +14,12 @@ import com.example.wowtime.component.AppListItem;
 
 import java.util.LinkedList;
 
-public class AppAdapter extends BaseAdapter {
+public class AppItemAdapter extends BaseAdapter {
 
     private LinkedList<AppListItem> mData;
     private Context mContext;
 
-    public AppAdapter(LinkedList<AppListItem> mData, Context mContext) {
+    public AppItemAdapter(LinkedList<AppListItem> mData, Context mContext) {
 
         this.mData = mData;
         this.mContext = mContext;
