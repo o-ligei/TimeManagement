@@ -12,4 +12,9 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+    <color name="chart_color1">#CB72D8</color>
+    <color name="chart_color2">#D8728A</color>
+    <color name="chart_color3">#8FDCD9</color>
+    <color name="chart_color4">#9DDC98</color>
+    <color name="chart_color5">#B2B5EA</color>
 </resources>
