@@ -25,11 +25,6 @@
     <string name="login_message">登录</string>
     <string name="white_list_name">白名单</string>
 
-
-    <string name="task_success">Task Completed Successfully!</string>
-    <string name="back_to_home">Back To Home</string>
-    <string name="login_useregis_hint">没有账号?注册</string>
-
     <string name="register_message">注册</string>
     <string name="login_usecapt_hint">使用验证码登录</string>
 
@@ -46,7 +41,6 @@
     <string name="game_setting_title">Select game</string>
     <string name="alarm_list_title">alarm</string>
 
-
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
     <string name="navigation_login">Log in</string>
@@ -58,6 +52,12 @@
     <string name="navigation_setting">Setting</string>
     <string name="navigation_about">About</string>
 
+    <string name="friends_list_name">朋友们</string>
+    <string name="credit_detail_list_name">积分明细</string>
+
+    <string name="personinfo_name">个人信息</string>
+    <string name="friendslist_name">好友列表</string>
+    <string name="creditdetail_name">积分详情</string>
 
     <!--strings for navigation-->
     <string name="statistic_day_title">daily summary</string>
