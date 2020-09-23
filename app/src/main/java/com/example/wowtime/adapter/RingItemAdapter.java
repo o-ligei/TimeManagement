@@ -12,14 +12,14 @@ import android.widget.TextView;
 import com.example.wowtime.R;
 import com.example.wowtime.component.AppListItem;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class AppAdapter extends BaseAdapter {
-
-    private LinkedList<AppListItem> mData;
+public class RingItemAdapter extends BaseAdapter {
+    private ArrayList<String> mData;
     private Context mContext;
 
-    public AppAdapter(LinkedList<AppListItem> mData, Context mContext) {
+    public RingItemAdapter(ArrayList<String> mData, Context mContext) {
 
         this.mData = mData;
         this.mContext = mContext;
@@ -44,15 +44,12 @@ public class AppAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.white_list_item,parent,false);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_ring_list_item,parent,false);
 
-        ImageView img_icon = (ImageView) convertView.findViewById(R.id.apps_icon);
-        TextView txt_aName = (TextView) convertView.findViewById(R.id.name);
-//        TextView txt_aAlloc = (TextView) convertView.findViewById(R.id.alloc);
+        TextView txt_aName = (TextView) convertView.findViewById(R.id.RingName);
 
-        img_icon.setBackgroundResource(mData.get(position).getIcon());
-        txt_aName.setText(mData.get(position).getName());
-//        txt_aAlloc.setText(mData.get(position).getAllowed());
+        txt_aName.setText(mData.get(position));
+
         return convertView;
     }
 }
