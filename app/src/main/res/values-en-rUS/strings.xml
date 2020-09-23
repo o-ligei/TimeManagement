@@ -25,10 +25,12 @@
     <string name="login_message">login</string>
     <string name="white_list_name">white list</string>
 
+
     <string name="register_message">register</string>
     <string name="login_usecapt_hint">use captcha?</string>
     <string name="friends_list_name">friends</string>
     <string name="credit_detail_list_name">credit detail</string>
+
 
     <!-- Strings used for clock setting-->
     <string name="clock_setting_title">Setting alarm</string>
@@ -57,6 +59,7 @@
     <string name="personinfo_name">info</string>
     <string name="friendslist_name">friends</string>
     <string name="creditdetail_name">credit detail</string>
+
 
     <!--strings for navigation-->
     <string name="statistic_day_title">daily summary</string>
