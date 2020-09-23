@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WowTime</string>
     <string name="action_settings">Settings</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -24,12 +25,13 @@
 
     <string name="register_message">注册</string>
     <string name="login_usecapt_hint">使用验证码登录</string>
-
     <string name="white_list_name">白名单</string>
+
+    <string name="friends_list_name">朋友们</string>
+    <string name="credit_detail_list_name">积分明细</string>
 
     <string name="task_success">任务完成!</string>
     <string name="back_to_home">返回首页</string>
-
 
     <!-- Strings used for clock setting-->
     <string name="clock_setting_title">设置闹钟</string>
@@ -44,6 +46,10 @@
     <string name="game_setting_title">设置小游戏</string>
     <string name="alarm_list_title">闹钟</string>
 
+    <string name="personinfo_name">个人信息</string>
+    <string name="friendslist_name">好友列表</string>
+    <string name="creditdetail_name">积分详情</string>
+
     <!--strings for navigation-->
     <string name="navigation_person_info">个人信息</string>
     <string name="navigation_login">登录</string>
@@ -54,5 +60,14 @@
     <string name="navigation_achievement">成就</string>
     <string name="navigation_setting">设置</string>
     <string name="navigation_about">关于</string>
+
+    <!--strings for navigation-->
+    <string name="statistic_day_title">一日总结</string>
+    <string name="statistic_day_content">快来看看今天都干了什么吧！</string>
+
+    <!--strings for task list-->
+    <string name="task_list">任务列表</string>
+    <string name="task_name">任务名称</string>
+
 
 </resources>

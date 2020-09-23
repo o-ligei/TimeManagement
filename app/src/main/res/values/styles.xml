@@ -5,11 +5,15 @@
         <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
         <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <!--        <item name="colorAccent">@color/colorAccent</item>-->
-        <item name="colorPrimary">#FFB6C1</item>
+        <item name="colorPrimary">#B5EFF4</item>
         <!--        #FFB6C1  #DB7093  #FF7F50-->
         <!--        #00e5ff  #00b8d4  #64ffda-->
-        <item name="colorPrimaryDark">#DB7093</item>
-        <item name="colorAccent">#FF7F50</item>
+        <item name="colorPrimaryDark">#83C3CD</item>
+
+        <item name="colorAccent">#8FF6BD</item>
+
+        <!--        <item name="colorAccent">#FF7F50</item>-->
+
     </style>
 
     <style name="AppTheme.NoActionBar">
