@@ -1,18 +1,17 @@
 <resources>
     <string name="app_name">WowTime</string>
-    <string name="action_settings">Settings</string>
-
+    <string name="action_settings">设置</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="next">下一个</string>
+    <string name="previous">返回</string>
     <string name="cancel">取消</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="test_message">Enter a message</string>
-    <string name="button_send">send</string>
+    <string name="test_message">输入信息</string>
+    <string name="button_send">发送</string>
     <string name="phone_hint">请输入手机号…</string>
     <string name="captcha_hint">请输入验证码…</string>
     <string name="username_hint">请输入用户名…</string>
