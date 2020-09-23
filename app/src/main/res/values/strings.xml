@@ -25,7 +25,6 @@
     <string name="register_message">注册</string>
     <string name="login_usecapt_hint">使用验证码登录</string>
     <string name="white_list_name">白名单</string>
-
     <string name="friends_list_name">朋友们</string>
     <string name="credit_detail_list_name">积分明细</string>
 
