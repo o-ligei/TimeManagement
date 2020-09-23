@@ -32,9 +32,10 @@
         android:id="@+id/AlarmCardList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:dividerHeight="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AlarmListTitle" >
+        app:layout_constraintTop_toBottomOf="@+id/AlarmListTitle">
 
     </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>
