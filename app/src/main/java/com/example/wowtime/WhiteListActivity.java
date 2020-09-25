@@ -5,7 +5,6 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.wowtime.adapter.AppAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
