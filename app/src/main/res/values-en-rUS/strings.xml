@@ -61,7 +61,7 @@
     <string name="creditdetail_name">credit detail</string>
 
 
-    <!--strings for navigation-->
+    <!--strings for statistic-->
     <string name="statistic_day_title">daily summary</string>
     <string name="statistic_day_content">Come and see what you\'ve done today!</string>
 

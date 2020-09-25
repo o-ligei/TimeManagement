@@ -48,6 +48,7 @@
     <string name="friendslist_name">好友列表</string>
     <string name="creditdetail_name">积分详情</string>
 
+
     <!--strings for navigation-->
     <string name="navigation_person_info">个人信息</string>
     <string name="navigation_login">登录</string>
@@ -66,5 +67,6 @@
     <!--strings for task list-->
     <string name="task_list">任务列表</string>
     <string name="task_name">任务名称</string>
+
 
 </resources>
