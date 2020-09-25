@@ -12,9 +12,9 @@ public class MainActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AnotherActivity.class)));
+//        Button button = findViewById(R.id.button);
+//        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AnotherActivity.class)));
         Button button2 = findViewById(R.id.button3);
-        button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TestActivity.class)));
+        button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, ClockSetting.class)));
     }
 }
