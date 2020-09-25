@@ -20,7 +20,6 @@
     <string name="password_hint">input password…</string>
 
     <string name="logo_description">This is the logo description.</string>
-
     <string name="login_usepw_hint">use password?</string>
     <string name="login_useregis_hint">register</string>
     <string name="login_message">login</string>
@@ -46,7 +45,6 @@
     <string name="game_setting_title">Select game</string>
     <string name="alarm_list_title">alarm</string>
 
-
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
     <string name="navigation_login">Log in</string>
@@ -58,32 +56,19 @@
     <string name="navigation_setting">Setting</string>
     <string name="navigation_about">About</string>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <!--strings for navigation-->
-    <string name="statistic_day_title">daily summary</string>
-    <string name="statistic_day_content">Come and see what you\'ve done today!</string>
-=======
-=======
     <string name="personinfo_name">info</string>
     <string name="friendslist_name">friends</string>
     <string name="creditdetail_name">credit detail</string>
 
 
-    <!--strings for navigation-->
+    <!--strings for statistic-->
     <string name="statistic_day_title">daily summary</string>
     <string name="statistic_day_content">Come and see what you\'ve done today!</string>
 
->>>>>>> o-ligei-develop
     <!--strings for task list-->
     <string name="task_list">TASK LIST</string>
     <string name="task_name">TASK NAME</string>
     <string name="task_success">TASK COMPLETED!</string>
     <string name="back_to_home">BACK TO HOME</string>
-<<<<<<< HEAD
->>>>>>> o-ligei-develop
-</resources>
-=======
 
 </resources>
->>>>>>> o-ligei-develop
