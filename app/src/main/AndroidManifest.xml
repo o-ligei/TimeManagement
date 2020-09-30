@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".About"></activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
         <activity android:name=".CreditDetailList" />
         <activity android:name=".FriendsList" />
         <activity android:name=".PersonInfoDetail" />
@@ -16,7 +20,8 @@
         <activity android:name=".FriendsListCard" />
         <activity android:name=".PersonInfoCard" />
         <activity android:name=".PersonInfo" />
-        <activity android:name=".AlarmList"
+        <activity
+            android:name=".AlarmList"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GameSetting"
@@ -24,37 +29,35 @@
         <activity
             android:name=".RingSetting"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TaskListActivity"/>
-        <activity android:name=".ScreenSaverActivity"/>
-        <activity android:name=".TaskSuccessActivity"/>
-        <activity android:name=".WhiteListActivity"/>
+        <activity android:name=".TaskListActivity" />
+        <activity android:name=".ScreenSaverActivity" />
+        <activity android:name=".TaskSuccessActivity" />
+        <activity android:name=".WhiteListActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity2" />
         <activity android:name=".StatisticActivity" />
-                <activity
-                    android:name=".MainActivity"
-                    android:label="111"
-                    android:launchMode="singleInstance"
-                    android:theme="@style/AppTheme.NoActionBar">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".MainActivity"
+            android:label="111"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
-                </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ClockSetting"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".LoginActivity1"/>
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:launchMode="standard">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".LoginActivity1" /> <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:launchMode="standard"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity android:name=".AnotherActivity" />
         <activity android:name=".TestActivity" />
     </application>
