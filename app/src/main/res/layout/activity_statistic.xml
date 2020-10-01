@@ -9,38 +9,59 @@
     android:background="#FFCCBC"
     tools:context=".StatisticActivity">
 
-    <com.example.wowtime.PieChartView
-        android:id="@+id/pie_chart"
-        android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:background="#FFCCBC"
-        android:padding="20dp"
-        app:circleRadius="100dp"
-        app:textSize="13sp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="-246dp" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
-        android:text="@string/statistic_day_title"
-        android:textSize="20sp"
+        android:layout_marginBottom="580dp"
+        android:text="@string/statistic_day_content"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView9"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="540dp"-->
+<!--        android:text="@string/statistic_day_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--    <com.example.wowtime.PieChartView-->
+<!--        android:id="@+id/pie_chart"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="600dp"-->
+<!--        android:background="#FFCCBC"-->
+<!--        android:padding="20dp"-->
+<!--        app:circleRadius="100dp"-->
+<!--        app:textSize="13sp"-->
+<!--        tools:ignore="MissingConstraints"-->
+<!--        tools:layout_editor_absoluteX="-16dp"-->
+<!--        tools:layout_editor_absoluteY="-246dp" />-->
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="#FFCCBC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        tools:ignore="MissingConstraints"/>
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:text="@string/statistic_day_content"
+        android:layout_marginBottom="50dp"
+        android:text=""
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

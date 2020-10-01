@@ -63,7 +63,9 @@
 
     <!--strings for statistic-->
     <string name="statistic_day_title">daily summary</string>
-    <string name="statistic_day_content">Come and see what you\'ve done today!</string>
+    <string name="statistic_day_content">Come and see what you\'ve done today</string>
+    <string name="statistic_no_data">No plan today</string>
+
 
     <!--strings for task list-->
     <string name="task_list">TASK LIST</string>

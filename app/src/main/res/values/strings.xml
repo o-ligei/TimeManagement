@@ -62,7 +62,8 @@
 
     <!--strings for navigation-->
     <string name="statistic_day_title">一日总结</string>
-    <string name="statistic_day_content">快来看看今天都干了什么吧！</string>
+    <string name="statistic_day_content">快来看看今天都干了什么吧</string>
+    <string name="statistic_no_data">今天还没有定计划哦</string>
 
     <!--strings for task list-->
     <string name="task_list">任务列表</string>
