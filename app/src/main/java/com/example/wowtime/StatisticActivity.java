@@ -143,7 +143,7 @@ public class StatisticActivity extends AppCompatActivity {
                 int totalSectors=pieDataSet.getEntryCount();
                 for(int i=0;i<totalSectors;++i){
                     if(pieDataSet.getEntryForIndex(i).getY()==e.getY()){//pieDataSet.getEntryForIndex(i).getX()==e.getX()&&
-                        TextView textView=findViewById(R.id.textView9);
+                        TextView textView=findViewById(R.id.textViewDayBottom);
                         textView.setText(pieDataSet.getEntryForIndex(i).getLabel()+"\n"+pieDataSet.getEntryForIndex(i).getData());
                         System.out.println("pie click:"+pieDataSet.getEntryForIndex(i).getLabel());
                     }
@@ -152,7 +152,7 @@ public class StatisticActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected() {
-                TextView textView=findViewById(R.id.textView9);
+                TextView textView=findViewById(R.id.textViewDayBottom);
                 textView.setText("");
             }
         });

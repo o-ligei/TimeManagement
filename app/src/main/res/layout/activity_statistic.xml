@@ -10,7 +10,7 @@
     tools:context=".StatisticActivity">
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textViewDayTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="580dp"
@@ -52,7 +52,7 @@
         tools:ignore="MissingConstraints"/>
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textViewDayBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
