@@ -58,10 +58,11 @@ public class StatisticYearActivity extends AppCompatActivity {
 
         BarDataSet barDataSet = new BarDataSet(list, "label?");
         BarData barData = new BarData(barDataSet);
+        barData.setBarWidth(0.9f);
         bar.setData(barData);
 
         bar.getXAxis().setDrawGridLines(false);  //是否绘制X轴上的网格线（背景里面的竖线）
-        bar.getAxisLeft().setDrawGridLines(false);  //是否绘制Y轴上的网格线（背景里面的横线）
+        bar.getAxisLeft().setDrawGridLines(true);  //是否绘制Y轴上的网格线（背景里面的横线）
 
         bar.getDescription().setEnabled(false);                  //是否显示右下角描述
         bar.getDescription().setText("这是修改那串英文的方法");    //修改右下角字母的显示
@@ -116,6 +117,8 @@ public class StatisticYearActivity extends AppCompatActivity {
         //柱子
 //        barDataSet.setColor(Color.BLACK);  //柱子的颜色
         ArrayList<Integer> colors = new ArrayList<Integer>();
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
         for (int c : ColorTemplate.COLORFUL_COLORS)
@@ -123,8 +126,6 @@ public class StatisticYearActivity extends AppCompatActivity {
         for (int c : ColorTemplate.LIBERTY_COLORS)
             colors.add(c);
         for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
         barDataSet.setColors(colors);//设置柱子多种颜色  循环使用
         barDataSet.setBarBorderColor(Color.WHITE);//柱子边框颜色
@@ -145,6 +146,7 @@ public class StatisticYearActivity extends AppCompatActivity {
             }
         });
 
+        bar.setFitBars(true); //使x轴完全适合所有条形
         //数据更新
         bar.notifyDataSetChanged();
         bar.invalidate();

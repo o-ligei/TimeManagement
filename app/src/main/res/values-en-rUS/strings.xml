@@ -67,6 +67,9 @@
     <string name="statistic_no_data">No plan today</string>
     <string name="statistic_week_title">Summary of recent 7 days</string>
     <string name="statistic_year_title">2020Overview</string>
+    <string name="statistic_switch_today">today</string>
+    <string name="statistic_switch_week">week</string>
+    <string name="statistic_switch_year">year</string>
 
 
     <!--strings for task list-->
