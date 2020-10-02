@@ -63,7 +63,14 @@
 
     <!--strings for statistic-->
     <string name="statistic_day_title">daily summary</string>
-    <string name="statistic_day_content">Come and see what you\'ve done today!</string>
+    <string name="statistic_day_content">Come and see what you\'ve done today</string>
+    <string name="statistic_no_data">No plan today</string>
+    <string name="statistic_week_title">Summary of recent 7 days</string>
+    <string name="statistic_year_title">2020Overview</string>
+    <string name="statistic_switch_today">today</string>
+    <string name="statistic_switch_week">week</string>
+    <string name="statistic_switch_year">year</string>
+
 
     <!--strings for task list-->
     <string name="task_list">TASK LIST</string>

@@ -2,6 +2,7 @@ package com.example.wowtime;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -17,4 +18,12 @@ public class MainActivity extends AppCompatActivity {
         Button button2 = findViewById(R.id.button3);
         button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, About.class)));
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_header, menu);
+        return true;
+    }
+
 }

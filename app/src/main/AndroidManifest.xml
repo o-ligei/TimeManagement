@@ -60,6 +60,8 @@
         <!-- </activity> -->
         <activity android:name=".AnotherActivity" />
         <activity android:name=".TestActivity" />
+        <activity android:name=".StatisticWeekActivity"/>
+        <activity android:name=".StatisticYearActivity"/>
     </application>
 
 </manifest>
