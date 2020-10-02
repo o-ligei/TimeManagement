@@ -62,7 +62,14 @@
 
     <!--strings for navigation-->
     <string name="statistic_day_title">一日总结</string>
-    <string name="statistic_day_content">快来看看今天都干了什么吧！</string>
+    <string name="statistic_day_content">快来看看今天都干了什么吧</string>
+    <string name="statistic_no_data">今天还没有定计划哦</string>
+    <string name="statistic_week_title">近7日总结</string>
+    <string name="statistic_year_title">2020总览</string>
+    <string name="statistic_switch_today">今日</string>
+    <string name="statistic_switch_week">本周</string>
+    <string name="statistic_switch_year">今年</string>
+
 
     <!--strings for task list-->
     <string name="task_list">任务列表</string>
