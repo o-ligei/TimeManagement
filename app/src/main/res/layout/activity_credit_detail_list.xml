@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightPink"
     tools:context=".CreditDetailList">
 
     <ListView
@@ -18,12 +19,12 @@
 
     <TextView
         android:id="@+id/credit_detail_list_name"
-        android:layout_width="121dp"
+        android:layout_width="100dp"
         android:layout_height="36dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:text="@string/credit_detail_list_name"
-        android:textSize="28sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/credit_detail_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
