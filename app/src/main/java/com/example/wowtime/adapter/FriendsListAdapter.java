@@ -62,7 +62,7 @@ public class FriendsListAdapter extends BaseAdapter {
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0 , decodedString.length);
         friendIcon.setImageBitmap(decodedByte);
         username.setText(mData.get(position).getUsername());
-        cancelIcon.setImageResource(R.drawable.ic_baseline_close_24);
+        cancelIcon.setImageResource(R.drawable.ic_baseline_remove_circle_outline_24);
         return convertView;
     }
 }

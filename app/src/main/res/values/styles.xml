@@ -11,7 +11,8 @@
         <!--        #00e5ff  #00b8d4  #64ffda-->
         <!--        B5EFF4  83C3CD  8FF6BD-->
         <item name="colorPrimaryDark">#FA7373</item>
-        <item name="colorAccent">#ff9100</item>
+<!--        #FA7373-->
+        <item name="colorAccent">#ffab40</item>
         <!--        <item name="colorAccent">#FF7F50</item>-->
 
     </style>
