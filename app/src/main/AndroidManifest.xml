@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".About"></activity>
+        <activity android:name=".BlowingGame"></activity>
+        <activity android:name=".ShakingGame" />
+        <activity android:name=".About" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -60,8 +62,9 @@
         <!-- </activity> -->
         <activity android:name=".AnotherActivity" />
         <activity android:name=".TestActivity" />
-        <activity android:name=".StatisticWeekActivity"/>
-        <activity android:name=".StatisticYearActivity"/>
+        <activity android:name=".StatisticWeekActivity" />
+        <activity android:name=".StatisticYearActivity" />
     </application>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
 </manifest>

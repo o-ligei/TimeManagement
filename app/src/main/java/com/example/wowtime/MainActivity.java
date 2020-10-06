@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.wowtime.util.SensorManagerHelper;
+
 public class MainActivity extends AppCompatActivity {
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 //        Button button = findViewById(R.id.button);
 //        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AnotherActivity.class)));
         Button button2 = findViewById(R.id.button3);
-        button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, About.class)));
+        button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, BlowingGame.class)));
     }
 
     @Override
