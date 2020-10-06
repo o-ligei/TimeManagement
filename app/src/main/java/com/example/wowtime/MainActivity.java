@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 //        Button button = findViewById(R.id.button);
 //        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AnotherActivity.class)));
         Button button2 = findViewById(R.id.button3);
-        button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,LoginActivity2.class)));
+        button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,PersonInfoDetail.class)));
     }
 
     @Override
