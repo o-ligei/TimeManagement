@@ -76,4 +76,6 @@
     <string name="task_name">任务名称</string>
 
 
+    <!--strings for menu-->
+    <string name="menu_exit">退出</string>
 </resources>

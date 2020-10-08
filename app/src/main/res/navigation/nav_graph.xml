@@ -3,12 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/navigation_person_info"
+    app:startDestination="@id/navigation_clock"
     tools:ignore="UnusedNavigation">
 
+<!--    tmp     log     in-->
+    <activity
+        android:id="@+id/navigation_log_in"
+        android:name="com.example.wowtime.LoginActivity1"
+        android:label="@string/navigation_login"
+        tools:layout="@layout/fragment_nav_list"/>
     <fragment
         android:id="@+id/navigation_person_info"
-        android:name="com.example.wowtime.TestActivity"
+        android:name="com.example.wowtime.PersonInfoDetail"
         android:label="@string/navigation_person_info"
         tools:layout="@layout/fragment_nav_list">
         <!--        <action-->
@@ -18,7 +24,7 @@
 
     <fragment
         android:id="@+id/navigation_clock"
-        android:name="com.example.wowtime.AnotherActivity"
+        android:name="com.example.wowtime.AlarmList"
         android:label="@string/navigation_clock"
         tools:layout="@layout/fragment_nav_list">
         <!--        <action-->
@@ -31,25 +37,25 @@
         android:id="@+id/navigation_away_from_phone"
         android:name="com.example.wowtime.AnotherActivity"
         android:label="@string/navigation_away_from_phone"
-        tools:layout="@layout/fragment_nav_list"></fragment>
+        tools:layout="@layout/fragment_nav_list" />
 
     <fragment
         android:id="@+id/navigation_friends"
         android:name="com.example.wowtime.AnotherActivity"
         android:label="@string/navigation_friends"
-        tools:layout="@layout/fragment_nav_list"></fragment>
+        tools:layout="@layout/fragment_nav_list" />
 
     <fragment
         android:id="@+id/navigation_statistics"
         android:name="com.example.wowtime.AnotherActivity"
         android:label="@string/navigation_statistic"
-        tools:layout="@layout/fragment_nav_list"></fragment>
+        tools:layout="@layout/fragment_nav_list" />
 
     <fragment
         android:id="@+id/navigation_achievement"
         android:name="com.example.wowtime.AnotherActivity"
         android:label="@string/navigation_achievement"
-        tools:layout="@layout/fragment_nav_list"></fragment>
+        tools:layout="@layout/fragment_nav_list" />
 
 
     <activity

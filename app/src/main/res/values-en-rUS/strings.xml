@@ -78,4 +78,6 @@
     <string name="task_success">TASK COMPLETED!</string>
     <string name="back_to_home">BACK TO HOME</string>
 
+    <!--strings for menu-->
+    <string name="menu_exit">exit</string>
 </resources>
