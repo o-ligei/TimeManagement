@@ -13,12 +13,12 @@
         android:id="@+id/textViewDayTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="580dp"
+        android:layout_marginTop="24dp"
         android:text="@string/statistic_day_content"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 <!--    <TextView-->
 <!--        android:id="@+id/textView9"-->
@@ -66,33 +66,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/chart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewDayTop"
         app:layout_constraintTop_toBottomOf="@+id/textViewDayTop"
         tools:ignore="MissingConstraints">
 
         <RadioButton
+            android:id="@+id/day_day"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/statistic_switch_today"
             android:checked="true"
-            android:id="@+id/day_day"
+            android:text="@string/statistic_switch_today"
             android:textSize="16sp" />
 
         <RadioButton
+            android:id="@+id/day_week"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/statistic_switch_week"
-            android:id="@+id/day_week"
             android:textSize="16sp" />
 
         <RadioButton
+            android:id="@+id/day_year"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/statistic_switch_year"
-            android:id="@+id/day_year"
             android:textSize="16sp" />
     </RadioGroup>
 

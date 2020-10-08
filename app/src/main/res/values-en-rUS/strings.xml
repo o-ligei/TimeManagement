@@ -29,6 +29,7 @@
     <string name="register_message">register</string>
     <string name="login_usecapt_hint">use captcha?</string>
     <string name="friends_list_name">friends</string>
+    <string name="friends_list_sort_hint">search…</string>
     <string name="credit_detail_list_name">credit detail</string>
 
 
@@ -105,5 +106,5 @@
 
     <!--strings for menu-->
     <string name="menu_exit">exit</string>
-    
+
 </resources>
