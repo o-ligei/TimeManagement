@@ -78,6 +78,7 @@ public class StatisticYearActivity extends AppCompatActivity {
 
         //X
         XAxis xAxis=bar.getXAxis();
+        xAxis.setTextSize(14);
         xAxis.setAxisLineColor(ColorTemplate.JOYFUL_COLORS[0]);   //X轴颜色
         xAxis.setAxisLineWidth(1);           //X轴粗细
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//X轴的位置 默认为上面
@@ -94,6 +95,7 @@ public class StatisticYearActivity extends AppCompatActivity {
 
         //Y
         YAxis AxisLeft=bar.getAxisLeft();
+        AxisLeft.setTextSize(14);
         AxisLeft.setDrawGridLines(false);  //是否绘制Y轴上的网格线（背景里面的横线）
         AxisLeft.setAxisLineColor(ColorTemplate.JOYFUL_COLORS[1]);  //Y轴颜色
         AxisLeft.setAxisLineWidth(1);           //Y轴粗细
@@ -133,14 +135,14 @@ public class StatisticYearActivity extends AppCompatActivity {
 //        barDataSet.setBarShadowColor(Color.);
         barDataSet.setHighlightEnabled(true);//选中柱子是否高亮显示  默认为true
         barDataSet.setHighLightAlpha(20);
-        barDataSet.setValueTextSize(8f);
+        barDataSet.setValueTextSize(14f);
 //        barDataSet.setStackLabels(new String[]{"aaa","bbb","ccc"});//?
         //定义柱子上的数据显示    可以实现加单位    以及显示整数（默认是显示小数）
         barDataSet.setValueFormatter(new IValueFormatter() {
             @Override
             public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
                 if (entry.getY()==v){
-                    return (int)v+"hours";
+                    return (int)v+"h";
                 }
                 return "";
             }

@@ -98,9 +98,9 @@ public class StatisticActivity extends AppCompatActivity {
         //设置中心字的字体大小
         pie.setCenterTextSize(22);
         //设置描述的字体大小
-        pie.setEntryLabelTextSize(12);
+        pie.setEntryLabelTextSize(16);
         //设置数据的字体大小  （图中的  44     56）
-        pieDataSet.setValueTextSize(12);
+        pieDataSet.setValueTextSize(16);
         //设置描述的位置
 //        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
 //        pieDataSet.setValueLinePart1Length(0.2f);//设置描述连接线长度
@@ -113,7 +113,7 @@ public class StatisticActivity extends AppCompatActivity {
         //对于右下角一串字母的操作
         pie.getDescription().setEnabled(false);                  //是否显示右下角描述
         pie.getDescription().setText("这是修改那串英文的方法");    //修改右下角字母的显示
-        pie.getDescription().setTextSize(15);                    //字体大小
+        pie.getDescription().setTextSize(16);                    //字体大小
         pie.getDescription().setTextColor(Color.WHITE);             //字体颜色
 
         //图例

@@ -7,6 +7,9 @@
     <color name="colorPrimary">#FFB6C1</color>
     <color name="colorPrimaryDark">#DB7089</color>
     <color name="colorAccent">#FF7F50</color>
+    <color name="lightOrange">#FDD290</color>
+    <color name="lightPink">#ffccbc</color>
+
 
     <color name="lightOrange">#FADBAD</color>
     <color name="lightPink">#FFCCBC</color>

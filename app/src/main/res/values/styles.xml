@@ -5,14 +5,14 @@
         <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
         <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <!--        <item name="colorAccent">@color/colorAccent</item>-->
-        <item name="colorPrimary">#FFB6C1</item>
+        <item name="colorPrimary">#FBACAC</item>
+        <!--       FFBEC8 CCFF91AB  F8AC90-->
         <!--        #FFB6C1  #DB7093  #FF7F50-->
         <!--        #00e5ff  #00b8d4  #64ffda-->
         <!--        B5EFF4  83C3CD  8FF6BD-->
-        <item name="colorPrimaryDark">#DB7089</item>
-
-        <item name="colorAccent">#FF7F50</item>
-
+        <item name="colorPrimaryDark">#FA7373</item>
+<!--        #FA7373-->
+        <item name="colorAccent">#ffab40</item>
         <!--        <item name="colorAccent">#FF7F50</item>-->
 
     </style>

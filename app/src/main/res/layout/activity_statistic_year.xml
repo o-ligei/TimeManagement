@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFCCBC"
+    android:background="@color/lightPink"
     tools:context=".StatisticYearActivity"
     >
     <TextView
@@ -23,11 +23,39 @@
         android:id="@+id/yearBar"
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        android:background="#FFCCBC"
+        android:background="@color/lightPink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"
         />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/yearBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewYearTop"
+        tools:ignore="MissingConstraints">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/statistic_switch_today"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/statistic_switch_week"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/statistic_switch_year"
+            android:textSize="16sp" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
