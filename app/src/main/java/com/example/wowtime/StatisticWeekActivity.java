@@ -1,7 +1,9 @@
 package com.example.wowtime;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -166,6 +168,11 @@ public class StatisticWeekActivity extends AppCompatActivity {
 //        bar.animateY(3000); //在Y轴的动画  参数是动画执行时间 毫秒为单位
 //        bar.animateX(2000); //X轴动画
         bar.animateXY(1500,1500);//XY两轴混合动画
+
+        RadioButton radioButtonDay=findViewById(R.id.week_day);
+        radioButtonDay.setOnClickListener(v->startActivity(new Intent(StatisticWeekActivity.this,StatisticActivity.class)));
+        RadioButton radioButtonYear=findViewById(R.id.week_year);
+        radioButtonYear.setOnClickListener(v->startActivity(new Intent(StatisticWeekActivity.this,StatisticYearActivity.class)));
 
     }
 }

@@ -35,23 +35,23 @@
 
     <fragment
         android:id="@+id/navigation_away_from_phone"
-        android:name="com.example.wowtime.AnotherActivity"
+        android:name="com.example.wowtime.TaskListActivity"
         android:label="@string/navigation_away_from_phone"
         tools:layout="@layout/fragment_nav_list" />
 
     <fragment
         android:id="@+id/navigation_friends"
-        android:name="com.example.wowtime.AnotherActivity"
+        android:name="com.example.wowtime.FriendsList"
         android:label="@string/navigation_friends"
         tools:layout="@layout/fragment_nav_list" />
 
-    <fragment
+    <activity
         android:id="@+id/navigation_statistics"
-        android:name="com.example.wowtime.AnotherActivity"
+        android:name="com.example.wowtime.StatisticActivity"
         android:label="@string/navigation_statistic"
         tools:layout="@layout/fragment_nav_list" />
 
-    <fragment
+    <activity
         android:id="@+id/navigation_achievement"
         android:name="com.example.wowtime.AnotherActivity"
         android:label="@string/navigation_achievement"

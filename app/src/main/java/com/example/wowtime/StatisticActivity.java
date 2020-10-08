@@ -1,9 +1,11 @@
 package com.example.wowtime;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -156,5 +158,11 @@ public class StatisticActivity extends AppCompatActivity {
                 textView.setText("");
             }
         });
+
+
+        RadioButton radioButtonWeek=findViewById(R.id.day_week);
+        radioButtonWeek.setOnClickListener(v->startActivity(new Intent(StatisticActivity.this,StatisticWeekActivity.class)));
+        RadioButton radioButtonYear=findViewById(R.id.day_year);
+        radioButtonYear.setOnClickListener(v->startActivity(new Intent(StatisticActivity.this,StatisticYearActivity.class)));
     }
 }
