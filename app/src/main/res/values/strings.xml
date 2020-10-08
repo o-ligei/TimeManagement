@@ -62,7 +62,7 @@
 
     <!--strings for navigation-->
     <string name="statistic_day_title">一日总结</string>
-    <string name="statistic_day_content">快来看看今天都干了什么吧</string>
+    <string name="statistic_day_content">来看看今天干了什么吧</string>
     <string name="statistic_no_data">今天还没有定计划哦</string>
     <string name="statistic_week_title">近7日总结</string>
     <string name="statistic_year_title">2020总览</string>
@@ -99,4 +99,6 @@
     <string name="shaking_notice">摇晃手机</string>
     <string name="blowing_notice">吹一吹</string>
 
+    <!--strings for menu-->
+    <string name="menu_exit">退出</string>
 </resources>

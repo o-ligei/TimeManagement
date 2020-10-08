@@ -77,12 +77,33 @@
     <string name="task_name">TASK NAME</string>
     <string name="task_success">TASK COMPLETED!</string>
     <string name="back_to_home">BACK TO HOME</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+
+    <!-- strings for game -->
+    <string name="shaking_notice">shake the phone</string>
+    <string name="blowing_notice">blow the phone</string>
 
     <!-- strings for about -->
     <string name="about_title">WOWTIME</string>
     <string name="about_content">本产品自成一体，运行于安卓系统，基于帮助用户管理时间的目的，主要为用户提供两方面的服务。一方面用一定的激励机制帮助用户指定个性化的作息计划。另一方面则是提供远离手机的服务，使用户在一段时间内不去启动手机，从而帮助用户减少手机的依赖。</string>
 
-    <!-- strings for game -->
-    <string name="shaking_notice">shake the phone</string>
-    <string name="blowing_notice">blow the phone</string>
+    <!--strings for menu-->
+    <string name="menu_exit">exit</string>
+    
 </resources>
