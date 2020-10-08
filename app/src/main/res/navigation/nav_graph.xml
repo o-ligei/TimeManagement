@@ -45,6 +45,8 @@
         android:label="@string/navigation_friends"
         tools:layout="@layout/fragment_nav_list" />
 
+
+
     <activity
         android:id="@+id/navigation_statistics"
         android:name="com.example.wowtime.StatisticActivity"
@@ -60,12 +62,12 @@
 
     <activity
         android:id="@+id/navigation_setting"
-        android:name="com.example.wowtime.AnotherActivity"
+        android:name="com.example.wowtime.SettingsActivity"
         android:label="@string/navigation_setting" />
 
     <activity
         android:id="@+id/navigation_about"
-        android:name="com.example.wowtime.AnotherActivity"
+        android:name="com.example.wowtime.About"
         android:label="@string/navigation_about" />
 
 </navigation>

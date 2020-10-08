@@ -159,9 +159,9 @@ public class StatisticYearActivity extends AppCompatActivity {
 //        bar.animateX(2000); //X轴动画
         bar.animateXY(1500,1500);//XY两轴混合动画
 
-        RadioButton radioButtonDay=findViewById(R.id.week_day);
+        RadioButton radioButtonDay=findViewById(R.id.year_day);
         radioButtonDay.setOnClickListener(v->startActivity(new Intent(StatisticYearActivity.this,StatisticActivity.class)));
-        RadioButton radioButtonWeek=findViewById(R.id.week_year);
+        RadioButton radioButtonWeek=findViewById(R.id.year_week);
         radioButtonWeek.setOnClickListener(v->startActivity(new Intent(StatisticYearActivity.this,StatisticWeekActivity.class)));
 
     }
