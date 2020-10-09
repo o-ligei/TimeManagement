@@ -19,17 +19,18 @@
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
             android:text="@string/task_list"
             android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="20dp"
-            android:textSize="24sp" />
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ListView
             android:id="@+id/task_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="5dp" />
+            android:divider="#FFF"
+            android:dividerHeight="3dp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

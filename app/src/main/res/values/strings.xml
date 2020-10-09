@@ -26,6 +26,7 @@
     <string name="login_usecapt_hint">使用验证码登录</string>
     <string name="white_list_name">白名单</string>
     <string name="friends_list_name">朋友们</string>
+    <string name="friends_list_sort_hint">搜索…</string>
     <string name="credit_detail_list_name">积分明细</string>
 
     <string name="task_success">任务完成!</string>
@@ -96,6 +97,9 @@
     <string name="about_title">WOWTIME</string>
     <string name="about_content">本产品自成一体，运行于安卓系统，基于帮助用户管理时间的目的，主要为用户提供两方面的服务。一方面用一定的激励机制帮助用户指定个性化的作息计划。另一方面则是提供远离手机的服务，使用户在一段时间内不去启动手机，从而帮助用户减少手机的依赖。</string>
 
+    <!-- strings for game -->
+    <string name="shaking_notice">摇晃手机</string>
+    <string name="blowing_notice">吹一吹</string>
     <!-- string for calculate -->
     <string name="calculate_description">请回答下列算式的答案</string>
     <string name="calculate_title">算式</string>
