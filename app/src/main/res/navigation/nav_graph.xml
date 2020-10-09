@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/navigation_away_from_phone"
-        android:name="com.example.wowtime.TaskListActivity"
+        android:name="com.example.wowtime.AlarmList"
         android:label="@string/navigation_away_from_phone"
         tools:layout="@layout/fragment_nav_list" />
 

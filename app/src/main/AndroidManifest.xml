@@ -37,7 +37,7 @@
         <activity
             android:name=".RingSetting"
             android:theme="@style/AppTheme.NoActionBar" />
-<!--        <activity android:name=".TaskListActivity" />-->
+        <activity android:name=".TaskListActivity" />
 
         <activity android:name=".TaskSuccessActivity" />
         <activity android:name=".WhiteListActivity" />
