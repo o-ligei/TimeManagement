@@ -9,28 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity
-            android:name=".ScreenSaverActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_screen_saver"
-            android:theme="@style/FullscreenTheme"></activity>
-        <activity android:name=".CalculateGameActivity" />
+        <activity android:name=".BlowingGame"/>
+        <activity android:name=".ShakingGame" />
         <activity android:name=".About" />
+<!--        <activity-->
+<!--            android:name=".ScreenSaverActivity"-->
+<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
+<!--            android:label="@string/title_activity_screen_saver"-->
+<!--            android:theme="@style/FullscreenTheme"></activity>-->
+        <activity android:name=".CalculateGameActivity" />
 
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".CreditDetailList" />
-        <activity android:name=".FriendsList" />
-        <activity android:name=".PersonInfoDetail" />
+<!--        <activity android:name=".FriendsList" />-->
+<!--        <activity android:name=".PersonInfoDetail" />-->
         <activity android:name=".CreditDetailCard" />
         <activity android:name=".FriendsListCard" />
         <activity android:name=".PersonInfoCard" />
         <activity android:name=".PersonInfo" />
-        <activity
-            android:name=".AlarmList"
-            android:theme="@style/AppTheme.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".AlarmList"-->
+<!--            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".GameSetting"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -68,10 +69,9 @@
         <!-- </activity> -->
         <activity android:name=".AnotherActivity" />
         <activity android:name=".TestActivity" />
-
         <activity android:name=".StatisticWeekActivity" />
         <activity android:name=".StatisticYearActivity" />
-
     </application>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
 </manifest>
