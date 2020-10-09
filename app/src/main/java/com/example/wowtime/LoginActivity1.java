@@ -17,7 +17,7 @@ public class LoginActivity1 extends AppCompatActivity {
         usePasswordTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivity1.this, LoginActivity2.class)));
         TextView useRegisterTextView = findViewById(R.id.textView5);
         useRegisterTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivity1.this, RegisterActivity.class)));
-        Button login = findViewById(R.id.button6);
-        login.setOnClickListener(v -> startActivity(new Intent(LoginActivity1.this, PersonInfo.class)));
+//        Button login = findViewById(R.id.button6);
+//        login.setOnClickListener(v -> startActivity(new Intent(LoginActivity1.this, PersonInfo.class)));
     }
 }
