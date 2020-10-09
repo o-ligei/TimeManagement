@@ -106,6 +106,8 @@
             android:layout_height="match_parent"
             android:checked="true"
             android:text="@string/statistic_switch_today"
+            android:checked="true"
+            android:id="@+id/day_day"
             android:textSize="16sp" />
 
         <RadioButton
@@ -113,6 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/statistic_switch_week"
+            android:id="@+id/day_week"
             android:textSize="16sp" />
 
         <RadioButton
@@ -120,6 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/statistic_switch_year"
+            android:id="@+id/day_year"
             android:textSize="16sp" />
     </RadioGroup>
 
