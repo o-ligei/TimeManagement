@@ -47,7 +47,7 @@
         <activity android:name=".StatisticActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="111"
+            android:label="@string/app_name"
             android:launchMode="singleInstance"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
