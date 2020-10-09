@@ -62,6 +62,7 @@
 
     <!--strings for navigation-->
     <string name="statistic_day_title">一日总结</string>
+
     <string name="statistic_day_content">来看看今天干了什么吧</string>
     <string name="statistic_no_data">今天还没有定计划哦</string>
     <string name="statistic_week_title">近7日总结</string>
@@ -95,6 +96,14 @@
     <string name="about_title">WOWTIME</string>
     <string name="about_content">本产品自成一体，运行于安卓系统，基于帮助用户管理时间的目的，主要为用户提供两方面的服务。一方面用一定的激励机制帮助用户指定个性化的作息计划。另一方面则是提供远离手机的服务，使用户在一段时间内不去启动手机，从而帮助用户减少手机的依赖。</string>
 
+    <!-- string for calculate -->
+    <string name="calculate_description">请回答下列算式的答案</string>
+    <string name="calculate_title">算式</string>
+    <string name="calculate_answer">0</string>
+    <string name="calculate_handson">提交</string>
+    <string name="title_activity_screen_saver">屏保</string>
+    <string name="screen_saver_button">放弃</string>
+    <string name="screen_saver_content">为中华崛起\n而读书</string>
 
     <!--strings for menu-->
     <string name="menu_exit">退出</string>

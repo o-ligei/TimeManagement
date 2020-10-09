@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 //        Button button = findViewById(R.id.button);
 //        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PersonInfo.class)));
         Button button2 = findViewById(R.id.button3);
+
         button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,TaskListActivity.class)));
 
         ActivityMainBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
@@ -34,12 +35,15 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupWithNavController(binding.toolbarMain, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navigationMain, navController);
         });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
