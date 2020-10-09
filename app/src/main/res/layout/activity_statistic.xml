@@ -22,6 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
+
 <!--    <TextView-->
 <!--        android:id="@+id/textView9"-->
 <!--        android:layout_width="wrap_content"-->
@@ -88,8 +89,6 @@
             android:textSize="10sp"
             tools:ignore="SmallSp" />
     </RadioGroup>
-
-
 
 
     <RadioGroup
