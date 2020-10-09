@@ -3,7 +3,9 @@ package com.example.wowtime;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import android.widget.RadioButton;
+
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -79,6 +81,7 @@ public class StatisticYearActivity extends AppCompatActivity {
 
         //X
         XAxis xAxis=bar.getXAxis();
+
         xAxis.setTextSize(14);
         xAxis.setAxisLineColor(ColorTemplate.JOYFUL_COLORS[0]);   //X轴颜色
         xAxis.setAxisLineWidth(1);           //X轴粗细

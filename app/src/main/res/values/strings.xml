@@ -63,6 +63,7 @@
 
     <!--strings for navigation-->
     <string name="statistic_day_title">一日总结</string>
+
     <string name="statistic_day_content">来看看今天干了什么吧</string>
     <string name="statistic_no_data">今天还没有定计划哦</string>
     <string name="statistic_week_title">近7日总结</string>
@@ -99,6 +100,14 @@
     <!-- strings for game -->
     <string name="shaking_notice">摇晃手机</string>
     <string name="blowing_notice">吹一吹</string>
+    <!-- string for calculate -->
+    <string name="calculate_description">请回答下列算式的答案</string>
+    <string name="calculate_title">算式</string>
+    <string name="calculate_answer">0</string>
+    <string name="calculate_handson">提交</string>
+    <string name="title_activity_screen_saver">屏保</string>
+    <string name="screen_saver_button">放弃</string>
+    <string name="screen_saver_content">为中华崛起\n而读书</string>
 
     <!--strings for menu-->
     <string name="menu_exit">退出</string>
