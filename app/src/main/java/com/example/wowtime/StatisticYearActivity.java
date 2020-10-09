@@ -79,6 +79,7 @@ public class StatisticYearActivity extends AppCompatActivity {
 
         //X
         XAxis xAxis=bar.getXAxis();
+
         xAxis.setTextSize(14);
         xAxis.setAxisLineColor(ColorTemplate.JOYFUL_COLORS[0]);   //X轴颜色
         xAxis.setAxisLineWidth(1);           //X轴粗细

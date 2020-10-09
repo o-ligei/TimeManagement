@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.wowtime.databinding.ActivityMainBinding;
 
+import com.example.wowtime.util.SensorManagerHelper;
+
 public class MainActivity extends AppCompatActivity {
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 //        Button button = findViewById(R.id.button);
 //        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PersonInfo.class)));
         Button button2 = findViewById(R.id.button3);
+
         button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,TaskListActivity.class)));
 
         ActivityMainBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
@@ -34,12 +39,15 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupWithNavController(binding.toolbarMain, navController, appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navigationMain, navController);
         });
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
