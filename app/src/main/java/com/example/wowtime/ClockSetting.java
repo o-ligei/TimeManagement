@@ -12,7 +12,10 @@ public class ClockSetting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clock_setting);
-        Button button=findViewById(R.id.button8);
-        button.setOnClickListener(v->startActivity(new Intent(ClockSetting.this,TaskListActivity.class)));
+        Button gameSetting=findViewById(R.id.button8);
+        gameSetting.setOnClickListener(v->startActivity(new Intent(ClockSetting.this,TaskListActivity.class)));
+        Button ringSetting=findViewById(R.id.ClockRingSetting);
+        ringSetting.setOnClickListener(v->startActivity(new Intent(ClockSetting.this,RingSetting.class)));
     }
+
 }
