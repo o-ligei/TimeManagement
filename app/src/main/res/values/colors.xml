@@ -7,6 +7,14 @@
     <color name="colorPrimary">#FFB6C1</color>
     <color name="colorPrimaryDark">#DB7089</color>
     <color name="colorAccent">#FF7F50</color>
+    <color name="lightOrange">#FDD290</color>
+    <color name="lightPink">#ffccbc</color>
+
+
+<!--    <color name="lightOrange">#FADBAD</color>-->
+<!--    <color name="lightPink">#FFCCBC</color>-->
+
+
 
     <color name="lightOrange">#FADBAD</color>
     <color name="lightPink">#FFCCBC</color>
@@ -25,6 +33,4 @@
     <color name="lightBlue">#8FDCD9</color>
     <color name="lightGreen">#9DDC98</color>
     <color name="lavender">#B2B5EA</color>
-
-    <color name="black_overlay">#66000000</color>
 </resources>

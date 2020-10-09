@@ -1,7 +1,11 @@
 package com.example.wowtime;
 
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.RadioButton;
+
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -65,6 +69,9 @@ public class StatisticWeekActivity extends AppCompatActivity {
 
         //X
         XAxis xAxis=bar.getXAxis();
+
+        xAxis.setTextSize(14);
+
         xAxis.setAxisLineColor(ColorTemplate.JOYFUL_COLORS[0]);   //X轴颜色
         xAxis.setAxisLineWidth(1);           //X轴粗细
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//X轴的位置 默认为上面
@@ -81,6 +88,9 @@ public class StatisticWeekActivity extends AppCompatActivity {
 
         //Y
         YAxis AxisLeft=bar.getAxisLeft();
+
+        AxisLeft.setTextSize(14);
+
         AxisLeft.setDrawGridLines(false);  //是否绘制Y轴上的网格线（背景里面的横线）
         AxisLeft.setAxisLineColor(ColorTemplate.JOYFUL_COLORS[1]);  //Y轴颜色
         AxisLeft.setAxisLineWidth(1);           //Y轴粗细
@@ -103,12 +113,12 @@ public class StatisticWeekActivity extends AppCompatActivity {
         //柱子
 //        barDataSet.setColor(Color.BLACK);  //柱子的颜色
         ArrayList<Integer> colors = new ArrayList<Integer>();
-        for (int c : ColorTemplate.LIBERTY_COLORS)
+
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
         for (int c : ColorTemplate.JOYFUL_COLORS)
             colors.add(c);
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
+
         for (int c : ColorTemplate.COLORFUL_COLORS)
             colors.add(c);
         for (int c : ColorTemplate.PASTEL_COLORS)
@@ -120,14 +130,18 @@ public class StatisticWeekActivity extends AppCompatActivity {
 //        barDataSet.setBarShadowColor(Color.);
         barDataSet.setHighlightEnabled(true);//选中柱子是否高亮显示  默认为true
         barDataSet.setHighLightAlpha(20);
-        barDataSet.setValueTextSize(10f);
+
+        barDataSet.setValueTextSize(14f);
+
 //        barDataSet.setStackLabels(new String[]{"aaa","bbb","ccc"});//?
         //定义柱子上的数据显示    可以实现加单位    以及显示整数（默认是显示小数）
         barDataSet.setValueFormatter(new IValueFormatter() {
             @Override
             public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
                 if (entry.getY()==v){
-                    return v+"hours";
+
+                    return v+"h";
+
                 }
                 return "";
             }
@@ -157,6 +171,8 @@ public class StatisticWeekActivity extends AppCompatActivity {
             }
         });
 
+
+        bar.setFitBars(true);
         //数据更新
         bar.notifyDataSetChanged();
         bar.invalidate();
@@ -165,6 +181,12 @@ public class StatisticWeekActivity extends AppCompatActivity {
 //        bar.animateY(3000); //在Y轴的动画  参数是动画执行时间 毫秒为单位
 //        bar.animateX(2000); //X轴动画
         bar.animateXY(1500,1500);//XY两轴混合动画
+
+
+        RadioButton radioButtonDay=findViewById(R.id.week_day);
+        radioButtonDay.setOnClickListener(v->startActivity(new Intent(StatisticWeekActivity.this,StatisticActivity.class)));
+        RadioButton radioButtonYear=findViewById(R.id.week_year);
+        radioButtonYear.setOnClickListener(v->startActivity(new Intent(StatisticWeekActivity.this,StatisticYearActivity.class)));
 
     }
 }

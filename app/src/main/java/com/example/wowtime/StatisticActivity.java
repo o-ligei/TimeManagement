@@ -1,9 +1,15 @@
 package com.example.wowtime;
 
+
+import android.content.Intent;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+
+import android.widget.RadioButton;
+
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -98,9 +104,11 @@ public class StatisticActivity extends AppCompatActivity {
         //设置中心字的字体大小
         pie.setCenterTextSize(22);
         //设置描述的字体大小
-        pie.setEntryLabelTextSize(12);
+
+        pie.setEntryLabelTextSize(16);
         //设置数据的字体大小  （图中的  44     56）
-        pieDataSet.setValueTextSize(12);
+        pieDataSet.setValueTextSize(16);
+
         //设置描述的位置
 //        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
 //        pieDataSet.setValueLinePart1Length(0.2f);//设置描述连接线长度
@@ -113,7 +121,9 @@ public class StatisticActivity extends AppCompatActivity {
         //对于右下角一串字母的操作
         pie.getDescription().setEnabled(false);                  //是否显示右下角描述
         pie.getDescription().setText("这是修改那串英文的方法");    //修改右下角字母的显示
-        pie.getDescription().setTextSize(15);                    //字体大小
+
+        pie.getDescription().setTextSize(16);                    //字体大小
+
         pie.getDescription().setTextColor(Color.WHITE);             //字体颜色
 
         //图例
@@ -130,6 +140,7 @@ public class StatisticActivity extends AppCompatActivity {
         //数据更新
         pie.notifyDataSetChanged();
         pie.invalidate();
+
 
         //动画（如果使用了动画可以则省去更新数据的那一步）
         pie.animateY(1000); //在Y轴的动画  参数是动画执行时间 毫秒为单位
@@ -156,5 +167,12 @@ public class StatisticActivity extends AppCompatActivity {
                 textView.setText("");
             }
         });
+
+
+        RadioButton radioButtonWeek=findViewById(R.id.day_week);
+        radioButtonWeek.setOnClickListener(v->startActivity(new Intent(StatisticActivity.this,StatisticWeekActivity.class)));
+        RadioButton radioButtonYear=findViewById(R.id.day_year);
+        radioButtonYear.setOnClickListener(v->startActivity(new Intent(StatisticActivity.this,StatisticYearActivity.class)));
+
     }
 }

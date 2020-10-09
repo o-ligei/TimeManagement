@@ -15,6 +15,10 @@
         <!--        android:id="@+id/activity_menu_main"-->
         <!--        android:checkableBehavior="single"-->
         <item
+            android:id="@id/navigation_log_in"
+            android:icon="@drawable/ic_round_person_24"
+            android:title="@string/navigation_login" />
+        <item
             android:id="@id/navigation_person_info"
             android:icon="@drawable/ic_round_person_24"
             android:title="@string/navigation_person_info" />
@@ -30,17 +34,17 @@
             android:id="@id/navigation_friends"
             android:icon="@drawable/ic_round_supervisor_account_24"
             android:title="@string/navigation_friends" />
+    </group>
+
+    <group>
         <item
             android:id="@id/navigation_statistics"
             android:icon="@drawable/ic_round_show_chart_24"
             android:title="@string/navigation_statistic" />
         <item
             android:id="@id/navigation_achievement"
-            android:icon="@drawable/ic_round_alarm_on_24"
+            android:icon="@drawable/ic_round_new_releases_24"
             android:title="@string/navigation_achievement" />
-    </group>
-
-    <group>
         <item
             android:id="@id/navigation_setting"
             android:icon="@drawable/ic_round_settings_24"

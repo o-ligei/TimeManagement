@@ -21,6 +21,8 @@
             android:layout_height="wrap_content"
             android:text="@string/task_list"
             android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
             android:textSize="24sp" />
 
         <ListView
