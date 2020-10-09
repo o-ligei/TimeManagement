@@ -99,9 +99,15 @@
     <!-- strings for game -->
     <string name="shaking_notice">shake the phone</string>
     <string name="blowing_notice">blow the phone</string>
-
     <!--strings for menu-->
     <string name="menu_exit">exit</string>
+
+
+    <!-- string for calculate -->
+    <string name="calculate_description">please type the answer of formula below</string>
+    <string name="calculate_title">FORMULA</string>
+    <string name="calculate_answer">0</string>
+    <string name="calculate_handson">HANDSON</string>
 
     <!-- strings for about -->
     <string name="about_title">WOWTIME</string>
