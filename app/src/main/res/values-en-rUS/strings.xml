@@ -99,6 +99,7 @@
     <!-- strings for game -->
     <string name="shaking_notice">shake the phone</string>
     <string name="blowing_notice">blow the phone</string>
+
     <!--strings for menu-->
     <string name="menu_exit">exit</string>
 
