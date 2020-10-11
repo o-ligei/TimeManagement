@@ -56,15 +56,15 @@ public class AlarmList extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_alarm_list, container, false);
         ArrayList<AlarmListItem> test = new ArrayList<>();
-        AlarmListItem alarm1 = new AlarmListItem("ICS", "23:00");
-        AlarmListItem alarm2 = new AlarmListItem("CSE", "06:00");
-        AlarmListItem alarm3 = new AlarmListItem("compiler", "08:00");
-        AlarmListItem alarm4 = new AlarmListItem("ICS", "23:00");
-        AlarmListItem alarm5 = new AlarmListItem("lalalala", "06:00");
-        AlarmListItem alarm6 = new AlarmListItem("123456", "08:00");
-        AlarmListItem alarm7 = new AlarmListItem("ICS", "23:00");
-        AlarmListItem alarm8 = new AlarmListItem("CSE", "06:00");
-        AlarmListItem alarm9 = new AlarmListItem("compiler", "08:00");
+        AlarmListItem alarm1 = new AlarmListItem("ICS 不重复", "23:00");
+        AlarmListItem alarm2 = new AlarmListItem("CSE 每天", "06:00");
+        AlarmListItem alarm3 = new AlarmListItem("编译 周二", "08:00");
+        AlarmListItem alarm4 = new AlarmListItem("ICS 不重复", "23:00");
+        AlarmListItem alarm5 = new AlarmListItem("啦啦 每天", "06:00");
+        AlarmListItem alarm6 = new AlarmListItem("123 周一", "08:00");
+        AlarmListItem alarm7 = new AlarmListItem("ICS 不重复", "23:00");
+        AlarmListItem alarm8 = new AlarmListItem("CSE 每天", "06:00");
+        AlarmListItem alarm9 = new AlarmListItem("编译 周二", "08:00");
         test.add(alarm1);
         test.add(alarm2);
         test.add(alarm3);

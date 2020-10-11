@@ -23,6 +23,7 @@
     <string name="login_message">登录</string>
 
     <string name="register_message">注册</string>
+    <string name="register_getCaptcha">获取验证码</string>
     <string name="login_usecapt_hint">使用验证码登录</string>
     <string name="white_list_name">白名单</string>
     <string name="friends_list_name">朋友们</string>
@@ -41,6 +42,8 @@
     <string name="clock_setting_ring_default">雷达 ></string>
     <string name="clock_setting_game_title">小游戏</string>
     <string name="clock_setting_game_default">随机 ></string>
+    <string name="clock_setting_repeat_title">重复</string>
+    <string name="clock_setting_repeat_select">每天 ></string>
     <string name="ring_setting_title">设置铃声</string>
     <string name="game_setting_title">设置小游戏</string>
     <string name="alarm_list_title">闹钟</string>
@@ -76,22 +79,22 @@
     <!--strings for task list-->
     <string name="task_list">任务列表</string>
     <string name="task_name">任务名称</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">设置</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="messages_header">消息</string>
+    <string name="sync_header">同步</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string name="signature_title">自定义</string>
+    <string name="reply_title">默认</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    <string name="sync_title">邮件同步</string>
+    <string name="attachment_title">积分同步</string>
+    <string name="attachment_summary_on">自动下载
     </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="attachment_summary_off">只下载总结</string>
 
     <!-- strings for about -->
     <string name="about_title">WOWTIME</string>

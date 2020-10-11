@@ -64,8 +64,8 @@ public class PomodoroListFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pomodoro_list, container, false);
         ArrayList<PomodoroListItem> list = new ArrayList<>();
-        list.add(new PomodoroListItem("ICS","30min"));
-        list.add(new PomodoroListItem("CSE","60min"));
+        list.add(new PomodoroListItem("ICS 强模式 不休息","30min"));
+        list.add(new PomodoroListItem("CSE 弱模式 每30min休息5min","60min"));
 
         PomodoroItemAdapter adapter = new PomodoroItemAdapter(list,getContext());
         ListView listView = view.findViewById(R.id.PomodoroCardList);
