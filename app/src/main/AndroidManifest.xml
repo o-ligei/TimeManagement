@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wowtime">
+    package="com.example.wowtime" >
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -8,30 +10,33 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".BlowingGame"/>
-        <activity android:name=".ShakingGame" />
-        <activity android:name=".About" />
-<!--        <activity-->
-<!--            android:name=".ScreenSaverActivity"-->
-<!--            android:configChanges="orientation|keyboardHidden|screenSize"-->
-<!--            android:label="@string/title_activity_screen_saver"-->
-<!--            android:theme="@style/FullscreenTheme"></activity>-->
-        <activity android:name=".CalculateGameActivity" />
+        android:theme="@style/AppTheme" >
+        <activity android:name=".RandomNumberGameActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".BlowingGame" />
+        <activity android:name=".ShakingGame" />
+        <activity android:name=".About" /> <!-- <activity -->
+        <!-- android:name=".ScreenSaverActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
+        <!-- android:label="@string/title_activity_screen_saver" -->
+        <!-- android:theme="@style/FullscreenTheme"></activity> -->
+        <activity android:name=".CalculateGameActivity" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".CreditDetailList" />
-<!--        <activity android:name=".FriendsList" />-->
-<!--        <activity android:name=".PersonInfoDetail" />-->
+        <activity android:name=".CreditDetailList" /> <!-- <activity android:name=".FriendsList" /> -->
+        <!-- <activity android:name=".PersonInfoDetail" /> -->
         <activity android:name=".CreditDetailCard" />
         <activity android:name=".FriendsListCard" />
         <activity android:name=".PersonInfoCard" />
-        <activity android:name=".PersonInfo" />
-<!--        <activity-->
-<!--            android:name=".AlarmList"-->
-<!--            android:theme="@style/AppTheme.NoActionBar" />-->
+        <activity android:name=".PersonInfo" /> <!-- <activity -->
+        <!-- android:name=".AlarmList" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity
             android:name=".GameSetting"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -39,7 +44,6 @@
             android:name=".RingSetting"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TaskListActivity" />
-
         <activity android:name=".TaskSuccessActivity" />
         <activity android:name=".WhiteListActivity" />
         <activity android:name=".RegisterActivity" />
@@ -49,7 +53,7 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -72,6 +76,5 @@
         <activity android:name=".StatisticWeekActivity" />
         <activity android:name=".StatisticYearActivity" />
     </application>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
 </manifest>
