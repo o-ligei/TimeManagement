@@ -27,6 +27,7 @@
 
 
     <string name="register_message">register</string>
+    <string name="register_getCaptcha">get CAPTCHA</string>
     <string name="login_usecapt_hint">use captcha?</string>
     <string name="friends_list_name">friends</string>
     <string name="friends_list_sort_hint">search…</string>
@@ -42,6 +43,8 @@
     <string name="clock_setting_ring_default">Radar ></string>
     <string name="clock_setting_game_title">Game</string>
     <string name="clock_setting_game_default">Random ></string>
+    <string name="clock_setting_repeat_title">repeat</string>
+    <string name="clock_setting_repeat_select">everyday ></string>
     <string name="ring_setting_title">Setting ring</string>
     <string name="game_setting_title">Select game</string>
     <string name="alarm_list_title">alarm</string>
@@ -124,4 +127,5 @@
     <!--strings for random number input -->
     <string name="number_input_title">please input number below：</string>
     <string name="random_number_handson">HANDSON</string>
+
 </resources>
