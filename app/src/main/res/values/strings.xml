@@ -117,4 +117,8 @@
 
     <!--strings for menu-->
     <string name="menu_exit">退出</string>
+
+    <!--strings for random number input -->
+    <string name="number_input_title">请输入下列数字：</string>
+    <string name="random_number_handson">提交</string>
 </resources>
