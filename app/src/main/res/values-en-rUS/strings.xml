@@ -99,7 +99,6 @@
     <!-- strings for game -->
     <string name="shaking_notice">shake the phone</string>
     <string name="blowing_notice">blow the phone</string>
-
     <!--strings for menu-->
     <string name="menu_exit">exit</string>
 
@@ -122,4 +121,7 @@
     <string name="pomodoro_list_title">POMODORA</string>
     <string name="pomodoro_start_button">START!</string>
 
+    <!--strings for random number input -->
+    <string name="number_input_title">please input number below：</string>
+    <string name="random_number_handson">HANDSON</string>
 </resources>
