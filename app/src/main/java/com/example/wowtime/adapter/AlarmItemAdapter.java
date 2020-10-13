@@ -42,7 +42,7 @@ public class AlarmItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_alarm_list_item,parent,false);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.alarm_list_item,parent,false);
 
         TextView txt_tag = (TextView) convertView.findViewById(R.id.AlarmTag);
         TextView txt_time=(TextView) convertView.findViewById(R.id.AlarmTime);

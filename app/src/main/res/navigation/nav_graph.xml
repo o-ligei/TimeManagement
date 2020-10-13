@@ -9,12 +9,12 @@
 <!--    tmp     log     in-->
     <activity
         android:id="@+id/navigation_log_in"
-        android:name="com.example.wowtime.LoginActivity1"
+        android:name="com.example.wowtime.ui.account.LoginActivityWithAuthActivity"
         android:label="@string/navigation_login"
         tools:layout="@layout/fragment_nav_list"/>
     <fragment
         android:id="@+id/navigation_person_info"
-        android:name="com.example.wowtime.PersonInfoDetail"
+        android:name="com.example.wowtime.ui.others.PersonInfoFragment"
         android:label="@string/navigation_person_info"
         tools:layout="@layout/fragment_nav_list">
         <!--        <action-->
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/navigation_clock"
-        android:name="com.example.wowtime.AlarmList"
+        android:name="com.example.wowtime.ui.alarm.AlarmListFragment"
         android:label="@string/navigation_clock"
         tools:layout="@layout/fragment_nav_list">
         <!--        <action-->
@@ -35,13 +35,13 @@
 
     <fragment
         android:id="@+id/navigation_away_from_phone"
-        android:name="com.example.wowtime.PomodoroListFragment"
+        android:name="com.example.wowtime.ui.pomodoro.PomodoroListFragment"
         android:label="@string/navigation_away_from_phone"
         tools:layout="@layout/fragment_nav_list" />
 
     <fragment
         android:id="@+id/navigation_friends"
-        android:name="com.example.wowtime.FriendsList"
+        android:name="com.example.wowtime.ui.others.FriendsListFragment"
         android:label="@string/navigation_friends"
         tools:layout="@layout/fragment_nav_list" />
 
@@ -49,25 +49,25 @@
 
     <activity
         android:id="@+id/navigation_statistics"
-        android:name="com.example.wowtime.StatisticActivity"
+        android:name="com.example.wowtime.ui.statistic.StatisticDayActivity"
         android:label="@string/navigation_statistic"
         tools:layout="@layout/fragment_nav_list" />
 
     <activity
         android:id="@+id/navigation_achievement"
-        android:name="com.example.wowtime.AnotherActivity"
+        android:name="com.example.wowtime.ui.others.AchievementActivity"
         android:label="@string/navigation_achievement"
         tools:layout="@layout/fragment_nav_list" />
 
 
     <activity
         android:id="@+id/navigation_setting"
-        android:name="com.example.wowtime.SettingsActivity"
+        android:name="com.example.wowtime.ui.others.SettingsActivity"
         android:label="@string/navigation_setting" />
 
     <activity
         android:id="@+id/navigation_about"
-        android:name="com.example.wowtime.About"
+        android:name="com.example.wowtime.ui.others.AboutActivity"
         android:label="@string/navigation_about" />
 
 </navigation>

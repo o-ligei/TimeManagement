@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFCCBC"
-    tools:context=".StatisticWeekActivity"
+    tools:context=".ui.statistic.StatisticWeekActivity"
     >
 
     <TextView
