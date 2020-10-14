@@ -13,7 +13,7 @@ public class ShakingGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shaking_game);
+        setContentView(R.layout.shaking_game_activity);
         SensorManagerHelper sensorHelper = new SensorManagerHelper(this);
         sensorHelper.setOnShakeListener(() -> Toast.makeText(ShakingGameActivity.this, "你在摇哦", Toast.LENGTH_SHORT).show());
     }

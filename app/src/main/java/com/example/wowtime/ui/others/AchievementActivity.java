@@ -15,7 +15,7 @@ public class AchievementActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activty_achievement);
+        setContentView(R.layout.achievement_activity);
 
         ArrayList<String> arr=new ArrayList<>();
         for (int i=0;i<9;i++){

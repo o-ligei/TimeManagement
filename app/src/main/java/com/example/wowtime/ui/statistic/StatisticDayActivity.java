@@ -30,7 +30,7 @@ public class StatisticDayActivity extends AppCompatActivity {
 //    protected void onCreate(@Nullable Bundle savedInstanceState) {
 //
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_statistic);
+//        setContentView(R.layout.statistic_day_activity);
 //        PieChartView pieChartView = (PieChartView) findViewById(R.id.chart);
 //
 //        List<PieChartView.PieceDataHolder> pieceDataHolders = new ArrayList<>();
@@ -48,7 +48,7 @@ public class StatisticDayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistic);
+        setContentView(R.layout.statistic_day_activity);
         pie = (PieChart) findViewById(R.id.chart);
 
         list=new ArrayList<>();

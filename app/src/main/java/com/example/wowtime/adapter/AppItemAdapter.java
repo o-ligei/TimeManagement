@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wowtime.R;
-import com.example.wowtime.component.AppListItem;
+import com.example.wowtime.dto.AppListItem;
 
 import java.util.LinkedList;
 

@@ -33,7 +33,7 @@ public class BlowingGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_blowing_game);
+        setContentView(R.layout.blowing_game_activity);
         //调用话筒实现类
         AudioRecordManger audioRecordManger = new AudioRecordManger(handler, RECORD); //实例化话筒实现类
         audioRecordManger.getNoiseLevel();                         //打开话筒监听声音

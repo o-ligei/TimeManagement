@@ -9,8 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.wowtime.R;
-import com.example.wowtime.component.AlarmListItem;
-import com.example.wowtime.component.PomodoroListItem;
+import com.example.wowtime.dto.PomodoroListItem;
 
 import java.util.ArrayList;
 

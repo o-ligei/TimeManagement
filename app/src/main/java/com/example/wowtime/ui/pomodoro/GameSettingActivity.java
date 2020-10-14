@@ -15,7 +15,7 @@ public class GameSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_setting);
+        setContentView(R.layout.game_setting_activity);
 
         ArrayList<String> arr=new ArrayList<>();
         for (int i=0;i<5;i++){
@@ -24,7 +24,7 @@ public class GameSettingActivity extends AppCompatActivity {
         }
 
         RingItemAdapter adapter=new RingItemAdapter(arr,getApplicationContext());
-//        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,R.layout.activity_ring_list_item,arr);
+//        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,R.layout.ring_list_item,arr);
         ListView listView = findViewById(R.id.GameSettingList);
         listView.setAdapter(adapter);
     }

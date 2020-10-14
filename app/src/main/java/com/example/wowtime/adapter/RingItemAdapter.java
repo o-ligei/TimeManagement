@@ -6,14 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wowtime.R;
-import com.example.wowtime.component.AppListItem;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class RingItemAdapter extends BaseAdapter {
     private ArrayList<String> mData;
@@ -44,7 +41,7 @@ public class RingItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.activity_ring_list_item,parent,false);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.ring_list_item,parent,false);
 
         TextView txt_aName = (TextView) convertView.findViewById(R.id.RingName);
 

@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.PomodoroItemAdapter;
-import com.example.wowtime.component.PomodoroListItem;
+import com.example.wowtime.dto.PomodoroListItem;
 
 import java.util.ArrayList;
 
@@ -63,7 +63,7 @@ public class PomodoroListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pomodoro_list, container, false);
+        View view = inflater.inflate(R.layout.pomodoro_list_fragment, container, false);
         ArrayList<PomodoroListItem> list = new ArrayList<>();
         list.add(new PomodoroListItem("ICS 强模式 不休息","30min"));
         list.add(new PomodoroListItem("CSE 弱模式 每30min休息5min","60min"));

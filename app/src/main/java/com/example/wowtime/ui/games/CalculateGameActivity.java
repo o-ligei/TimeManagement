@@ -22,7 +22,7 @@ public class CalculateGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calculate_game);
+        setContentView(R.layout.calculate_game_activity);
         int left = (int)(1+Math.random()*(max - min + 1)),
                 right = (int)(1+Math.random()*(max - min + 1)),
                 NumberOp = (int)(1+Math.random()*(3));

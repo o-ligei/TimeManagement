@@ -28,6 +28,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/account',
+                            'src/main/res/layouts/alarm',
+                            'src/main/res/layouts/games',
+                            'src/main/res/layouts/others',
+                            'src/main/res/layouts/pomodoro',
+                            'src/main/res/layouts/statistic',
+                            'src/main/res/layouts/main',
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }
 }
 
 dependencies {

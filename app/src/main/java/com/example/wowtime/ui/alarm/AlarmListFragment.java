@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.AlarmItemAdapter;
-import com.example.wowtime.component.AlarmListItem;
+import com.example.wowtime.dto.AlarmListItem;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_alarm_list);
+//        setContentView(R.layout.alarm_list_fragment);
 //
 //        ArrayList<AlarmListItem> test=new ArrayList<>();
 //        AlarmListItem alarm1=new AlarmListItem("night","23:00");
@@ -51,7 +51,7 @@ public class AlarmListFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_alarm_list, container, false);
+        View root = inflater.inflate(R.layout.alarm_list_fragment, container, false);
         ArrayList<AlarmListItem> test = new ArrayList<>();
         AlarmListItem alarm1 = new AlarmListItem("ICS 不重复", "23:00");
         AlarmListItem alarm2 = new AlarmListItem("CSE 每天", "06:00");

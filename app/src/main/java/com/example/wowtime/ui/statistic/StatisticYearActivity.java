@@ -33,7 +33,7 @@ public class StatisticYearActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistic_year);
+        setContentView(R.layout.statistic_year_activity);
         bar = (BarChart) findViewById(R.id.yearBar);
         //添加数据
         list.add(new BarEntry(1, 49.1f));

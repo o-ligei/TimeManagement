@@ -1,4 +1,4 @@
-package com.example.wowtime.component;
+package com.example.wowtime.dto;
 
 import java.sql.Timestamp;
 

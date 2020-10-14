@@ -13,7 +13,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_with_auth);
+        setContentView(R.layout.login_with_auth_activity);
         TextView usePasswordTextView = findViewById(R.id.textView4);
         usePasswordTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithAuthActivity.this, LoginActivityWithPasswordActivity.class)));
         TextView useRegisterTextView = findViewById(R.id.textView5);

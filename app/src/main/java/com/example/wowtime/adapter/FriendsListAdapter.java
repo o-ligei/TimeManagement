@@ -13,11 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.wowtime.R;
-import com.example.wowtime.component.AppListItem;
-import com.example.wowtime.component.FriendsListItem;
+import com.example.wowtime.dto.FriendsListItem;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class FriendsListAdapter extends BaseAdapter {
 

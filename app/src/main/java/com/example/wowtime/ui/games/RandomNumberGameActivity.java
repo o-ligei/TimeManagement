@@ -19,7 +19,7 @@ public class RandomNumberGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_random_number_game);
+        setContentView(R.layout.random_number_game_activity);
         TextView input = findViewById(R.id.input_number);
         input.setText("");
         for(int i = digit; i > 0 ; i--){

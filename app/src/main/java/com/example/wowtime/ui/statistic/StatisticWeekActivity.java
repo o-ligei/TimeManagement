@@ -36,7 +36,7 @@ public class StatisticWeekActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistic_week);
+        setContentView(R.layout.statistic_week_activity);
         bar = (BarChart) findViewById(R.id.weekBar);
         //添加数据
         list.add(new BarEntry(1, 8.1f,"今日事今日毕"));

@@ -9,10 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.wowtime.R;
-import com.example.wowtime.component.TaskListItem;
+import com.example.wowtime.dto.TaskListItem;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class TaskItemAdapter extends BaseAdapter {
 

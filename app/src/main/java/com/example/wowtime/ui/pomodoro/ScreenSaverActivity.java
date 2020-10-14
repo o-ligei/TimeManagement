@@ -100,7 +100,7 @@ public class ScreenSaverActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_screen_saver);
+        setContentView(R.layout.screen_saver_activity);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);

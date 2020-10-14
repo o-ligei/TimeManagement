@@ -1,4 +1,4 @@
-package com.example.wowtime.component;
+package com.example.wowtime.dto;
 
 public class TaskListItem {
     private String name;

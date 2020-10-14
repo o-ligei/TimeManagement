@@ -7,23 +7,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import java.util.LinkedList;
-import java.util.List;
-import android.os.Bundle;
-import android.widget.ListView;
 
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.AppItemAdapter;
 
-import java.util.LinkedList;
-
-import com.example.wowtime.component.AppListItem;
+import com.example.wowtime.dto.AppListItem;
 
 public class WhiteListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_white_list);
+        setContentView(R.layout.white_list_activity);
 
         LinkedList<AppListItem> appListItems = new LinkedList<>();
 

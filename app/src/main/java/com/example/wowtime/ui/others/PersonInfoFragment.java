@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.wowtime.R;
-import com.example.wowtime.ui.others.CreditDetailListActivity;
 
 public class PersonInfoFragment extends Fragment {
     public PersonInfoFragment(){}
@@ -29,7 +28,7 @@ public class PersonInfoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_person_infol, container, false);
+        View root = inflater.inflate(R.layout.person_info_activity, container, false);
         ConstraintLayout constraintLayout = root.findViewById(R.id.CreditLayout);
         constraintLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
         return root;

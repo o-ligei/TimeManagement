@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.FriendsListAdapter;
-import com.example.wowtime.component.FriendsListItem;
+import com.example.wowtime.dto.FriendsListItem;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class FriendsListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_friend_list, container, false);
+        View root = inflater.inflate(R.layout.friend_list_fragment, container, false);
 
         ArrayList<FriendsListItem> friendsListItems = new ArrayList<>();
         friendsListItems.add(new FriendsListItem(1, initImage, "aaaaa"));
