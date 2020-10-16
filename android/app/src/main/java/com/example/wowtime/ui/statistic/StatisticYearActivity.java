@@ -159,10 +159,28 @@ public class StatisticYearActivity extends AppCompatActivity {
         bar.animateXY(1500,1500);//XY两轴混合动画
 
         RadioButton radioButtonDay=findViewById(R.id.year_day);
-        radioButtonDay.setOnClickListener(v->startActivity(new Intent(StatisticYearActivity.this, StatisticDayActivity.class)));
+        radioButtonDay.setOnClickListener(v->{
+            startActivity((new Intent
+                (StatisticYearActivity.this, StatisticDayActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
+        });
         RadioButton radioButtonWeek=findViewById(R.id.year_week);
-        radioButtonWeek.setOnClickListener(v->startActivity(new Intent(StatisticYearActivity.this, StatisticWeekActivity.class)));
+        radioButtonWeek.setOnClickListener(v->{
+            startActivity((new Intent
+                    (StatisticYearActivity.this, StatisticWeekActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
+        });
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        // should Auto-generated method stub but it seems there is nothing
+        super.onNewIntent(intent);
+        //退出
+        if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
+            finish();
+        }
     }
 }
 

@@ -25,6 +25,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
+
 public class StatisticDayActivity extends AppCompatActivity {
 //    @Override
 //    protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -167,9 +169,27 @@ public class StatisticDayActivity extends AppCompatActivity {
 
 
         RadioButton radioButtonWeek=findViewById(R.id.day_week);
-        radioButtonWeek.setOnClickListener(v->startActivity(new Intent(StatisticDayActivity.this, StatisticWeekActivity.class)));
+        radioButtonWeek.setOnClickListener(v->{
+            startActivity((new Intent
+                (StatisticDayActivity.this, StatisticWeekActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
+        });
         RadioButton radioButtonYear=findViewById(R.id.day_year);
-        radioButtonYear.setOnClickListener(v->startActivity(new Intent(StatisticDayActivity.this, StatisticYearActivity.class)));
+        radioButtonYear.setOnClickListener(v->{
+            startActivity((new Intent
+                (StatisticDayActivity.this, StatisticYearActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
+        });
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        // should Auto-generated method stub but it seems there is nothing
+        super.onNewIntent(intent);
+        //退出
+        if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
+            finish();
+        }
     }
 }

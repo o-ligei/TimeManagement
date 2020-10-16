@@ -27,6 +27,8 @@ import com.github.mikephil.charting.utils.ViewPortHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
+
 public class StatisticWeekActivity extends AppCompatActivity {
 
     private BarChart bar;
@@ -183,10 +185,28 @@ public class StatisticWeekActivity extends AppCompatActivity {
 
 
         RadioButton radioButtonDay=findViewById(R.id.week_day);
-        radioButtonDay.setOnClickListener(v->startActivity(new Intent(StatisticWeekActivity.this, StatisticDayActivity.class)));
+        radioButtonDay.setOnClickListener(v->{
+            startActivity((new Intent
+                    (StatisticWeekActivity.this, StatisticDayActivity.class)).addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP));
+            finish();
+        });
         RadioButton radioButtonYear=findViewById(R.id.week_year);
-        radioButtonYear.setOnClickListener(v->startActivity(new Intent(StatisticWeekActivity.this, StatisticYearActivity.class)));
+        radioButtonYear.setOnClickListener(v->{
+            startActivity((new Intent
+                    (StatisticWeekActivity.this, StatisticYearActivity.class)).addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP));
+            finish();
+        });
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        // should Auto-generated method stub but it seems there is nothing
+        super.onNewIntent(intent);
+        //退出
+        if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
+            finish();
+        }
     }
 }
 
