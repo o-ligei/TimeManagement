@@ -10,16 +10,16 @@
     tools:context=".ui.statistic.StatisticDayActivity">
 
 
-    <TextView
-        android:id="@+id/textViewDayTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/statistic_day_content"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textViewDayTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/statistic_day_content"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
 
@@ -33,69 +33,70 @@
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintStart_toStartOf="parent" />-->
 
-<!--    <com.example.wowtime.PieChartView-->
-<!--        android:id="@+id/pie_chart"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="600dp"-->
-<!--        android:background="#FFCCBC"-->
-<!--        android:padding="20dp"-->
-<!--        app:circleRadius="100dp"-->
-<!--        app:textSize="13sp"-->
-<!--        tools:ignore="MissingConstraints"-->
-<!--        tools:layout_editor_absoluteX="-16dp"-->
-<!--        tools:layout_editor_absoluteY="-246dp" />-->
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/lightPink"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/textViewDayBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:text=""
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/chart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDayTop"
-        tools:ignore="MissingConstraints">
-
-        <RadioButton
-            android:id="@+id/day_day"
+        <!--    <com.example.wowtime.PieChartView-->
+        <!--        android:id="@+id/pie_chart"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="600dp"-->
+        <!--        android:background="#FFCCBC"-->
+        <!--        android:padding="20dp"-->
+        <!--        app:circleRadius="100dp"-->
+        <!--        app:textSize="13sp"-->
+        <!--        tools:ignore="MissingConstraints"-->
+        <!--        tools:layout_editor_absoluteX="-16dp"-->
+        <!--        tools:layout_editor_absoluteY="-246dp" />-->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:checked="true"
-            android:text="@string/statistic_switch_today"
-            android:textSize="16sp" />
+            android:layout_height="400dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/lightPink"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
-        <RadioButton
-            android:id="@+id/day_week"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/statistic_switch_week"
-            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textViewDayBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text=""
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <RadioButton
-            android:id="@+id/day_year"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/statistic_switch_year"
-            android:textSize="16sp" />
-    </RadioGroup>
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/chart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDayTop"
+            tools:ignore="MissingConstraints">
+
+            <RadioButton
+                android:id="@+id/day_day"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:checked="true"
+                android:text="@string/statistic_switch_today"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/day_week"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/statistic_switch_week"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/day_year"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/statistic_switch_year"
+                android:textSize="16sp" />
+        </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
