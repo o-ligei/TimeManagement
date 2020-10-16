@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,6 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.wowtime.R;
 import com.example.wowtime.databinding.ActivityMainBinding;
 
+import com.example.wowtime.ui.alarm.AlarmListFragment;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.alarm.TaskListActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,16 +47,30 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FloatingActionButton button=findViewById(R.id.fab_main);
-        button.setOnClickListener(v->startActivity(new Intent(MainActivity.this, ClockSettingActivity.class)));
+        button.setOnClickListener(v->{
+            Class<? extends Fragment> c=getPrimaryFragmentClass();
+            if(c==AlarmListFragment.class)
+                startActivity(new Intent(MainActivity.this, ClockSettingActivity.class));
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
         getMenuInflater().inflate(R.menu.main_header_menu, menu);
-
         return true;
+    }
+
+    private Fragment getCFragment(){
+        return   getSupportFragmentManager().findFragmentById(R.id.fragment_main);
+    }
+
+    public Class<? extends Fragment> getPrimaryFragmentClass() {
+        for (Fragment fragment : getCFragment().getChildFragmentManager().getFragments()){
+            if (fragment!=null)
+                return fragment.getClass();
+        }
+        return null;
     }
 
 }
