@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.view.Menu;
 import android.widget.RadioButton;
 
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wowtime.R;
@@ -191,5 +193,12 @@ public class StatisticDayActivity extends AppCompatActivity {
         if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
             finish();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        return super.onCreateOptionsMenu(menu);
     }
 }

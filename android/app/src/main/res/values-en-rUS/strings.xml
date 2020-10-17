@@ -49,6 +49,11 @@
     <string name="game_setting_title">Select game</string>
     <string name="alarm_list_title">alarm</string>
 
+    <!-- Strings used for clock setting-->
+    <string name="pomodoro_setting_title">Setting pomorodo</string>
+    <string name="pomodoro_setting_time">Total duration</string>
+
+
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
     <string name="navigation_login">Log in</string>

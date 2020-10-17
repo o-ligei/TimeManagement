@@ -48,6 +48,10 @@
     <string name="game_setting_title">设置小游戏</string>
     <string name="alarm_list_title">闹钟</string>
 
+    <!-- Strings used for clock setting-->
+    <string name="pomodoro_setting_title">设置远离手机任务</string>
+    <string name="pomodoro_setting_time">总时长</string>
+
     <string name="personinfo_name">个人信息</string>
     <string name="friendslist_name">好友列表</string>
     <string name="creditdetail_name">积分详情</string>

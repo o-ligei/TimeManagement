@@ -2,8 +2,10 @@ package com.example.wowtime.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wowtime.R;
@@ -20,5 +22,12 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
         useRegisterTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class)));
 //        Button login = findViewById(R.id.button6);
 //        login.setOnClickListener(v -> startActivity(new Intent(LoginActivity1.this, PersonInfo.class)));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        return super.onCreateOptionsMenu(menu);
     }
 }

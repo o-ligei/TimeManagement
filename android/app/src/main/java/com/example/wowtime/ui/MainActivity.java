@@ -20,6 +20,8 @@ import com.example.wowtime.databinding.ActivityMainBinding;
 import com.example.wowtime.ui.alarm.AlarmListFragment;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.alarm.TaskListActivity;
+import com.example.wowtime.ui.pomodoro.PomodoroListFragment;
+import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
             Class<? extends Fragment> c=getPrimaryFragmentClass();
             if(c==AlarmListFragment.class)
                 startActivity(new Intent(MainActivity.this, ClockSettingActivity.class));
+            if(c== PomodoroListFragment.class)
+                startActivity(new Intent(MainActivity.this, PomodoroSettingActivity.class));
         });
     }
 
