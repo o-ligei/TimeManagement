@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wowtime.R;
+import com.example.wowtime.util.UserInfoAfterLogin;
 
 public class LoginActivityWithAuthActivity extends AppCompatActivity {
 
