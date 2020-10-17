@@ -48,9 +48,12 @@
     <string name="game_setting_title">设置小游戏</string>
     <string name="alarm_list_title">闹钟</string>
 
-    <!-- Strings used for clock setting-->
+    <!-- Strings used for pomomdoro setting-->
     <string name="pomodoro_setting_title">设置远离手机任务</string>
     <string name="pomodoro_setting_time">总时长</string>
+    <string name="pomodoro_mode">选择模式</string>
+    <string name="pomodoro_rest1">每专注</string>
+    <string name="pomodoro_rest2">允许休息</string>
 
     <string name="personinfo_name">个人信息</string>
     <string name="friendslist_name">好友列表</string>
@@ -117,7 +120,7 @@
     <string name="screen_saver_content">为中华崛起\n而读书</string>
 
     <string name="pomodoro_list_title">番茄钟</string>
-    <string name="pomodoro_start_button">开始！</string>
+    <string name="pomodoro_start_button">开始</string>
 
     <!--strings for menu-->
     <string name="menu_exit">退出</string>

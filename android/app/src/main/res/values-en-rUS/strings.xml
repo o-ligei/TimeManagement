@@ -49,9 +49,12 @@
     <string name="game_setting_title">Select game</string>
     <string name="alarm_list_title">alarm</string>
 
-    <!-- Strings used for clock setting-->
+    <!-- Strings used for pomomdoro setting-->
     <string name="pomodoro_setting_title">Setting pomorodo</string>
     <string name="pomodoro_setting_time">Total duration</string>
+    <string name="pomodoro_mode">Select mode</string>
+    <string name="pomodoro_rest1">Be focused for</string>
+    <string name="pomodoro_rest2">Allow to rest for</string>
 
 
     <!--strings for navigation-->
@@ -127,7 +130,7 @@
     <string name="screen_saver_content">STUDY\nFOR THE RISE OF CHINA</string>
 
     <string name="pomodoro_list_title">POMODORA</string>
-    <string name="pomodoro_start_button">START!</string>
+    <string name="pomodoro_start_button">START</string>
 
     <!--strings for random number input -->
     <string name="number_input_title">please input number below：</string>
