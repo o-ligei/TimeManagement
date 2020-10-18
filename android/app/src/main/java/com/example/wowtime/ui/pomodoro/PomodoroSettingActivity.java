@@ -2,6 +2,9 @@ package com.example.wowtime.ui.pomodoro;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -44,6 +48,10 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
         resizePikcer(timePicker2);
         resizePikcer(timePicker3);
+
+        TextView textView=findViewById(R.id.PomodoroSelectWhiteListText);
+        textView.setOnClickListener(v->startActivity(new Intent(PomodoroSettingActivity.this,WhiteListActivity.class)));
+//        getAppList();
     }
 
 
@@ -138,7 +146,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     }
 
 
-    // 如下代码直接跳到该应用的系统权限设置页面
+    // 如下代码直接跳到该应用的悬浮窗权限设置页面
     private Boolean requestOverlayPermission() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (!Settings.canDrawOverlays(this)) {

@@ -55,6 +55,7 @@
     <string name="pomodoro_mode">Select mode</string>
     <string name="pomodoro_rest1">Be focused for</string>
     <string name="pomodoro_rest2">Allow to rest for</string>
+    <string name="item_application_name">QQ</string>
 
 
     <!--strings for navigation-->
