@@ -1,6 +1,5 @@
 package com.example.wowtime.ui.pomodoro;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 
 import java.util.ArrayList;
@@ -47,6 +45,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         resizePikcer(timePicker2);
         resizePikcer(timePicker3);
     }
+
 
     /**
      * 调整FrameLayout大小
@@ -94,6 +93,8 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     }
 
 
+
+    //float window
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void startFloatingImageDisplayService(View view) {
         if (FloatingImageDisplayService.isStarted) {
@@ -107,6 +108,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         }
     }
 
+    //grant authorization of floatingWindow
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
