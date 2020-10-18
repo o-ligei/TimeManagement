@@ -1,6 +1,7 @@
 package com.example.wowtime.ui.pomodoro;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
@@ -33,10 +34,10 @@ public class FloatingImageDisplayService extends Service {
 
     private View displayView;
 
-    private int[] images;
-    private int imageIndex = 0;
-
-    private Handler changeImageHandler;
+//    private int[] images;
+//    private int imageIndex = 0;
+//
+//    private Handler changeImageHandler;
 
     @Override
     public void onCreate() {
@@ -52,21 +53,27 @@ public class FloatingImageDisplayService extends Service {
         layoutParams.format = PixelFormat.RGBA_8888;
         layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-        layoutParams.width = 500;
-        layoutParams.height = 500;
-        layoutParams.x = 300;
-        layoutParams.y = 300;
 
-        images = new int[] {
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        assert wm != null;
+        int width = wm.getDefaultDisplay().getWidth();
+        int height = wm.getDefaultDisplay().getHeight();
 
-                R.drawable.image_04,
-                R.drawable.image_05,
-                R.drawable.image_04,
-                R.drawable.image_05,
-                R.drawable.image_04
-        };
+        layoutParams.width = width;
+        layoutParams.height = height;
+        layoutParams.x = 0;
+        layoutParams.y = 0;
 
-        changeImageHandler = new Handler(this.getMainLooper(), changeImageCallback);
+//        images = new int[] {
+//
+//                R.drawable.image_04,
+//                R.drawable.image_05,
+//                R.drawable.image_04,
+//                R.drawable.image_05,
+//                R.drawable.image_04
+//        };
+
+//        changeImageHandler = new Handler(this.getMainLooper(), changeImageCallback);
     }
 
     @Nullable
@@ -86,33 +93,34 @@ public class FloatingImageDisplayService extends Service {
     private void showFloatingWindow() {
         if (Settings.canDrawOverlays(this)) {
             LayoutInflater layoutInflater = LayoutInflater.from(this);
-            displayView = layoutInflater.inflate(R.layout.image_display, null);
+            displayView=layoutInflater.inflate(R.layout.screen_saver_activity,null);
+//            displayView = layoutInflater.inflate(R.layout.image_display, null);
             displayView.setOnTouchListener(new FloatingOnTouchListener());
-            ImageView imageView = displayView.findViewById(R.id.image_display_imageview);
-            imageView.setImageResource(images[imageIndex]);
+//            ImageView imageView = displayView.findViewById(R.id.image_display_imageview);
+//            imageView.setImageResource(images[imageIndex]);
             windowManager.addView(displayView, layoutParams);
 
-            changeImageHandler.sendEmptyMessageDelayed(0, 2000);
+//            changeImageHandler.sendEmptyMessageDelayed(0, 2000);
         }
     }
 
-    private Handler.Callback changeImageCallback = new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            if (msg.what == 0) {
-                imageIndex++;
-                if (imageIndex >= 5) {
-                    imageIndex = 0;
-                }
-                if (displayView != null) {
-                    ((ImageView) displayView.findViewById(R.id.image_display_imageview)).setImageResource(images[imageIndex]);
-                }
-
-                changeImageHandler.sendEmptyMessageDelayed(0, 2000);
-            }
-            return false;
-        }
-    };
+//    private Handler.Callback changeImageCallback = new Handler.Callback() {
+//        @Override
+//        public boolean handleMessage(Message msg) {
+//            if (msg.what == 0) {
+//                imageIndex++;
+//                if (imageIndex >= 5) {
+//                    imageIndex = 0;
+//                }
+//                if (displayView != null) {
+//                    ((ImageView) displayView.findViewById(R.id.image_display_imageview)).setImageResource(images[imageIndex]);
+//                }
+//
+//                changeImageHandler.sendEmptyMessageDelayed(0, 2000);
+//            }
+//            return false;
+//        }
+//    };
 
     private class FloatingOnTouchListener implements View.OnTouchListener {
         private int x;
