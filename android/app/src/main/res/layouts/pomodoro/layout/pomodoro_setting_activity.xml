@@ -175,6 +175,7 @@
         android:width="120dp"
         android:height="120dp"
         app:layout_constraintTop_toBottomOf="@id/PomodoroSetRestTimeContent"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:onClick="startFloatingImageDisplayService"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
