@@ -2,19 +2,28 @@ package com.example.wowtime.ui.alarm;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.AlarmItemAdapter;
 import com.example.wowtime.dto.AlarmListItem;
+import com.example.wowtime.ui.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 //public class AlarmList extends AppCompatActivity {
 //
@@ -37,6 +46,8 @@ import java.util.ArrayList;
 //    }
 //}
 public class AlarmListFragment extends Fragment{
+    ArrayList<AlarmListItem> alarmList = new ArrayList<>();
+
     public AlarmListFragment(){}
 
     public AlarmListFragment(int contentLayoutId) {
@@ -46,37 +57,76 @@ public class AlarmListFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.alarm_list_fragment, container, false);
-        ArrayList<AlarmListItem> test = new ArrayList<>();
-        AlarmListItem alarm1 = new AlarmListItem("ICS 不重复", "23:00");
-        AlarmListItem alarm2 = new AlarmListItem("CSE 每天", "06:00");
-        AlarmListItem alarm3 = new AlarmListItem("编译 周二", "08:00");
-        AlarmListItem alarm4 = new AlarmListItem("ICS 不重复", "23:00");
-        AlarmListItem alarm5 = new AlarmListItem("啦啦 每天", "06:00");
-        AlarmListItem alarm6 = new AlarmListItem("123 周一", "08:00");
-        AlarmListItem alarm7 = new AlarmListItem("ICS 不重复", "23:00");
-        AlarmListItem alarm8 = new AlarmListItem("CSE 每天", "06:00");
-        AlarmListItem alarm9 = new AlarmListItem("编译 周二", "08:00");
-        test.add(alarm1);
-        test.add(alarm2);
-        test.add(alarm3);
-        test.add(alarm4);
-        test.add(alarm5);
-        test.add(alarm6);
-        test.add(alarm7);
-        test.add(alarm8);
-        test.add(alarm9);
-
-        AlarmItemAdapter adapter = new AlarmItemAdapter(test, getContext());
-        ListView listView = root.findViewById(R.id.AlarmCardList);
-        listView.setAdapter(adapter);
-
+//        AlarmItemAdapter adapter = new AlarmItemAdapter(alarmList, getContext());
+//        ListView listView = root.findViewById(R.id.AlarmCardList);
+//        listView.setAdapter(adapter);
+//        System.out.println(Uri.parse("R.raw.radar"));
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences mySharedPreferences= requireActivity().getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
+        String dto=mySharedPreferences.getString("list","");
+        System.out.println("dto:"+dto);
+        AlarmItemAdapter adapter = new AlarmItemAdapter(alarmList, getContext());
+        ListView listView = requireView().findViewById(R.id.AlarmCardList);
+        if(dto==null|| dto.equals("")){
+            return;
+        }
+        String [] alarms=dto.split(";");
+        for (String alarm:alarms){
+            String [] attributes=alarm.split(",");
+            AlarmListItem alarmListItem=new AlarmListItem(attributes[0],attributes[3],attributes[1],attributes[2],Integer.parseInt(attributes[4]),Integer.parseInt(attributes[5]));
+            alarmList.add(alarmListItem);
+        }
+        listView.setAdapter(adapter);
+
+//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+//                new AlertDialog.Builder(getView()).setTitle("操作").setItems(new CharSequence[]{"删除"}, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        switch (which){
+//                            case 0:
+//                                deleteAlarm(position);
+//                                reRender();
+//                                break;
+//                            default:
+//                                break;
+//                        }
+//                    }
+//                }).setNegativeButton("取消",null).show();
+//                return true;
+//            }
+//        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SharedPreferences mySharedPreferences= requireActivity().getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mySharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+//    private void deleteAlarm(int position){
+//        alarmList.remove(position);
+//    }
+//
+//    private void reRender(){
+//        AlarmItemAdapter adapter = new AlarmItemAdapter(alarmList, getContext());
+//        ListView listView = requireView().findViewById(R.id.AlarmCardList);
+//        listView.setAdapter(adapter);
+//    }
 }

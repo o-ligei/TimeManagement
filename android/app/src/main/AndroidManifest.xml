@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wowtime" >
+    package="com.example.wowtime">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
@@ -10,13 +10,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".ui.games.RandomNumberGameActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/AppTheme">
+        <activity android:name=".ui.alarm.AlarmPlay"/>
+        <activity android:name=".ui.alarm.ClockFrequencyActivity" />
+        <activity android:name=".ui.alarm.TagSettingActivity" />
+        <activity android:name=".ui.games.RandomNumberGameActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".ui.games.BlowingGameActivity" />
         <activity android:name=".ui.games.ShakingGameActivity" />
@@ -26,7 +29,6 @@
         <!-- android:label="@string/title_activity_screen_saver" -->
         <!-- android:theme="@style/FullscreenTheme"></activity> -->
         <activity android:name=".ui.games.CalculateGameActivity" />
-
         <activity
             android:name=".ui.others.SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -51,7 +53,7 @@
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
