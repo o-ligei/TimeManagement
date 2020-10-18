@@ -10,8 +10,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wowtime.R;
+import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.util.InternetConstant;
+import com.example.wowtime.util.UserInfoAfterLogin;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +45,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
 //        login.setOnClickListener(v -> startActivity(new Intent(LoginActivity1.this, PersonInfo.class)));
         Button btn_get_captcha = findViewById(R.id.btn_captcha_get_in_auth);
         btn_get_captcha.setOnClickListener(v -> OKGetCaptcha());
+        Button btn_login = findViewById(R.id.btn_login_in_auth);
+        btn_login.setOnClickListener(v -> OKLoginWitchAuth());
     }
 
     private void OKGetCaptcha(){
@@ -117,8 +121,13 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 String msg = null;
+                String str_data = null;
+                String userid = null;
                 try {
                     msg = jsonObject.get("msg").toString();
+                    str_data = jsonObject.get("data").toString();
+                    JSONObject data = new JSONObject(str_data);
+                    userid = data.get("userid").toString();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -126,7 +135,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                 toast.show();
                 if(msg.equals("success"))
                 {
-                    Intent intent = new Intent(LoginActivityWithAuthActivity.this, ClockSettingActivity.class);
+                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
+                    Intent intent = new Intent(LoginActivityWithAuthActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
