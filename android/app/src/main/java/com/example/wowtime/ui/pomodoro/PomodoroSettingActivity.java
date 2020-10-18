@@ -32,6 +32,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
 //    private FloatView mFloatView;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,9 +50,37 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         resizePikcer(timePicker2);
         resizePikcer(timePicker3);
 
+        timePicker.setHour(0);
+        timePicker.setMinute(30);
+        timePicker2.setHour(0);
+        timePicker2.setMinute(30);
+        timePicker3.setHour(0);
+        timePicker3.setMinute(10);
+
         TextView textView=findViewById(R.id.PomodoroSelectWhiteListText);
         textView.setOnClickListener(v->startActivity(new Intent(PomodoroSettingActivity.this,WhiteListActivity.class)));
 //        getAppList();
+
+        Button button=findViewById(R.id.setPomodoroButton);
+        button.setOnClickListener(v->{
+            int minute=timePicker.getMinute();
+            int hour=timePicker.getHour();
+            int time=minute*60*1000+hour*3600*1000;
+            startFloatingImageDisplayService(button);
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        sleep(5000);
+                    } catch (InterruptedException e) {
+                        System.out.println("interrupt when sleep");
+                        e.printStackTrace();
+                    }
+                    stopFloatingImageDisplayService(button);
+                }
+            }.start();
+        });
     }
 
 
@@ -114,6 +143,13 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         } else {
             startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
         }
+    }
+
+    public void stopFloatingImageDisplayService(View view) {
+        if (!FloatingImageDisplayService.isStarted) {
+            return;
+        }
+        stopService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
     }
 
     //grant authorization of floatingWindow

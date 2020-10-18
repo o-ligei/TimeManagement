@@ -99,9 +99,14 @@ public class FloatingImageDisplayService extends Service {
 //            ImageView imageView = displayView.findViewById(R.id.image_display_imageview);
 //            imageView.setImageResource(images[imageIndex]);
             windowManager.addView(displayView, layoutParams);
-
 //            changeImageHandler.sendEmptyMessageDelayed(0, 2000);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        windowManager.removeView(displayView);
     }
 
 //    private Handler.Callback changeImageCallback = new Handler.Callback() {
