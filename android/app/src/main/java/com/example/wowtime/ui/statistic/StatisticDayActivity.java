@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.view.Menu;
 import android.widget.RadioButton;
 
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wowtime.R;
@@ -24,6 +26,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 
 public class StatisticDayActivity extends AppCompatActivity {
 //    @Override
@@ -167,9 +171,36 @@ public class StatisticDayActivity extends AppCompatActivity {
 
 
         RadioButton radioButtonWeek=findViewById(R.id.day_week);
-        radioButtonWeek.setOnClickListener(v->startActivity(new Intent(StatisticDayActivity.this, StatisticWeekActivity.class)));
+        radioButtonWeek.setOnClickListener(v->{
+//            startActivity((new Intent
+//                (StatisticDayActivity.this, StatisticWeekActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(StatisticDayActivity.this, StatisticWeekActivity.class));
+            finish();
+        });
         RadioButton radioButtonYear=findViewById(R.id.day_year);
-        radioButtonYear.setOnClickListener(v->startActivity(new Intent(StatisticDayActivity.this, StatisticYearActivity.class)));
+        radioButtonYear.setOnClickListener(v->{
+//            startActivity((new Intent
+//                (StatisticDayActivity.this, StatisticYearActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(StatisticDayActivity.this, StatisticYearActivity.class));
+            finish();
+        });
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        // should Auto-generated method stub but it seems there is nothing
+        super.onNewIntent(intent);
+        //退出
+        if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
+            finish();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        return super.onCreateOptionsMenu(menu);
     }
 }

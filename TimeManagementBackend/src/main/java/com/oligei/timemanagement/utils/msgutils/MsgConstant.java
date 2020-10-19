@@ -12,6 +12,13 @@ public final class MsgConstant {
     public static final Integer EXPIRED_CAPTCHA = 207;
     public static final Integer PHONE_FOUND = 208;
     public static final Integer EMAIL_SEND_FAILURE = 209;
+    public static final Integer NOT_ONLINE = 210;
+    public static final Integer NEW_FRIEND_REQUEST = 211;
+    public static final Integer REMAIN_FRIEND_REQUEST = 212;
+    public static final Integer CONNECTION_FAILURE = 213;
+    public static final Integer ALREADY_FRIEND = 214;
+    public static final Integer ALREADY_SEND_FRIEND_REQUEST = 215;
+    public static final Integer NEW_FRIEND = 216;
 
     public static final String SUCCESS_MESSAGE = "success";
     public static final String WRONG_PASSWORD_MESSAGE = "wrong password";
@@ -23,6 +30,13 @@ public final class MsgConstant {
     public static final String EXPIRED_CAPTCHA_MESSAGE = "captcha expired";
     public static final String PHONE_FOUND_MESSAGE = "phone number found";
     public static final String EMAIL_SEND_FAILURE_MESSAGE = "email sending failure";
+    public static final String NOT_ONLINE_MESSAGE = "not online";
+    public static final String NEW_FRIEND_REQUEST_MESSAGE = "new friend request";
+    public static final String REMAIN_FRIEND_REQUEST_MESSAGE = "remain friend request";
+    public static final String CONNECTION_FAILURE_MESSAGE = "connection failure";
+    public static final String ALREADY_FRIEND_MESSAGE = "already friend";
+    public static final String ALREADY_SEND_FRIEND_REQUEST_MESSAGE = "already send friend request";
+    public static final String NEW_FRIEND_MESSAGE = "new friend";
 
     public static final Integer NULL_ARGUMENT = -1;
 
