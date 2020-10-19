@@ -3,19 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.wowtime" >
 
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".MainApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m"
         >
+      
         <activity android:name=".ui.games.RandomNumberGameActivity" />
+        <service android:name=".ui.pomodoro.FloatingImageDisplayService"/>
         <activity android:name=".ui.games.BlowingGameActivity" />
         <activity android:name=".ui.games.ShakingGameActivity" />
         <activity android:name=".ui.others.AboutActivity" /> <!-- <activity -->
@@ -37,8 +42,7 @@
             android:name=".ui.pomodoro.GameSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.alarm.RingSettingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".ui.alarm.RingSettingActivity"/>
         <activity android:name=".ui.alarm.TaskListActivity" />
         <activity android:name=".ui.alarm.TaskSuccessActivity" />
         <activity android:name=".ui.pomodoro.WhiteListActivity" />
@@ -48,7 +52,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,6 +74,8 @@
         <activity android:name=".ui.others.AchievementActivity" />
         <activity android:name=".ui.statistic.StatisticWeekActivity" />
         <activity android:name=".ui.statistic.StatisticYearActivity" />
+        <activity android:name=".ui.pomodoro.PomodoroSettingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

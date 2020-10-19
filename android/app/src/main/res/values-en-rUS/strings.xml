@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WowTime</string>
+    <string name="app_name">HiTime</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -48,6 +48,15 @@
     <string name="ring_setting_title">Setting ring</string>
     <string name="game_setting_title">Select game</string>
     <string name="alarm_list_title">alarm</string>
+
+    <!-- Strings used for pomomdoro setting-->
+    <string name="pomodoro_setting_title">Setting pomorodo</string>
+    <string name="pomodoro_setting_time">Total duration</string>
+    <string name="pomodoro_mode">Select mode</string>
+    <string name="pomodoro_rest1">Be focused for</string>
+    <string name="pomodoro_rest2">Allow to rest for</string>
+    <string name="item_application_name">QQ</string>
+
 
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
@@ -122,7 +131,7 @@
     <string name="screen_saver_content">STUDY\nFOR THE RISE OF CHINA</string>
 
     <string name="pomodoro_list_title">POMODORA</string>
-    <string name="pomodoro_start_button">START!</string>
+    <string name="pomodoro_start_button">START</string>
 
     <!--strings for random number input -->
     <string name="number_input_title">please input number below：</string>
