@@ -3,7 +3,11 @@ package com.example.wowtime.ui.alarm;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.view.Menu;
 import android.widget.ListView;
 
@@ -21,14 +25,30 @@ public class RingSettingActivity extends AppCompatActivity {
 
 
         ArrayList<String> arr=new ArrayList<>();
-        for (int i=0;i<20;i++){
-            String title="ring"+ i;
-            arr.add(title);
-        }
+        arr.add("radar");
+        arr.add("classic");
         RingItemAdapter adapter=new RingItemAdapter(arr,getApplicationContext());
 //        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,R.layout.ring_list_item,arr);
         ListView listView = findViewById(R.id.RingSettingList);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SharedPreferences mySharedPreferences= getSharedPreferences("clock", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = mySharedPreferences.edit();
+//                System.out.println(taskItemAdapter.getItem(position).toString());
+                editor.putString("ring", adapter.getItem(position).toString());
+                editor.apply();
+                finish();
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

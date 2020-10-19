@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.example.wowtime.R;
 import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 
+import java.util.Random;
+
 public class RandomNumberGameActivity extends AppCompatActivity {
     int digit = 3;
     StringBuilder targetNumber = new StringBuilder();
@@ -23,7 +25,8 @@ public class RandomNumberGameActivity extends AppCompatActivity {
         TextView input = findViewById(R.id.input_number);
         input.setText("");
         for(int i = digit; i > 0 ; i--){
-            targetNumber.append((int) (Math.random() * 10));
+            Random random=new Random();
+            targetNumber.append((int) (random.nextInt(10)));
         }
         TextView targetText = findViewById(R.id.target_number);
         targetText.setText(targetNumber.toString());
