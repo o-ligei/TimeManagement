@@ -65,21 +65,49 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         button.setOnClickListener(v->{
             int minute=timePicker.getMinute();
             int hour=timePicker.getHour();
-            int time=minute*60*1000+hour*3600*1000;
-            startFloatingImageDisplayService(button);
-            new Thread(){
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-                        sleep(5000);
-                    } catch (InterruptedException e) {
-                        System.out.println("interrupt when sleep");
-                        e.printStackTrace();
+            int totalTime=minute*60*1000+hour*3600*1000;
+            int minute2=timePicker2.getMinute();
+            int hour2=timePicker2.getHour();
+            int time=minute2*60*1000+hour2*3600*1000;
+            int minute3=timePicker3.getMinute();
+            int hour3=timePicker3.getHour();
+            int rest=minute3*60*1000+hour3*3600*1000;
+
+            int count=totalTime/(time+rest);
+
+//            for(int i=0;i<count;++i){
+                startFloatingImageDisplayService(button);
+                Thread t=new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        try {
+                            sleep(30*1000);
+                            System.out.println(30);
+                        } catch (InterruptedException e) {
+                            System.out.println("interrupt when screen saver");
+                            e.printStackTrace();
+                        }
+                        stopFloatingImageDisplayService(button);
+                        try {
+                            sleep(10*1000);
+                            System.out.println(10);
+                        } catch (InterruptedException e) {
+                            System.out.println("interrupt when rest");
+                            e.printStackTrace();
+                        }
                     }
-                    stopFloatingImageDisplayService(button);
-                }
-            }.start();
+                };
+                t.start();
+//                try {
+//                    System.out.println("join");
+//                    t.join();
+//                } catch (InterruptedException e) {
+//                    System.out.println("interrupt when task");
+//                    e.printStackTrace();
+//                }
+//            }
+
         });
     }
 
@@ -135,20 +163,24 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void startFloatingImageDisplayService(View view) {
         if (FloatingImageDisplayService.isStarted) {
+            System.out.println("Floating window is already start!" );
             return;
         }
         if (!Settings.canDrawOverlays(this)) {
             Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
             startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 1);
         } else {
+            System.out.println("Floating window starts!" );
             startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
         }
     }
 
     public void stopFloatingImageDisplayService(View view) {
         if (!FloatingImageDisplayService.isStarted) {
+            System.out.println("Floating window is already stoppped!" );
             return;
         }
+        System.out.println("Floating window stops!" );
         stopService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
     }
 

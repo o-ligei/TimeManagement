@@ -70,7 +70,7 @@ public class WhiteListActivity extends AppCompatActivity {
             @Override
             public void run() {
                 super.run();
-                //扫描得到APP列表//????????
+                //扫描得到APP列表
                 final List<MyAppInfo> appInfos = ApkTool.scanLocalInstallAppList(WhiteListActivity.this.getPackageManager());
                 if(appInfos==null)
                     Toast.makeText(getApplicationContext(),"获取应用失败",Toast.LENGTH_SHORT).show();
