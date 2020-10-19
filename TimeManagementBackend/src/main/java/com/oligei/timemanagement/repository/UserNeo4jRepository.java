@@ -14,4 +14,9 @@ public interface UserNeo4jRepository extends Neo4jRepository<UserNeo4j, Long> {
             "WHERE a.userid=$userId\n" +
             "RETURN b")
     List<UserNeo4j> getFriendsList(String userId);
+
+    @Query("MATCH (a:tm_users)-[:ASK]->(b:tm_users)\n" +
+            "WHERE b.userid = $userId\n" +
+            "RETURN a")
+    List<UserNeo4j> getFriendRequest(String userId);
 }
