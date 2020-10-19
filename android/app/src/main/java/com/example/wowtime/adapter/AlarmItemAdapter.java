@@ -73,27 +73,59 @@ public class AlarmItemAdapter extends BaseAdapter {
                     calendar.set(Calendar.SECOND,0);
                     calendar.set(Calendar.MILLISECOND,0);
                     Calendar currentTime=Calendar.getInstance();
-                    if (calendar.getTimeInMillis()<=currentTime.getTimeInMillis()){
-                        calendar.setTimeInMillis(calendar.getTimeInMillis()+24*60*60*1000);
-                    }
                     alarmManager= (AlarmManager) (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
                     Intent intent = new Intent(mContext, AlarmPlay.class);
                     intent.putExtra("ring",mData.get(position).getRing());
                     pi=PendingIntent.getActivity(mContext, 0, intent, 0);
-//                    if(mData.get(position).getFrequency().equals("无重复")) {
+                    if(mData.get(position).getFrequency().equals("无重复")) {
+                        System.out.println("无重复闹钟");
+                        if (calendar.getTimeInMillis()<=currentTime.getTimeInMillis()){
+                            calendar.setTimeInMillis(calendar.getTimeInMillis()+24*60*60*1000);
+                        }
                         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
-//                    }
-//                    else if(mData.get(position).getFrequency().equals("每天")){
-//                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),24*60*60*1000, pi);
-//                    }
-//                    else{
-//                        int weekday=calendar.get(Calendar.DAY_OF_WEEK);
-//                        if(mData.get(position).getFrequency().equals("每周一")){
-//                            long time=
-//                        }
-//                    }
-//                }else{
-//                    alarmManager.cancel(pi);
+                    }
+                    else if(mData.get(position).getFrequency().equals("每天")){
+                        System.out.println("每日闹钟");
+                        if (calendar.getTimeInMillis()<=currentTime.getTimeInMillis()){
+                            calendar.setTimeInMillis(calendar.getTimeInMillis()+24*60*60*1000);
+                        }
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),24*60*60*1000, pi);
+                    }
+                    else{
+                        int currentWeekday=calendar.get(Calendar.DAY_OF_WEEK);
+                        int setWeekday=currentWeekday;
+                        System.out.println(mData.get(position).getFrequency()+"闹钟");
+                        System.out.println("currentWeekday:"+currentWeekday);
+                        if(mData.get(position).getFrequency().equals("每周一")){
+                            setWeekday=2;
+                        }
+                        if(mData.get(position).getFrequency().equals("每周二")){
+                            setWeekday=3;
+                        }
+                        if(mData.get(position).getFrequency().equals("每周三")){
+                            setWeekday=4;
+                        }
+                        if(mData.get(position).getFrequency().equals("每周四")){
+                            setWeekday=5;
+                        }
+                        if(mData.get(position).getFrequency().equals("每周五")){
+                            setWeekday=6;
+                        }
+                        if(mData.get(position).getFrequency().equals("每周六")){
+                            setWeekday=7;
+                        }
+                        if(mData.get(position).getFrequency().equals("每周日")){
+                            setWeekday=1;
+                        }
+                        int delta_day=setWeekday-currentWeekday;
+                        if(delta_day<0){
+                            delta_day+=7;
+                        }
+                        long start_time=calendar.getTimeInMillis()+24*60*60*1000*delta_day;
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,start_time,24*60*60*1000*7, pi);
+                    }
+                }else{
+                    alarmManager.cancel(pi);
                 }
             }
         });
