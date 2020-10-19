@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WowTime</string>
+    <string name="app_name">HiTime</string>
     <string name="action_settings">设置</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -37,16 +37,24 @@
     <string name="clock_setting_title">设置闹钟</string>
     <string name="clock_setting_store">存储</string>
     <string name="clock_setting_tag_title">标签</string>
-    <string name="clock_setting_tag_default"> 闹钟 > </string>
+    <string name="clock_setting_tag_default">闹钟</string>
     <string name="clock_setting_ring_title">铃声</string>
-    <string name="clock_setting_ring_default">雷达 ></string>
+    <string name="clock_setting_ring_default">雷达</string>
     <string name="clock_setting_game_title">小游戏</string>
-    <string name="clock_setting_game_default">随机 ></string>
+    <string name="clock_setting_game_default">随机</string>
     <string name="clock_setting_repeat_title">重复</string>
-    <string name="clock_setting_repeat_select">每天 ></string>
+    <string name="clock_setting_repeat_select">每天</string>
     <string name="ring_setting_title">设置铃声</string>
     <string name="game_setting_title">设置小游戏</string>
     <string name="alarm_list_title">闹钟</string>
+
+    <!-- Strings used for pomomdoro setting-->
+    <string name="pomodoro_setting_title">设置远离手机任务</string>
+    <string name="pomodoro_setting_time">总时长</string>
+    <string name="pomodoro_mode">选择模式</string>
+    <string name="pomodoro_rest1">每专注</string>
+    <string name="pomodoro_rest2">允许休息</string>
+    <string name="item_application_name">QQ</string>
 
     <string name="personinfo_name">个人信息</string>
     <string name="friendslist_name">好友列表</string>
@@ -113,7 +121,7 @@
     <string name="screen_saver_content">为中华崛起\n而读书</string>
 
     <string name="pomodoro_list_title">番茄钟</string>
-    <string name="pomodoro_start_button">开始！</string>
+    <string name="pomodoro_start_button">开始</string>
 
     <!--strings for menu-->
     <string name="menu_exit">退出</string>

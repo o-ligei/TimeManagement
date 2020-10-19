@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.view.Menu;
 import android.widget.RadioButton;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wowtime.R;
@@ -159,10 +161,37 @@ public class StatisticYearActivity extends AppCompatActivity {
         bar.animateXY(1500,1500);//XY两轴混合动画
 
         RadioButton radioButtonDay=findViewById(R.id.year_day);
-        radioButtonDay.setOnClickListener(v->startActivity(new Intent(StatisticYearActivity.this, StatisticDayActivity.class)));
+        radioButtonDay.setOnClickListener(v->{
+//            startActivity((new Intent
+//                (StatisticYearActivity.this, StatisticDayActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(StatisticYearActivity.this, StatisticDayActivity.class));
+            finish();
+        });
         RadioButton radioButtonWeek=findViewById(R.id.year_week);
-        radioButtonWeek.setOnClickListener(v->startActivity(new Intent(StatisticYearActivity.this, StatisticWeekActivity.class)));
+        radioButtonWeek.setOnClickListener(v->{
+//            startActivity((new Intent
+//                    (StatisticYearActivity.this, StatisticWeekActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(StatisticYearActivity.this, StatisticWeekActivity.class));
+            finish();
+        });
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        // should Auto-generated method stub but it seems there is nothing
+        super.onNewIntent(intent);
+        //退出
+        if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
+            finish();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        return super.onCreateOptionsMenu(menu);
     }
 }
 
