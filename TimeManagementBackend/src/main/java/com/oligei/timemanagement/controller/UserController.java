@@ -114,4 +114,26 @@ public class UserController {
             return new Msg<>(MsgCode.NULL_ARGUMENT);
         }
     }
+
+    @RequestMapping("/ResetPassword")
+    public Msg<Boolean> resetPassword(@RequestParam(name = "phone") String phone,
+                                      @RequestParam(name = "password") String password) {
+        try {
+            return userService.resetPassword(phone, password);
+        } catch (NullPointerException e) {
+            logger.error("NullPointerException", e);
+            return new Msg<>(MsgCode.NULL_ARGUMENT);
+        }
+    }
+
+    @RequestMapping("/VerifyCaptcha")
+    public Msg<Boolean> verifyCaptcha(@RequestParam(name = "phone") String phone,
+                                      @RequestParam(name = "captcha") String captcha) {
+        try {
+            return userService.verifyCaptcha(phone, captcha);
+        } catch (NullPointerException e) {
+            logger.error("NullPointerException", e);
+            return new Msg<>(MsgCode.NULL_ARGUMENT);
+        }
+    }
 }
