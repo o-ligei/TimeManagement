@@ -14,7 +14,7 @@
         android:layout_marginTop="100dp"
         android:contentDescription="@string/logo_description"
         android:src="@mipmap/ic_banner"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/phone_input_in_auth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/phone_input_in_auth"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -31,14 +31,14 @@
         android:hint="@string/phone_hint"
         android:inputType="textPersonName"
         android:autofillHints="phone"
-        app:layout_constraintBottom_toTopOf="@+id/editTextNumberPassword"
+        app:layout_constraintBottom_toTopOf="@+id/captcha_input_in_auth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/editTextNumberPassword"
+        android:id="@+id/captcha_input_in_auth"
         android:layout_width="175dp"
         android:layout_height="47dp"
         android:layout_marginStart="36dp"
@@ -46,41 +46,41 @@
         android:hint="@string/captcha_hint"
         android:inputType="numberPassword"
         android:autofillHints="captcha"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/btn_login_in_auth"
+        app:layout_constraintEnd_toStartOf="@+id/btn_captcha_get_in_auth"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/phone_input_in_auth" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btn_captcha_get_in_auth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="36dp"
         android:text="@string/get_captcha_hint"
         android:textColor="#ffffff"
         android:background="@drawable/button_circle_shape"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextNumberPassword"
+        app:layout_constraintBaseline_toBaselineOf="@+id/captcha_input_in_auth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumberPassword" />
+        app:layout_constraintStart_toEndOf="@+id/captcha_input_in_auth" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/btn_login_in_auth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_message"
         android:textColor="#ffffff"
         android:background="@drawable/button_circle_shape"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/go_to_register_in_auth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/captcha_input_in_auth" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/go_to_another_in_auth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
@@ -91,21 +91,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/go_to_register_in_auth"
         android:focusable="true" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/go_to_register_in_auth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_useregis_hint"
         android:textSize="16sp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintBottom_toTopOf="@+id/go_to_another_in_auth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_login_in_auth" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
