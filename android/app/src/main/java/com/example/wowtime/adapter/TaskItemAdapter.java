@@ -31,7 +31,7 @@ public class TaskItemAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return mData.get(position).getName();
     }
 
     @Override
@@ -50,4 +50,5 @@ public class TaskItemAdapter extends BaseAdapter {
         txt_aName.setText(mData.get(position).getName());
         return convertView;
     }
+
 }

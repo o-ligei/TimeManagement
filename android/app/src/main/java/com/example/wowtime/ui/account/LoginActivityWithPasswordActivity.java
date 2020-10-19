@@ -37,7 +37,7 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.login_with_password_activity);
         TextView useCaptchaTextView = findViewById(R.id.textView7);
         useCaptchaTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithPasswordActivity.this, LoginActivityWithAuthActivity.class)));
-        TextView useRegisterTextView = findViewById(R.id.textView6);
+        TextView useRegisterTextView = findViewById(R.id.GameTitle);
         useRegisterTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithPasswordActivity.this, RegisterActivity.class)));
 
         phoneText = findViewById(R.id.phone_input_in_pass);

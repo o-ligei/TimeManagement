@@ -29,7 +29,6 @@
         <!-- android:label="@string/title_activity_screen_saver" -->
         <!-- android:theme="@style/FullscreenTheme"></activity> -->
         <activity android:name=".ui.games.CalculateGameActivity" />
-
         <activity
             android:name=".ui.others.SettingsActivity"
             android:label="@string/title_activity_settings" />

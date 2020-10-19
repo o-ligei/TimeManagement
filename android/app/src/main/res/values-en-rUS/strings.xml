@@ -38,13 +38,13 @@
     <string name="clock_setting_title">Setting alarm</string>
     <string name="clock_setting_store">Store</string>
     <string name="clock_setting_tag_title">Label</string>
-    <string name="clock_setting_tag_default"> Alarm > </string>
+    <string name="clock_setting_tag_default">Alarm</string>
     <string name="clock_setting_ring_title">Ring</string>
-    <string name="clock_setting_ring_default">Radar ></string>
+    <string name="clock_setting_ring_default">Radar</string>
     <string name="clock_setting_game_title">Game</string>
-    <string name="clock_setting_game_default">Random ></string>
+    <string name="clock_setting_game_default">Random</string>
     <string name="clock_setting_repeat_title">repeat</string>
-    <string name="clock_setting_repeat_select">everyday ></string>
+    <string name="clock_setting_repeat_select">everyday</string>
     <string name="ring_setting_title">Setting ring</string>
     <string name="game_setting_title">Select game</string>
     <string name="alarm_list_title">alarm</string>
