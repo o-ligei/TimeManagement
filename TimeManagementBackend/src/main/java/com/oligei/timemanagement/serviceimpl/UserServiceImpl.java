@@ -15,6 +15,7 @@ import com.oligei.timemanagement.utils.TokenUtil;
 import com.oligei.timemanagement.utils.msgutils.Msg;
 import com.oligei.timemanagement.utils.FormatUtil;
 import com.oligei.timemanagement.utils.msgutils.MsgCode;
+import com.oligei.timemanagement.utils.msgutils.MsgConstant;
 import net.jodah.expiringmap.ExpirationPolicy;
 import net.jodah.expiringmap.ExpiringMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class UserServiceImpl implements UserService {
             String token = TokenUtil.sign(existed_user);
             Map<String, Object> result = new HashMap<>();
             result.put("token", token);
-            result.put("userid", existed_user.getUserId());
+            result.put("user", existed_user);
             return new Msg<>(MsgCode.SUCCESS, result);
         } else return new Msg<>(MsgCode.WRONG_PASSWORD);
     }
@@ -73,13 +74,13 @@ public class UserServiceImpl implements UserService {
         User existed_user = userDao.getUserByPhone(phone);
         if (existed_user == null) return new Msg<>(MsgCode.PHONE_NOT_FOUND);
         else {
-            String existed_captcha = captchaMap.get(phone);
-            if (existed_captcha == null) return new Msg<>(MsgCode.EXPIRED_CAPTCHA);
-            if (!existed_captcha.equals(captcha)) return new Msg<>(MsgCode.WRONG_CAPTCHA);
+            MsgCode msgCode = verifyCaptchaHelper(phone, captcha);
+            if (msgCode.getStatus() != MsgConstant.SUCCESS)
+                return new Msg<>(msgCode);
             Map<String, Object> result = new HashMap<>();
             String token = TokenUtil.sign(existed_user);
             result.put("token", token);
-            result.put("userid", existed_user.getUserId());
+            result.put("userid", existed_user);
             return new Msg<>(MsgCode.SUCCESS, result);
         }
     }
@@ -134,9 +135,9 @@ public class UserServiceImpl implements UserService {
         if (!FormatUtil.emailCheck(email)) return new Msg<>(MsgCode.ILLEGAL_EMAIL);
         User existed_user = userDao.getUserByPhone(phone);
         if (existed_user == null) return new Msg<>(MsgCode.PHONE_NOT_FOUND);
-        String existed_captcha = captchaMap.get(email);
-        if (existed_captcha == null) return new Msg<>(MsgCode.EXPIRED_CAPTCHA);
-        if (!existed_captcha.equals(captcha)) return new Msg<>(MsgCode.WRONG_CAPTCHA);
+        MsgCode msgCode = verifyCaptchaHelper(phone, captcha);
+        if (msgCode.getStatus() != MsgConstant.SUCCESS)
+            return new Msg<>(msgCode);
         existed_user.setEmail(email);
         userDao.save(existed_user, false);
         return new Msg<>(MsgCode.SUCCESS);
@@ -152,16 +153,14 @@ public class UserServiceImpl implements UserService {
         if (!FormatUtil.phoneCheck(phone)) return new Msg<>(MsgCode.ILLEGAL_PHONE);
         User existed_user = userDao.getUserByPhone(phone);
         if (existed_user != null) return new Msg<>(MsgCode.PHONE_FOUND);
-        if (!captcha.equals("000000")) {
-            String existed_captcha = captchaMap.get(phone);
-            if (existed_captcha == null) return new Msg<>(MsgCode.EXPIRED_CAPTCHA);
-            if (!existed_captcha.equals(captcha)) return new Msg<>(MsgCode.WRONG_CAPTCHA);
-        }
+        MsgCode msgCode = verifyCaptchaHelper(phone, captcha);
+        if (msgCode.getStatus() != MsgConstant.SUCCESS)
+            return new Msg<>(msgCode);
         User user = userDao.save(new User(username, phone, encoder.encode(password), "user"), true);
         String token = TokenUtil.sign(user);
         Map<String, Object> result = new HashMap<>();
         result.put("token", token);
-        result.put("userid", user.getUserId());
+        result.put("userid", user);
         return new Msg<>(MsgCode.SUCCESS, result);
     }
 
@@ -179,5 +178,31 @@ public class UserServiceImpl implements UserService {
         Objects.requireNonNull(userId, "null userId --UserServiceImpl getPersonalCredit");
         UserMongoDB userMongoDB = userDao.getUserMongoDBByUserId(userId);
         return new Msg<>(MsgCode.SUCCESS, new CreditInfo(userMongoDB));
+    }
+
+    @Override
+    public Msg<Boolean> resetPassword(String phone, String password) {
+        Objects.requireNonNull(phone, "null phone --UserServiceImpl resetPassword");
+        Objects.requireNonNull(password, "null password --UserServiceImpl resetPassword");
+        User user = userDao.getUserByPhone(phone);
+        user.setPassword(encoder.encode(password));
+        userDao.save(user, false);
+        return new Msg<>(MsgCode.SUCCESS);
+    }
+
+    @Override
+    public Msg<Boolean> verifyCaptcha(String phone, String captcha) {
+        Objects.requireNonNull(phone, "null phone --UserServiceImpl verifyCaptcha");
+        Objects.requireNonNull(captcha, "null captcha --UserServiceImpl verifyCaptcha");
+        return new Msg<>(verifyCaptchaHelper(phone, captcha));
+    }
+
+    private MsgCode verifyCaptchaHelper(String phone, String captcha) {
+        Objects.requireNonNull(phone, "null phone --UserServiceImpl verifyCaptchaHelper");
+        Objects.requireNonNull(captcha, "null captcha --UserServiceImpl verifyCaptchaHelper");
+        String existed_captcha = captchaMap.get(phone);
+        if (existed_captcha == null) return MsgCode.EXPIRED_CAPTCHA;
+        if (!existed_captcha.equals(captcha)) return MsgCode.WRONG_CAPTCHA;
+        return MsgCode.SUCCESS;
     }
 }
