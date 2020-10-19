@@ -172,14 +172,16 @@ public class StatisticDayActivity extends AppCompatActivity {
 
         RadioButton radioButtonWeek=findViewById(R.id.day_week);
         radioButtonWeek.setOnClickListener(v->{
-            startActivity((new Intent
-                (StatisticDayActivity.this, StatisticWeekActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//            startActivity((new Intent
+//                (StatisticDayActivity.this, StatisticWeekActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(StatisticDayActivity.this, StatisticWeekActivity.class));
             finish();
         });
         RadioButton radioButtonYear=findViewById(R.id.day_year);
         radioButtonYear.setOnClickListener(v->{
-            startActivity((new Intent
-                (StatisticDayActivity.this, StatisticYearActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//            startActivity((new Intent
+//                (StatisticDayActivity.this, StatisticYearActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(StatisticDayActivity.this, StatisticYearActivity.class));
             finish();
         });
 
