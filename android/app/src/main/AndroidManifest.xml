@@ -75,6 +75,8 @@
         <activity android:name=".ui.statistic.StatisticYearActivity" />
         <activity android:name=".ui.pomodoro.PomodoroSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.alarm.TagSettingActivity" />
+        <activity android:name=".ui.alarm.ClockFrequencyActivity"/>
     </application>
 
 </manifest>

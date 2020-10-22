@@ -1,8 +1,5 @@
 package com.example.wowtime.ui.pomodoro;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -20,14 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.example.wowtime.R;
-import com.example.wowtime.adapter.AppItemAdapter;
-
-import com.example.wowtime.dto.AppListItem;
-import com.github.mikephil.charting.utils.Utils;
+import com.example.wowtime.dto.WhiteListItem;
 
 public class WhiteListActivity extends AppCompatActivity {
 
@@ -71,7 +64,7 @@ public class WhiteListActivity extends AppCompatActivity {
             public void run() {
                 super.run();
                 //扫描得到APP列表
-                final List<MyAppInfo> appInfos = ApkTool.scanLocalInstallAppList(WhiteListActivity.this.getPackageManager());
+                final List<WhiteListItem> appInfos = ApkTool.scanLocalInstallAppList(WhiteListActivity.this.getPackageManager());
                 if(appInfos==null)
                     Toast.makeText(getApplicationContext(),"获取应用失败",Toast.LENGTH_SHORT).show();
                 mHandler.post(new Runnable() {
@@ -86,29 +79,29 @@ public class WhiteListActivity extends AppCompatActivity {
 
     class AppAdapter extends BaseAdapter {
 
-        List<MyAppInfo> myAppInfos = new ArrayList<MyAppInfo>();
+        List<WhiteListItem> whiteListItems = new ArrayList<WhiteListItem>();
 
-        public void setData(List<MyAppInfo> myAppInfos) {
-            this.myAppInfos = myAppInfos;
+        public void setData(List<WhiteListItem> whiteListItems) {
+            this.whiteListItems = whiteListItems;
             notifyDataSetChanged();
         }
 
-        public List<MyAppInfo> getData() {
-            return myAppInfos;
+        public List<WhiteListItem> getData() {
+            return whiteListItems;
         }
 
         @Override
         public int getCount() {
-            if (myAppInfos != null && myAppInfos.size() > 0) {
-                return myAppInfos.size();
+            if (whiteListItems != null && whiteListItems.size() > 0) {
+                return whiteListItems.size();
             }
             return 0;
         }
 
         @Override
         public Object getItem(int position) {
-            if (myAppInfos != null && myAppInfos.size() > 0) {
-                return myAppInfos.get(position);
+            if (whiteListItems != null && whiteListItems.size() > 0) {
+                return whiteListItems.get(position);
             }
             return null;
         }
@@ -121,7 +114,7 @@ public class WhiteListActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder mViewHolder;
-            MyAppInfo myAppInfo = myAppInfos.get(position);
+            WhiteListItem whiteListItem = whiteListItems.get(position);
             if (convertView == null) {
                 mViewHolder = new ViewHolder();
                 convertView = LayoutInflater.from(getBaseContext()).inflate(R.layout.app_info_item, null);
@@ -131,8 +124,8 @@ public class WhiteListActivity extends AppCompatActivity {
             } else {
                 mViewHolder = (ViewHolder) convertView.getTag();
             }
-            mViewHolder.iv_app_icon.setImageDrawable(myAppInfo.getImage());
-            mViewHolder.tx_app_name.setText(myAppInfo.getAppName());
+            mViewHolder.iv_app_icon.setImageDrawable(whiteListItem.getImage());
+            mViewHolder.tx_app_name.setText(whiteListItem.getAppName());
             return convertView;
         }
 

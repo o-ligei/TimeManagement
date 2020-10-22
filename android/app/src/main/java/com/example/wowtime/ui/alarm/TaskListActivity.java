@@ -57,12 +57,6 @@ public class TaskListActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
-        return super.onCreateOptionsMenu(menu);
-    }
 }
 //public class TaskListActivity extends Fragment{
 //    public TaskListActivity() {

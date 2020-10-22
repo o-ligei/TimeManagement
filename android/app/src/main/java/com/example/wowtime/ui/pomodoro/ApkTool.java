@@ -1,11 +1,11 @@
 package com.example.wowtime.ui.pomodoro;
 
-import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.example.wowtime.dto.WhiteListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class ApkTool {
     static  String TAG = "ApkTool";
-    public static List<MyAppInfo> mLocalInstallApps = null;
+    public static List<WhiteListItem> mLocalInstallApps = null;
 
-    public static List<MyAppInfo> scanLocalInstallAppList(PackageManager packageManager) {
-        List<MyAppInfo> myAppInfos = new ArrayList<MyAppInfo>();
+    public static List<WhiteListItem> scanLocalInstallAppList(PackageManager packageManager) {
+        List<WhiteListItem> whiteListItems = new ArrayList<WhiteListItem>();
         try {
             List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
             for (int i = 0; i < packageInfos.size(); i++) {
@@ -30,19 +30,19 @@ public class ApkTool {
                     continue;
                 }
 
-                MyAppInfo myAppInfo = new MyAppInfo();
-                myAppInfo.setAppName(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
+                WhiteListItem whiteListItem = new WhiteListItem();
+                whiteListItem.setAppName(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
                 if (packageInfo.applicationInfo.loadIcon(packageManager) == null) {
                     continue;
                 }
-                myAppInfo.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
-                myAppInfos.add(myAppInfo);
+                whiteListItem.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
+                whiteListItems.add(whiteListItem);
             }
         }catch (Exception e){
             Log.e(TAG,"===============获取应用包信息失败");
             return null;
         }
-        return myAppInfos;
+        return whiteListItems;
     }
 
 }
