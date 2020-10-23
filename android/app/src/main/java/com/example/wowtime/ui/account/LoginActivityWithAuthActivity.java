@@ -31,6 +31,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
 
     EditText phoneText;
     EditText captchaText;
+    Button btn_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +48,10 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
 //        login.setOnClickListener(v -> startActivity(new Intent(LoginActivity1.this, PersonInfo.class)));
         Button btn_get_captcha = findViewById(R.id.btn_captcha_get_in_auth);
         btn_get_captcha.setOnClickListener(v -> OKGetCaptcha());
-        Button btn_login = findViewById(R.id.btn_login_in_auth);
+        btn_login = findViewById(R.id.btn_login_in_auth);
         btn_login.setOnClickListener(v -> OKLoginWitchAuth());
+        btn_login.setEnabled(false);
+
     }
 
     private void OKGetCaptcha(){
@@ -88,6 +91,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                 }
                 Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
                 toast.show();
+                if(msg == "success")
+                    btn_login.setEnabled(true);
             }
         });
     }
