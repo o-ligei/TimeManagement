@@ -32,6 +32,12 @@ public class RegisterActivity extends AppCompatActivity {
     TextView captchaTextView;
     Button btn_register;
 
+    TextView useNameTextView;
+    TextView phoneTextView;
+    TextView passwordTextView;
+    TextView captchaTextView;
+    Button btn_register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
