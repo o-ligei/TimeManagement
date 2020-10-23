@@ -32,6 +32,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
     EditText phoneText;
     EditText captchaText;
     Button btn_login;
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,6 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login_in_auth);
         btn_login.setOnClickListener(v -> OKLoginWitchAuth());
         btn_login.setEnabled(false);
-
     }
 
     private void OKGetCaptcha(){
