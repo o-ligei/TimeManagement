@@ -14,7 +14,7 @@
         tools:layout="@layout/fragment_nav_list"/>
     <fragment
         android:id="@+id/navigation_person_info"
-        android:name="com.example.wowtime.ui.others.PersonInfoFragment"
+        android:name="com.example.wowtime.ui.account.PersonInfoFragment"
         android:label="@string/navigation_person_info"
         tools:layout="@layout/fragment_nav_list">
         <!--        <action-->
