@@ -51,7 +51,6 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
         btn_login = findViewById(R.id.btn_login_in_auth);
         btn_login.setOnClickListener(v -> OKLoginWitchAuth());
         btn_login.setEnabled(false);
-
     }
 
     private void OKGetCaptcha(){
@@ -148,13 +147,6 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
