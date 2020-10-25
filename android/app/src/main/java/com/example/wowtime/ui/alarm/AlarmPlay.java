@@ -9,6 +9,8 @@ import android.os.Bundle;
 
 import com.example.wowtime.R;
 
+import java.io.IOException;
+
 public class AlarmPlay extends AppCompatActivity {
     private MediaPlayer mp;
     @Override
@@ -17,11 +19,9 @@ public class AlarmPlay extends AppCompatActivity {
         setContentView(R.layout.activity_alarm_play);
         Intent intent=getIntent();
         String ring=intent.getStringExtra("ring");
-        String ring_file="R.raw."+ring;
-        System.out.println(ring_file);
-//        mp = MediaPlayer.create(this, Uri.parse("R.raw.radar"));
-        mp = MediaPlayer.create(this, R.raw.radar);
-        mp.setLooping(true);
+        int resId=getResources().getIdentifier("radar.mp3","raw",getPackageName());
+//        mp=MediaPlayer.create(this,R.raw.radar);
+        mp=MediaPlayer.create(this,resId);
         mp.start();
     }
 }

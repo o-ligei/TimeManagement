@@ -17,13 +17,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.*;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.AlarmItemAdapter;
 import com.example.wowtime.dto.AlarmListItem;
 import com.example.wowtime.ui.MainActivity;
 
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.List;
 
 //public class AlarmList extends AppCompatActivity {
 //
@@ -46,7 +47,7 @@ import java.util.Objects;
 //    }
 //}
 public class AlarmListFragment extends Fragment{
-    ArrayList<AlarmListItem> alarmList = new ArrayList<>();
+    List<AlarmListItem> alarmList = new ArrayList<>();
 
     public AlarmListFragment(){}
 
@@ -75,19 +76,20 @@ public class AlarmListFragment extends Fragment{
     public void onResume() {
         super.onResume();
         SharedPreferences mySharedPreferences= requireActivity().getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
-        String dto=mySharedPreferences.getString("list","");
-        System.out.println("dto:"+dto);
-        AlarmItemAdapter adapter = new AlarmItemAdapter(alarmList, getContext());
-        ListView listView = requireView().findViewById(R.id.AlarmCardList);
-        if(dto==null|| dto.equals("")){
+        String shared=mySharedPreferences.getString("list","");
+        System.out.println("alarmList:"+shared);
+        if(shared==null|| shared.equals("")){
             return;
         }
-        String [] alarms=dto.split(";");
-        for (String alarm:alarms){
-            String [] attributes=alarm.split(",");
-            AlarmListItem alarmListItem=new AlarmListItem(attributes[0],attributes[3],attributes[1],attributes[2],Integer.parseInt(attributes[4]),Integer.parseInt(attributes[5]));
-            alarmList.add(alarmListItem);
-        }
+        alarmList=JSONObject.parseArray(shared,AlarmListItem.class);
+        AlarmItemAdapter adapter = new AlarmItemAdapter(alarmList, getContext());
+        ListView listView = requireView().findViewById(R.id.AlarmCardList);
+//        String [] alarms=dto.split(";");
+//        for (String alarm:alarms){
+//            String [] attributes=alarm.split(",");
+//            AlarmListItem alarmListItem=new AlarmListItem(attributes[0],attributes[3],attributes[1],attributes[2],Integer.parseInt(attributes[4]),Integer.parseInt(attributes[5]));
+//            alarmList.add(alarmListItem);
+//        }
         listView.setAdapter(adapter);
 
 //        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

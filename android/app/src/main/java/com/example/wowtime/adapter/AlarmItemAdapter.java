@@ -13,21 +13,25 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
 import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.ui.alarm.AlarmPlay;
+import com.example.wowtime.ui.alarm.ClockSettingActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AlarmItemAdapter extends BaseAdapter {
-    private ArrayList<AlarmListItem> mData;
+    private List<AlarmListItem> mData;
     private Context mContext;
     private AlarmManager alarmManager;
     private PendingIntent pi;
 
-    public AlarmItemAdapter(ArrayList<AlarmListItem> mData, Context mContext) {
+    public AlarmItemAdapter(List<AlarmListItem> mData, Context mContext) {
 
         this.mData = mData;
         this.mContext = mContext;
@@ -51,9 +55,7 @@ public class AlarmItemAdapter extends BaseAdapter {
     @SuppressLint({"ViewHolder", "SetTextI18n","DefaultLocale"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.alarm_list_item,parent,false);
-
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.alarm_list_item, parent, false);
         TextView txt_tag = (TextView) convertView.findViewById(R.id.AlarmTag);
         TextView txt_time=(TextView) convertView.findViewById(R.id.AlarmTime);
         txt_tag.setText(mData.get(position).getTag());
@@ -61,6 +63,16 @@ public class AlarmItemAdapter extends BaseAdapter {
         String minute=String.format("%02d",mData.get(position).getMinute());
         txt_time.setText(hour+":"+minute);
 
+        CardView cardView=(CardView)convertView.findViewById(R.id.AlarmCard);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, ClockSettingActivity.class);
+                intent.putExtra("position",position);
+                mContext.startActivity(intent);
+            }
+        }
+        );
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch trigger=convertView.findViewById(R.id.AlarmSwitch);
         trigger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
