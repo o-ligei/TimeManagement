@@ -116,6 +116,12 @@ public class ClockSettingActivity extends AppCompatActivity {
                 alarmList.add(alarm);
                 shared=JSONObject.toJSONString(alarmList);
                 editor.putString("list",shared);
+//                String dto=mySharedPreferences.getString("list","");
+//                if(dto==null){
+//                    dto="";
+//                }
+//                dto=dto+tag+","+game+","+ring+","+frequency+","+Hour+","+Minute+";";
+//                editor.putString("list",dto);
                 editor.apply();
                 finish();
             }
@@ -156,6 +162,7 @@ public class ClockSettingActivity extends AppCompatActivity {
 //        if(frequency==null||frequency.equals("")){
 //            frequency=getString(R.string.clock_setting_repeat_select);
 //        }
+
 //        System.out.println("game:"+game);
         Button repeatBtn=findViewById(R.id.ClockRepeatButton);
         repeatBtn.setText(frequency);
