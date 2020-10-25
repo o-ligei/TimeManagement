@@ -12,12 +12,13 @@ import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PomodoroItemAdapter extends BaseAdapter {
-    private ArrayList<PomodoroListItem> mData;
+    private List<PomodoroListItem> mData;
     private Context mContext;
 
-    public PomodoroItemAdapter(ArrayList<PomodoroListItem> mData, Context mContext) {
+    public PomodoroItemAdapter(List<PomodoroListItem> mData, Context mContext) {
 
         this.mData = mData;
         this.mContext = mContext;
@@ -45,9 +46,31 @@ public class PomodoroItemAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.pomodoro_list_item,parent,false);
 
         TextView txt_name = (TextView) convertView.findViewById(R.id.PomodoroName);
-        TextView txt_gap = (TextView) convertView.findViewById(R.id.PomodoroGap);
-        txt_name.setText(mData.get(position).getName());
-        txt_gap.setText(mData.get(position).getGap());
+        TextView txt_other=(TextView) convertView.findViewById(R.id.PomodoroOther);
+        TextView txt_gap = (TextView) convertView.findViewById(R.id.PomodoroTotalGap);
+
+        PomodoroListItem pomodoroListItem=mData.get(position);
+        String mode;
+        switch (pomodoroListItem.getMode()){
+            case 0:
+                mode="强模式";
+                break;
+            case 1:
+                mode="弱模式";
+                break;
+            default:
+                mode="";
+        }
+        int totalGap=pomodoroListItem.getTotalGap();
+        int hour=totalGap/60;
+        if(totalGap<60)hour=0;
+        int minute=totalGap-hour*60;
+        int workGap=pomodoroListItem.getWorkGap();
+        int restGap=pomodoroListItem.getRestGap();
+
+        txt_name.setText(pomodoroListItem.getName());
+        txt_other.setText(mode+" 每专注"+workGap+"min 可休息"+restGap+"min");
+        txt_gap.setText((hour==0?"":(hour+"hour"))+minute+"min");
 
         return convertView;
     }

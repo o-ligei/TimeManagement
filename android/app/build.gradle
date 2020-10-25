@@ -83,4 +83,7 @@ dependencies {
 
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    //object->json string
+    implementation 'com.alibaba:fastjson:1.2.4'
 }

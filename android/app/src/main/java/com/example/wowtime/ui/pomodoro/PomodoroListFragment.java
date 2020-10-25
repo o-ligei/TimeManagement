@@ -1,5 +1,6 @@
 package com.example.wowtime.ui.pomodoro;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.PomodoroItemAdapter;
 import com.example.wowtime.dto.PomodoroListItem;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,8 +59,12 @@ public class PomodoroListFragment extends Fragment {
 //        return fragment;
 //    }
 
+    private SharedPreferences pomodoroSp;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        //pomodoro.xml
+        pomodoroSp=super.getActivity().getSharedPreferences("pomodoro",MODE_PRIVATE);
         super.onCreate(savedInstanceState);
     }
 
@@ -64,12 +73,17 @@ public class PomodoroListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pomodoro_list_fragment, container, false);
-        ArrayList<PomodoroListItem> list = new ArrayList<>();
-        list.add(new PomodoroListItem("ICS 强模式 不休息","30min"));
-        list.add(new PomodoroListItem("CSE 弱模式 每30min休息5min","60min"));
+//        ArrayList<PomodoroListItem> list = new ArrayList<>();
+//        list.add(new PomodoroListItem("ICS 强模式 不休息","30min"));
+//        list.add(new PomodoroListItem("CSE 弱模式 每30min休息5min","60min"));
 
-        PomodoroItemAdapter adapter = new PomodoroItemAdapter(list,getContext());
+        String stringList=pomodoroSp.getString("pomodoroList","");
+        System.out.println("pomodoroList:"+stringList);
+        List<PomodoroListItem> listItems=  JSON.parseArray(stringList,PomodoroListItem.class);
+
+        PomodoroItemAdapter adapter = new PomodoroItemAdapter(listItems,getContext());
         ListView listView = view.findViewById(R.id.PomodoroCardList);
+
         listView.setAdapter(adapter);
 
         return view;

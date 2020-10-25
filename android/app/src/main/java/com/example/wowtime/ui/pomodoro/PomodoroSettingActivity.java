@@ -2,6 +2,7 @@ package com.example.wowtime.ui.pomodoro;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,10 +12,13 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,21 +26,30 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
+import com.example.wowtime.dto.PomodoroListItem;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class PomodoroSettingActivity extends AppCompatActivity {
 
 //    private FloatView mFloatView;
+    private SharedPreferences pomodoroSp;
+    int mode=0;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pomodoro_setting_activity);
+
+        //pomodoro.xml
+        pomodoroSp=super.getSharedPreferences("pomodoro",MODE_PRIVATE);
 
         TimePicker timePicker=findViewById(R.id.PomodorotimePicker);
         timePicker.setIs24HourView(true);
@@ -47,22 +60,42 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         TimePicker timePicker3=findViewById(R.id.PomodorotimePicker3);
         timePicker3.setIs24HourView(true);
 
+        Spinner spinner=findViewById(R.id.PomodoroModeSpinner);
+        TextView spinnerText=findViewById(R.id.PomodoroSelectModeText);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//通过此方法为下拉列表设置点击事件
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mode=i;
+                String text= spinner.getItemAtPosition(i).toString();
+                spinnerText.setText(text);
+                System.out.println("PomodoroMode:"+i);
+//                Toast.makeText(PomodoroSettingActivity.this,text,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerText.setText( (String) getBaseContext().getResources().getText(R.string.pomodoro_mode));
+            }
+        });
+
+        EditText editText=findViewById(R.id.editName);
+
         resizePikcer(timePicker2);
         resizePikcer(timePicker3);
 
-        timePicker.setHour(0);
-        timePicker.setMinute(30);
+        timePicker.setHour(1);
+        timePicker.setMinute(10);
         timePicker2.setHour(0);
         timePicker2.setMinute(30);
         timePicker3.setHour(0);
-        timePicker3.setMinute(10);
+        timePicker3.setMinute(5);
 
         TextView textView=findViewById(R.id.PomodoroSelectWhiteListText);
         textView.setOnClickListener(v->startActivity(new Intent(PomodoroSettingActivity.this,WhiteListActivity.class)));
 //        getAppList();
 
-        Button button=findViewById(R.id.setPomodoroButton);
-        button.setOnClickListener(v->{
+        Button buttonBegin=findViewById(R.id.setPomodoroButton);
+        buttonBegin.setOnClickListener(v->{
             int minute=timePicker.getMinute();
             int hour=timePicker.getHour();
             int totalTime=minute*60*1000+hour*3600*1000;
@@ -76,8 +109,8 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             int count=totalTime/(time+rest);
 
 //            for(int i=0;i<count;++i){
-                startFloatingImageDisplayService(button);
-                Thread t=new Thread(){
+                startFloatingImageDisplayService(buttonBegin);
+                new Thread(){
                     @Override
                     public void run() {
                         super.run();
@@ -88,7 +121,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                             System.out.println("interrupt when screen saver");
                             e.printStackTrace();
                         }
-                        stopFloatingImageDisplayService(button);
+                        stopFloatingImageDisplayService(buttonBegin);
                         try {
                             sleep(10*1000);
                             System.out.println(10);
@@ -97,8 +130,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                };
-                t.start();
+                }.start();
 //                try {
 //                    System.out.println("join");
 //                    t.join();
@@ -108,6 +140,31 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 //                }
 //            }
 
+        });
+
+        Button buttonSave=findViewById(R.id.PomodoroSettingConfirm);
+        buttonSave.setOnClickListener(v->{
+            int minute=timePicker.getMinute();
+            int hour=timePicker.getHour();
+            int totalGap=minute+hour*60;
+            int minute2=timePicker2.getMinute();
+            int hour2=timePicker2.getHour();
+            int workGap=minute2+hour2*60;
+            int minute3=timePicker3.getMinute();
+            int hour3=timePicker3.getHour();
+            int restGap=minute3+hour3*60;
+            String name=editText.getText().toString();
+            PomodoroListItem pomodoroListItem=new PomodoroListItem(name,totalGap,workGap,restGap,mode);
+            SharedPreferences.Editor editor=pomodoroSp.edit();
+            String stringList=pomodoroSp.getString("pomodoroList","");
+            System.out.println("pomodoroList:"+stringList);
+            List<PomodoroListItem> pomodoroListItems=  JSON.parseArray(stringList,PomodoroListItem.class);
+            if(pomodoroListItems==null)
+                pomodoroListItems=new LinkedList<>();
+            pomodoroListItems.add(pomodoroListItem);
+            editor.putString("pomodoroList",JSONObject.toJSONString(pomodoroListItems));
+            editor.commit();
+            Toast.makeText(this,(String) getBaseContext().getResources().getText(R.string.pomodoro_save_successfully),Toast.LENGTH_LONG).show();
         });
     }
 
@@ -152,7 +209,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
      * 调整numberpicker大小
      */
     private void resizeNumberPicker(NumberPicker np){
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, FrameLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 400);
         params.setMargins(10, 0, 10, 0);
         np.setLayoutParams(params);
     }

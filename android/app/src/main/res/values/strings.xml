@@ -55,6 +55,7 @@
     <string name="pomodoro_rest1">每专注</string>
     <string name="pomodoro_rest2">允许休息</string>
     <string name="item_application_name">QQ</string>
+    <string name="pomodoro_save_successfully">保存成功</string>
 
     <string name="personinfo_name">个人信息</string>
     <string name="friendslist_name">好友列表</string>
