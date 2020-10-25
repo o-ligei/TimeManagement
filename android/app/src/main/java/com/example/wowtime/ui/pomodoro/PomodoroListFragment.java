@@ -10,10 +10,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSON;
 import com.example.wowtime.R;
+import com.example.wowtime.adapter.PomodoroItemAdapter;
 import com.example.wowtime.adapter.PomodoroItemAdapter;
 import com.example.wowtime.dto.PomodoroListItem;
 
@@ -85,7 +88,31 @@ public class PomodoroListFragment extends Fragment {
         ListView listView = view.findViewById(R.id.PomodoroCardList);
 
         listView.setAdapter(adapter);
+        adapter.setOnItemClickListener((view1, position) -> {
+            System.out.println("!!!"+position);
+        });
+/*
+//        View view2 = inflater.inflate(R.layout.activity_main, container, false);
+//        ListView listView2=view2.findViewById(R.id.PomodoroCardList);
+//        if(listView2==null)System.out.println("!!!");
+//        else
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                List<> urls=new ArrayList<>();
+//
+//                //获取当前选择的值
+//                Adapter adpter=parent.getAdapter();
+//                for (int i=0;i<adpter.getCount();i++){
+//                    ImageItem item=(ImageItem)adpter.getItem(i);//拿到当前数据值并强转   adpter.getItem(i)即为当前数据对象
+//                    String data=item.getNetUrl();
+//                    urls.add(data);
+//                }
+                System.out.println("???"+position);
 
+            }
+        });
+*/
         return view;
     }
 }

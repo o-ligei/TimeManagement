@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class PomodoroItemAdapter extends BaseAdapter {
     private List<PomodoroListItem> mData;
     private Context mContext;
+    private OnItemClickListener onItemClickListener = null;
 
     public PomodoroItemAdapter(List<PomodoroListItem> mData, Context mContext) {
 
@@ -37,6 +39,20 @@ public class PomodoroItemAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    @FunctionalInterface
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public OnItemClickListener getOnItemClickListener() {
+        return onItemClickListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener=onItemClickListener;
+        System.out.println("set pomodoro click listener successfully");
     }
 
     @SuppressLint("ViewHolder")
