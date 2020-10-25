@@ -1,6 +1,10 @@
 package com.example.wowtime.ui.pomodoro;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -89,7 +93,7 @@ public class PomodoroListFragment extends Fragment {
 
         listView.setAdapter(adapter);
         adapter.setOnItemClickListener((view1, position) -> {
-            System.out.println("!!!"+position);
+            System.out.println("pomodoroPosition:"+position);
         });
 /*
 //        View view2 = inflater.inflate(R.layout.activity_main, container, false);

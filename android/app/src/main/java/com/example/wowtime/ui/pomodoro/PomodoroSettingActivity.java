@@ -1,5 +1,6 @@
 package com.example.wowtime.ui.pomodoro;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -131,6 +132,31 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                         }
                     }
                 }.start();
+
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    PackageManager packageManager=PomodoroSettingActivity.this.getPackageManager();
+                    List<PackageInfo> packageInfos=ApkTool.scanLocalInstallAppListByPackage(packageManager);
+                    int i=0;
+                    System.out.println("begin to watching running apps");
+                    while (++i<=10) {
+                        for (PackageInfo packageInfo : packageInfos) {
+                            if (isRunning(getApplicationContext(), packageInfo.packageName)) {
+                                System.out.println("runningApp:" + packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
+                            }
+                        }
+
+                        try {
+                            sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            }.start();
 //                try {
 //                    System.out.println("join");
 //                    t.join();
@@ -286,4 +312,20 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
+
+    public static boolean isRunning(Context context, String packageName) {
+        ActivityManager am = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> list = am.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : list) {
+            String processName = appProcess.processName;
+            if (processName != null && processName.equals(packageName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
