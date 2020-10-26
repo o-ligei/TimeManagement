@@ -51,13 +51,13 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
         lv_app_list.setAdapter(mAppAdapter);
         initAppList();
 
-        lv_app_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("whiteListPosition:"+position);
-                System.out.println("whiteListId:"+id);
-            }
-        });
+//        lv_app_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                System.out.println("whiteListPosition:"+position);
+//                System.out.println("whiteListId:"+id);
+//            }
+//        });
 
         getListView().setOnItemLongClickListener(this);
 
