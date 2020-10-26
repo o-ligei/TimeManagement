@@ -45,5 +45,28 @@ public class AlarmListItem {
         return this.minute;
     }
 
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
+    public void setGame(String game) {
+        this.game = game;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public void setRing(String ring) {
+        this.ring = ring;
+    }
 
 }
