@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -17,6 +18,10 @@ public class TagSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tag_setting);
+        Intent intent=getIntent();
+        String tag=intent.getStringExtra("tag");
+        TextView textView=findViewById(R.id.ClockTag);
+        textView.setText(tag);
     }
 
     @Override
