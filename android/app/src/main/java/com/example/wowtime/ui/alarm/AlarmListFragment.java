@@ -2,10 +2,10 @@ package com.example.wowtime.ui.alarm;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -66,7 +66,7 @@ public class AlarmListFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.alarm_list_fragment, container, false);
 //        AlarmItemAdapter adapter = new AlarmItemAdapter(alarmList, getContext());
-//        ListView listView = root.findViewById(R.id.AlarmCardList);
+        ListView listView = root.findViewById(R.id.AlarmCardList);
 //        listView.setAdapter(adapter);
 //        System.out.println(Uri.parse("R.raw.radar"));
         return root;
@@ -95,6 +95,32 @@ public class AlarmListFragment extends Fragment{
 //        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 //            @Override
 //            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+//                System.out.println("long click");
+//                android.app.AlertDialog.Builder dialog=new AlertDialog.Builder(getContext());
+//                dialog.setTitle("删除闹钟");//设置标题
+////                dialog.setMessage("something important");//设置信息具体内容
+//                dialog.setCancelable(true);//设置是否可取消
+//                dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+//                    @Override//设置ok的事件
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        System.out.println("ok");
+////                        System.out.println("alarm size:"+alarmList.size());
+//                        alarmList.remove(position);
+////                        System.out.println("alarm size:"+alarmList.size());
+//                        AlarmItemAdapter newAdapter = new AlarmItemAdapter(alarmList, getContext());
+//                        listView.setAdapter(newAdapter);
+//                        //在此处写入ok的逻辑
+//                    }
+//                });
+//                dialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+//                    @Override//设置取消事件
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        System.out.println("cancel");
+//                        //在此写入取消的事件
+//                    }
+//                });
+//                dialog.show();
+//                return true;
 //                new AlertDialog.Builder(getView()).setTitle("操作").setItems(new CharSequence[]{"删除"}, new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {

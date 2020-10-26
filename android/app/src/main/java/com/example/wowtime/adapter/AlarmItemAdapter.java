@@ -1,10 +1,14 @@
 package com.example.wowtime.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +19,15 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
 import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.ui.alarm.AlarmPlay;
 
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
+import com.example.wowtime.ui.games.BlowingGameActivity;
+import com.example.wowtime.ui.games.ShakingGameActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -73,8 +80,42 @@ public class AlarmItemAdapter extends BaseAdapter {
                 intent.putExtra("position",position);
                 mContext.startActivity(intent);
             }
-        }
+       }
         );
+
+        cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                System.out.println("long click");
+                AlertDialog.Builder dialog=new AlertDialog.Builder(mContext);
+                dialog.setTitle("删除闹钟");//设置标题
+//                dialog.setMessage("something important");//设置信息具体内容
+                dialog.setCancelable(true);//设置是否可取消
+                dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override//设置ok的事件
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        System.out.println("ok");
+                        mData.remove(position);
+                        SharedPreferences mySharedPreferences= mContext.getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
+                        String shared= JSONObject.toJSONString(mData);
+                        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = mySharedPreferences.edit();
+                        editor.putString("list",shared);
+                        editor.apply();
+                        notifyDataSetInvalidated();
+                        //在此处写入ok的逻辑
+                    }
+                });
+                dialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override//设置取消事件
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        System.out.println("cancel");
+                        //在此写入取消的事件
+                    }
+                });
+                dialog.show();
+                return true;
+            }
+        });
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch trigger=convertView.findViewById(R.id.AlarmSwitch);
         trigger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -88,7 +129,16 @@ public class AlarmItemAdapter extends BaseAdapter {
                     calendar.set(Calendar.MILLISECOND,0);
                     Calendar currentTime=Calendar.getInstance();
                     alarmManager= (AlarmManager) (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-                    Intent intent = new Intent(mContext, AlarmPlay.class);
+                    Intent intent;
+                    if(mData.get(position).getGame().equals("努力吹吹吹")){
+                        intent= new Intent(mContext, BlowingGameActivity.class);
+                    }
+                    else if(mData.get(position).getGame().equals("使劲摇摇摇")){
+                        intent= new Intent(mContext, ShakingGameActivity.class);
+                    }
+                    else {
+                        intent=new Intent(mContext,AlarmPlay.class);
+                    }
                     intent.putExtra("ring",mData.get(position).getRing());
                     pi=PendingIntent.getActivity(mContext, 0, intent, 0);
                     if(mData.get(position).getFrequency().equals("无重复")) {
