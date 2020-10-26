@@ -17,6 +17,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".ui.account.EmailActivateActivity"></activity>
         <activity android:name=".ui.alarm.AlarmPlay"/>
         <activity android:name=".ui.alarm.ClockFrequencyActivity" />
         <activity android:name=".ui.alarm.TagSettingActivity" />

@@ -2,6 +2,7 @@ package com.example.wowtime.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.Menu;
@@ -18,7 +19,8 @@ import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
 
@@ -37,9 +39,25 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_with_auth_activity);
         TextView usePasswordTextView = findViewById(R.id.go_to_another_in_auth);
-        usePasswordTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithAuthActivity.this, LoginActivityWithPasswordActivity.class)));
+        usePasswordTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, LoginActivityWithPasswordActivity.class);
+                startActivity(signUpIntent);
+            }
+        });
+//        usePasswordTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithAuthActivity.this, LoginActivityWithPasswordActivity.class)));
         TextView useRegisterTextView = findViewById(R.id.go_to_register_in_auth);
-        useRegisterTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class)));
+//        useRegisterTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class)));
+        useRegisterTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class);
+                startActivity(signUpIntent);
+            }
+        });
 
         phoneText = findViewById(R.id.phone_input_in_auth);
         captchaText = findViewById(R.id.captcha_input_in_auth);
@@ -77,20 +95,12 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
             @Override
             public void run() {
                 JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                jsonObject = JSONObject.parseObject(result);
                 String msg = null;
-                try {
-                    msg = jsonObject.get("msg").toString();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                msg = jsonObject.get("msg").toString();
                 Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
                 toast.show();
-                if(msg == "success")
+                if(msg.equals("success"))
                     btn_login.setEnabled(true);
             }
         });
@@ -121,27 +131,26 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
             @Override
             public void run() {
                 JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 String msg = null;
                 String str_data = null;
+                String str_user = null;
                 String userid = null;
-                try {
-                    msg = jsonObject.get("msg").toString();
-                    str_data = jsonObject.get("data").toString();
-                    JSONObject data = new JSONObject(str_data);
-                    userid = data.get("userid").toString();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+                jsonObject = JSONObject.parseObject(result);
+                msg = jsonObject.get("msg").toString();
+
+
                 Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
                 toast.show();
                 if(msg.equals("success"))
                 {
+                    str_data = jsonObject.get("data").toString();
+                    JSONObject data = JSONObject.parseObject(str_data);
+                    str_user = data.get("user").toString();
+                    JSONObject user = JSONObject.parseObject(str_user);
+                    userid = user.get("userid").toString();
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
+                    finish();
                     Intent intent = new Intent(LoginActivityWithAuthActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -155,5 +164,4 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
         return super.onCreateOptionsMenu(menu);
     }
-
 }

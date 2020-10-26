@@ -13,6 +13,7 @@ import com.example.wowtime.util.InternetConstant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -21,26 +22,28 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class CaptchaConfirmActivity extends AppCompatActivity {
-
-    TextView phoneInputText;
-    TextView captchaConfirmText;
+public class EmailActivateActivity extends AppCompatActivity {
+    TextView emailInput;
+    TextView captchaInput;
+    String phone;
     Button btn_handson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_captcha_confirm);
+        setContentView(R.layout.activity_email_activate);
 
-        phoneInputText = findViewById(R.id.phone_input_in_cap);
-        captchaConfirmText = findViewById(R.id.cap_input_in_cap);
+        emailInput = findViewById(R.id.email_input_in_EA);
+        captchaInput = findViewById(R.id.captcha_input_in_EA);
 
-        Button btn_getCaptcha = findViewById(R.id.get_cap_in_cap);
-        btn_getCaptcha.setOnClickListener(v -> OKGetCaptcha());
+        phone = getIntent().getStringExtra("phone");
 
-        btn_handson = findViewById(R.id.handson_in_cap);
+        Button btn_get_captcha = findViewById(R.id.btn_captcha_in_EA);
+        btn_get_captcha.setOnClickListener(v -> OKGetCaptcha());
+
+        btn_handson = findViewById(R.id.btn_handson_in_EA);
         btn_handson.setEnabled(false);
-        btn_handson.setOnClickListener(v -> OKGoToNext());
+        btn_handson.setOnClickListener(v -> OkHandsOn());
     }
 
     void OKGetCaptcha(){
@@ -48,11 +51,12 @@ public class CaptchaConfirmActivity extends AppCompatActivity {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
-                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-                formBody.add("phone",phoneInputText.getText().toString());//传递键值对参数
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/SendCaptchaToPhone").post(formBody.build()).build(); //TODO:change the url
+                FormBody.Builder formBody = new FormBody.Builder();
+                formBody.add("phone", phone);
+                formBody.add("email",emailInput.getText().toString());
+                Request request = new Request.Builder().url(InternetConstant.host + "/User/SendCaptchaToEmail").post(formBody.build()).build();
                 try {
-                    Response response = client.newCall(request).execute();
+                    Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
                     GetCaptcha();
                 } catch (IOException e) {
@@ -71,19 +75,20 @@ public class CaptchaConfirmActivity extends AppCompatActivity {
         });
     }
 
-    void OKGoToNext(){
+    void OkHandsOn(){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();
-                formBody.add("phone",phoneInputText.getText().toString());
-                formBody.add("captcha",captchaConfirmText.getText().toString());
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/SendCaptchaToPhone").post(formBody.build()).build(); //TODO:change the url
+                formBody.add("phone", phone);
+                formBody.add("email",emailInput.getText().toString());
+                formBody.add("captcha",captchaInput.getText().toString());
+                Request request = new Request.Builder().url(InternetConstant.host + "/User/ActivateEmail").post(formBody.build()).build();
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
-                    GoToNext(result);
+                    HandsOn(result);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -91,7 +96,7 @@ public class CaptchaConfirmActivity extends AppCompatActivity {
         }).start();
     }
 
-    void GoToNext(String result) throws JSONException {
+    void HandsOn(String result) throws JSONException {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -107,14 +112,7 @@ public class CaptchaConfirmActivity extends AppCompatActivity {
                 toast.show();
                 if(msg.equals("success")){
                     Intent intent = null;
-                    String target = null;
-                    target = getIntent().getStringExtra("target");
-                    System.out.println(target);
-                    if(target.equals("email"))
-                        intent = new Intent(CaptchaConfirmActivity.this,EmailActivateActivity.class);
-                    else if(target.equals("password"))
-                        intent = new Intent(CaptchaConfirmActivity.this,PasswordChangeActivity.class);
-                    intent.putExtra("phone",phoneInputText.getText().toString());
+                    intent = new Intent(EmailActivateActivity.this,PersonInfoFragment.class);
                     startActivity(intent);
                     finish();
                 }

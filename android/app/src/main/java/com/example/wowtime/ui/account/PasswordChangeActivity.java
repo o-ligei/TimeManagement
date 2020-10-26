@@ -27,16 +27,17 @@ public class PasswordChangeActivity extends AppCompatActivity {
     TextView passwordInputView;
     TextView passwordConfirmView;
     String phone;
+    Button handson_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_change);
 
-        passwordInputView.findViewById(R.id.pass_change_in_pas_cha);
-        passwordConfirmView.findViewById(R.id.pass_confirm_in_pass_cha);
+        passwordInputView = findViewById(R.id.pass_change_in_pas_cha);
+        passwordConfirmView = findViewById(R.id.pass_confirm_in_pass_cha);
 
-        Button handson_btn = findViewById(R.id.handson_in_pass_cha);
+        handson_btn = findViewById(R.id.handson_in_pass_cha);
         handson_btn.setOnClickListener(v -> OKHandsOn());
 
         phone = getIntent().getStringExtra("phone");
@@ -54,7 +55,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
                 FormBody.Builder formBody = new FormBody.Builder();
                 formBody.add("phone",phone);
                 formBody.add("password",passwordInputView.getText().toString());
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/SendCaptchaToPhone").post(formBody.build()).build();
+                Request request = new Request.Builder().url(InternetConstant.host + "/User/ResetPassword").post(formBody.build()).build();
                 try {
                     Response response = client.newCall(request).execute();
                     String result = response.body().string();
@@ -71,14 +72,10 @@ public class PasswordChangeActivity extends AppCompatActivity {
             @Override
             public void run() {
                 JSONObject jsonObject = null;
+                String msg = null;
+//                String userid = null;
                 try {
                     jsonObject = new JSONObject(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String msg = null;
-                String userid = null;
-                try {
                     msg = jsonObject.get("msg").toString();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -87,9 +84,10 @@ public class PasswordChangeActivity extends AppCompatActivity {
                 toast.show();
                 if(msg.equals("success"))
                 {
-                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
+//                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     Intent intent = new Intent(PasswordChangeActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });

@@ -56,7 +56,6 @@ public class TaskListActivity extends AppCompatActivity {
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
         return super.onCreateOptionsMenu(menu);
     }
-
 }
 //public class TaskListActivity extends Fragment{
 //    public TaskListActivity() {

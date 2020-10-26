@@ -58,7 +58,6 @@ public class FriendsListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.friend_list_fragment, container, false);
         OKGetFriends();
-//        System.out.println(friendsListItems);
         listView = (ListView) root.findViewById(R.id.friends_list);
 
         return root;
@@ -89,19 +88,11 @@ public class FriendsListFragment extends Fragment {
             public void run() {
                 System.out.println("result:"+result);
                 JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 String str_data = null;
-                try {
-                    str_data = jsonObject.get("data").toString();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 JSONArray jsonArray = null;
                 try {
+                    jsonObject = new JSONObject(result);
+                    str_data = jsonObject.get("data").toString();
                     jsonArray = new JSONArray(str_data);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -110,20 +101,15 @@ public class FriendsListFragment extends Fragment {
                 for(int i = 0; i < jsonArray.length(); i++){
                     System.out.println(i+" item");
                     JSONObject item = null;
-                    try {
-                        item = (JSONObject) jsonArray.get(i);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                     FriendsListItem listItem = null;
                     try {
+                        item = (JSONObject) jsonArray.get(i);
                         listItem = new FriendsListItem(Integer.valueOf(item.get("userId").toString()),String.valueOf(item.get("userIcon")),String.valueOf(item.get("username")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     friendsListItems.add(listItem);
                 }
-//                System.out.println("now"+friendsListItems.size());
                 FriendsListAdapter friendsListAdapter = new FriendsListAdapter(friendsListItems, getContext());
                 listView.setAdapter(friendsListAdapter);
             }
