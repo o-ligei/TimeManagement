@@ -3,6 +3,7 @@ package com.example.wowtime.ui.games;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +21,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class BlowingGameActivity extends AppCompatActivity {
-
+    private MediaPlayer mp;
     private ProgressBar progressBar;
     private TextView progressValue;
 //    private LinearLayout full;
@@ -36,7 +37,10 @@ public class BlowingGameActivity extends AppCompatActivity {
     private static final int NEED_COUNT = TOTAL_TIME/BLOW_INTERVAL;
 
     private void handleSoundValues(double values){
-        if (blowCount == NEED_COUNT) return;
+        if (blowCount == NEED_COUNT) {
+            mp.stop();
+            BlowingGameActivity.this.finish();
+        }
         if (values > VOLUME_THRESHOLD){
             t2 = System.currentTimeMillis();
             if (t2-t1>=BLOW_INTERVAL) {
@@ -68,6 +72,9 @@ public class BlowingGameActivity extends AppCompatActivity {
         //调用话筒实现类
         AudioRecordManger audioRecordManger = new AudioRecordManger(handler, RECORD); //实例化话筒实现类
         audioRecordManger.getNoiseLevel();                         //打开话筒监听声音
+        mp = MediaPlayer.create(this, R.raw.radar);
+        mp.setLooping(true);
+        mp.start();
     }
 
 //    @SuppressLint("ClickableViewAccessibility")
