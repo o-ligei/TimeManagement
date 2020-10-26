@@ -135,6 +135,19 @@
 
     <!--strings for random number input -->
     <string name="number_input_title">please input number below：</string>
-    <string name="random_number_handson">HANDSON</string>
+    <string name="handson">HANDSON</string>
 
+    <!--strings for confirm captcha -->
+    <string name="phone_input">please input the phone number</string>
+    <string name="captcha_input">please input the captcha</string>
+    <string name="get_captcha">get captcha</string>
+
+    <!--strings for password change -->
+    <string name="password_change_title">change password</string>
+    <string name="new_password">new password</string>
+    <string name="new_password_confirm">confirm password</string>
+
+    <!--strings for email activate-->
+    <string name="email_activate_title">activate email</string>
+    <string name="email_hint">please input the email</string>
 </resources>

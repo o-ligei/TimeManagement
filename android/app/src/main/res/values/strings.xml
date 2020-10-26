@@ -115,7 +115,7 @@
     <string name="calculate_description">请回答下列算式的答案</string>
     <string name="calculate_title">算式</string>
     <string name="calculate_answer">0</string>
-    <string name="calculate_handson">提交</string>
+    <string name="handson">提交</string>
     <string name="title_activity_screen_saver">屏保</string>
     <string name="screen_saver_button">放弃</string>
     <string name="screen_saver_content">为中华崛起\n而读书</string>
@@ -128,5 +128,18 @@
 
     <!--strings for random number input -->
     <string name="number_input_title">请输入下列数字：</string>
-    <string name="random_number_handson">提交</string>
+
+    <!--strings for confirm captcha -->
+    <string name="phone_input">请输入手机号</string>
+    <string name="captcha_input">请输入验证码</string>
+    <string name="get_captcha">验证码获取</string>
+
+    <!--strings for password change -->
+    <string name="password_change_title">修改密码</string>
+    <string name="new_password">新密码</string>
+    <string name="new_password_confirm">确认密码</string>
+
+    <!--strings for email activate-->
+    <string name="email_activate_title">验证邮箱</string>
+    <string name="email_hint">请输入邮箱</string>
 </resources>
