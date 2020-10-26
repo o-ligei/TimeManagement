@@ -138,6 +138,7 @@ public class UserServiceImpl implements UserService {
         MsgCode msgCode = verifyCaptchaHelper(phone, captcha);
         if (msgCode.getStatus() != MsgConstant.SUCCESS)
             return new Msg<>(msgCode);
+        if (existed_user.getEmail() != null) return new Msg<>(MsgCode.EMAIL_EXISTED);
         existed_user.setEmail(email);
         userDao.save(existed_user, false);
         return new Msg<>(MsgCode.SUCCESS);
