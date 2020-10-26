@@ -1,12 +1,16 @@
 package com.example.wowtime.ui.pomodoro;
 
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,7 +26,7 @@ import java.util.List;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.WhiteListItem;
 
-public class WhiteListActivity extends AppCompatActivity {
+public class WhiteListActivity extends ListActivity implements CompoundButton.OnCheckedChangeListener, AdapterView.OnItemLongClickListener {
 
     private ListView lv_app_list;
     private AppAdapter mAppAdapter;
@@ -42,18 +46,30 @@ public class WhiteListActivity extends AppCompatActivity {
 //
 //        ListView listView = (ListView) findViewById(R.id.white_list);
 //        listView.setAdapter(appItemAdapter);
-        lv_app_list = (ListView) findViewById(R.id.lv_app_list);
+        lv_app_list = (ListView) findViewById(android.R.id.list);
         mAppAdapter = new AppAdapter();
         lv_app_list.setAdapter(mAppAdapter);
         initAppList();
+
+        lv_app_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("whiteListPosition:"+position);
+                System.out.println("whiteListId:"+id);
+            }
+        });
+
+        getListView().setOnItemLongClickListener(this);
+
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
 
 
@@ -122,6 +138,11 @@ public class WhiteListActivity extends AppCompatActivity {
                 mViewHolder.tx_app_name = (TextView) convertView.findViewById(R.id.tv_app_name);
                 convertView.setTag(mViewHolder);
             } else {
+                CheckBox cb = (CheckBox) convertView.findViewById(R.id.WhiteListCheckBox);
+                // 小技巧：checkBox 的  tag 为它所在的行，在onCheckedChanged方法里面用到
+                cb.setTag(position);
+                cb.setOnCheckedChangeListener(WhiteListActivity.this);
+
                 mViewHolder = (ViewHolder) convertView.getTag();
             }
             mViewHolder.iv_app_icon.setImageDrawable(whiteListItem.getImage());
@@ -134,5 +155,20 @@ public class WhiteListActivity extends AppCompatActivity {
             ImageView iv_app_icon;
             TextView tx_app_name;
         }
+    }
+
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        int row = (Integer) buttonView.getTag();
+        Toast.makeText(this, "第"+row+"行的checkBox被点击", Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onItemLongClick(AdapterView<?> av, View v, int position, long id) {
+        Toast.makeText(this, "第"+position+"行被长按", Toast.LENGTH_LONG).show();
+        return true;
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Toast.makeText(this, "第"+position+"行被点击", Toast.LENGTH_LONG).show();
     }
 }
