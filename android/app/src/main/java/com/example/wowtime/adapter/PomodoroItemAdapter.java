@@ -2,6 +2,7 @@ package com.example.wowtime.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,12 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
+import com.example.wowtime.ui.alarm.ClockSettingActivity;
+import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +93,18 @@ public class PomodoroItemAdapter extends BaseAdapter {
         txt_other.setText(mode+" 每专注"+workGap+"min 可休息"+restGap+"min");
         txt_gap.setText((hour==0?"":(hour+"hour"))+minute+"min");
 
+        CardView cardView=convertView.findViewById(R.id.PomodoroCard);
+        cardView.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("pomodoroListPosition:"+position);
+                        Intent intent = new Intent(mContext, PomodoroSettingActivity.class);
+                        intent.putExtra("position", position);
+                        mContext.startActivity(intent);
+                    }
+                }
+        );
         return convertView;
     }
 }

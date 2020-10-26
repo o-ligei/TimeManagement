@@ -67,6 +67,8 @@ public class PomodoroListFragment extends Fragment {
 //    }
 
     private SharedPreferences pomodoroSp;
+    private PomodoroItemAdapter adapter;
+    ListView listView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,8 +90,8 @@ public class PomodoroListFragment extends Fragment {
         System.out.println("pomodoroList:"+stringList);
         List<PomodoroListItem> listItems=  JSON.parseArray(stringList,PomodoroListItem.class);
 
-        PomodoroItemAdapter adapter = new PomodoroItemAdapter(listItems,getContext());
-        ListView listView = view.findViewById(R.id.PomodoroCardList);
+        adapter = new PomodoroItemAdapter(listItems,getContext());
+        listView = view.findViewById(R.id.PomodoroCardList);
 
         listView.setAdapter(adapter);
         adapter.setOnItemClickListener((view1, position) -> {
@@ -118,5 +120,17 @@ public class PomodoroListFragment extends Fragment {
         });
 */
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String stringList=pomodoroSp.getString("pomodoroList","");
+        System.out.println("pomodoroList:"+stringList);
+        List<PomodoroListItem> listItems=  JSON.parseArray(stringList,PomodoroListItem.class);
+
+        adapter = new PomodoroItemAdapter(listItems,getContext());
+        listView.setAdapter(adapter);
+//        adapter.notifyDataSetChanged();
     }
 }

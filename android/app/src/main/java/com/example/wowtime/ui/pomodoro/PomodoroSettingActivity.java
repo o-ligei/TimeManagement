@@ -41,7 +41,9 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
 //    private FloatView mFloatView;
     private SharedPreferences pomodoroSp;
-    int mode=0;
+    private int mode=0;
+    private boolean first=false;
+    private int position;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -66,10 +68,12 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//通过此方法为下拉列表设置点击事件
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mode=i;
-                String text= spinner.getItemAtPosition(i).toString();
-                spinnerText.setText(text);
-                System.out.println("PomodoroMode:"+i);
+                if(first) {
+                    mode = i;
+                    String text = spinner.getItemAtPosition(i).toString();
+                    spinnerText.setText(text);
+                    System.out.println("PomodoroMode:" + i);
+                }else first=true;
 //                Toast.makeText(PomodoroSettingActivity.this,text,Toast.LENGTH_SHORT).show();
             }
 
@@ -90,6 +94,41 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         timePicker2.setMinute(30);
         timePicker3.setHour(0);
         timePicker3.setMinute(5);
+        editText.setText((String) getBaseContext().getResources().getText(R.string.pomodoro_default_name));
+
+        Intent intent=getIntent();
+        position=intent.getIntExtra("position",-1);
+        if(position!=-1){
+            String stringList=pomodoroSp.getString("pomodoroList","");
+            List<PomodoroListItem> pomodoroListItems=  JSON.parseArray(stringList,PomodoroListItem.class);
+            assert(pomodoroListItems!=null);
+            PomodoroListItem pomodoroListItem=pomodoroListItems.get(position);
+            int totalGap=pomodoroListItem.getTotalGap();
+            int workGap=pomodoroListItem.getWorkGap();
+            int restGap=pomodoroListItem.getRestGap();
+            int modeGet=pomodoroListItem.getMode();
+            int hour1,hour2,hour3,min1,min2,min3;
+            if(totalGap<60)
+                hour1=0;
+            else hour1=totalGap/60;
+            min1=totalGap-hour1*60;
+
+            if(workGap<60)
+                hour2=0;
+            else hour2=workGap/60;
+            min2=workGap-hour2*60;
+
+            if(restGap<60)
+                hour3=0;
+            else hour3=restGap/60;
+            min3=restGap-hour3*60;
+
+            timePicker.setMinute(min1);timePicker.setHour(hour1);
+            timePicker2.setMinute(min2);timePicker2.setHour(hour2);
+            timePicker3.setMinute(min3);timePicker3.setHour(hour3);
+            editText.setText(pomodoroListItem.getName());
+            mode=modeGet;
+        }
 
         TextView textView=findViewById(R.id.PomodoroSelectWhiteListText);
         textView.setOnClickListener(v->startActivity(new Intent(PomodoroSettingActivity.this,WhiteListActivity.class)));
@@ -187,11 +226,16 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             List<PomodoroListItem> pomodoroListItems=  JSON.parseArray(stringList,PomodoroListItem.class);
             if(pomodoroListItems==null)
                 pomodoroListItems=new LinkedList<>();
-            pomodoroListItems.add(pomodoroListItem);
+            if(position==-1)pomodoroListItems.add(pomodoroListItem);
+            else pomodoroListItems.set(position,pomodoroListItem);
             editor.putString("pomodoroList",JSONObject.toJSONString(pomodoroListItems));
             editor.commit();
             Toast.makeText(this,(String) getBaseContext().getResources().getText(R.string.pomodoro_save_successfully),Toast.LENGTH_LONG).show();
+            finish();
         });
+
+        String text= spinner.getItemAtPosition(mode).toString();
+        spinnerText.setText(text);
     }
 
 

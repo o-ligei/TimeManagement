@@ -57,6 +57,7 @@
     <string name="pomodoro_rest2">Allow to rest for</string>
     <string name="item_application_name">QQ</string>
     <string name="pomodoro_save_successfully">Save successfully</string>
+    <string name="pomodoro_default_name">away from phone</string>
 
 
     <!--strings for navigation-->
