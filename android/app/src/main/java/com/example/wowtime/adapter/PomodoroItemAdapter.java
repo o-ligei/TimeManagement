@@ -1,19 +1,26 @@
 package com.example.wowtime.adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
+import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 
@@ -105,6 +112,42 @@ public class PomodoroItemAdapter extends BaseAdapter {
                     }
                 }
         );
+        cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                System.out.println("long click");
+                AlertDialog.Builder dialog=new AlertDialog.Builder(mContext);
+                dialog.setTitle(mContext.getResources().getText(R.string.pomodoro_delete_title));//设置标题
+//                dialog.setMessage("something important");//设置信息具体内容
+                dialog.setCancelable(true);//设置是否可取消
+                dialog.setPositiveButton(mContext.getResources().getText(R.string.pomodoro_delete_confirm), new DialogInterface.OnClickListener() {
+                    @Override//设置ok的事件
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mData.remove(position);
+                        SharedPreferences mySharedPreferences= mContext.getSharedPreferences("pomodoroList", Activity.MODE_PRIVATE);
+//                        SharedPreferences mySharedPreferences=PomodoroSettingActivity.getPomodoroSp();
+                        String shared= JSONObject.toJSONString(mData);
+                        System.out.println("listBeforeRemoving:"+mySharedPreferences.getString("pomodoroList",""));
+                        System.out.println("listAfterRemoving"+shared);
+                        SharedPreferences.Editor editor = mySharedPreferences.edit();
+                        editor.putString("pomodoroList",shared);
+                        editor.commit();
+                        Toast.makeText(mContext,mContext.getResources().getText(R.string.pomodoro_save_successfully),Toast.LENGTH_LONG).show();
+                        notifyDataSetInvalidated();
+                        //在此处写入ok的逻辑
+                    }
+                });
+                dialog.setNegativeButton(mContext.getResources().getText(R.string.pomodoro_delete_cancel), new DialogInterface.OnClickListener() {
+                    @Override//设置取消事件
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        System.out.println("cancel");
+                        //在此写入取消的事件
+                    }
+                });
+                dialog.show();
+                return true;
+            }
+        });
         return convertView;
     }
 }

@@ -57,6 +57,9 @@
     <string name="item_application_name">QQ</string>
     <string name="pomodoro_save_successfully">保存成功</string>
     <string name="pomodoro_default_name">远离手机</string>
+    <string name="pomodoro_delete_title">删除此任务？</string>
+    <string name="pomodoro_delete_confirm">确定</string>
+    <string name="pomodoro_delete_cancel">取消</string>
 
     <string name="personinfo_name">个人信息</string>
     <string name="friendslist_name">好友列表</string>

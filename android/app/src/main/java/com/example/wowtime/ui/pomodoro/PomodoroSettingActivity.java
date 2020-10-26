@@ -94,7 +94,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         timePicker2.setMinute(30);
         timePicker3.setHour(0);
         timePicker3.setMinute(5);
-        editText.setText((String) getBaseContext().getResources().getText(R.string.pomodoro_default_name));
+        editText.setText(getResources().getText(R.string.pomodoro_default_name));
 
         Intent intent=getIntent();
         position=intent.getIntExtra("position",-1);
@@ -230,7 +230,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             else pomodoroListItems.set(position,pomodoroListItem);
             editor.putString("pomodoroList",JSONObject.toJSONString(pomodoroListItems));
             editor.commit();
-            Toast.makeText(this,(String) getBaseContext().getResources().getText(R.string.pomodoro_save_successfully),Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getBaseContext().getResources().getText(R.string.pomodoro_save_successfully),Toast.LENGTH_LONG).show();
             finish();
         });
 
@@ -371,5 +371,9 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         }
         return false;
     }
+//
+//    public static SharedPreferences getPomodoroSp(){
+//        return pomodoroSp.;
+//    }
 
 }
