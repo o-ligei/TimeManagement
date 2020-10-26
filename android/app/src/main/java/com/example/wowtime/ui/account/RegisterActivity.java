@@ -26,6 +26,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity {
+    TextView useNameTextView;
+    TextView phoneTextView;
+    TextView passwordTextView;
+    TextView captchaTextView;
+
 
 
     TextView useNameTextView;

@@ -56,6 +56,11 @@
     <string name="pomodoro_rest1">Be focused for</string>
     <string name="pomodoro_rest2">Allow to rest for</string>
     <string name="item_application_name">QQ</string>
+    <string name="pomodoro_save_successfully">Save successfully</string>
+    <string name="pomodoro_default_name">away from phone</string>
+    <string name="pomodoro_delete_title">delete this task?</string>
+    <string name="pomodoro_delete_confirm">Yes</string>
+    <string name="pomodoro_delete_cancel">Cancel</string>
 
 
     <!--strings for navigation-->

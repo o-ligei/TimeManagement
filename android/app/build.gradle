@@ -65,9 +65,8 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
     implementation 'com.github.clans:fab:1.6.4'
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
-    // https://mvnrepository.com/artifact/com.alibaba/fastjson
-    implementation 'com.alibaba:fastjson:1.2.4'
 
+    implementation 'com.alibaba:fastjson:1.2.4'
 
     def nav_version = "2.3.0"
 
@@ -84,4 +83,7 @@ dependencies {
 
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    //object->json string
+    implementation 'com.alibaba:fastjson:1.2.4'
 }

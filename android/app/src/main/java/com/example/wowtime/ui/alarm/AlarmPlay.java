@@ -15,10 +15,11 @@ public class AlarmPlay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm_play);
-        Intent intent=getIntent();
-        String ring=intent.getStringExtra("ring");
-        String ring_file="R.raw."+ring;
-        System.out.println(ring_file);
+//        Intent intent=getIntent();
+//        String ring=intent.getStringExtra("ring");
+//        int resId=getResources().getIdentifier("radar.mp3","raw",getPackageName());
+//        String ring_file="R.raw."+ring;
+//        System.out.println(ring_file);
 //        mp = MediaPlayer.create(this, Uri.parse("R.raw.radar"));
         mp = MediaPlayer.create(this, R.raw.radar);
         mp.setLooping(true);
