@@ -1,16 +1,16 @@
-package com.example.wowtime.ui.pomodoro;
+package com.example.wowtime.dto;
 
 import android.graphics.drawable.Drawable;
 
-public class MyAppInfo {
+public class WhiteListItem {
     private Drawable image;
     private String appName;
 
-    public MyAppInfo(Drawable image, String appName) {
+    public WhiteListItem(Drawable image, String appName) {
         this.image = image;
         this.appName = appName;
     }
-    public MyAppInfo() {
+    public WhiteListItem() {
 
     }
 

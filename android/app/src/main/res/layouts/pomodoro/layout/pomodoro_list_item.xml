@@ -5,46 +5,75 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/PomodoroCard"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:clickable="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/PomodoroCard"
         android:foreground="?android:attr/selectableItemBackground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="83dp">
+            android:id="@+id/pomodoroListItemLayout"
+            android:layout_height="90dp">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="24dp"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:layout_marginBottom="4dp"-->
+<!--                android:gravity="center_horizontal"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent">-->
 
                 <TextView
-                    android:id="@+id/PomodoroGap"
+                    android:id="@+id/PomodoroTotalGap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="24sp" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="8dp"
+                    android:textSize="22sp"
+                    android:text="90min"
+                    />
 
                 <TextView
                     android:id="@+id/PomodoroName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp" />
-            </LinearLayout>
+                    app:layout_constraintTop_toBottomOf="@id/PomodoroTotalGap"
+                    app:layout_constraintStart_toStartOf="@id/PomodoroTotalGap"
+                    android:text="name"
+                    android:background="@drawable/lable_pomodoro"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/PomodoroOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/PomodoroName"
+                app:layout_constraintTop_toBottomOf="@id/PomodoroName"
+                android:layout_marginBottom="8dp"
+                android:text="mode+rest"
+                android:textSize="14sp" />
+<!--            </LinearLayout>-->
 
             <Button
                 android:id="@+id/start_botton"
