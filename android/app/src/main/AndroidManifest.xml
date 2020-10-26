@@ -17,24 +17,35 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".ui.alarm.AlarmPlay"/>
+        <activity android:name=".ui.alarm.ClockFrequencyActivity" />
+        <activity android:name=".ui.alarm.TagSettingActivity" />
+        <activity android:name=".ui.games.RandomNumberGameActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity android:name=".ui.account.PasswordChangeActivity" />
         <activity android:name=".ui.account.CaptchaConfirmActivity" />
-        <activity android:name=".ui.games.RandomNumberGameActivity" />
+
+        <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
 
         <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
         <activity android:name=".ui.games.BlowingGameActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!---->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".ui.games.ShakingGameActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!---->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".ui.others.AboutActivity" /> <!-- <activity -->
         <!-- android:name=".ScreenSaverActivity" -->
