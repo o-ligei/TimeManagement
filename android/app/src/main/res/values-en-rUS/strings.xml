@@ -100,6 +100,13 @@
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
+    <string name="game_setting_header">Game Parameter Setting</string>
+    <string name="blowing_game_setting_header">Blowing Game Setting</string>
+    <string name="shaking_game_setting_header">Shaking Game Setting</string>
+    <string name="volume_setting_header">Sensitivity</string>
+    <string name="blow_time_setting_header">Duration</string>
+    <string name="speed_setting_header">Sensitivity</string>
+    <string name="shake_time_setting_header">Duration</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
