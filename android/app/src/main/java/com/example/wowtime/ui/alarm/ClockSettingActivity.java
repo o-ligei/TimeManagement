@@ -19,6 +19,7 @@ import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
 
 import com.alibaba.fastjson.*;
+import com.example.wowtime.util.Weekday;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class ClockSettingActivity extends AppCompatActivity {
     private String tag;
     private String game;
     private String ring;
-    private String frequency;
+    private List<Boolean> frequency;
     private int Hour;
     private int Minute;
 
@@ -40,7 +41,11 @@ public class ClockSettingActivity extends AppCompatActivity {
         tag=this.getString(R.string.alarm_list_title);
         game=this.getString(R.string.clock_setting_game_default);
         ring="雷达";
-        frequency="无重复";
+        frequency=new ArrayList<>();
+        frequency.add(0,true);
+        for (int i=1;i<8;i++){
+            frequency.add(i,false);
+        }
         Hour=0;
         Minute=0;
         Intent intent=getIntent();
@@ -158,15 +163,27 @@ public class ClockSettingActivity extends AppCompatActivity {
         Button ringSetting=findViewById(R.id.ClockRingSetting);
         ringSetting.setText(ring);
 
-        frequency = mySharedPreferences.getString("frequency",frequency);
+        String tmp=mySharedPreferences.getString("frequency","[true,false,false,false,false,false,false,false]");
+        frequency = JSONObject.parseArray(tmp,boolean.class);
 //        if(frequency==null||frequency.equals("")){
 //            frequency=getString(R.string.clock_setting_repeat_select);
 //        }
 
 //        System.out.println("game:"+game);
         Button repeatBtn=findViewById(R.id.ClockRepeatButton);
-        repeatBtn.setText(frequency);
-
+        if(frequency.get(0)){
+            repeatBtn.setText("无重复");
+        }
+        else{
+            Weekday weekday=new Weekday();
+            StringBuilder out= new StringBuilder("星期");
+            for (int i=1;i<=7;i++){
+                if(frequency.get(i)){
+                    out.append(weekday.getDay(i));
+                    repeatBtn.setText(out);
+                }
+            }
+        }
 
     }
 

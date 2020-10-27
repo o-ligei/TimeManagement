@@ -111,6 +111,7 @@
     <!-- strings for game -->
     <string name="shaking_notice">摇晃手机</string>
     <string name="blowing_notice">吹一吹</string>
+    <string name="blowing_button_text">按住吹气</string>
     <!-- string for calculate -->
     <string name="calculate_description">请回答下列算式的答案</string>
     <string name="calculate_title">算式</string>
