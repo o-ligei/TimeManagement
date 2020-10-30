@@ -25,6 +25,7 @@ import com.example.wowtime.adapter.PomodoroItemAdapter;
 import com.example.wowtime.dto.PomodoroListItem;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -90,6 +91,8 @@ public class PomodoroListFragment extends Fragment {
         System.out.println("pomodoroList:"+stringList);
         List<PomodoroListItem> listItems=  JSON.parseArray(stringList,PomodoroListItem.class);
 
+        if(listItems==null)
+            listItems=new LinkedList<>();
         adapter = new PomodoroItemAdapter(listItems,getContext());
         listView = view.findViewById(R.id.PomodoroCardList);
 
@@ -129,6 +132,7 @@ public class PomodoroListFragment extends Fragment {
         System.out.println("pomodoroList:"+stringList);
         List<PomodoroListItem> listItems=  JSON.parseArray(stringList,PomodoroListItem.class);
 
+        if(listItems==null)listItems=new LinkedList<>();
         adapter = new PomodoroItemAdapter(listItems,getContext());
         listView.setAdapter(adapter);
 //        adapter.notifyDataSetChanged();

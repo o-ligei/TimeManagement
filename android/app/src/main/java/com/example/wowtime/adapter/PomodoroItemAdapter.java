@@ -124,7 +124,7 @@ public class PomodoroItemAdapter extends BaseAdapter {
                     @Override//设置ok的事件
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mData.remove(position);
-                        SharedPreferences mySharedPreferences= mContext.getSharedPreferences("pomodoroList", Activity.MODE_PRIVATE);
+                        SharedPreferences mySharedPreferences= mContext.getSharedPreferences("pomodoro", Activity.MODE_PRIVATE);
 //                        SharedPreferences mySharedPreferences=PomodoroSettingActivity.getPomodoroSp();
                         String shared= JSONObject.toJSONString(mData);
                         System.out.println("listBeforeRemoving:"+mySharedPreferences.getString("pomodoroList",""));
