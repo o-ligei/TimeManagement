@@ -155,19 +155,17 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             int hour3=timePicker3.getHour();
             int rest=minute3*60*1000+hour3*3600*1000;
 
-            totalTime=60*1000;
-            time=20*1000;
-            rest=10*1000;
-            int count=totalTime/(time+rest);
-
-//            for(int i=0;i<count;++i){
+            totalTime/=1000;
+            time/=1000;
+            rest/=1000;
+            //int count=totalTime/(time+rest);
 
             timer=new Timer();
             timer2=new Timer();
             timerTask=new TimerTask() {
                 @Override
                 public void run() {
-                    startFloatingImageDisplayService(buttonBegin);
+                    runOnUiThread(()->{startFloatingImageDisplayService(buttonBegin);});
                     System.out.println("begin");
                 }
             };
@@ -391,9 +389,5 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         }
         return false;
     }
-//
-//    public static SharedPreferences getPomodoroSp(){
-//        return pomodoroSp.;
-//    }
 
 }
