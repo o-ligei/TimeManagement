@@ -25,10 +25,11 @@ public class AudioRecordManger {
     }
 
     public void stop_record(){
+        System.out.println("stop_record");
         isGetVoiceRun=false;
         mAudioRecord.stop();
-        mAudioRecord.release();
-        mAudioRecord = null;
+//        mAudioRecord.release();
+//        mAudioRecord = null;
     }
 
     public void getNoiseLevel() {
