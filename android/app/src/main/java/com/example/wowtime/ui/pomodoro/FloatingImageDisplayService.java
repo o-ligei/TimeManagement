@@ -28,6 +28,7 @@ import com.example.wowtime.R;
 
 public class FloatingImageDisplayService extends Service {
     public static boolean isStarted = false;
+    private static boolean isCanceled=false;
 
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
@@ -42,6 +43,10 @@ public class FloatingImageDisplayService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        if(isCanceled) {
+            System.out.println("canceled");
+            return;
+        }
         isStarted = true;
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         layoutParams = new WindowManager.LayoutParams();
@@ -51,7 +56,7 @@ public class FloatingImageDisplayService extends Service {
             layoutParams.type = WindowManager.LayoutParams.TYPE_PHONE;
         }
         layoutParams.format = PixelFormat.RGBA_8888;
-        layoutParams.gravity = Gravity.LEFT | Gravity.TOP;
+        layoutParams.gravity = Gravity.START | Gravity.TOP;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
 
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
@@ -85,7 +90,8 @@ public class FloatingImageDisplayService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        showFloatingWindow();
+        if(!isCanceled)
+            showFloatingWindow();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -106,10 +112,16 @@ public class FloatingImageDisplayService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        isStarted=false;
+        System.out.println("destroy");
         windowManager.removeView(displayView);
     }
 
-//    private Handler.Callback changeImageCallback = new Handler.Callback() {
+    public static void setIsCanceled(boolean flag) {
+        isCanceled=flag;
+    }
+
+    //    private Handler.Callback changeImageCallback = new Handler.Callback() {
 //        @Override
 //        public boolean handleMessage(Message msg) {
 //            if (msg.what == 0) {

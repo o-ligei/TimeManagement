@@ -10,7 +10,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,6 +25,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +35,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
+import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -44,6 +49,9 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     private int mode=0;
     private boolean first=false;
     private int position;
+    private Timer timer,timer2;
+    private TimerTask timerTask,timerTask2;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -100,6 +108,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         position=intent.getIntExtra("position",-1);
         if(position!=-1){
             String stringList=pomodoroSp.getString("pomodoroList","");
+            //Serializable
             List<PomodoroListItem> pomodoroListItems=  JSON.parseArray(stringList,PomodoroListItem.class);
             assert(pomodoroListItems!=null);
             PomodoroListItem pomodoroListItem=pomodoroListItems.get(position);
@@ -146,64 +155,56 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             int hour3=timePicker3.getHour();
             int rest=minute3*60*1000+hour3*3600*1000;
 
+            totalTime=60*1000;
+            time=20*1000;
+            rest=10*1000;
             int count=totalTime/(time+rest);
 
 //            for(int i=0;i<count;++i){
-                startFloatingImageDisplayService(buttonBegin);
-                new Thread(){
-                    @Override
-                    public void run() {
-                        super.run();
-                        try {
-                            sleep(30*1000);
-                            System.out.println(30);
-                        } catch (InterruptedException e) {
-                            System.out.println("interrupt when screen saver");
-                            e.printStackTrace();
-                        }
-                        stopFloatingImageDisplayService(buttonBegin);
-                        try {
-                            sleep(10*1000);
-                            System.out.println(10);
-                        } catch (InterruptedException e) {
-                            System.out.println("interrupt when rest");
-                            e.printStackTrace();
-                        }
-                    }
-                }.start();
 
+            timer=new Timer();
+            timer2=new Timer();
+            timerTask=new TimerTask() {
+                @Override
+                public void run() {
+                    startFloatingImageDisplayService(buttonBegin);
+                    System.out.println("begin");
+                }
+            };
+            timerTask2=new TimerTask() {
+                @Override
+                public void run() {
+                    stopFloatingImageDisplayService(buttonBegin);
+                    System.out.println("stop");
+                }
+            };
+            FloatingImageDisplayService.setIsCanceled(false);
+            timer.schedule(timerTask,0,rest+time);
+            timer2.schedule(timerTask2,time,rest+time);
+
+            int finalTotalTime = totalTime;
             new Thread(){
                 @Override
                 public void run() {
                     super.run();
-                    PackageManager packageManager=PomodoroSettingActivity.this.getPackageManager();
-                    List<PackageInfo> packageInfos=ApkTool.scanLocalInstallAppListByPackage(packageManager);
-                    int i=0;
-                    System.out.println("begin to watching running apps");
-                    while (++i<=10) {
-                        for (PackageInfo packageInfo : packageInfos) {
-                            if (isRunning(getApplicationContext(), packageInfo.packageName)) {
-                                System.out.println("runningApp:" + packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
-                            }
-                        }
-
-                        try {
-                            sleep(3000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
+                    try {
+                        sleep(finalTotalTime);
+                    } catch (InterruptedException e) {
+                        System.out.println("interrupted???");
+                        e.printStackTrace();
                     }
+                    System.out.println("cancel");
+                    timer.cancel();
+                    timerTask.cancel();
+                    timer2.cancel();
+                    timerTask2.cancel();
+                    stopFloatingImageDisplayService(buttonBegin);
+                    FloatingImageDisplayService.setIsCanceled(true);
+                    System.out.println("cancel successfully?");
+                    runOnUiThread(()->{startActivity(new Intent(PomodoroSettingActivity.this, TaskSuccessActivity.class));});
+                    finish();
                 }
             }.start();
-//                try {
-//                    System.out.println("join");
-//                    t.join();
-//                } catch (InterruptedException e) {
-//                    System.out.println("interrupt when task");
-//                    e.printStackTrace();
-//                }
-//            }
 
         });
 
@@ -236,6 +237,19 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
         String text= spinner.getItemAtPosition(mode).toString();
         spinnerText.setText(text);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (timer != null)
+            timer.cancel();
+        if (timer2 != null)
+            timer2.cancel();
+        if (timerTask != null)
+            timerTask.cancel();
+        if (timerTask2 != null)
+            timerTask2.cancel();
     }
 
 
@@ -294,7 +308,13 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             return;
         }
         if (!Settings.canDrawOverlays(this)) {
-            Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
+            try {
+                Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
+            }catch (Exception e){
+                Looper.prepare();
+                Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
             startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 1);
         } else {
             System.out.println("Floating window starts!" );
@@ -304,7 +324,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
     public void stopFloatingImageDisplayService(View view) {
         if (!FloatingImageDisplayService.isStarted) {
-            System.out.println("Floating window is already stoppped!" );
+            System.out.println("Floating window is already stopped!" );
             return;
         }
         System.out.println("Floating window stops!" );
