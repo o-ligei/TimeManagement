@@ -1,6 +1,5 @@
 package com.example.wowtime.ui.others;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -10,7 +9,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.wowtime.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class GameSettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings_activity);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.settings, new SettingsFragment())
+                .replace(R.id.settings, new GameSettingsFragment())
                 .commit();
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -26,19 +25,10 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-
-    public static class SettingsFragment extends PreferenceFragmentCompat {
+    public static class GameSettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            Preference blowSettingButton = findPreference("game_setting_button");
-            if (blowSettingButton != null) {
-                blowSettingButton.setOnPreferenceClickListener(preference -> {
-                    Intent intent = new Intent(getActivity(), GameSettingsActivity.class);
-                    startActivity(intent);
-                    return true;
-                });
-            }
+            setPreferencesFromResource(R.xml.game_setting_preferences, rootKey);
         }
     }
 }
