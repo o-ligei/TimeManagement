@@ -15,4 +15,11 @@ public class CreditInfo {
         this.username = userMongoDB.getUsername();
         this.credit = userMongoDB.getCredit();
     }
+
+    public Integer getUserId() {return userId;}
+    public void setUserId(Integer userId) {this.userId = userId;}
+    public String getUsername() {return username;}
+    public void setUsername(String username) {this.username = username;}
+    public Credit getCredit() {return credit;}
+    public void setCredit(Credit credit) {this.credit = credit;}
 }

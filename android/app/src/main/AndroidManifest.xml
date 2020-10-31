@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.wowtime" >
+    package="com.example.wowtime">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -17,36 +17,50 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.account.EmailActivateActivity"></activity>
-        <activity android:name=".ui.alarm.AlarmPlay"/>
+        <activity android:name=".ui.games.TappingGameActivity">
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+        </activity>
+        <activity android:name=".ui.account.EmailActivateActivity" />
+        <activity android:name=".ui.alarm.AlarmPlay" />
         <activity android:name=".ui.alarm.ClockFrequencyActivity" />
         <activity android:name=".ui.alarm.TagSettingActivity" />
         <activity android:name=".ui.games.RandomNumberGameActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".ui.account.PasswordChangeActivity" />
         <activity android:name=".ui.account.CaptchaConfirmActivity" />
 
         <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
-
         <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
-        <activity android:name=".ui.games.BlowingGameActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+        <activity android:name=".ui.games.BlowingGameActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".ui.games.ShakingGameActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".ui.others.AboutActivity" /> <!-- <activity -->
         <!-- android:name=".ScreenSaverActivity" -->
@@ -101,8 +115,6 @@
             android:name=".ui.pomodoro.PomodoroSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.others.GameSettingsActivity" />
-        <activity android:name=".ui.alarm.TagSettingActivity" />
-        <activity android:name=".ui.alarm.ClockFrequencyActivity"/>
     </application>
 
 </manifest>

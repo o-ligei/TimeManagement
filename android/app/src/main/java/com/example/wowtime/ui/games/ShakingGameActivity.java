@@ -47,16 +47,6 @@ public class ShakingGameActivity extends AppCompatActivity {
         return new SensorManagerHelper(this, SPEED);
     }
 
-    private ProgressBar progressBar;
-    private TextView progressValue;
-
-    private Long t1 = System.currentTimeMillis(), t2;
-    private int shakeCount = 0;
-
-    private static final int SHAKE_INTERVAL = 250;
-    private static final int TOTAL_TIME = 10000;
-    private static final int NEED_COUNT = TOTAL_TIME/SHAKE_INTERVAL;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

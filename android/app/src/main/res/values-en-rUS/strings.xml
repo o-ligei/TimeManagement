@@ -62,6 +62,11 @@
     <string name="pomodoro_delete_confirm">Yes</string>
     <string name="pomodoro_delete_cancel">Cancel</string>
 
+    <!--strings for tapping game-->
+    <string name="tapping_game_rule">Tap 20 greens, and dont tap reds!</string>
+    <string name="tapping_game_start">Start!</string>
+    <string name="tapping_game_success">Success</string>
+    <string name="tapping_game_failure">Failure</string>
 
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>

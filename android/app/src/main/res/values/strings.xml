@@ -65,6 +65,11 @@
     <string name="friendslist_name">好友列表</string>
     <string name="creditdetail_name">积分详情</string>
 
+    <!--strings for tapping game-->
+    <string name="tapping_game_rule">踩到20个绿方块，别踩红方块！</string>
+    <string name="tapping_game_start">游戏开始！</string>
+    <string name="tapping_game_success">成功</string>
+    <string name="tapping_game_failure">失败</string>
 
     <!--strings for navigation-->
     <string name="navigation_person_info">个人信息</string>
