@@ -1,15 +1,16 @@
 package com.example.wowtime.ui.pomodoro;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,16 +21,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.example.wowtime.R;
-import com.example.wowtime.adapter.AppItemAdapter;
+import com.example.wowtime.dto.WhiteListItem;
 
-import com.example.wowtime.dto.AppListItem;
-import com.github.mikephil.charting.utils.Utils;
-
-public class WhiteListActivity extends AppCompatActivity {
+public class WhiteListActivity extends ListActivity implements CompoundButton.OnCheckedChangeListener, AdapterView.OnItemLongClickListener {
 
     private ListView lv_app_list;
     private AppAdapter mAppAdapter;
@@ -49,18 +46,30 @@ public class WhiteListActivity extends AppCompatActivity {
 //
 //        ListView listView = (ListView) findViewById(R.id.white_list);
 //        listView.setAdapter(appItemAdapter);
-        lv_app_list = (ListView) findViewById(R.id.lv_app_list);
+        lv_app_list = (ListView) findViewById(android.R.id.list);
         mAppAdapter = new AppAdapter();
         lv_app_list.setAdapter(mAppAdapter);
         initAppList();
+
+//        lv_app_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                System.out.println("whiteListPosition:"+position);
+//                System.out.println("whiteListId:"+id);
+//            }
+//        });
+
+        getListView().setOnItemLongClickListener(this);
+
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
 
 
@@ -70,8 +79,8 @@ public class WhiteListActivity extends AppCompatActivity {
             @Override
             public void run() {
                 super.run();
-                //扫描得到APP列表//????????
-                final List<MyAppInfo> appInfos = ApkTool.scanLocalInstallAppList(WhiteListActivity.this.getPackageManager());
+                //扫描得到APP列表
+                final List<WhiteListItem> appInfos = ApkTool.scanLocalInstallAppList(WhiteListActivity.this.getPackageManager());
                 if(appInfos==null)
                     Toast.makeText(getApplicationContext(),"获取应用失败",Toast.LENGTH_SHORT).show();
                 mHandler.post(new Runnable() {
@@ -86,29 +95,29 @@ public class WhiteListActivity extends AppCompatActivity {
 
     class AppAdapter extends BaseAdapter {
 
-        List<MyAppInfo> myAppInfos = new ArrayList<MyAppInfo>();
+        List<WhiteListItem> whiteListItems = new ArrayList<WhiteListItem>();
 
-        public void setData(List<MyAppInfo> myAppInfos) {
-            this.myAppInfos = myAppInfos;
+        public void setData(List<WhiteListItem> whiteListItems) {
+            this.whiteListItems = whiteListItems;
             notifyDataSetChanged();
         }
 
-        public List<MyAppInfo> getData() {
-            return myAppInfos;
+        public List<WhiteListItem> getData() {
+            return whiteListItems;
         }
 
         @Override
         public int getCount() {
-            if (myAppInfos != null && myAppInfos.size() > 0) {
-                return myAppInfos.size();
+            if (whiteListItems != null && whiteListItems.size() > 0) {
+                return whiteListItems.size();
             }
             return 0;
         }
 
         @Override
         public Object getItem(int position) {
-            if (myAppInfos != null && myAppInfos.size() > 0) {
-                return myAppInfos.get(position);
+            if (whiteListItems != null && whiteListItems.size() > 0) {
+                return whiteListItems.get(position);
             }
             return null;
         }
@@ -121,7 +130,7 @@ public class WhiteListActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder mViewHolder;
-            MyAppInfo myAppInfo = myAppInfos.get(position);
+            WhiteListItem whiteListItem = whiteListItems.get(position);
             if (convertView == null) {
                 mViewHolder = new ViewHolder();
                 convertView = LayoutInflater.from(getBaseContext()).inflate(R.layout.app_info_item, null);
@@ -129,10 +138,15 @@ public class WhiteListActivity extends AppCompatActivity {
                 mViewHolder.tx_app_name = (TextView) convertView.findViewById(R.id.tv_app_name);
                 convertView.setTag(mViewHolder);
             } else {
+                CheckBox cb = (CheckBox) convertView.findViewById(R.id.WhiteListCheckBox);
+                // 小技巧：checkBox 的  tag 为它所在的行，在onCheckedChanged方法里面用到
+                cb.setTag(position);
+                cb.setOnCheckedChangeListener(WhiteListActivity.this);
+
                 mViewHolder = (ViewHolder) convertView.getTag();
             }
-            mViewHolder.iv_app_icon.setImageDrawable(myAppInfo.getImage());
-            mViewHolder.tx_app_name.setText(myAppInfo.getAppName());
+            mViewHolder.iv_app_icon.setImageDrawable(whiteListItem.getImage());
+            mViewHolder.tx_app_name.setText(whiteListItem.getAppName());
             return convertView;
         }
 
@@ -141,5 +155,20 @@ public class WhiteListActivity extends AppCompatActivity {
             ImageView iv_app_icon;
             TextView tx_app_name;
         }
+    }
+
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        int row = (Integer) buttonView.getTag();
+        Toast.makeText(this, "第"+row+"行的checkBox被点击", Toast.LENGTH_LONG).show();
+    }
+
+    public boolean onItemLongClick(AdapterView<?> av, View v, int position, long id) {
+        Toast.makeText(this, "第"+position+"行被长按", Toast.LENGTH_LONG).show();
+        return true;
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        Toast.makeText(this, "第"+position+"行被点击", Toast.LENGTH_LONG).show();
     }
 }

@@ -2,6 +2,7 @@ package com.example.wowtime.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.view.Menu;
@@ -17,10 +18,11 @@ import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -36,9 +38,25 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_with_password_activity);
         TextView useCaptchaTextView = findViewById(R.id.textView7);
-        useCaptchaTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithPasswordActivity.this, LoginActivityWithAuthActivity.class)));
+        useCaptchaTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent signUpIntent = new Intent(LoginActivityWithPasswordActivity.this, LoginActivityWithAuthActivity.class);
+                startActivity(signUpIntent);
+            }
+        });
+//        useCaptchaTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithPasswordActivity.this, LoginActivityWithAuthActivity.class)));
         TextView useRegisterTextView = findViewById(R.id.GameTitle);
-        useRegisterTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithPasswordActivity.this, RegisterActivity.class)));
+        useRegisterTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent signUpIntent = new Intent(LoginActivityWithPasswordActivity.this, RegisterActivity.class);
+                startActivity(signUpIntent);
+            }
+        });
+//        useRegisterTextView.setOnClickListener(v -> startActivity(new Intent(LoginActivityWithPasswordActivity.this, RegisterActivity.class)));
 
         phoneText = findViewById(R.id.phone_input_in_pass);
         passwordText = findViewById(R.id.password_input_in_pass);
@@ -72,26 +90,30 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
             @Override
             public void run() {
                 JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 String msg = null;
                 String str_data = null;
+                String str_user = null;
                 String userid = null;
+
+
                 try {
-                    msg = jsonObject.get("msg").toString();
-                    str_data = jsonObject.get("data").toString();
-                    JSONObject data = new JSONObject(str_data);
-                    userid = data.get("userid").toString();
+                    jsonObject = JSONObject.parseObject(result);
+                    msg = Objects.requireNonNull(jsonObject.get("msg")).toString();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
                 toast.show();
+                assert msg != null;
                 if(msg.equals("success"))
                 {
+                    str_data = Objects.requireNonNull(jsonObject.get("data")).toString();
+                    JSONObject data = JSONObject.parseObject(str_data);
+                    str_user = Objects.requireNonNull(data.get("user")).toString();
+                    JSONObject user = JSONObject.parseObject(str_user);
+                    userid = Objects.requireNonNull(user.get("userId")).toString();
+                    assert userid != null;
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     Intent intent = new Intent(LoginActivityWithPasswordActivity.this, MainActivity.class);
                     startActivity(intent);

@@ -34,8 +34,12 @@ public class WebSocketController {
     private Session session;
     private String userId = "";
 
+    private static SocialService socialService;
+
     @Autowired
-    private SocialService socialService;
+    public void setSocialService(SocialService socialService) {
+        WebSocketController.socialService = socialService;
+    }
 
     @OnOpen
     public void onOpen(Session session, @PathParam("userId") String userId) {

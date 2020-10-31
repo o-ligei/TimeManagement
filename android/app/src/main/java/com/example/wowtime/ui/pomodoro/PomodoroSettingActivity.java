@@ -1,7 +1,9 @@
 package com.example.wowtime.ui.pomodoro;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,10 +13,13 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -22,21 +27,32 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
+import com.example.wowtime.dto.PomodoroListItem;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
 public class PomodoroSettingActivity extends AppCompatActivity {
 
 //    private FloatView mFloatView;
+    private SharedPreferences pomodoroSp;
+    private int mode=0;
+    private boolean first=false;
+    private int position;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pomodoro_setting_activity);
+
+        //pomodoro.xml
+        pomodoroSp=super.getSharedPreferences("pomodoro",MODE_PRIVATE);
 
         TimePicker timePicker=findViewById(R.id.PomodorotimePicker);
         timePicker.setIs24HourView(true);
@@ -47,40 +63,179 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         TimePicker timePicker3=findViewById(R.id.PomodorotimePicker3);
         timePicker3.setIs24HourView(true);
 
+        Spinner spinner=findViewById(R.id.PomodoroModeSpinner);
+        TextView spinnerText=findViewById(R.id.PomodoroSelectModeText);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//通过此方法为下拉列表设置点击事件
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(first) {
+                    mode = i;
+                    String text = spinner.getItemAtPosition(i).toString();
+                    spinnerText.setText(text);
+                    System.out.println("PomodoroMode:" + i);
+                }else first=true;
+//                Toast.makeText(PomodoroSettingActivity.this,text,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerText.setText( (String) getBaseContext().getResources().getText(R.string.pomodoro_mode));
+            }
+        });
+
+        EditText editText=findViewById(R.id.editName);
+
         resizePikcer(timePicker2);
         resizePikcer(timePicker3);
 
-        timePicker.setHour(0);
-        timePicker.setMinute(30);
+        timePicker.setHour(1);
+        timePicker.setMinute(10);
         timePicker2.setHour(0);
         timePicker2.setMinute(30);
         timePicker3.setHour(0);
-        timePicker3.setMinute(10);
+        timePicker3.setMinute(5);
+        editText.setText(getResources().getText(R.string.pomodoro_default_name));
+
+        Intent intent=getIntent();
+        position=intent.getIntExtra("position",-1);
+        if(position!=-1){
+            String stringList=pomodoroSp.getString("pomodoroList","");
+            List<PomodoroListItem> pomodoroListItems=  JSON.parseArray(stringList,PomodoroListItem.class);
+            assert(pomodoroListItems!=null);
+            PomodoroListItem pomodoroListItem=pomodoroListItems.get(position);
+            int totalGap=pomodoroListItem.getTotalGap();
+            int workGap=pomodoroListItem.getWorkGap();
+            int restGap=pomodoroListItem.getRestGap();
+            int modeGet=pomodoroListItem.getMode();
+            int hour1,hour2,hour3,min1,min2,min3;
+            if(totalGap<60)
+                hour1=0;
+            else hour1=totalGap/60;
+            min1=totalGap-hour1*60;
+
+            if(workGap<60)
+                hour2=0;
+            else hour2=workGap/60;
+            min2=workGap-hour2*60;
+
+            if(restGap<60)
+                hour3=0;
+            else hour3=restGap/60;
+            min3=restGap-hour3*60;
+
+            timePicker.setMinute(min1);timePicker.setHour(hour1);
+            timePicker2.setMinute(min2);timePicker2.setHour(hour2);
+            timePicker3.setMinute(min3);timePicker3.setHour(hour3);
+            editText.setText(pomodoroListItem.getName());
+            mode=modeGet;
+        }
 
         TextView textView=findViewById(R.id.PomodoroSelectWhiteListText);
         textView.setOnClickListener(v->startActivity(new Intent(PomodoroSettingActivity.this,WhiteListActivity.class)));
 //        getAppList();
 
-        Button button=findViewById(R.id.setPomodoroButton);
-        button.setOnClickListener(v->{
+        Button buttonBegin=findViewById(R.id.setPomodoroButton);
+        buttonBegin.setOnClickListener(v->{
             int minute=timePicker.getMinute();
             int hour=timePicker.getHour();
-            int time=minute*60*1000+hour*3600*1000;
-            startFloatingImageDisplayService(button);
+            int totalTime=minute*60*1000+hour*3600*1000;
+            int minute2=timePicker2.getMinute();
+            int hour2=timePicker2.getHour();
+            int time=minute2*60*1000+hour2*3600*1000;
+            int minute3=timePicker3.getMinute();
+            int hour3=timePicker3.getHour();
+            int rest=minute3*60*1000+hour3*3600*1000;
+
+            int count=totalTime/(time+rest);
+
+//            for(int i=0;i<count;++i){
+                startFloatingImageDisplayService(buttonBegin);
+                new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        try {
+                            sleep(30*1000);
+                            System.out.println(30);
+                        } catch (InterruptedException e) {
+                            System.out.println("interrupt when screen saver");
+                            e.printStackTrace();
+                        }
+                        stopFloatingImageDisplayService(buttonBegin);
+                        try {
+                            sleep(10*1000);
+                            System.out.println(10);
+                        } catch (InterruptedException e) {
+                            System.out.println("interrupt when rest");
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+
             new Thread(){
                 @Override
                 public void run() {
                     super.run();
-                    try {
-                        sleep(5000);
-                    } catch (InterruptedException e) {
-                        System.out.println("interrupt when sleep");
-                        e.printStackTrace();
+                    PackageManager packageManager=PomodoroSettingActivity.this.getPackageManager();
+                    List<PackageInfo> packageInfos=ApkTool.scanLocalInstallAppListByPackage(packageManager);
+                    int i=0;
+                    System.out.println("begin to watching running apps");
+                    while (++i<=10) {
+                        for (PackageInfo packageInfo : packageInfos) {
+                            if (isRunning(getApplicationContext(), packageInfo.packageName)) {
+                                System.out.println("runningApp:" + packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
+                            }
+                        }
+
+                        try {
+                            sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
                     }
-                    stopFloatingImageDisplayService(button);
                 }
             }.start();
+//                try {
+//                    System.out.println("join");
+//                    t.join();
+//                } catch (InterruptedException e) {
+//                    System.out.println("interrupt when task");
+//                    e.printStackTrace();
+//                }
+//            }
+
         });
+
+        Button buttonSave=findViewById(R.id.PomodoroSettingConfirm);
+        buttonSave.setOnClickListener(v->{
+            int minute=timePicker.getMinute();
+            int hour=timePicker.getHour();
+            int totalGap=minute+hour*60;
+            int minute2=timePicker2.getMinute();
+            int hour2=timePicker2.getHour();
+            int workGap=minute2+hour2*60;
+            int minute3=timePicker3.getMinute();
+            int hour3=timePicker3.getHour();
+            int restGap=minute3+hour3*60;
+            String name=editText.getText().toString();
+            PomodoroListItem pomodoroListItem=new PomodoroListItem(name,totalGap,workGap,restGap,mode);
+            SharedPreferences.Editor editor=pomodoroSp.edit();
+            String stringList=pomodoroSp.getString("pomodoroList","");
+            System.out.println("pomodoroList:"+stringList);
+            List<PomodoroListItem> pomodoroListItems=  JSON.parseArray(stringList,PomodoroListItem.class);
+            if(pomodoroListItems==null)
+                pomodoroListItems=new LinkedList<>();
+            if(position==-1)pomodoroListItems.add(pomodoroListItem);
+            else pomodoroListItems.set(position,pomodoroListItem);
+            editor.putString("pomodoroList",JSONObject.toJSONString(pomodoroListItems));
+            editor.commit();
+            Toast.makeText(this, getBaseContext().getResources().getText(R.string.pomodoro_save_successfully),Toast.LENGTH_LONG).show();
+            finish();
+        });
+
+        String text= spinner.getItemAtPosition(mode).toString();
+        spinnerText.setText(text);
     }
 
 
@@ -124,7 +279,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
      * 调整numberpicker大小
      */
     private void resizeNumberPicker(NumberPicker np){
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, FrameLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 400);
         params.setMargins(10, 0, 10, 0);
         np.setLayoutParams(params);
     }
@@ -135,20 +290,24 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void startFloatingImageDisplayService(View view) {
         if (FloatingImageDisplayService.isStarted) {
+            System.out.println("Floating window is already start!" );
             return;
         }
         if (!Settings.canDrawOverlays(this)) {
             Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
             startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 1);
         } else {
+            System.out.println("Floating window starts!" );
             startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
         }
     }
 
     public void stopFloatingImageDisplayService(View view) {
         if (!FloatingImageDisplayService.isStarted) {
+            System.out.println("Floating window is already stoppped!" );
             return;
         }
+        System.out.println("Floating window stops!" );
         stopService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
     }
 
@@ -197,4 +356,24 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
+
+    public static boolean isRunning(Context context, String packageName) {
+        ActivityManager am = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> list = am.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : list) {
+            String processName = appProcess.processName;
+            if (processName != null && processName.equals(packageName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+//
+//    public static SharedPreferences getPomodoroSp(){
+//        return pomodoroSp.;
+//    }
+
 }

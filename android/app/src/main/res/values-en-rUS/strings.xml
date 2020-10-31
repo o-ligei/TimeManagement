@@ -56,7 +56,17 @@
     <string name="pomodoro_rest1">Be focused for</string>
     <string name="pomodoro_rest2">Allow to rest for</string>
     <string name="item_application_name">QQ</string>
+    <string name="pomodoro_save_successfully">Save successfully</string>
+    <string name="pomodoro_default_name">away from phone</string>
+    <string name="pomodoro_delete_title">delete this task?</string>
+    <string name="pomodoro_delete_confirm">Yes</string>
+    <string name="pomodoro_delete_cancel">Cancel</string>
 
+    <!--strings for tapping game-->
+    <string name="tapping_game_rule">Tap 20 greens, and dont tap reds!</string>
+    <string name="tapping_game_start">Start!</string>
+    <string name="tapping_game_success">Success</string>
+    <string name="tapping_game_failure">Failure</string>
 
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
@@ -95,6 +105,13 @@
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
+    <string name="game_setting_header">Game Parameter Setting</string>
+    <string name="blowing_game_setting_header">Blowing Game Setting</string>
+    <string name="shaking_game_setting_header">Shaking Game Setting</string>
+    <string name="volume_setting_header">Sensitivity</string>
+    <string name="blow_time_setting_header">Duration</string>
+    <string name="speed_setting_header">Sensitivity</string>
+    <string name="shake_time_setting_header">Duration</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
@@ -135,6 +152,19 @@
 
     <!--strings for random number input -->
     <string name="number_input_title">please input number below：</string>
-    <string name="random_number_handson">HANDSON</string>
+    <string name="handson">HANDSON</string>
 
+    <!--strings for confirm captcha -->
+    <string name="phone_input">please input the phone number</string>
+    <string name="captcha_input">please input the captcha</string>
+    <string name="get_captcha">get captcha</string>
+
+    <!--strings for password change -->
+    <string name="password_change_title">change password</string>
+    <string name="new_password">new password</string>
+    <string name="new_password_confirm">confirm password</string>
+
+    <!--strings for email activate-->
+    <string name="email_activate_title">activate email</string>
+    <string name="email_hint">please input the email</string>
 </resources>
