@@ -7,12 +7,24 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.alibaba.fastjson.*;
 
 import com.example.wowtime.R;
+import com.example.wowtime.service.Credit;
 import com.example.wowtime.ui.others.CreditDetailListActivity;
+import com.example.wowtime.util.Ajax;
+import com.example.wowtime.util.InternetConstant;
+import com.example.wowtime.util.UserInfoAfterLogin;
+
+import org.json.JSONException;
+
+import okhttp3.FormBody;
 
 public class PersonInfoFragment extends Fragment {
     public PersonInfoFragment(){}
@@ -26,6 +38,46 @@ public class PersonInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    private void fetchCredit(View view){
+        FormBody.Builder formBody = new FormBody.Builder();
+        formBody.add("userid", UserInfoAfterLogin.userid.toString());
+        android.os.Handler handler = new Handler(msg -> {
+            System.out.println(msg.what);
+            if (msg.what == InternetConstant.FETCH) {
+                String result = (String) msg.obj;
+                org.json.JSONObject jsonObject = null;
+                String message = null;
+                String data=null;
+                try {
+                    jsonObject = new org.json.JSONObject(result);
+                    message = jsonObject.get("msg").toString();
+                    data=jsonObject.get("data").toString();
+                } catch (org.json.JSONException e) {
+                    e.printStackTrace();
+                }
+                assert message != null;
+                if(message.equals("success")){
+                    try {
+                        jsonObject=new org.json.JSONObject(data);
+                        data=jsonObject.get("credit").toString();
+                        jsonObject=new org.json.JSONObject(data);
+                        data=jsonObject.get("score").toString();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    TextView credit_detail=view.findViewById(R.id.CreditdetailLayout);
+                    credit_detail.setText(data);
+                }
+                else{
+                    System.out.println("failed");
+                }
+            }
+            return false;
+        });
+        Ajax ajax=new Ajax("/User/GetPersonalCredit",formBody,handler,InternetConstant.FETCH);
+        ajax.fetch();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,7 +88,7 @@ public class PersonInfoFragment extends Fragment {
         emailLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class)));
         ConstraintLayout creditLayout = root.findViewById(R.id.CreditLayout);
         creditLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
+        fetchCredit(root);
         return root;
     }
-
 }

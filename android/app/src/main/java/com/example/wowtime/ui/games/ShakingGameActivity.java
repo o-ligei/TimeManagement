@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wowtime.R;
+import com.example.wowtime.service.Credit;
+import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.SensorManagerHelper;
 
 import java.util.Calendar;
@@ -69,6 +71,8 @@ public class ShakingGameActivity extends AppCompatActivity {
             if (shakeCount == NEED_COUNT)
             {
                 mp.stop();
+                Credit credit=new Credit();
+                credit.modifyCredit(InternetConstant.alarm_credit);
                 ShakingGameActivity.this.finish();
             }
             t2 = System.currentTimeMillis();
