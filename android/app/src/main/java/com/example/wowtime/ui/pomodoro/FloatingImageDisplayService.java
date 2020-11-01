@@ -69,6 +69,17 @@ public class FloatingImageDisplayService extends Service {
         layoutParams.x = 0;
         layoutParams.y = 0;
 
+//        layoutParams.type=WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+//        layoutParams.gravity=Gravity.TOP;
+//        layoutParams.flags=WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
+//                // 这是为了使通知能够接收触摸事件
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
+//                // 绘制状态栏
+//                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+//        layoutParams.width=WindowManager.LayoutParams.MATCH_PARENT;
+//        layoutParams.height=(int) (50 * getResources().getDisplayMetrics().scaledDensity);
+//        layoutParams.format=PixelFormat.TRANSPARENT;
+
 //        images = new int[] {
 //
 //                R.drawable.image_04,
@@ -104,6 +115,10 @@ public class FloatingImageDisplayService extends Service {
             displayView.setOnTouchListener(new FloatingOnTouchListener());
 //            ImageView imageView = displayView.findViewById(R.id.image_display_imageview);
 //            imageView.setImageResource(images[imageIndex]);
+
+//            View viewbar = new customViewGroup(this);
+//            windowManager.addView(viewbar, layoutParams);
+
             windowManager.addView(displayView, layoutParams);
 //            changeImageHandler.sendEmptyMessageDelayed(0, 2000);
         }

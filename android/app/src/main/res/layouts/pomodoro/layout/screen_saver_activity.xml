@@ -58,12 +58,25 @@
                 android:layout_height="wrap_content"
                 android:text="@string/screen_saver_button"
                 android:background="@android:color/white"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/white_list_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="50dp"/>
 
+            <Button
+                android:id="@+id/white_list_button"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/white_list_name"
+                android:background="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/dummy_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="50dp"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </FrameLayout>
 
 </FrameLayout>

@@ -1,20 +1,24 @@
 package com.example.wowtime.ui.pomodoro;
 
 import android.app.ActivityManager;
+import android.app.StatusBarManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.lang.reflect.Method;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,6 +58,14 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     private Timer timer,timer2;
     private TimerTask timerTask,timerTask2;
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if(hasFocus)
+            System.out.println("??????????");
+        else
+            System.out.println("!!!!!!!!!!");
+        super.onWindowFocusChanged(hasFocus);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -139,6 +153,8 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             mode=modeGet;
         }
 
+//        StatusBarManager statusBarManager=null;
+//        statusBarManager.setStatusBarExpansionDisabled(false);
         TextView textView=findViewById(R.id.PomodoroSelectWhiteListText);
         textView.setOnClickListener(v->startActivity(new Intent(PomodoroSettingActivity.this,WhiteListActivity.class)));
 //        getAppList();
@@ -155,9 +171,9 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             int hour3=timePicker3.getHour();
             int rest=minute3*60*1000+hour3*3600*1000;
 
-            totalTime/=1000;
-            time/=1000;
-            rest/=1000;
+            totalTime/=60;
+            time/=60;
+            rest/=60;
             //int count=totalTime/(time+rest);
 
             timer=new Timer();
@@ -176,6 +192,8 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     System.out.println("stop");
                 }
             };
+
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
             FloatingImageDisplayService.setIsCanceled(false);
             timer.schedule(timerTask,0,rest+time);
             timer2.schedule(timerTask2,time,rest+time);
@@ -390,4 +408,36 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         return false;
     }
 
+//
+//      //some wrong try
+//    private void prohibitDropDown() {
+//        if (Build.VERSION.SDK_INT >= 23) {
+//            System.out.println("cannot get permission of status bar");
+//            if (!Settings.canDrawOverlays(this)) {
+//                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivityForResult(intent, 1);
+//            } else {
+//                System.out.println("can get permission of status bar");
+//                //TODO 做你需要的事情
+//                WindowManager managerBar = ((WindowManager) getApplicationContext()
+//                        .getSystemService(Context.WINDOW_SERVICE));
+//                WindowManager.LayoutParams localLayoutParamsBar = new WindowManager.LayoutParams();
+//                localLayoutParamsBar.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+//                localLayoutParamsBar.gravity = Gravity.TOP;
+//                localLayoutParamsBar.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
+//                // 这是为了使通知能够接收触摸事件
+//                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
+//                // 绘制状态栏
+//                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+//                localLayoutParamsBar.width = WindowManager.LayoutParams.MATCH_PARENT;
+//                localLayoutParamsBar.height = (int) (50 * getResources()
+//                        .getDisplayMetrics().scaledDensity);
+//                localLayoutParamsBar.format = PixelFormat.TRANSPARENT;
+//                View viewBar = new customViewGroup(this);
+//                managerBar.addView(viewBar, localLayoutParamsBar);
+//            }
+//        }
+//
+//    }
 }
