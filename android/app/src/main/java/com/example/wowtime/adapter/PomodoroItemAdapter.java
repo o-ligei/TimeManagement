@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -148,6 +149,16 @@ public class PomodoroItemAdapter extends BaseAdapter {
                 return true;
             }
         });
+
+        Button button=convertView.findViewById(R.id.start_botton);
+        button.setOnClickListener(v->{
+            System.out.println("pomodoroListPosition:"+position);
+            Intent intent = new Intent(mContext, PomodoroSettingActivity.class);
+            intent.putExtra("position", position);
+            intent.putExtra("begin",1);
+            mContext.startActivity(intent);
+        });
+
         return convertView;
     }
 }

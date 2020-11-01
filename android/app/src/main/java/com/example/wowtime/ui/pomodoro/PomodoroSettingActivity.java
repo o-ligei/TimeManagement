@@ -1,21 +1,14 @@
 package com.example.wowtime.ui.pomodoro;
 
 import android.app.ActivityManager;
-import android.app.StatusBarManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -30,7 +23,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.lang.reflect.Method;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -41,6 +35,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
+import com.example.wowtime.dto.StatisticDayItem;
+import com.example.wowtime.dto.StatisticSimple;
 import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 
 import java.util.ArrayList;
@@ -57,13 +53,15 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     private int position;
     private Timer timer,timer2;
     private TimerTask timerTask,timerTask2;
+    private int focusedSeconds;
+    private Date begin;
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         if(hasFocus)
-            System.out.println("??????????");
+            System.out.println("Focused!!!!!");
         else
-            System.out.println("!!!!!!!!!!");
+            System.out.println("Not Focused!!");
         super.onWindowFocusChanged(hasFocus);
     }
 
@@ -85,6 +83,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         TimePicker timePicker3=findViewById(R.id.PomodorotimePicker3);
         timePicker3.setIs24HourView(true);
 
+        //spinner
         Spinner spinner=findViewById(R.id.PomodoroModeSpinner);
         TextView spinnerText=findViewById(R.id.PomodoroSelectModeText);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//通过此方法为下拉列表设置点击事件
@@ -107,6 +106,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
         EditText editText=findViewById(R.id.editName);
 
+        //resize timePicker
         resizePikcer(timePicker2);
         resizePikcer(timePicker3);
 
@@ -118,6 +118,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         timePicker3.setMinute(5);
         editText.setText(getResources().getText(R.string.pomodoro_default_name));
 
+        //get data if jumped by clicking existed task
         Intent intent=getIntent();
         position=intent.getIntExtra("position",-1);
         if(position!=-1){
@@ -153,12 +154,12 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             mode=modeGet;
         }
 
-//        StatusBarManager statusBarManager=null;
-//        statusBarManager.setStatusBarExpansionDisabled(false);
+        //whiteList button
         TextView textView=findViewById(R.id.PomodoroSelectWhiteListText);
         textView.setOnClickListener(v->startActivity(new Intent(PomodoroSettingActivity.this,WhiteListActivity.class)));
 //        getAppList();
 
+        //begin button
         Button buttonBegin=findViewById(R.id.setPomodoroButton);
         buttonBegin.setOnClickListener(v->{
             int minute=timePicker.getMinute();
@@ -174,7 +175,6 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             totalTime/=60;
             time/=60;
             rest/=60;
-            //int count=totalTime/(time+rest);
 
             timer=new Timer();
             timer2=new Timer();
@@ -193,10 +193,11 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                 }
             };
 
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
             FloatingImageDisplayService.setIsCanceled(false);
             timer.schedule(timerTask,0,rest+time);
             timer2.schedule(timerTask2,time,rest+time);
+            begin=new Date();
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
             int finalTotalTime = totalTime;
             new Thread(){
@@ -215,15 +216,56 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     timer2.cancel();
                     timerTask2.cancel();
                     stopFloatingImageDisplayService(buttonBegin);
-                    FloatingImageDisplayService.setIsCanceled(true);
+                    focusedSeconds=FloatingImageDisplayService.setIsCanceled(true);
+                    FloatingImageDisplayService.setTime(0);
                     System.out.println("cancel successfully?");
                     runOnUiThread(()->{startActivity(new Intent(PomodoroSettingActivity.this, TaskSuccessActivity.class));});
+
+                    List<StatisticDayItem> statisticDay;
+                    List<StatisticSimple> weekUnresolved,yearUnresolved;
+                    String statisticDayString=pomodoroSp.getString("statisticDay","");
+                    String statisticWeekString=pomodoroSp.getString("unresolvedWeek","");
+                    String statisticYearString=pomodoroSp.getString("unresolvedYear","");
+                    System.out.println(statisticDayString);
+
+                    if(statisticDayString.equals(""))
+                        statisticDay=new LinkedList<>();
+                    else
+                        statisticDay=JSONObject.parseArray(statisticDayString,StatisticDayItem.class);
+                    if(statisticWeekString.equals(""))
+                        weekUnresolved=new LinkedList<>();
+                    else
+                        weekUnresolved=JSONObject.parseArray(statisticWeekString, StatisticSimple.class);
+                    if(statisticYearString.equals(""))
+                        yearUnresolved=new LinkedList<>();
+                    else
+                        yearUnresolved=JSONObject.parseArray(statisticYearString, StatisticSimple.class);
+
+                    System.out.println("focusedSeconds:"+focusedSeconds);
+                    statisticDay.add(new StatisticDayItem(editText.getText().toString(),focusedSeconds/3600,
+                                    (focusedSeconds%3600)/60,begin,new Date()));
+                    Calendar c=Calendar.getInstance();
+                    c.setTime(new Date());
+                    float hourSaved=(float)focusedSeconds/3600;
+                    weekUnresolved.add(new StatisticSimple((float) (Math.round(hourSaved*100))/100,c));
+                    yearUnresolved.add(new StatisticSimple((float) (Math.round(hourSaved*100))/100,c));
+
+                    SharedPreferences.Editor editor=pomodoroSp.edit();
+                    editor.putString("statisticDay",JSONObject.toJSONString(statisticDay));
+                    editor.putString("unresolvedWeek",JSONObject.toJSONString(weekUnresolved));
+                    editor.putString("unresolvedYear",JSONObject.toJSONString(yearUnresolved));
+                    editor.apply();
                     finish();
                 }
             }.start();
 
         });
+        int ifBegin=0;
+        ifBegin=intent.getIntExtra("begin",0);
+        if(ifBegin==1)
+            buttonBegin.callOnClick();
 
+        //save button
         Button buttonSave=findViewById(R.id.PomodoroSettingConfirm);
         buttonSave.setOnClickListener(v->{
             int minute=timePicker.getMinute();
@@ -251,6 +293,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             finish();
         });
 
+        //mode text
         String text= spinner.getItemAtPosition(mode).toString();
         spinnerText.setText(text);
     }
@@ -258,14 +301,14 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (timer != null)
-            timer.cancel();
-        if (timer2 != null)
-            timer2.cancel();
-        if (timerTask != null)
-            timerTask.cancel();
-        if (timerTask2 != null)
-            timerTask2.cancel();
+//        if (timer != null)
+//            timer.cancel();
+//        if (timer2 != null)
+//            timer2.cancel();
+//        if (timerTask != null)
+//            timerTask.cancel();
+//        if (timerTask2 != null)
+//            timerTask2.cancel();
     }
 
 
@@ -305,16 +348,12 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         return npList;
     }
 
-    /*
-     * 调整numberpicker大小
-     */
+     // 调整numberpicker大小
     private void resizeNumberPicker(NumberPicker np){
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 400);
         params.setMargins(10, 0, 10, 0);
         np.setLayoutParams(params);
     }
-
-
 
     //float window
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -376,6 +415,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         }
     }
 
+    //some unused function
 
     // 如下代码直接跳到该应用的悬浮窗权限设置页面
     private Boolean requestOverlayPermission() {
@@ -392,8 +432,6 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
 
     public static boolean isRunning(Context context, String packageName) {
         ActivityManager am = (ActivityManager) context

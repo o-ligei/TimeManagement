@@ -124,6 +124,7 @@
     <string name="title_activity_screen_saver">屏保</string>
     <string name="screen_saver_button">放弃</string>
     <string name="screen_saver_content">为中华崛起\n而读书</string>
+    <string name="screen_saver_title">已经专注了</string>
 
     <string name="pomodoro_list_title">番茄钟</string>
     <string name="pomodoro_start_button">开始</string>

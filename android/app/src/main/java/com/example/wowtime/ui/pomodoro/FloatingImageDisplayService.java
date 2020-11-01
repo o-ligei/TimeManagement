@@ -15,12 +15,17 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.example.wowtime.R;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by dongzhong on 2018/5/30.
@@ -29,11 +34,16 @@ import com.example.wowtime.R;
 public class FloatingImageDisplayService extends Service {
     public static boolean isStarted = false;
     private static boolean isCanceled=false;
+    private static int time=0;
 
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
 
     private View displayView;
+
+    private Timer timingTimer;
+    private TimerTask timingTask;
+    private static Handler timingHandler;
 
 //    private int[] images;
 //    private int imageIndex = 0;
@@ -47,6 +57,7 @@ public class FloatingImageDisplayService extends Service {
             System.out.println("canceled");
             return;
         }
+        System.out.println("floatingService in creating");
         isStarted = true;
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         layoutParams = new WindowManager.LayoutParams();
@@ -80,14 +91,6 @@ public class FloatingImageDisplayService extends Service {
 //        layoutParams.height=(int) (50 * getResources().getDisplayMetrics().scaledDensity);
 //        layoutParams.format=PixelFormat.TRANSPARENT;
 
-//        images = new int[] {
-//
-//                R.drawable.image_04,
-//                R.drawable.image_05,
-//                R.drawable.image_04,
-//                R.drawable.image_05,
-//                R.drawable.image_04
-//        };
 
 //        changeImageHandler = new Handler(this.getMainLooper(), changeImageCallback);
     }
@@ -112,14 +115,48 @@ public class FloatingImageDisplayService extends Service {
             LayoutInflater layoutInflater = LayoutInflater.from(this);
             displayView=layoutInflater.inflate(R.layout.screen_saver_activity,null);
 //            displayView = layoutInflater.inflate(R.layout.image_display, null);
-            displayView.setOnTouchListener(new FloatingOnTouchListener());
+//            displayView.setOnTouchListener(new FloatingOnTouchListener());
 //            ImageView imageView = displayView.findViewById(R.id.image_display_imageview);
 //            imageView.setImageResource(images[imageIndex]);
 
 //            View viewbar = new customViewGroup(this);
 //            windowManager.addView(viewbar, layoutParams);
 
+            TextView textView=displayView.findViewById(R.id.saver_gone_time);
+            timingTimer = new Timer();
+            timingTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Message message = timingHandler.obtainMessage(1);
+                    timingHandler.sendMessage(message);
+//                    System.out.println("send");
+                }
+            };
+            Button whitelist=displayView.findViewById(R.id.white_list_button);
+            whitelist.setOnClickListener(v->{
+                System.out.println("FloatingImageDisplayService:whitelist");
+                windowManager.removeView(displayView);
+               startActivity(new Intent(getApplicationContext(),WhiteListActivity.class));
+            });
+            timingHandler=new Handler(new Handler.Callback() {
+                @Override
+                public boolean handleMessage(Message msg) {
+                    switch (msg.what) {
+                        case 1:
+                            ++time;
+//                            System.out.println("time has gone"+time+"s");
+                            textView.setText(secondToTime(time));
+                            break;
+                    }
+                    return false;
+                }
+            });
+            if(windowManager==null) {
+                System.out.println("wm is null?");
+                onCreate();
+            }
             windowManager.addView(displayView, layoutParams);
+            timingTimer.schedule(timingTask, 0, 1000);
 //            changeImageHandler.sendEmptyMessageDelayed(0, 2000);
         }
     }
@@ -128,58 +165,56 @@ public class FloatingImageDisplayService extends Service {
     public void onDestroy() {
         super.onDestroy();
         isStarted=false;
+        timingTimer.cancel();
+        timingTask.cancel();
         System.out.println("destroy");
         windowManager.removeView(displayView);
     }
 
-    public static void setIsCanceled(boolean flag) {
+    public static int setIsCanceled(boolean flag) {
         isCanceled=flag;
+        return time;
     }
 
-    //    private Handler.Callback changeImageCallback = new Handler.Callback() {
-//        @Override
-//        public boolean handleMessage(Message msg) {
-//            if (msg.what == 0) {
-//                imageIndex++;
-//                if (imageIndex >= 5) {
-//                    imageIndex = 0;
-//                }
-//                if (displayView != null) {
-//                    ((ImageView) displayView.findViewById(R.id.image_display_imageview)).setImageResource(images[imageIndex]);
-//                }
+    public static void setTime(int time) {
+        FloatingImageDisplayService.time = time;
+    }
+
+    public static String secondToTime(long second){
+        long hours = second / 3600;            //转换小时
+        second = second % 3600;                //剩余秒数
+        long minutes = second /60;            //转换分钟
+        second = second % 60;                //剩余秒数
+        return hours + ":" + minutes + ":" + second;
+    }
+
+
+//    private class FloatingOnTouchListener implements View.OnTouchListener {
+//        private int x;
+//        private int y;
 //
-//                changeImageHandler.sendEmptyMessageDelayed(0, 2000);
+//        @Override
+//        public boolean onTouch(View view, MotionEvent event) {
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//                    x = (int) event.getRawX();
+//                    y = (int) event.getRawY();
+//                    break;
+//                case MotionEvent.ACTION_MOVE:
+//                    int nowX = (int) event.getRawX();
+//                    int nowY = (int) event.getRawY();
+//                    int movedX = nowX - x;
+//                    int movedY = nowY - y;
+//                    x = nowX;
+//                    y = nowY;
+//                    layoutParams.x = layoutParams.x + movedX;
+//                    layoutParams.y = layoutParams.y + movedY;
+//                    windowManager.updateViewLayout(view, layoutParams);
+//                    break;
+//                default:
+//                    break;
 //            }
 //            return false;
 //        }
-//    };
-
-    private class FloatingOnTouchListener implements View.OnTouchListener {
-        private int x;
-        private int y;
-
-        @Override
-        public boolean onTouch(View view, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    x = (int) event.getRawX();
-                    y = (int) event.getRawY();
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    int nowX = (int) event.getRawX();
-                    int nowY = (int) event.getRawY();
-                    int movedX = nowX - x;
-                    int movedY = nowY - y;
-                    x = nowX;
-                    y = nowY;
-                    layoutParams.x = layoutParams.x + movedX;
-                    layoutParams.y = layoutParams.y + movedY;
-                    windowManager.updateViewLayout(view, layoutParams);
-                    break;
-                default:
-                    break;
-            }
-            return false;
-        }
-    }
+//    }
 }

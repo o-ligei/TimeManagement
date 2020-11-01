@@ -40,15 +40,28 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/saver_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3:25:49"
-                android:textSize="100sp"
+                android:text="@string/screen_saver_title"
+                android:textSize="40sp"
                 android:textColor="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="50dp"
+                />
+
+            <TextView
+                android:id="@+id/saver_gone_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 : 15 :10"
+                android:textSize="60sp"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/saver_title"
                 />
 
             <Button
