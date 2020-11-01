@@ -1,5 +1,6 @@
 package com.oligei.timemanagement.entity;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 public class UserMongoDB {
 
     @Id
+    private ObjectId _id;
+
     @Field("userid")
     private Integer userId;
 
@@ -24,6 +27,8 @@ public class UserMongoDB {
         this.username = username;
         this.credit = credit;
     }
+
+    public ObjectId get_id() {return _id;}
 
     public Integer getUserId() {return userId;}
     public void setUserId(Integer userId) {this.userId = userId;}
