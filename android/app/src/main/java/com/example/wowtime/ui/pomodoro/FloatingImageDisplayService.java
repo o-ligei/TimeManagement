@@ -134,9 +134,12 @@ public class FloatingImageDisplayService extends Service {
             };
             Button whitelist=displayView.findViewById(R.id.white_list_button);
             whitelist.setOnClickListener(v->{
-                System.out.println("FloatingImageDisplayService:whitelist");
                 windowManager.removeView(displayView);
-               startActivity(new Intent(getApplicationContext(),WhiteListActivity.class));
+                System.out.println("FloatingImageDisplayService:whitelist");
+                Intent intent=new Intent(getApplicationContext(),WhiteListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.putExtra("fromScreenSaver",1);
+               startActivity(intent);
             });
             timingHandler=new Handler(new Handler.Callback() {
                 @Override
