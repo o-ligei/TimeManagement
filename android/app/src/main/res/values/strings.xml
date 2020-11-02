@@ -147,4 +147,7 @@
     <!--strings for email activate-->
     <string name="email_activate_title">验证邮箱</string>
     <string name="email_hint">请输入邮箱</string>
+
+    <string name="add_friend">添加</string>
+    <string name="accept_friend">同意</string>
 </resources>
