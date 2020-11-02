@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import okhttp3.FormBody;
 
@@ -38,28 +39,36 @@ public class Credit {
         formBody.add("earn", String.valueOf(n));
 
         /*handler*/
-        android.os.Handler handler = new Handler(msg -> {
-            if (msg.what == InternetConstant.FETCH) {
-                String result = (String) msg.obj;
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                String message = null;
-                try {
-                    message = jsonObject.get("msg").toString();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                assert message != null;
-                if(message.equals("success")){
+        android.os.Handler handler = new Handler(message -> {
+            if (message.what == InternetConstant.FETCH) {
+                String msg= message.getData().get("msg").toString();
+                String data=message.getData().get("data").toString();
+                if(msg.equals("success")){
                     System.out.println("save detail success");
                 }
                 else{
                     System.out.println("save detail failed");
                 }
+//                String result = (String) msg.obj;
+//                JSONObject jsonObject = null;
+//                try {
+//                    jsonObject = new JSONObject(result);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                String message = null;
+//                try {
+//                    message = jsonObject.get("msg").toString();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                assert message != null;
+//                if(message.equals("success")){
+//                    System.out.println("save detail success");
+//                }
+//                else{
+//                    System.out.println("save detail failed");
+//                }
             }
             return false;
         });

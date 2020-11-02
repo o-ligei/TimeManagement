@@ -41,22 +41,15 @@ public class PersonInfoFragment extends Fragment {
     private void fetchCredit(View view){
         FormBody.Builder formBody = new FormBody.Builder();
         formBody.add("userid", UserInfoAfterLogin.userid.toString());
-        android.os.Handler handler = new Handler(msg -> {
-            System.out.println(msg.what);
-            if (msg.what == InternetConstant.FETCH) {
-                String result = (String) msg.obj;
+
+        android.os.Handler handler = new Handler(message -> {
+            if (message.what == InternetConstant.FETCH) {
+                String msg= message.getData().get("msg").toString();
+                String data=message.getData().get("data").toString();
+                System.out.println("msg"+msg);
+                System.out.println("data"+data);
                 org.json.JSONObject jsonObject = null;
-                String message = null;
-                String data=null;
-                try {
-                    jsonObject = new org.json.JSONObject(result);
-                    message = jsonObject.get("msg").toString();
-                    data=jsonObject.get("data").toString();
-                } catch (org.json.JSONException e) {
-                    e.printStackTrace();
-                }
-                assert message != null;
-                if(message.equals("success")){
+                if(msg.equals("success")){
                     try {
                         jsonObject=new org.json.JSONObject(data);
                         data=jsonObject.get("credit").toString();
@@ -71,9 +64,38 @@ public class PersonInfoFragment extends Fragment {
                 else{
                     System.out.println("failed");
                 }
+
+//                String result = (String) msg.obj;
+//                org.json.JSONObject jsonObject = null;
+//                String message = null;
+//                String data=null;
+//                try {
+//                    jsonObject = new org.json.JSONObject(result);
+//                    message = jsonObject.get("msg").toString();
+//                    data=jsonObject.get("data").toString();
+//                } catch (org.json.JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                assert message != null;
+//                if(message.equals("success")){
+//                    try {
+//                        jsonObject=new org.json.JSONObject(data);
+//                        data=jsonObject.get("credit").toString();
+//                        jsonObject=new org.json.JSONObject(data);
+//                        data=jsonObject.get("score").toString();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    TextView credit_detail=view.findViewById(R.id.CreditdetailLayout);
+//                    credit_detail.setText(data);
+//                }
+//                else{
+//                    System.out.println("failed");
+//                }
             }
             return false;
         });
+
         Ajax ajax=new Ajax("/User/GetPersonalCredit",formBody,handler,InternetConstant.FETCH);
         ajax.fetch();
     }
