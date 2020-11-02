@@ -30,13 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
     TextView phoneTextView;
     TextView passwordTextView;
     TextView captchaTextView;
-
-
-
-    TextView useNameTextView;
-    TextView phoneTextView;
-    TextView passwordTextView;
-    TextView captchaTextView;
     Button btn_register;
 
     @Override

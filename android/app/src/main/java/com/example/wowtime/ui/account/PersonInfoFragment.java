@@ -38,6 +38,9 @@ public class PersonInfoFragment extends Fragment {
     TextView creditText;
 
 
+    ConstraintLayout passwordLayout;
+    ConstraintLayout emailLayout;
+    ConstraintLayout creditLayout;
     public PersonInfoFragment(){}
 
     public PersonInfoFragment(int contentLayoutId) {
@@ -49,15 +52,16 @@ public class PersonInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.person_info_activity, container, false);
-        ConstraintLayout passwordLayout = root.findViewById(R.id.PasswordLayout);
+        passwordLayout = root.findViewById(R.id.PasswordLayout);
         passwordLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","password")));
-        ConstraintLayout emailLayout = root.findViewById(R.id.EmailLayout);
+        emailLayout = root.findViewById(R.id.EmailLayout);
         emailLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","email")));
-        ConstraintLayout creditLayout = root.findViewById(R.id.CreditLayout);
+        creditLayout = root.findViewById(R.id.CreditLayout);
         creditLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
 
         usernameText = root.findViewById(R.id.Username);
@@ -65,9 +69,17 @@ public class PersonInfoFragment extends Fragment {
         emailText = root.findViewById(R.id.Email);
         genderText = root.findViewById(R.id.Gender);
         creditText = root.findViewById(R.id.Credit);
-        OKGetProfile();
+
         return root;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        OKGetProfile();
+    }
+
     private void OKGetProfile(){
         new Thread(new Runnable() {
             @Override
@@ -118,6 +130,8 @@ public class PersonInfoFragment extends Fragment {
                     passwordText.setText("*******");
                     emailText.setText(email);
                 }
+                if(!emailText.getText().toString().equals("null"))
+                    emailLayout.setEnabled(false);
             }
         });
     }
