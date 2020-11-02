@@ -2,7 +2,9 @@ package com.example.wowtime.ui.games;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.preference.PreferenceManager;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -25,8 +27,8 @@ import java.util.TimerTask;
 
 public class TappingGameActivity extends AppCompatActivity {
 
-    private Integer INTERVAL = 1000;
-    private Integer TOTAL_ROUND = 10;
+    private Integer INTERVAL = 1500;
+    private Integer TOTAL_ROUND = 11;
     private Integer NEED_GREEN = 20;
 
     private Integer getGreenCount = 0;
@@ -34,12 +36,20 @@ public class TappingGameActivity extends AppCompatActivity {
 
     private Set<Integer> green = new HashSet<>();
     private Set<Integer> red = new HashSet<>();
+    private Set<Integer> clicked = new HashSet<>();
+
+    private void paramSetting() {
+        SharedPreferences calculateSettingPreference =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        TOTAL_ROUND = Integer.parseInt(calculateSettingPreference.getString("tap_round", "11"));
+        System.out.println("round: "+TOTAL_ROUND);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tapping_game_activity);
-
+        paramSetting();
         ArrayList<String> arrayList = new ArrayList<>();
         for (int i=0; i<12; i++)
             arrayList.add(Integer.toString(i));
@@ -56,6 +66,7 @@ public class TappingGameActivity extends AppCompatActivity {
                         Thread.sleep(INTERVAL);
                         runOnUiThread(() -> {
                             generateColorPosition();
+                            clicked.clear();
                             adapter.setSelection(green, red);
                             adapter.notifyDataSetChanged();
                         });
@@ -99,10 +110,14 @@ public class TappingGameActivity extends AppCompatActivity {
 
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             if (gameStarted) {
+                if (clicked.contains(position)) return;
+                clicked.add(position);
                 if (red.contains(position)) gameThread.interrupt();
                 if (green.contains(position)) {
                     getGreenCount++;
                     runOnUiThread(() -> getGreen.setText(getGreenCount.toString()));
+                    adapter.setWhite(position);
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -121,6 +136,7 @@ public class TappingGameActivity extends AppCompatActivity {
                 }
             };
             timer.schedule(timerTask, 5000);
+            startButton.setEnabled(false);
         });
 
         Button refreshButton = findViewById(R.id.tapRefreshButton);

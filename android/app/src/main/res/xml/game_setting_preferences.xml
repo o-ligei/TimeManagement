@@ -32,4 +32,38 @@
         android:title="时长"
         app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/random_game_setting_header">
+        <ListPreference
+            android:defaultValue="15"
+            android:entries="@array/random_digit_entries"
+            android:entryValues="@array/random_digit_values"
+            android:key="random_digit"
+            android:title="难度"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/calculate_game_setting_header">
+        <ListPreference
+            android:defaultValue="3"
+            android:entries="@array/calculate_magnitude_entries"
+            android:entryValues="@array/calculate_magnitude_values"
+            android:key="calculate_magnitude"
+            android:title="位数"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            android:defaultValue="4"
+            android:entries="@array/calculate_cnt_entries"
+            android:entryValues="@array/calculate_cnt_values"
+            android:key="calculate_cnt"
+            android:title="题目数"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/tapping_game_setting_header">
+        <ListPreference
+            android:defaultValue="11"
+            android:entries="@array/tap_round_entries"
+            android:entryValues="@array/tap_round_values"
+            android:key="tap_round"
+            android:title="难度"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
 </PreferenceScreen>

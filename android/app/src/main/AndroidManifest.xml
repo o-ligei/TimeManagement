@@ -18,25 +18,24 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".ui.games.TappingGameActivity">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+<!--                    <intent-filter>-->
+<!--                        <action android:name="android.intent.action.MAIN" />-->
 
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+<!--                        <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                    </intent-filter>-->
         </activity>
         <activity android:name=".ui.account.EmailActivateActivity" />
         <activity android:name=".ui.alarm.AlarmPlay" />
         <activity android:name=".ui.alarm.ClockFrequencyActivity" />
         <activity android:name=".ui.alarm.TagSettingActivity" />
         <activity android:name=".ui.games.RandomNumberGameActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".ui.account.PasswordChangeActivity" />
         <activity android:name=".ui.account.CaptchaConfirmActivity" />
@@ -67,7 +66,15 @@
         <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
         <!-- android:label="@string/title_activity_screen_saver" -->
         <!-- android:theme="@style/FullscreenTheme"></activity> -->
-        <activity android:name=".ui.games.CalculateGameActivity" />
+        <activity android:name=".ui.games.CalculateGameActivity">
+
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+        </activity>
         <activity
             android:name=".ui.others.SettingsActivity"
             android:label="@string/title_activity_settings" />
