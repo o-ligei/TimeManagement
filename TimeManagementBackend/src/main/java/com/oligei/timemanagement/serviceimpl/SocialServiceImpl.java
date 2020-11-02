@@ -48,6 +48,7 @@ public class SocialServiceImpl implements SocialService {
         if (from.equals(to)) return new Msg<>(MsgCode.FOUND_YOURSELF);
         if (friendDao.getFollowRelation(from, to) != null) return new Msg<>(MsgCode.ALREADY_FRIEND);
         if (friendDao.getAskRelation(from, to) != null) return new Msg<>(MsgCode.ALREADY_SEND_FRIEND_REQUEST);
+        if (friendDao.getAskRelation(to, from) != null) return new Msg<>(MsgCode.ALREADY_SEND_FRIEND_REQUEST);
         friendDao.addAskRelation(from, to);
         return new Msg<>(MsgCode.SUCCESS);
     }

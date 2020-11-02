@@ -109,6 +109,9 @@
     <string name="blow_time_setting_header">持续时间</string>
     <string name="speed_setting_header">灵敏度</string>
     <string name="shake_time_setting_header">持续时间</string>
+    <string name="random_game_setting_header">随机点点点</string>
+    <string name="calculate_game_setting_header">仔细算算算</string>
+    <string name="tapping_game_setting_header">快速拍拍拍</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">自定义</string>
