@@ -37,7 +37,6 @@ public class PersonInfoFragment extends Fragment {
     TextView genderText;
     TextView creditText;
 
-
     ConstraintLayout passwordLayout;
     ConstraintLayout emailLayout;
     ConstraintLayout creditLayout;
@@ -69,8 +68,26 @@ public class PersonInfoFragment extends Fragment {
         emailText = root.findViewById(R.id.Email);
         genderText = root.findViewById(R.id.Gender);
         creditText = root.findViewById(R.id.Credit);
-
+        OKGetProfile();
         return root;
+    }
+    private void OKGetProfile(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+                formBody.add("userid",String.valueOf(UserInfoAfterLogin.userid));
+                Request request = new Request.Builder().url(InternetConstant.host + "/User/GetPersonalProfile").post(formBody.build()).build();
+                try {
+                    Response response = client.newCall(request).execute();//发送请求
+                    String result = response.body().string();
+                    GetProfile(result);
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 
@@ -98,7 +115,7 @@ public class PersonInfoFragment extends Fragment {
             }
         }).start();
     }
-
+  
     private void GetProfile(String result ) throws JSONException{
         getActivity().runOnUiThread(new Runnable() {
             @Override

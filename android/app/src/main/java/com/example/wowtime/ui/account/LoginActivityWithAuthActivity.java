@@ -54,6 +54,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
                 Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, InternetFriendRequestActivity.class);
+//                 Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class);
                 startActivity(signUpIntent);
             }
         });
