@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wowtime.R;
+import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.util.InternetConstant;
 
 import org.json.JSONException;
@@ -112,7 +113,7 @@ public class EmailActivateActivity extends AppCompatActivity {
                 toast.show();
                 if(msg.equals("success")){
                     Intent intent = null;
-                    intent = new Intent(EmailActivateActivity.this,PersonInfoFragment.class);
+                    intent = new Intent(EmailActivateActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }

@@ -167,4 +167,6 @@
     <!--strings for email activate-->
     <string name="email_activate_title">activate email</string>
     <string name="email_hint">please input the email</string>
+    <string name="add_friend">ADD</string>
+    <string name="accept_friend">ACCEPT</string>
 </resources>
