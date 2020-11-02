@@ -3,6 +3,7 @@ package com.example.wowtime.ui.pomodoro;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -169,6 +170,7 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
             } else {
                 mViewHolder = (ViewHolder) convertView.getTag();
                 CheckBox cb =  convertView.findViewById(R.id.WhiteListCheckBox);
+                ImageView icon=convertView.findViewById(R.id.iv_app_icon);
                 // 小技巧：checkBox 的  tag 为它所在的行，在onCheckedChanged方法里面用到
                 if(fromScreen==0) {
                     cb.setTag(position);
@@ -202,6 +204,12 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
 //                    cb.setSelected(whiteListItems.get(position).getSelected());
                 }
                 else{
+                    PackageManager packageManager = getPackageManager();
+                    icon.setOnClickListener(v->{
+                        System.out.println("whitelistImageclick:"+whiteListItems.get(position).getPackageName());
+                        Intent intent = packageManager.getLaunchIntentForPackage(whiteListItems.get(position).getPackageName());
+                        startActivity(intent);
+                    });
                     mViewHolder.cb.setVisibility(View.INVISIBLE);
 //                    cb.setVisibility(View.GONE);
                     //cb.setWillNotDraw(false);
