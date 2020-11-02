@@ -32,6 +32,12 @@ public class RegisterActivity extends AppCompatActivity {
     TextView captchaTextView;
 
 
+    TextView useNameTextView;
+    TextView phoneTextView;
+    TextView passwordTextView;
+    TextView captchaTextView;
+    Button btn_register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
 //        if(phoneTextView.getText().toString().matches(telRegex))
 //            btn_getCaptcha.setEnabled(true);
         btn_getCaptcha.setOnClickListener(v->OKGetCaptcha());
-        Button btn_register = findViewById(R.id.btn_register);
+        btn_register = findViewById(R.id.btn_register);
         btn_register.setOnClickListener(v->OKRegister());
+        btn_register.setEnabled(false);
     }
 
     private void OKGetCaptcha(){
@@ -90,6 +97,8 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
                 toast.show();
+                if(msg.equals("success"))
+                    btn_register.setEnabled(true);
             }
         });
     }

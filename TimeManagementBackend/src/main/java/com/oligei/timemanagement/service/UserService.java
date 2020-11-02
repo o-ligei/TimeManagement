@@ -15,4 +15,6 @@ public interface UserService {
     Msg<Map<String, Object>> register(String phone, String username, String password, String captcha);
     Msg<Profile> getPersonalProfile(Integer userId);
     Msg<CreditInfo> getPersonalCredit(Integer userId);
+    Msg<Boolean> resetPassword(String phone, String password);
+    Msg<Boolean> verifyCaptcha(String phone, String captcha);
 }
