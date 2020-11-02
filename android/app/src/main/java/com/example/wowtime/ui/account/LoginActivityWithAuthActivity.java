@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wowtime.R;
 import com.example.wowtime.ui.MainActivity;
-import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 
@@ -54,7 +53,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class);
+                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, InternetFriendRequestActivity.class);
                 startActivity(signUpIntent);
             }
         });
@@ -68,7 +67,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
         btn_get_captcha.setOnClickListener(v -> OKGetCaptcha());
         btn_login = findViewById(R.id.btn_login_in_auth);
         btn_login.setOnClickListener(v -> OKLoginWitchAuth());
-        btn_login.setEnabled(false);
+//        btn_login.setEnabled(false);
     }
 
     private void OKGetCaptcha(){
