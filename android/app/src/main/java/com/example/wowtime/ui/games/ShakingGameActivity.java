@@ -72,7 +72,7 @@ public class ShakingGameActivity extends AppCompatActivity {
             {
                 mp.stop();
                 Credit credit=new Credit();
-                credit.modifyCredit(InternetConstant.alarm_credit);
+                credit.modifyCredit(InternetConstant.alarm_credit,"shakingGame");
                 ShakingGameActivity.this.finish();
             }
             t2 = System.currentTimeMillis();

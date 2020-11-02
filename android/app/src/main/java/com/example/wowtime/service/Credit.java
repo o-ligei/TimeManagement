@@ -15,7 +15,7 @@ import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+import com.alibaba.fastjson.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,15 +26,18 @@ import okhttp3.FormBody;
 public class Credit {
     public Credit(){}
 
-    public void modifyCredit(int n){
+    public void modifyCredit(int n,String eventName) {
         /*timestamp*/
+        System.out.println("modify credit");
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
+        System.out.println("timestamp"+sdf.format(date));
 
         /*formBody*/
+        System.out.println(eventName+" "+n);
         FormBody.Builder formBody = new FormBody.Builder();
         formBody.add("userid", UserInfoAfterLogin.userid.toString());
-        formBody.add("event", "acquire "+n+" point");
+        formBody.add("event", eventName+" "+n);
         formBody.add("timestamp",sdf.format(date));
         formBody.add("earn", String.valueOf(n));
 

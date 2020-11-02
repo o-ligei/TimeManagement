@@ -30,6 +30,7 @@ public class Ajax {
     }
 
     private void checkMsg(String result){
+        System.out.println("ajax: result "+result);
         Bundle bundle = new Bundle();
         Message message = Message.obtain();
         JSONObject jsonObject = null;
