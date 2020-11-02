@@ -10,7 +10,7 @@ public interface UserNeo4jRepository extends Neo4jRepository<UserNeo4j, Long> {
     UserNeo4j getUserNeo4jByUserId(String userId);
 
     @Query("MATCH (a:tm_users)\n" +
-            "WHERE a.username contains username\n" +
+            "WHERE a.username contains $username\n" +
             "RETURN a")
     List<UserNeo4j> searchByUsername(String username);
 
