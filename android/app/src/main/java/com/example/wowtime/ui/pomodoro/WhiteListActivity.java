@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
@@ -168,6 +167,11 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
                 mViewHolder.tx_app_name = (TextView) convertView.findViewById(R.id.tv_app_name);
                 convertView.setTag(mViewHolder);
             } else {
+                CheckBox cb = (CheckBox) convertView.findViewById(R.id.WhiteListCheckBox);
+                // 小技巧：checkBox 的  tag 为它所在的行，在onCheckedChanged方法里面用到
+                cb.setTag(position);
+                cb.setOnCheckedChangeListener(WhiteListActivity.this);
+
                 mViewHolder = (ViewHolder) convertView.getTag();
                 CheckBox cb =  convertView.findViewById(R.id.WhiteListCheckBox);
                 ImageView icon=convertView.findViewById(R.id.iv_app_icon);

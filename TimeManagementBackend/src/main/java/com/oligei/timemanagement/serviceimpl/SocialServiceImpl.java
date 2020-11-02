@@ -45,8 +45,9 @@ public class SocialServiceImpl implements SocialService {
     public Msg<Boolean> addFriend(Integer from, Integer to) {
         Objects.requireNonNull(from, "null from --SocialServiceImpl addFriend");
         Objects.requireNonNull(to, "null to --SocialServiceImpl addFriend");
-        if (friendDao.getFollowRelation(from, to) == null) return new Msg<>(MsgCode.ALREADY_FRIEND);
-        if (friendDao.getAskRelation(from, to) == null) return new Msg<>(MsgCode.ALREADY_SEND_FRIEND_REQUEST);
+        if (from.equals(to)) return new Msg<>(MsgCode.FOUND_YOURSELF);
+        if (friendDao.getFollowRelation(from, to) != null) return new Msg<>(MsgCode.ALREADY_FRIEND);
+        if (friendDao.getAskRelation(from, to) != null) return new Msg<>(MsgCode.ALREADY_SEND_FRIEND_REQUEST);
         friendDao.addAskRelation(from, to);
         return new Msg<>(MsgCode.SUCCESS);
     }
@@ -64,6 +65,7 @@ public class SocialServiceImpl implements SocialService {
     public Msg<Boolean> acceptFriend(Integer from, Integer to) {
         Objects.requireNonNull(from, "null from --SocialServiceImpl acceptFriend");
         Objects.requireNonNull(to, "null to --SocialServiceImpl acceptFriend");
+        if (from.equals(to)) return new Msg<>(MsgCode.FOUND_YOURSELF);
         friendDao.deleteAskRelation(to, from);
         friendDao.addFollowRelation(from, to);
         friendDao.addFollowRelation(to, from);

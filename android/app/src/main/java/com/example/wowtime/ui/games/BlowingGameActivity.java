@@ -1,8 +1,11 @@
 package com.example.wowtime.ui.games;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,15 +29,15 @@ public class BlowingGameActivity extends AppCompatActivity {
     private TextView progressValue;
 //    private LinearLayout full;
 
-    private int x1, x2, dx;
+//    private int x1, x2, dx;
     private int blowCount = 0;
     private Long t1 = System.currentTimeMillis(), t2;
 
     private static final int RECORD = 2;              //监听话筒
-    private static final int VOLUME_THRESHOLD = 60;
-    private static final int BLOW_INTERVAL = 250;
-    private static final int TOTAL_TIME = 5000;
-    private static final int NEED_COUNT = TOTAL_TIME/BLOW_INTERVAL;
+    private int VOLUME_THRESHOLD = 60;
+    private int BLOW_INTERVAL = 250;
+    private int TOTAL_TIME = 5000;
+    private int NEED_COUNT = TOTAL_TIME/BLOW_INTERVAL;
 
     private void handleSoundValues(double values){
         if (blowCount == NEED_COUNT) {
@@ -61,6 +64,16 @@ public class BlowingGameActivity extends AppCompatActivity {
         return false;
     });
 
+    private void paramSetting() {
+        SharedPreferences blowSettingPreference =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        VOLUME_THRESHOLD = Integer.parseInt(blowSettingPreference.getString("blow_volume", "60"));
+        TOTAL_TIME = Integer.parseInt(blowSettingPreference.getString("blow_duration", "5000"));
+        System.out.println("volume: "+VOLUME_THRESHOLD);
+        System.out.println("duration: "+TOTAL_TIME);
+        NEED_COUNT = TOTAL_TIME/BLOW_INTERVAL;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +82,7 @@ public class BlowingGameActivity extends AppCompatActivity {
         progressValue = findViewById(R.id.progress_value1);
 //        full = findViewById(R.id.full);
 //        initView();
+        paramSetting();
         //调用话筒实现类
         AudioRecordManger audioRecordManger = new AudioRecordManger(handler, RECORD); //实例化话筒实现类
         audioRecordManger.getNoiseLevel();                         //打开话筒监听声音

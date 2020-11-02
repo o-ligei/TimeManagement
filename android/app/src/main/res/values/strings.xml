@@ -13,7 +13,7 @@
     <string name="test_message">输入信息</string>
     <string name="button_send">发送</string>
     <string name="phone_hint">请输入手机号…</string>
-    <string name="captcha_hint">请输入验证码…</string>
+    <string name="captcha_hint">验证码…</string>
     <string name="username_hint">请输入用户名…</string>
     <string name="get_captcha_hint">获取验证码</string>
     <string name="password_hint">请输入密码…</string>
@@ -65,6 +65,11 @@
     <string name="friendslist_name">好友列表</string>
     <string name="creditdetail_name">积分详情</string>
 
+    <!--strings for tapping game-->
+    <string name="tapping_game_rule">踩到20个绿方块，别踩红方块！</string>
+    <string name="tapping_game_start">游戏开始！</string>
+    <string name="tapping_game_success">成功</string>
+    <string name="tapping_game_failure">失败</string>
 
     <!--strings for navigation-->
     <string name="navigation_person_info">个人信息</string>
@@ -97,6 +102,13 @@
     <!-- Preference Titles -->
     <string name="messages_header">消息</string>
     <string name="sync_header">同步</string>
+    <string name="game_setting_header">游戏参数设定</string>
+    <string name="blowing_game_setting_header">努力吹吹吹</string>
+    <string name="shaking_game_setting_header">使劲摇摇摇</string>
+    <string name="volume_setting_header">灵敏度</string>
+    <string name="blow_time_setting_header">持续时间</string>
+    <string name="speed_setting_header">灵敏度</string>
+    <string name="shake_time_setting_header">持续时间</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">自定义</string>
@@ -120,7 +132,7 @@
     <string name="calculate_description">请回答下列算式的答案</string>
     <string name="calculate_title">算式</string>
     <string name="calculate_answer">0</string>
-    <string name="calculate_handson">提交</string>
+    <string name="handson">提交</string>
     <string name="title_activity_screen_saver">屏保</string>
     <string name="screen_saver_button">放弃</string>
     <string name="screen_saver_content">为中华崛起\n而读书</string>
@@ -134,5 +146,21 @@
 
     <!--strings for random number input -->
     <string name="number_input_title">请输入下列数字：</string>
-    <string name="random_number_handson">提交</string>
+
+    <!--strings for confirm captcha -->
+    <string name="phone_input">请输入手机号</string>
+    <string name="captcha_input">请输入验证码</string>
+    <string name="get_captcha">验证码获取</string>
+
+    <!--strings for password change -->
+    <string name="password_change_title">修改密码</string>
+    <string name="new_password">新密码</string>
+    <string name="new_password_confirm">确认密码</string>
+
+    <!--strings for email activate-->
+    <string name="email_activate_title">验证邮箱</string>
+    <string name="email_hint">请输入邮箱</string>
+
+    <string name="add_friend">添加</string>
+    <string name="accept_friend">同意</string>
 </resources>

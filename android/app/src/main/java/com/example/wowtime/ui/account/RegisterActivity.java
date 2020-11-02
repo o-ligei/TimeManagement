@@ -15,8 +15,8 @@ import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 import com.example.wowtime.ui.games.CalculateGameActivity;
 import com.example.wowtime.util.InternetConstant;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
 
@@ -26,12 +26,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity {
-    TextView useNameTextView;
-    TextView phoneTextView;
-    TextView passwordTextView;
-    TextView captchaTextView;
-
-
     TextView useNameTextView;
     TextView phoneTextView;
     TextView passwordTextView;
@@ -84,17 +78,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void run() {
                 JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 String msg = null;
-                try {
-                    msg = jsonObject.get("msg").toString();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                jsonObject = JSONObject.parseObject(result);
+                msg = jsonObject.get("msg").toString();
                 Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
                 toast.show();
                 if(msg.equals("success"))
@@ -117,36 +103,38 @@ public class RegisterActivity extends AppCompatActivity {
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
+                    System.out.println(result);
                     postRegister(result);
-                } catch (IOException | JSONException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
     }
 
-    private void postRegister(String result) throws JSONException {
+    private void postRegister(String result){
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 String msg = null;
                 try {
+//                    jsonObject = new JSONObject(Boolean.parseBoolean(result));
+                    jsonObject = JSONObject.parseObject(result);
+                    System.out.println(jsonObject);
                     msg = jsonObject.get("msg").toString();
-                } catch (JSONException e) {
+                    System.out.println(msg);
+                }catch (JSONException e){
                     e.printStackTrace();
                 }
+
                 Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
                 toast.show();
                 if(msg.equals("success"))
                 {
                     Intent intent = new Intent(RegisterActivity.this, LoginActivityWithPasswordActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });

@@ -45,6 +45,7 @@ public class ApkTool {
                     System.out.println("apktoolHaven'tSelect:"+packageInfo.packageName);
                     whiteListItem.setSelected(false);
                 }
+                whiteListItem.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
                 whiteListItems.add(whiteListItem);
             }
         }catch (Exception e){
