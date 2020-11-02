@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
             String token = TokenUtil.sign(existed_user);
             Map<String, Object> result = new HashMap<>();
             result.put("token", token);
-            result.put("user", existed_user);
+            result.put("userid", existed_user.getUserId());
             return new Msg<>(MsgCode.SUCCESS, result);
         } else return new Msg<>(MsgCode.WRONG_PASSWORD);
     }
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
             Map<String, Object> result = new HashMap<>();
             String token = TokenUtil.sign(existed_user);
             result.put("token", token);
-            result.put("userid", existed_user);
+            result.put("userid", existed_user.getUserId());
             return new Msg<>(MsgCode.SUCCESS, result);
         }
     }
@@ -161,7 +161,7 @@ public class UserServiceImpl implements UserService {
         String token = TokenUtil.sign(user);
         Map<String, Object> result = new HashMap<>();
         result.put("token", token);
-        result.put("userid", user);
+        result.put("userid", user.getUserId());
         return new Msg<>(MsgCode.SUCCESS, result);
     }
 
