@@ -37,7 +37,9 @@ public class PersonInfoFragment extends Fragment {
     TextView genderText;
     TextView creditText;
 
-
+    ConstraintLayout passwordLayout;
+    ConstraintLayout emailLayout;
+    ConstraintLayout creditLayout;
     public PersonInfoFragment(){}
 
     public PersonInfoFragment(int contentLayoutId) {
@@ -49,15 +51,16 @@ public class PersonInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.person_info_activity, container, false);
-        ConstraintLayout passwordLayout = root.findViewById(R.id.PasswordLayout);
+        passwordLayout = root.findViewById(R.id.PasswordLayout);
         passwordLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","password")));
-        ConstraintLayout emailLayout = root.findViewById(R.id.EmailLayout);
+        emailLayout = root.findViewById(R.id.EmailLayout);
         emailLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","email")));
-        ConstraintLayout creditLayout = root.findViewById(R.id.CreditLayout);
+        creditLayout = root.findViewById(R.id.CreditLayout);
         creditLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
 
         usernameText = root.findViewById(R.id.Username);
@@ -87,6 +90,32 @@ public class PersonInfoFragment extends Fragment {
         }).start();
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        OKGetProfile();
+    }
+
+    private void OKGetProfile(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+                formBody.add("userid",String.valueOf(UserInfoAfterLogin.userid));
+                Request request = new Request.Builder().url(InternetConstant.host + "/User/GetPersonalProfile").post(formBody.build()).build();
+                try {
+                    Response response = client.newCall(request).execute();//发送请求
+                    String result = response.body().string();
+                    GetProfile(result);
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+  
     private void GetProfile(String result ) throws JSONException{
         getActivity().runOnUiThread(new Runnable() {
             @Override
@@ -118,6 +147,8 @@ public class PersonInfoFragment extends Fragment {
                     passwordText.setText("*******");
                     emailText.setText(email);
                 }
+                if(!emailText.getText().toString().equals("null"))
+                    emailLayout.setEnabled(false);
             }
         });
     }

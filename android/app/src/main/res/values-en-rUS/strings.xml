@@ -149,6 +149,7 @@
     <string name="title_activity_screen_saver">Screen Saver</string>
     <string name="screen_saver_button">quit</string>
     <string name="screen_saver_content">STUDY\nFOR THE RISE OF CHINA</string>
+    <string name="screen_saver_title">You have been focused for</string>
 
     <string name="pomodoro_list_title">POMODORA</string>
     <string name="pomodoro_start_button">START</string>
@@ -170,4 +171,6 @@
     <!--strings for email activate-->
     <string name="email_activate_title">activate email</string>
     <string name="email_hint">please input the email</string>
+    <string name="add_friend">ADD</string>
+    <string name="accept_friend">ACCEPT</string>
 </resources>
