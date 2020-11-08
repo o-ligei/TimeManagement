@@ -89,10 +89,11 @@ public class PomodoroListFragment extends Fragment {
 
         String stringList=pomodoroSp.getString("pomodoroList","");
         System.out.println("pomodoroList:"+stringList);
-        List<PomodoroListItem> listItems=  JSON.parseArray(stringList,PomodoroListItem.class);
-
-        if(listItems==null)
-            listItems=new LinkedList<>();
+        List<PomodoroListItem> listItems = new LinkedList<>();
+        if (stringList != null && !stringList.equals("")) {
+            System.out.println("You Are Here.");
+            listItems = JSON.parseArray(stringList, PomodoroListItem.class);
+        }
         adapter = new PomodoroItemAdapter(listItems,getContext());
         listView = view.findViewById(R.id.PomodoroCardList);
 
@@ -130,9 +131,11 @@ public class PomodoroListFragment extends Fragment {
         super.onResume();
         String stringList=pomodoroSp.getString("pomodoroList","");
         System.out.println("pomodoroList:"+stringList);
-        List<PomodoroListItem> listItems=  JSON.parseArray(stringList,PomodoroListItem.class);
-
-        if(listItems==null)listItems=new LinkedList<>();
+        List<PomodoroListItem> listItems = new LinkedList<>();
+        if (stringList != null && !stringList.equals("")) {
+            System.out.println("You Are Here.");
+            listItems = JSON.parseArray(stringList, PomodoroListItem.class);
+        }
         adapter = new PomodoroItemAdapter(listItems,getContext());
         listView.setAdapter(adapter);
 //        adapter.notifyDataSetChanged();

@@ -282,9 +282,11 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             SharedPreferences.Editor editor=pomodoroSp.edit();
             String stringList=pomodoroSp.getString("pomodoroList","");
             System.out.println("pomodoroList:"+stringList);
-            List<PomodoroListItem> pomodoroListItems=  JSON.parseArray(stringList,PomodoroListItem.class);
-            if(pomodoroListItems==null)
-                pomodoroListItems=new LinkedList<>();
+            List<PomodoroListItem> pomodoroListItems = new LinkedList<>();
+            if (stringList != null && !stringList.equals("")) {
+                System.out.println("You Are Here.");
+                pomodoroListItems = JSON.parseArray(stringList, PomodoroListItem.class);
+            }
             if(position==-1)pomodoroListItems.add(pomodoroListItem);
             else pomodoroListItems.set(position,pomodoroListItem);
             editor.putString("pomodoroList",JSONObject.toJSONString(pomodoroListItems));
