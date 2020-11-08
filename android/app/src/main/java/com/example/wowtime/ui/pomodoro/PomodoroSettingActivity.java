@@ -175,7 +175,6 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             totalTime/=60;
             time/=60;
             rest/=60;
-
             timer=new Timer();
             timer2=new Timer();
             timerTask=new TimerTask() {
@@ -198,7 +197,6 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             timer2.schedule(timerTask2,time,rest+time);
             begin=new Date();
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
             int finalTotalTime = totalTime;
             new Thread(){
                 @Override
