@@ -175,7 +175,6 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             totalTime/=60;
             time/=60;
             rest/=60;
-
             timer=new Timer();
             timer2=new Timer();
             timerTask=new TimerTask() {
@@ -198,7 +197,6 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             timer2.schedule(timerTask2,time,rest+time);
             begin=new Date();
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,  WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
             int finalTotalTime = totalTime;
             new Thread(){
                 @Override
@@ -282,9 +280,11 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             SharedPreferences.Editor editor=pomodoroSp.edit();
             String stringList=pomodoroSp.getString("pomodoroList","");
             System.out.println("pomodoroList:"+stringList);
-            List<PomodoroListItem> pomodoroListItems=  JSON.parseArray(stringList,PomodoroListItem.class);
-            if(pomodoroListItems==null)
-                pomodoroListItems=new LinkedList<>();
+            List<PomodoroListItem> pomodoroListItems = new LinkedList<>();
+            if (stringList != null && !stringList.equals("")) {
+                System.out.println("You Are Here.");
+                pomodoroListItems = JSON.parseArray(stringList, PomodoroListItem.class);
+            }
             if(position==-1)pomodoroListItems.add(pomodoroListItem);
             else pomodoroListItems.set(position,pomodoroListItem);
             editor.putString("pomodoroList",JSONObject.toJSONString(pomodoroListItems));
