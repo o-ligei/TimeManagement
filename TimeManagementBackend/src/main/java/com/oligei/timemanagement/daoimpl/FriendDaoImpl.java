@@ -69,6 +69,6 @@ public class FriendDaoImpl implements FriendDao {
     public FollowNeo4j addFollowRelation(Integer from, Integer to) {
         Objects.requireNonNull(from, "null from --FriendDaoImpl addFollowRelation");
         Objects.requireNonNull(to, "null to --FriendDaoImpl addFollowRelation");
-        return followNeo4jRepository.getFollowRelation(from.toString(), to.toString());
+        return followNeo4jRepository.addFollowRelation(from.toString(), to.toString());
     }
 }

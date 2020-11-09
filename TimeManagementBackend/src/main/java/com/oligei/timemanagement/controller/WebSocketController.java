@@ -21,6 +21,7 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,8 +35,12 @@ public class WebSocketController {
     private Session session;
     private String userId = "";
 
+    private static SocialService socialService;
+
     @Autowired
-    private SocialService socialService;
+    public void setSocialService(SocialService socialService) {
+        WebSocketController.socialService = socialService;
+    }
 
     @OnOpen
     public void onOpen(Session session, @PathParam("userId") String userId) {
@@ -49,7 +54,10 @@ public class WebSocketController {
             existFriendRequest.setMsg(MsgConstant.REMAIN_FRIEND_REQUEST_MESSAGE);
             Msg<Boolean> msg = new Msg<>(MsgCode.SUCCESS);
             if (existFriendRequest.getData().isEmpty()) sendMessage((JSONObject) JSONObject.toJSON(msg), userId);
-            else sendMessage((JSONObject) JSONObject.toJSON(existFriendRequest), userId);
+            else {
+                existFriendRequest.setData(new ArrayList<>());
+                sendMessage((JSONObject) JSONObject.toJSON(existFriendRequest), userId);
+            }
         } catch (IOException e) {
             logger.error("IOException", e);
         } catch (NotOnlineException e) {

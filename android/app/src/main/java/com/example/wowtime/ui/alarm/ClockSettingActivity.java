@@ -163,6 +163,7 @@ public class ClockSettingActivity extends AppCompatActivity {
         Button ringSetting=findViewById(R.id.ClockRingSetting);
         ringSetting.setText(ring);
 
+
         String tmp=mySharedPreferences.getString("frequency","[true,false,false,false,false,false,false,false]");
         frequency = JSONObject.parseArray(tmp,boolean.class);
 //        if(frequency==null||frequency.equals("")){

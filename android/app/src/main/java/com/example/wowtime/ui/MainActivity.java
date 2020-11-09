@@ -20,9 +20,18 @@ import com.example.wowtime.databinding.ActivityMainBinding;
 import com.example.wowtime.ui.alarm.AlarmListFragment;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.alarm.TaskListActivity;
+import com.example.wowtime.ui.others.FriendsListFragment;
+import com.example.wowtime.ui.others.InternetFriendListActivity;
 import com.example.wowtime.ui.pomodoro.PomodoroListFragment;
 import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
+import com.example.wowtime.util.UserInfoAfterLogin;
+import com.example.wowtime.websocket.TWebSocketClient;
+import com.example.wowtime.websocket.TWebSocketClientService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.net.URI;
+
+import static com.example.wowtime.util.InternetConstant.websocket_host;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("MainActivity create !");
         setContentView(R.layout.main_used_to_debug);
 //        Button button = findViewById(R.id.button);
 //        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PersonInfo.class)));
@@ -55,7 +65,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ClockSettingActivity.class));
             if(c== PomodoroListFragment.class)
                 startActivity(new Intent(MainActivity.this, PomodoroSettingActivity.class));
+            if(c== FriendsListFragment.class)
+                startActivity(new Intent(MainActivity.this, InternetFriendListActivity.class));
         });
+
+        button.setOnLongClickListener(v->{
+            Class<? extends Fragment> c=getPrimaryFragmentClass();
+            if(c==AlarmListFragment.class)
+                startActivity(new Intent(MainActivity.this, ClockSettingActivity.class));
+            return false;
+        });
+        Intent startIntent = new Intent(this, TWebSocketClientService.class);
+        startService(startIntent);
+        System.out.println("MainActivity create done!");
     }
 
     @Override
