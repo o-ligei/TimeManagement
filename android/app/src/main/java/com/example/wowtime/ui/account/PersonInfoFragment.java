@@ -74,7 +74,7 @@ public class PersonInfoFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    TextView credit_detail=view.findViewById(R.id.CreditdetailLayout);
+                    TextView credit_detail=view.findViewById(R.id.Credit);
                     credit_detail.setText(data);
                 }
                 else{
@@ -136,30 +136,6 @@ public class PersonInfoFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        OKGetProfile();
-    }
-
-    private void OKGetProfile(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-                formBody.add("userid",String.valueOf(UserInfoAfterLogin.userid));
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/GetPersonalProfile").post(formBody.build()).build();
-                try {
-                    Response response = client.newCall(request).execute();//发送请求
-                    String result = response.body().string();
-                    GetProfile(result);
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
 
     @Override
     public void onResume() {

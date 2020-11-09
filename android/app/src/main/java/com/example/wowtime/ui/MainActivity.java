@@ -1,11 +1,13 @@
 package com.example.wowtime.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -37,6 +39,7 @@ import static com.example.wowtime.util.InternetConstant.websocket_host;
 
 public class MainActivity extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +80,12 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
         Intent startIntent = new Intent(this, TWebSocketClientService.class);
-        startService(startIntent);
+//        startForegroundService(startIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(startIntent);
+        } else {
+            startService(startIntent);
+        }
         System.out.println("MainActivity create done!");
     }
 
