@@ -123,14 +123,14 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 
     <!-- strings for game -->
     <string name="shaking_notice">shake the phone</string>
     <string name="blowing_notice">blow the phone</string>
+    <string name="blowing_button_text">hold down to blow</string>
     <!--strings for menu-->
     <string name="menu_exit">exit</string>
 
