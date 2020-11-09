@@ -22,16 +22,11 @@ import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.alarm.TaskListActivity;
 import com.example.wowtime.ui.others.FriendsListFragment;
 import com.example.wowtime.ui.others.InternetFriendListActivity;
+import com.example.wowtime.ui.others.SpeechRecognizeActivity;
 import com.example.wowtime.ui.pomodoro.PomodoroListFragment;
 import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
-import com.example.wowtime.util.UserInfoAfterLogin;
-import com.example.wowtime.websocket.TWebSocketClient;
 import com.example.wowtime.websocket.TWebSocketClientService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.net.URI;
-
-import static com.example.wowtime.util.InternetConstant.websocket_host;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -72,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnLongClickListener(v->{
             Class<? extends Fragment> c=getPrimaryFragmentClass();
             if(c==AlarmListFragment.class)
-                startActivity(new Intent(MainActivity.this, ClockSettingActivity.class));
+                startActivity(new Intent(MainActivity.this, SpeechRecognizeActivity.class));
             return false;
         });
         Intent startIntent = new Intent(this, TWebSocketClientService.class);

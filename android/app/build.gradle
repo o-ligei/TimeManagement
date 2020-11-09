@@ -43,6 +43,7 @@ android {
                             'src/main/res/layouts',
                             'src/main/res'
                     ]
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
