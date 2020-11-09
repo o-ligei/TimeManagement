@@ -11,6 +11,10 @@
     <uses-permission android:name="android.permission.STATUS_BAR"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission xmlns:tools="http://schemas.android.com/tools"
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -78,8 +82,6 @@
         <activity android:name=".ui.games.CalculateGameActivity">
 <!--             <intent-filter>-->
 <!--             <action android:name="android.intent.action.MAIN" />-->
-
-
 <!--             <category android:name="android.intent.category.LAUNCHER" />-->
 <!--             </intent-filter>-->
         </activity>
