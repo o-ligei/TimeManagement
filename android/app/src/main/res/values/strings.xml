@@ -109,6 +109,9 @@
     <string name="blow_time_setting_header">持续时间</string>
     <string name="speed_setting_header">灵敏度</string>
     <string name="shake_time_setting_header">持续时间</string>
+    <string name="random_game_setting_header">随机点点点</string>
+    <string name="calculate_game_setting_header">仔细算算算</string>
+    <string name="tapping_game_setting_header">快速拍拍拍</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">自定义</string>
@@ -128,6 +131,7 @@
     <!-- strings for game -->
     <string name="shaking_notice">摇晃手机</string>
     <string name="blowing_notice">吹一吹</string>
+    <string name="blowing_button_text">按住吹气</string>
     <!-- string for calculate -->
     <string name="calculate_description">请回答下列算式的答案</string>
     <string name="calculate_title">算式</string>
@@ -136,6 +140,7 @@
     <string name="title_activity_screen_saver">屏保</string>
     <string name="screen_saver_button">放弃</string>
     <string name="screen_saver_content">为中华崛起\n而读书</string>
+    <string name="screen_saver_title">已经专注了</string>
 
     <string name="pomodoro_list_title">番茄钟</string>
     <string name="pomodoro_start_button">开始</string>

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -124,7 +125,7 @@ public class PomodoroItemAdapter extends BaseAdapter {
                     @Override//设置ok的事件
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mData.remove(position);
-                        SharedPreferences mySharedPreferences= mContext.getSharedPreferences("pomodoroList", Activity.MODE_PRIVATE);
+                        SharedPreferences mySharedPreferences= mContext.getSharedPreferences("pomodoro", Activity.MODE_PRIVATE);
 //                        SharedPreferences mySharedPreferences=PomodoroSettingActivity.getPomodoroSp();
                         String shared= JSONObject.toJSONString(mData);
                         System.out.println("listBeforeRemoving:"+mySharedPreferences.getString("pomodoroList",""));
@@ -148,6 +149,16 @@ public class PomodoroItemAdapter extends BaseAdapter {
                 return true;
             }
         });
+
+        Button button=convertView.findViewById(R.id.start_botton);
+        button.setOnClickListener(v->{
+            System.out.println("pomodoroListPosition:"+position);
+            Intent intent = new Intent(mContext, PomodoroSettingActivity.class);
+            intent.putExtra("position", position);
+            intent.putExtra("begin",1);
+            mContext.startActivity(intent);
+        });
+
         return convertView;
     }
 }

@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.wowtime">
+    package="com.example.wowtime" >
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
+    <uses-permission android:name="android.permission.STATUS_BAR"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission xmlns:tools="http://schemas.android.com/tools"
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -26,18 +35,29 @@
             android:exported="true" />
 
         <activity android:name=".ui.others.InternetFriendListActivity" />
+        <activity android:name=".ui.games.TappingGameActivity" />
+<!--                    <intent-filter>-->
+<!--                        <action android:name="android.intent.action.MAIN" />-->
+
+        <service
+            android:name=".websocket.TWebSocketClientService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".ui.others.InternetFriendListActivity" />
+<!--                        <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                    </intent-filter>-->
+<!--         </activity> -->
         <activity android:name=".ui.account.EmailActivateActivity" />
         <activity android:name=".ui.alarm.AlarmPlay" />
         <activity android:name=".ui.alarm.ClockFrequencyActivity" />
         <activity android:name=".ui.alarm.TagSettingActivity" />
         <activity android:name=".ui.games.RandomNumberGameActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity android:name=".ui.account.PasswordChangeActivity" />
         <activity android:name=".ui.account.CaptchaConfirmActivity" />
@@ -66,7 +86,12 @@
         <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
         <!-- android:label="@string/title_activity_screen_saver" -->
         <!-- android:theme="@style/FullscreenTheme"></activity> -->
-        <activity android:name=".ui.games.CalculateGameActivity" />
+        <activity android:name=".ui.games.CalculateGameActivity">
+<!--             <intent-filter>-->
+<!--             <action android:name="android.intent.action.MAIN" />-->
+<!--             <category android:name="android.intent.category.LAUNCHER" />-->
+<!--             </intent-filter>-->
+        </activity>
         <activity
             android:name=".ui.others.SettingsActivity"
             android:label="@string/title_activity_settings" />
@@ -113,6 +138,9 @@
         <activity
             android:name=".ui.pomodoro.PomodoroSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.alarm.TagSettingActivity" />
+        <activity android:name=".ui.alarm.ClockFrequencyActivity"/>
+        <activity android:name=".ui.others.GameSettingsActivity" />
     </application>
 
 </manifest>

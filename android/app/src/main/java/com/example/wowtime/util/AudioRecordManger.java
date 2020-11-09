@@ -24,6 +24,14 @@ public class AudioRecordManger {
         this.mWhat = what;//动作ID
     }
 
+    public void stop_record(){
+        System.out.println("stop_record");
+        isGetVoiceRun=false;
+        mAudioRecord.stop();
+//        mAudioRecord.release();
+//        mAudioRecord = null;
+    }
+
     public void getNoiseLevel() {
         if (isGetVoiceRun) {
             Log.e(TAG, "还在录着呢");
@@ -68,6 +76,7 @@ public class AudioRecordManger {
                     mHandler.sendMessage(message);
                 }
                 //话筒对象释放
+                System.out.println("mediaRecorder release");
                 if (null != mAudioRecord) {
                     mAudioRecord.stop();
                     mAudioRecord.release();

@@ -112,6 +112,9 @@
     <string name="blow_time_setting_header">Duration</string>
     <string name="speed_setting_header">Sensitivity</string>
     <string name="shake_time_setting_header">Duration</string>
+    <string name="random_game_setting_header">Random Number Game Setting</string>
+    <string name="calculate_game_setting_header">Calculating Game Setting</string>
+    <string name="tapping_game_setting_header">Tapping Game Setting</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
@@ -120,14 +123,14 @@
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 
     <!-- strings for game -->
     <string name="shaking_notice">shake the phone</string>
     <string name="blowing_notice">blow the phone</string>
+    <string name="blowing_button_text">hold down to blow</string>
     <!--strings for menu-->
     <string name="menu_exit">exit</string>
 
@@ -146,6 +149,7 @@
     <string name="title_activity_screen_saver">Screen Saver</string>
     <string name="screen_saver_button">quit</string>
     <string name="screen_saver_content">STUDY\nFOR THE RISE OF CHINA</string>
+    <string name="screen_saver_title">You have been focused for</string>
 
     <string name="pomodoro_list_title">POMODORA</string>
     <string name="pomodoro_start_button">START</string>

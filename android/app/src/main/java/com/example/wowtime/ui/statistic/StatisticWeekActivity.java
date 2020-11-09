@@ -2,6 +2,7 @@ package com.example.wowtime.ui.statistic;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +13,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
+import com.example.wowtime.dto.StatisticSimple;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -27,13 +31,19 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 
 public class StatisticWeekActivity extends AppCompatActivity {
 
     private BarChart bar;
+    private SharedPreferences pomodoroSp;
 
     List<BarEntry> list = new ArrayList<>();//实例化一个List用来存储数据
 
@@ -42,14 +52,52 @@ public class StatisticWeekActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.statistic_week_activity);
         bar = (BarChart) findViewById(R.id.weekBar);
+        pomodoroSp=super.getSharedPreferences("pomodoro",MODE_PRIVATE);
         //添加数据
-        list.add(new BarEntry(1, 8.1f,"今日事今日毕"));
-        list.add(new BarEntry(2,  19.5f,"perfect day"));
-        list.add(new BarEntry(3, 12));
-        list.add(new BarEntry(4, 18,"坚持就是胜利"));
-        list.add(new BarEntry(5, 6));
-        list.add(new BarEntry(6, 0));
-        list.add(new BarEntry(7, 24,"Amazing!!!"));
+//        list.add(new BarEntry(1, 8.1f,"今日事今日毕"));
+//        list.add(new BarEntry(2,  19.5f,"perfect day"));
+//        list.add(new BarEntry(3, 12));
+//        list.add(new BarEntry(4, 18,"坚持就是胜利"));
+//        list.add(new BarEntry(5, 6));
+//        list.add(new BarEntry(6, 0));
+//        list.add(new BarEntry(7, 24,"Amazing!!!"));
+        for(int i =1;i<8;++i)
+            list.add(new BarEntry(i,0,"day"+i));
+        String statisticString=pomodoroSp.getString("unresolvedWeek","");
+        List<StatisticSimple> statisticSimples;
+        if(statisticString.equals(""))
+            statisticSimples=new LinkedList<>();
+        else
+            statisticSimples= JSON.parseArray(statisticString,StatisticSimple.class);
+        Calendar day=Calendar.getInstance();
+        day.set(Calendar.DAY_OF_YEAR, day.get(Calendar.DAY_OF_YEAR) - 7);
+        float max=0;
+        //System.out.println("test"+day.get(Calendar.DAY_OF_YEAR));
+        Set<Integer> removed=new HashSet<>();
+        for(int i=0;i<statisticSimples.size();++i){
+            StatisticSimple simple=statisticSimples.get(i);
+            if(simple.getDay().before(day)){
+                System.out.println("statisticWeek: not recently 7 days");
+                removed.add(i);
+//                statisticSimples.remove(simple);
+                continue;
+            }
+            int position=simple.getDay().get(Calendar.DAY_OF_YEAR)-day.get(Calendar.DAY_OF_YEAR);
+            System.out.println("statisticWeek: position"+position);
+            position--;
+            float y=list.get(position).getY();
+            list.get(position).setY(y+(float) (Math.round(simple.getHour()*100))/100);
+            if(list.get(position).getY()>max){
+                max=list.get(position).getY();
+            }
+        }
+        for(Integer i:removed)
+            statisticSimples.remove(i);
+        SharedPreferences.Editor editor=pomodoroSp.edit();
+        editor.putString("unresolvedWeek", JSONObject.toJSONString(statisticSimples));
+        max*=2;
+        if(max<1)max=1;
+        if(max>24)max=24;
 
         BarDataSet barDataSet = new BarDataSet(list, "label?");
         BarData barData = new BarData(barDataSet);
@@ -108,7 +156,7 @@ public class StatisticWeekActivity extends AppCompatActivity {
 //                return "";
 //            }
 //        });
-        AxisLeft.setAxisMaximum(24);   //Y轴最大数值
+        AxisLeft.setAxisMaximum(max);   //Y轴最大数值
         AxisLeft.setAxisMinimum(0);   //Y轴最小数值
         //Y轴坐标的个数    第二个参数一般填false     true表示强制设置标签数 可能会导致y轴坐标显示不全等问题
         AxisLeft.setLabelCount(8,false);

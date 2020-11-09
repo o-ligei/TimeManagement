@@ -22,6 +22,7 @@ public class TappingGameAdapter extends BaseAdapter {
     private Context mContext;
     private Set<Integer> green = new HashSet<>();
     private Set<Integer> red = new HashSet<>();
+    private Integer white = -1;
 
     public TappingGameAdapter(ArrayList<String> mData, Context mContext) {
         this.mData = mData;
@@ -48,13 +49,21 @@ public class TappingGameAdapter extends BaseAdapter {
         this.red = red;
     }
 
+    public void setWhite(Integer white) {
+        this.white = white;
+    }
+
     @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.tapping_game_item, parent,false);
         CardView cardView = convertView.findViewById(R.id.tappingCard);
+        if (position == white) {
+            cardView.setCardBackgroundColor(Color.WHITE);
+            green.remove(position);
+        }
         if (green.contains(position)) cardView.setCardBackgroundColor(Color.GREEN);
-        if (red.contains(position)) cardView.setCardBackgroundColor(Color.RED);
+        else if (red.contains(position)) cardView.setCardBackgroundColor(Color.RED);
         return convertView;
     }
 }
