@@ -56,6 +56,8 @@ public class TWebSocketClient extends WebSocketClient {
         m.what = 1;
         m.obj = message;
         handler.sendMessage(m);
+    }
+
 //        NotificationCompat.Builder mBuilder =
 //                new NotificationCompat.Builder(ContextUtil.getInstance())
 //                        .setSmallIcon(R.drawable.wechat)

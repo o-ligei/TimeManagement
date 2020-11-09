@@ -30,6 +30,10 @@ public class Ajax {
     }
 
     private void checkMsg(String result){
+//         Message message = Message.obtain();
+//         message.what = mWhat;
+//         message.obj = result;
+        //TODO:there may be conflict
         System.out.println("ajax: result "+result);
         Bundle bundle = new Bundle();
         Message message = Message.obtain();
@@ -49,6 +53,7 @@ public class Ajax {
         message.what = mWhat;
 //        message.obj = result;
         message.setData(bundle);
+      
         mHandler.sendMessage(message);
     }
 
