@@ -74,7 +74,7 @@ public class PersonInfoFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    TextView credit_detail=view.findViewById(R.id.CreditdetailLayout);
+                    TextView credit_detail=view.findViewById(R.id.Credit);
                     credit_detail.setText(data);
                 }
                 else{
@@ -135,6 +135,7 @@ public class PersonInfoFragment extends Fragment {
         fetchCredit(root);
         return root;
     }
+
 
     @Override
     public void onResume() {
