@@ -134,6 +134,8 @@
         <activity
             android:name=".ui.pomodoro.PomodoroSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.alarm.TagSettingActivity" />
+        <activity android:name=".ui.alarm.ClockFrequencyActivity"/>
         <activity android:name=".ui.others.GameSettingsActivity" />
     </application>
 

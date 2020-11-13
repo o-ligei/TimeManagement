@@ -174,6 +174,7 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
                 cb.setOnCheckedChangeListener(WhiteListActivity.this);
 
                 mViewHolder = (ViewHolder) convertView.getTag();
+                CheckBox cb =  convertView.findViewById(R.id.WhiteListCheckBox);
                 ImageView icon=convertView.findViewById(R.id.iv_app_icon);
                 // 小技巧：checkBox 的  tag 为它所在的行，在onCheckedChanged方法里面用到
                 if(fromScreen==0) {

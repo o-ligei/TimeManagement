@@ -126,6 +126,67 @@ public class PomodoroItemAdapter extends BaseAdapter {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         mData.remove(position);
                         SharedPreferences mySharedPreferences= mContext.getSharedPreferences("pomodoro", Activity.MODE_PRIVATE);
+// <<<<<<< develop
+// =======
+//                        SharedPreferences mySharedPreferences=PomodoroSettingActivity.getPomodoroSp();
+                        String shared= JSONObject.toJSONString(mData);
+                        System.out.println("listBeforeRemoving:"+mySharedPreferences.getString("pomodoroList",""));
+                        System.out.println("listAfterRemoving"+shared);
+                        SharedPreferences.Editor editor = mySharedPreferences.edit();
+                        editor.putString("pomodoroList",shared);
+                        editor.commit();
+                        Toast.makeText(mContext,mContext.getResources().getText(R.string.pomodoro_save_successfully),Toast.LENGTH_LONG).show();
+                        notifyDataSetInvalidated();
+                        //在此处写入ok的逻辑
+                    }
+                });
+                dialog.setNegativeButton(mContext.getResources().getText(R.string.pomodoro_delete_cancel), new DialogInterface.OnClickListener() {
+                    @Override//设置取消事件
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        System.out.println("cancel");
+                        //在此写入取消的事件
+                    }
+                });
+                dialog.show();
+                return true;
+            }
+        });
+
+        Button button=convertView.findViewById(R.id.start_botton);
+        button.setOnClickListener(v->{
+            System.out.println("pomodoroListPosition:"+position);
+            Intent intent = new Intent(mContext, PomodoroSettingActivity.class);
+            intent.putExtra("position", position);
+            intent.putExtra("begin",1);
+            mContext.startActivity(intent);
+        });
+
+        CardView cardView=convertView.findViewById(R.id.PomodoroCard);
+        cardView.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("pomodoroListPosition:"+position);
+                        Intent intent = new Intent(mContext, PomodoroSettingActivity.class);
+                        intent.putExtra("position", position);
+                        mContext.startActivity(intent);
+                    }
+                }
+        );
+        cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                System.out.println("long click");
+                AlertDialog.Builder dialog=new AlertDialog.Builder(mContext);
+                dialog.setTitle(mContext.getResources().getText(R.string.pomodoro_delete_title));//设置标题
+//                dialog.setMessage("something important");//设置信息具体内容
+                dialog.setCancelable(true);//设置是否可取消
+                dialog.setPositiveButton(mContext.getResources().getText(R.string.pomodoro_delete_confirm), new DialogInterface.OnClickListener() {
+                    @Override//设置ok的事件
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mData.remove(position);
+                        SharedPreferences mySharedPreferences= mContext.getSharedPreferences("pomodoroList", Activity.MODE_PRIVATE);
+// >>>>>>> owner-feax
 //                        SharedPreferences mySharedPreferences=PomodoroSettingActivity.getPomodoroSp();
                         String shared= JSONObject.toJSONString(mData);
                         System.out.println("listBeforeRemoving:"+mySharedPreferences.getString("pomodoroList",""));
