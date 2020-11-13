@@ -35,26 +35,25 @@
             android:exported="true" />
 
         <activity android:name=".ui.others.InternetFriendListActivity" />
-        <activity android:name=".ui.games.TappingGameActivity">
+        <activity android:name=".ui.games.TappingGameActivity" />
 <!--                    <intent-filter>-->
 <!--                        <action android:name="android.intent.action.MAIN" />-->
 
 
 <!--                        <category android:name="android.intent.category.LAUNCHER" />-->
 <!--                    </intent-filter>-->
-        </activity>
+<!--         </activity> -->
         <activity android:name=".ui.account.EmailActivateActivity" />
         <activity android:name=".ui.alarm.AlarmPlay" />
         <activity android:name=".ui.alarm.ClockFrequencyActivity" />
         <activity android:name=".ui.alarm.TagSettingActivity" />
-        <activity android:name=".ui.games.RandomNumberGameActivity">
+        <activity android:name=".ui.games.RandomNumberGameActivity"/>
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
-
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
-        </activity>
+<!--        </activity>-->
         <activity android:name=".ui.account.PasswordChangeActivity" />
         <activity android:name=".ui.account.CaptchaConfirmActivity" />
 
@@ -65,6 +64,7 @@
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!--  -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
@@ -72,6 +72,7 @@
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!--  -->
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
@@ -132,9 +133,8 @@
         <activity
             android:name=".ui.pomodoro.PomodoroSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.alarm.TagSettingActivity" />
-        <activity android:name=".ui.alarm.ClockFrequencyActivity"/>
         <activity android:name=".ui.others.GameSettingsActivity" />
+        <activity android:name=".ui.others.SpeechRecognizeActivity"/>
     </application>
 
 </manifest>

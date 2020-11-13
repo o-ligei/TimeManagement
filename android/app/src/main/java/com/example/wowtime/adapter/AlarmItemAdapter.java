@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.example.wowtime.ui.alarm.AlarmPlay;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.games.BlowingGameActivity;
 import com.example.wowtime.ui.games.ShakingGameActivity;
+import com.example.wowtime.util.Weekday;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,10 +40,13 @@ public class AlarmItemAdapter extends BaseAdapter {
     private List<AlarmListItem> mData;
     private Context mContext;
     private AlarmManager alarmManager;
-    private PendingIntent pi;
+    private ArrayList<PendingIntent> pi;
 
     public AlarmItemAdapter(List<AlarmListItem> mData, Context mContext) {
-
+        pi=new ArrayList<>();
+        for(int i=0;i<8;i++){
+            pi.add(null);
+        }
         this.mData = mData;
         this.mContext = mContext;
     }
@@ -67,6 +72,23 @@ public class AlarmItemAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.alarm_list_item, parent, false);
         TextView txt_tag = (TextView) convertView.findViewById(R.id.AlarmTag);
         TextView txt_time=(TextView) convertView.findViewById(R.id.AlarmTime);
+        TextView txt_frequency=(TextView)convertView.findViewById(R.id.AlarmFrequency);
+        List<Boolean>frequency=new ArrayList<>();
+        frequency=mData.get(position).getFrequency();
+        if(frequency.get(0)){
+            txt_frequency.setText("无重复");
+        }
+        else{
+            Weekday weekday=new Weekday();
+            StringBuilder out= new StringBuilder("星期");
+            for (int i=1;i<=7;i++){
+                if(frequency.get(i)){
+                    out.append(weekday.getDay(i));
+                    txt_frequency.setText(out);
+                }
+            }
+        }
+//        txt_frequency.setText(mData.get(position).getFrequency());
         txt_tag.setText(mData.get(position).getTag());
         String hour=String.format("%02d",mData.get(position).getHour());
         String minute=String.format("%02d",mData.get(position).getMinute());
@@ -121,75 +143,103 @@ public class AlarmItemAdapter extends BaseAdapter {
         trigger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
-                    Calendar calendar=Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY,mData.get(position).getHour());
-                    calendar.set(Calendar.MINUTE,mData.get(position).getMinute());
-                    calendar.set(Calendar.SECOND,0);
-                    calendar.set(Calendar.MILLISECOND,0);
-                    Calendar currentTime=Calendar.getInstance();
+                if (isChecked) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, mData.get(position).getHour());
+                    calendar.set(Calendar.MINUTE, mData.get(position).getMinute());
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
+                    Calendar currentTime = Calendar.getInstance();
                     alarmManager= (AlarmManager) (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
                     Intent intent;
-                    if(mData.get(position).getGame().equals("努力吹吹吹")){
-                        intent= new Intent(mContext, BlowingGameActivity.class);
+//                    System.out.println(mData.get(position).getGame());
+
+                    /*deal with game*/
+                    if (mData.get(position).getGame().equals("努力吹吹吹")) {
+                        intent = new Intent(mContext, BlowingGameActivity.class);
+                    } else if (mData.get(position).getGame().equals("使劲摇摇摇")) {
+//                        System.out.println("使劲摇摇摇");
+                        intent = new Intent(mContext, ShakingGameActivity.class);
+                    } else {
+                        intent = new Intent(mContext, AlarmPlay.class);
                     }
-                    else if(mData.get(position).getGame().equals("使劲摇摇摇")){
-                        intent= new Intent(mContext, ShakingGameActivity.class);
-                    }
-                    else {
-                        intent=new Intent(mContext,AlarmPlay.class);
-                    }
-                    intent.putExtra("ring",mData.get(position).getRing());
-                    pi=PendingIntent.getActivity(mContext, 0, intent, 0);
-                    if(mData.get(position).getFrequency().equals("无重复")) {
+                    intent.putExtra("ring", mData.get(position).getRing());
+
+                    /*deal with frequency*/
+//                    if(mData.get(position).getFrequency().equals("无重复")) {
+                    if (mData.get(position).getFrequency().get(0)) {
                         System.out.println("无重复闹钟");
-                        if (calendar.getTimeInMillis()<=currentTime.getTimeInMillis()){
-                            calendar.setTimeInMillis(calendar.getTimeInMillis()+24*60*60*1000);
+                        if (calendar.getTimeInMillis() <= currentTime.getTimeInMillis()) {
+                            calendar.setTimeInMillis(calendar.getTimeInMillis() + 24 * 60 * 60 * 1000);
                         }
-                        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi);
+                        PendingIntent tmp = PendingIntent.getActivity(mContext, 0, intent, 0);
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), tmp);
+                        pi.set(0,tmp);
+                    } else {
+                        int currentWeekday = calendar.get(Calendar.DAY_OF_WEEK);
+                        int setWeekday = currentWeekday;
+                        for (int i = 1; i <= 7; i++) {
+                            if (mData.get(position).getFrequency().get(i)) {
+                                setWeekday = (i + 1) % 7;
+                                int delta_day = setWeekday - currentWeekday;
+                                if (delta_day < 0) {
+                                    delta_day += 7;
+                                }
+                                long start_time = calendar.getTimeInMillis() + 24 * 60 * 60 * 1000 * delta_day;
+                                PendingIntent tmp = PendingIntent.getActivity(mContext, 0, intent, 0);
+                                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, start_time, 24 * 60 * 60 * 1000 * 7, tmp);
+                                pi.set(i,tmp);
+                            }
+                        }
                     }
-                    else if(mData.get(position).getFrequency().equals("每天")){
-                        System.out.println("每日闹钟");
-                        if (calendar.getTimeInMillis()<=currentTime.getTimeInMillis()){
-                            calendar.setTimeInMillis(calendar.getTimeInMillis()+24*60*60*1000);
+//                    else if(mData.get(position).getFrequency().equals("每天")){
+//                        System.out.println("每日闹钟");
+//                        if (calendar.getTimeInMillis()<=currentTime.getTimeInMillis()){
+//                            calendar.setTimeInMillis(calendar.getTimeInMillis()+24*60*60*1000);
+//                        }
+//                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),24*60*60*1000, pi);
+//                    }
+//                    else{
+//                        int currentWeekday=calendar.get(Calendar.DAY_OF_WEEK);
+//                        int setWeekday=currentWeekday;
+//                        System.out.println(mData.get(position).getFrequency()+"闹钟");
+//                        System.out.println("currentWeekday:"+currentWeekday);
+//                        if(mData.get(position).getFrequency().equals("每周一")){
+//                            setWeekday=2;
+//                        }
+//                        if(mData.get(position).getFrequency().equals("每周二")){
+//                            setWeekday=3;
+//                        }
+//                        if(mData.get(position).getFrequency().equals("每周三")){
+//                            setWeekday=4;
+//                        }
+//                        if(mData.get(position).getFrequency().equals("每周四")){
+//                            setWeekday=5;
+//                        }
+//                        if(mData.get(position).getFrequency().equals("每周五")){
+//                            setWeekday=6;
+//                        }
+//                        if(mData.get(position).getFrequency().equals("每周六")){
+//                            setWeekday=7;
+//                        }
+//                        if(mData.get(position).getFrequency().equals("每周日")){
+//                            setWeekday=1;
+//                        }
+//                        int delta_day=setWeekday-currentWeekday;
+//                        if(delta_day<0){
+//                            delta_day+=7;
+//                        }
+//                        long start_time=calendar.getTimeInMillis()+24*60*60*1000*delta_day;
+//                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,start_time,24*60*60*1000*7, pi);
+//                    }
+                } else {
+                    for (int i=0;i<8;i++){
+                        PendingIntent tmp=pi.get(i);
+                        if(tmp!=null){
+                            alarmManager.cancel(tmp);
+                            pi.set(i,null);
                         }
-                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),24*60*60*1000, pi);
                     }
-                    else{
-                        int currentWeekday=calendar.get(Calendar.DAY_OF_WEEK);
-                        int setWeekday=currentWeekday;
-                        System.out.println(mData.get(position).getFrequency()+"闹钟");
-                        System.out.println("currentWeekday:"+currentWeekday);
-                        if(mData.get(position).getFrequency().equals("每周一")){
-                            setWeekday=2;
-                        }
-                        if(mData.get(position).getFrequency().equals("每周二")){
-                            setWeekday=3;
-                        }
-                        if(mData.get(position).getFrequency().equals("每周三")){
-                            setWeekday=4;
-                        }
-                        if(mData.get(position).getFrequency().equals("每周四")){
-                            setWeekday=5;
-                        }
-                        if(mData.get(position).getFrequency().equals("每周五")){
-                            setWeekday=6;
-                        }
-                        if(mData.get(position).getFrequency().equals("每周六")){
-                            setWeekday=7;
-                        }
-                        if(mData.get(position).getFrequency().equals("每周日")){
-                            setWeekday=1;
-                        }
-                        int delta_day=setWeekday-currentWeekday;
-                        if(delta_day<0){
-                            delta_day+=7;
-                        }
-                        long start_time=calendar.getTimeInMillis()+24*60*60*1000*delta_day;
-                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,start_time,24*60*60*1000*7, pi);
-                    }
-                }else{
-                    alarmManager.cancel(pi);
                 }
             }
         });

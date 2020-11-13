@@ -10,8 +10,11 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.method.Touch;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,6 +45,7 @@ public class BlowingGameActivity extends AppCompatActivity {
     private void handleSoundValues(double values){
         if (blowCount == NEED_COUNT) {
             mp.stop();
+            System.out.println("blowing game finish");
             BlowingGameActivity.this.finish();
         }
         if (values > VOLUME_THRESHOLD){
@@ -74,6 +78,7 @@ public class BlowingGameActivity extends AppCompatActivity {
         NEED_COUNT = TOTAL_TIME/BLOW_INTERVAL;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +90,31 @@ public class BlowingGameActivity extends AppCompatActivity {
         paramSetting();
         //调用话筒实现类
         AudioRecordManger audioRecordManger = new AudioRecordManger(handler, RECORD); //实例化话筒实现类
-        audioRecordManger.getNoiseLevel();                         //打开话筒监听声音
+//        audioRecordManger.getNoiseLevel();                         //打开话筒监听声音
         mp = MediaPlayer.create(this, R.raw.radar);
         mp.setLooping(true);
         mp.start();
+
+        Button onBlowBtn=findViewById(R.id.OnBlowButton);
+        onBlowBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mp.pause();
+                        audioRecordManger.getNoiseLevel();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        mp.start();
+                        audioRecordManger.stop_record();
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+
+        });
     }
 
 //    @SuppressLint("ClickableViewAccessibility")

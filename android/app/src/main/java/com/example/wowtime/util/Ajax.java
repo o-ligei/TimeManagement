@@ -1,5 +1,6 @@
 package com.example.wowtime.util;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
@@ -29,9 +30,30 @@ public class Ajax {
     }
 
     private void checkMsg(String result){
+//         Message message = Message.obtain();
+//         message.what = mWhat;
+//         message.obj = result;
+        //TODO:there may be conflict
+        System.out.println("ajax: result "+result);
+        Bundle bundle = new Bundle();
         Message message = Message.obtain();
+        JSONObject jsonObject = null;
+        String msg=null;
+        String data=null;
+        try {
+            jsonObject = new JSONObject(result);
+            msg = jsonObject.get("msg").toString();
+            data = jsonObject.get("data").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        bundle.putString("msg",msg);
+        bundle.putString("data",data);
+        message.setData(bundle);
         message.what = mWhat;
-        message.obj = result;
+//        message.obj = result;
+        message.setData(bundle);
+      
         mHandler.sendMessage(message);
     }
 
