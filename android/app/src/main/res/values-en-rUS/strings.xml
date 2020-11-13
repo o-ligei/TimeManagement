@@ -197,4 +197,10 @@
     <string name="pref_title_iat_show">显示听写界面</string>
     <string name="text_show_contacts">上传联系人/词表显示</string>
     <string name="text_show_iat_result">听写结果显示</string>
+
+    <string name="forget_password">forget password?</string>
+    <string name="username">Username:</string>
+    <string name="phonenumber">Phone:</string>
+    <string name="email">Email:</string>
+    <string name="credit">Growth:</string>
 </resources>
