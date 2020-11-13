@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wowtime.R;
+import com.example.wowtime.service.Credit;
+import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.SensorManagerHelper;
 
 import java.util.Calendar;
@@ -58,7 +60,6 @@ public class ShakingGameActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progress1);
         progressValue = findViewById(R.id.progress_value1);
-
         SensorManagerHelper sensorHelper = paramSetting();
 
         ring=true;
@@ -83,9 +84,10 @@ public class ShakingGameActivity extends AppCompatActivity {
             if (shakeCount == NEED_COUNT)
             {
                 mp.stop();
+                Credit credit=new Credit();
+                credit.modifyCredit(InternetConstant.alarm_credit,"shakingGame");
                 ShakingGameActivity.this.finish();
             }
-
             t2 = System.currentTimeMillis();
             if (t2-t1>=SHAKE_INTERVAL) {
                 t1 = t2;

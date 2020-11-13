@@ -1,9 +1,12 @@
 package com.example.wowtime.dto;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AlarmListItem {
     private String tag;
-    private String frequency;
+    private List<Boolean> frequency;
     private String game;
     private String ring;
     private int hour;
@@ -12,7 +15,7 @@ public class AlarmListItem {
     public AlarmListItem(){
     }
 
-    public AlarmListItem(String tag,String frequency,String game,String ring,int hour,int minute){
+    public AlarmListItem(String tag, List<Boolean> frequency, String game, String ring, int hour, int minute){
         this.tag=tag;
         this.frequency=frequency;
         this.game=game;
@@ -25,7 +28,7 @@ public class AlarmListItem {
         return this.tag;
     }
 
-    public String getFrequency(){
+    public List<Boolean> getFrequency(){
         return this.frequency;
     }
 
@@ -49,7 +52,7 @@ public class AlarmListItem {
         this.tag = tag;
     }
 
-    public void setFrequency(String frequency) {
+    public void setFrequency(ArrayList<Boolean> frequency) {
         this.frequency = frequency;
     }
 

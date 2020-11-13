@@ -1,12 +1,18 @@
 package com.example.wowtime.ui.pomodoro;
 
 import android.app.ActivityManager;
+import android.app.Service;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Looper;
 import android.provider.Settings;
 import android.view.View;
@@ -25,6 +31,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.SortedMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -42,6 +49,7 @@ import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeMap;
 
 
 public class PomodoroSettingActivity extends AppCompatActivity {
@@ -185,11 +193,25 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     System.out.println("begin");
                 }
             };
+            int finalRest = rest;
             timerTask2=new TimerTask() {
                 @Override
                 public void run() {
                     stopFloatingImageDisplayService(buttonBegin);
                     System.out.println("stop");
+                    int SCAN_INTERVAL = 5000;
+                    for (int i = 0; i< finalRest /SCAN_INTERVAL-2; i++) {
+                        String currentApp = getTaskPackname();
+                        System.out.println("Current Runnning: "+currentApp);
+                        if (currentApp.equals("CurrentNULL")) startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+                        if (currentApp.equals("com.netease.cloudmusic"))
+                            runOnUiThread(()->{startFloatingImageDisplayService(buttonBegin);});
+                        try {
+                            Thread.sleep(SCAN_INTERVAL);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             };
 
@@ -282,9 +304,11 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             SharedPreferences.Editor editor=pomodoroSp.edit();
             String stringList=pomodoroSp.getString("pomodoroList","");
             System.out.println("pomodoroList:"+stringList);
-            List<PomodoroListItem> pomodoroListItems=  JSON.parseArray(stringList,PomodoroListItem.class);
-            if(pomodoroListItems==null)
-                pomodoroListItems=new LinkedList<>();
+            List<PomodoroListItem> pomodoroListItems = new LinkedList<>();
+            if (stringList != null && !stringList.equals("")) {
+                System.out.println("You Are Here.");
+                pomodoroListItems = JSON.parseArray(stringList, PomodoroListItem.class);
+            }
             if(position==-1)pomodoroListItems.add(pomodoroListItem);
             else pomodoroListItems.set(position,pomodoroListItem);
             editor.putString("pomodoroList",JSONObject.toJSONString(pomodoroListItems));
@@ -296,6 +320,30 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         //mode text
         String text= spinner.getItemAtPosition(mode).toString();
         spinnerText.setText(text);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
+    private String getTaskPackname() {
+        String currentApp = "CurrentNULL";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            UsageStatsManager usm = (UsageStatsManager) this.getSystemService(Context.USAGE_STATS_SERVICE);
+            long time = System.currentTimeMillis();
+            List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
+            if (appList != null && appList.size() > 0) {
+                SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
+                for (UsageStats usageStats : appList) {
+                    mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
+                }
+                if (mySortedMap != null && !mySortedMap.isEmpty()) {
+                    currentApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
+                }
+            }
+        } else {
+            ActivityManager am = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningAppProcessInfo> tasks = am.getRunningAppProcesses();
+            currentApp = tasks.get(0).processName;
+        }
+        return currentApp;
     }
 
     @Override
