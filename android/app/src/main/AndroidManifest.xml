@@ -134,6 +134,7 @@
             android:name=".ui.pomodoro.PomodoroSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.others.GameSettingsActivity" />
+        <activity android:name=".ui.others.SpeechRecognizeActivity"/>
     </application>
 
 </manifest>
