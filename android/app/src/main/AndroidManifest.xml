@@ -40,7 +40,6 @@
 <!--                        <action android:name="android.intent.action.MAIN" />-->
 
 
-        <activity android:name=".ui.others.InternetFriendListActivity" />
 <!--                        <category android:name="android.intent.category.LAUNCHER" />-->
 <!--                    </intent-filter>-->
 <!--         </activity> -->
@@ -134,8 +133,6 @@
         <activity
             android:name=".ui.pomodoro.PomodoroSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.alarm.TagSettingActivity" />
-        <activity android:name=".ui.alarm.ClockFrequencyActivity"/>
         <activity android:name=".ui.others.GameSettingsActivity" />
     </application>
 
