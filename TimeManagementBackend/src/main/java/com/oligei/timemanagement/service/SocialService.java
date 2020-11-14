@@ -7,7 +7,7 @@ import com.oligei.timemanagement.utils.msgutils.Msg;
 import java.util.List;
 
 public interface SocialService {
-    Msg<List<Profile>> getProfile(String username);
+    Msg<List<Profile>> getProfile(Integer myId, String username);
     Msg<List<Profile>> getFriendsList(Integer userId);
     Msg<Boolean> addFriend(Integer from, Integer to);
     Msg<List<Profile>> getFriendRequest(Integer userId);
