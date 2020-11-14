@@ -481,8 +481,6 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         return false;
     }
 
-
-  
     public static boolean isRunning(Context context, String packageName) {
         ActivityManager am = (ActivityManager) context
                 .getSystemService(Context.ACTIVITY_SERVICE);

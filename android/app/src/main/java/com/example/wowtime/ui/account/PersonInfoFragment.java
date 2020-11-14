@@ -120,12 +120,14 @@ public class PersonInfoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.person_info_activity, container, false);
+
         passwordLayout = root.findViewById(R.id.PasswordLayout);
         passwordLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","password")));
         emailLayout = root.findViewById(R.id.EmailLayout);
         emailLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","email")));
         creditLayout = root.findViewById(R.id.CreditLayout);
         creditLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
+      
         usernameText = root.findViewById(R.id.Username);
         passwordText = root.findViewById(R.id.Password);
         emailText = root.findViewById(R.id.Email);
@@ -134,6 +136,24 @@ public class PersonInfoFragment extends Fragment {
         OKGetProfile();
         fetchCredit(root);
         return root;
+    }
+    private void OKGetProfile(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+                formBody.add("userid",String.valueOf(UserInfoAfterLogin.userid));
+                Request request = new Request.Builder().url(InternetConstant.host + "/User/GetPersonalProfile").post(formBody.build()).build();
+                try {
+                    Response response = client.newCall(request).execute();//发送请求
+                    String result = response.body().string();
+                    GetProfile(result);
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override
