@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="random_digit_entries">
+        <item>难</item>
+        <item>中</item>
+        <item>易</item>
+    </string-array>
+
+    <string-array name="random_digit_values">
+        <item>20</item>
+        <item>15</item>
+        <item>10</item>
+    </string-array>
+</resources>

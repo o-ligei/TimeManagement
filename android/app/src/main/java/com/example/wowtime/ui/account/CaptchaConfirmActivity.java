@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wowtime.R;
+import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
 
 import org.json.JSONException;
@@ -27,6 +29,15 @@ public class CaptchaConfirmActivity extends AppCompatActivity {
     TextView captchaConfirmText;
     Button btn_handson;
 
+    private Handler handler = new Handler(msg -> {
+        if (msg.what == 1) {
+            String response = (String) msg.obj;
+            Toast toast = Toast.makeText(getApplicationContext(),response,Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        return false;
+    });
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +50,7 @@ public class CaptchaConfirmActivity extends AppCompatActivity {
         btn_getCaptcha.setOnClickListener(v -> OKGetCaptcha());
 
         btn_handson = findViewById(R.id.handson_in_cap);
-        btn_handson.setEnabled(false);
+//        btn_handson.setEnabled(false);
         btn_handson.setOnClickListener(v -> OKGoToNext());
     }
 
@@ -79,6 +90,8 @@ public class CaptchaConfirmActivity extends AppCompatActivity {
                 FormBody.Builder formBody = new FormBody.Builder();
                 formBody.add("phone",phoneInputText.getText().toString());
                 formBody.add("captcha",captchaConfirmText.getText().toString());
+//                Ajax ajax = new Ajax("/User/SendCaptchaToPhone",formBody,handler,1);
+//                ajax.fetch();
                 Request request = new Request.Builder().url(InternetConstant.host + "/User/SendCaptchaToPhone").post(formBody.build()).build(); //TODO:change the url
                 try {
                     Response response = client.newCall(request).execute();//发送请求

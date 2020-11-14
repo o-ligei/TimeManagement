@@ -24,11 +24,15 @@ public class SocialServiceImpl implements SocialService {
     private FriendDao friendDao;
 
     @Override
-    public Msg<List<Profile>> getProfile(String username) {
+    public Msg<List<Profile>> getProfile(Integer myId, String username) {
+        Objects.requireNonNull(myId, "null myId --SocialServiceImpl getProfile");
         Objects.requireNonNull(username, "null username --SocialServiceImpl getProfile");
         List<UserNeo4j> userNeo4js = userDao.getUserNeo4jsByUsername(username);
         List<Profile> profiles = new ArrayList<>();
-        for (UserNeo4j userNeo4j:userNeo4js) profiles.add(new Profile(userNeo4j));
+        for (UserNeo4j userNeo4j:userNeo4js) {
+            if (!userNeo4j.getUserId().equals(String.valueOf(myId)))
+                profiles.add(new Profile(userNeo4j));
+        }
         return new Msg<>(MsgCode.SUCCESS, profiles);
     }
 
@@ -45,8 +49,10 @@ public class SocialServiceImpl implements SocialService {
     public Msg<Boolean> addFriend(Integer from, Integer to) {
         Objects.requireNonNull(from, "null from --SocialServiceImpl addFriend");
         Objects.requireNonNull(to, "null to --SocialServiceImpl addFriend");
+        if (from.equals(to)) return new Msg<>(MsgCode.FOUND_YOURSELF);
         if (friendDao.getFollowRelation(from, to) != null) return new Msg<>(MsgCode.ALREADY_FRIEND);
         if (friendDao.getAskRelation(from, to) != null) return new Msg<>(MsgCode.ALREADY_SEND_FRIEND_REQUEST);
+        if (friendDao.getAskRelation(to, from) != null) return new Msg<>(MsgCode.ALREADY_SEND_FRIEND_REQUEST);
         friendDao.addAskRelation(from, to);
         return new Msg<>(MsgCode.SUCCESS);
     }
@@ -64,6 +70,7 @@ public class SocialServiceImpl implements SocialService {
     public Msg<Boolean> acceptFriend(Integer from, Integer to) {
         Objects.requireNonNull(from, "null from --SocialServiceImpl acceptFriend");
         Objects.requireNonNull(to, "null to --SocialServiceImpl acceptFriend");
+        if (from.equals(to)) return new Msg<>(MsgCode.FOUND_YOURSELF);
         friendDao.deleteAskRelation(to, from);
         friendDao.addFollowRelation(from, to);
         friendDao.addFollowRelation(to, from);

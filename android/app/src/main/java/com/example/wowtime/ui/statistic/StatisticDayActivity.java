@@ -3,6 +3,7 @@ package com.example.wowtime.ui.statistic;
 
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -14,7 +15,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
+import com.example.wowtime.dto.StatisticDayItem;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -24,8 +28,14 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 
@@ -49,18 +59,66 @@ public class StatisticDayActivity extends AppCompatActivity {
 //    }
     private PieChart pie;
     List<PieEntry> list;
+    private SharedPreferences pomodoroSp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.statistic_day_activity);
         pie = (PieChart) findViewById(R.id.chart);
+        pomodoroSp=super.getSharedPreferences("pomodoro",MODE_PRIVATE);
 
         list=new ArrayList<>();
-        list.add(new PieEntry(10,"预习ICS","9:00-9:45"));
-        list.add(new PieEntry(12,"洗衣服","12:40-13:30"));
-        list.add(new PieEntry(21,"App原型","14:00-15:30"));
-        list.add(new PieEntry(27,"CSE-lab1","19:00-21:00"));
-        list.add(new PieEntry(30,"Android","21:30-23:00"));
+//        list.add(new PieEntry(10,"预习ICS","9:00-9:45"));
+//        list.add(new PieEntry(12,"洗衣服","12:40-13:30"));
+//        list.add(new PieEntry(21,"App原型","14:00-15:30"));
+//        list.add(new PieEntry(27,"CSE-lab1","19:00-21:00"));
+//        list.add(new PieEntry(30,"Android","21:30-23:00"));
+        String statisticString=pomodoroSp.getString("statisticDay","");
+        List<StatisticDayItem> statisticDayItems= JSON.parseArray(statisticString,StatisticDayItem.class);
+        Date now=new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        Set<Integer> removed=new HashSet<>();
+        for(int i=0;i<statisticDayItems.size();++i){
+            StatisticDayItem item=statisticDayItems.get(i);
+            Date begin=item.getBegin();
+            if(begin.getDay()!=now.getDay()||begin.getYear()!=now.getYear()||begin.getMonth()!=now.getMonth()){
+                System.out.println("StatisticDay: not today"+i);
+                removed.add(i);
+//                statisticDayItems.remove(item);
+                continue;
+            }
+            list.add(new PieEntry(item.getMinute()+item.getHour(),item.getName(),
+                    sdf.format(begin)+"-"+sdf.format(item.getEnd())));
+        }
+        for(Integer i:removed){
+            statisticDayItems.remove(i);
+        }
+        //System.out.println("test"+JSONObject.toJSONString(list));
+        SharedPreferences.Editor editor=pomodoroSp.edit();
+        editor.putString("statisticDay", JSONObject.toJSONString(statisticDayItems));
+        editor.apply();
+
+
+//        List<StatisticWeekItem> statisticWeekItems=JSONObject.parseArray(pomodoroSp.getString("statisticWeek",""),
+//                StatisticWeekItem.class);
+//        for(StatisticDayItem dayItem:oldItems){
+//            boolean flag=false;
+//            Date date=dayItem.getBegin();
+//            Calendar day=Calendar.getInstance();
+//            day.setTime(date);
+//            for(StatisticWeekItem weekItem:statisticWeekItems){
+//                if(day==weekItem.getDay()){
+//                    weekItem.setHour(weekItem.getHour()+dayItem.getHour()+dayItem.getMinute()/60);
+//                    flag=true;
+//                    break;
+//                }
+//            }
+//            if(!flag){
+//                statisticWeekItems.add(new StatisticWeekItem(dayItem.getHour()+dayItem.getMinute()/60,day));
+//            }
+//        }
+//        editor.putString("statisticWeek",JSONObject.toJSONString(statisticWeekItems));
+
 
         PieDataSet pieDataSet=new PieDataSet(list,"");
         pieDataSet.setSliceSpace(3f);//设置不同DataSet之间的间距
@@ -152,14 +210,22 @@ public class StatisticDayActivity extends AppCompatActivity {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
                 if(e==null)return;
-                int totalSectors=pieDataSet.getEntryCount();
-                for(int i=0;i<totalSectors;++i){
-                    if(pieDataSet.getEntryForIndex(i).getY()==e.getY()){//pieDataSet.getEntryForIndex(i).getX()==e.getX()&&
-                        TextView textView=findViewById(R.id.textViewDayBottom);
-                        textView.setText(pieDataSet.getEntryForIndex(i).getLabel()+"\n"+pieDataSet.getEntryForIndex(i).getData());
-                        System.out.println("pie click:"+pieDataSet.getEntryForIndex(i).getLabel());
-                    }
-                }
+//                String s=JSONObject.toJSONString(e);
+                System.out.println("StatisticDay: click"+JSONObject.toJSONString(e));
+                TextView textView=findViewById(R.id.textViewDayBottom);
+                PieEntry pieEntry=(PieEntry) e;
+                textView.setText(pieEntry.getLabel()+"\n"+pieEntry.getData());
+//                PieEntry pieEntry=JSON.parseObject(s,PieEntry.class);
+//                textView.setText(pieEntry.getLabel()+"\n"+pieEntry.getData());
+
+//                int totalSectors=pieDataSet.getEntryCount();
+//                for(int i=0;i<totalSectors;++i){
+//                    if(pieDataSet.getEntryForIndex(i).getX()==e.getX()&&pieDataSet.getEntryForIndex(i).getY()==e.getY()){//pieDataSet.getEntryForIndex(i).getX()==e.getX()&&
+//                        TextView textView=findViewById(R.id.textViewDayBottom);
+//                        textView.setText(pieDataSet.getEntryForIndex(i).getLabel()+"\n"+pieDataSet.getEntryForIndex(i).getData());
+//                        System.out.println("pie click:"+pieDataSet.getEntryForIndex(i).getLabel());
+//                    }
+//                }
             }
 
             @Override

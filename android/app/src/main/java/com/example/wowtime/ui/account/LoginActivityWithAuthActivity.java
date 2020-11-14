@@ -2,6 +2,7 @@ package com.example.wowtime.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,12 +10,12 @@ import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wowtime.R;
 import com.example.wowtime.ui.MainActivity;
-import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 
@@ -54,7 +55,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class);
+                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, InternetFriendRequestActivity.class);
+//                 Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class);
                 startActivity(signUpIntent);
             }
         });
@@ -68,7 +70,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
         btn_get_captcha.setOnClickListener(v -> OKGetCaptcha());
         btn_login = findViewById(R.id.btn_login_in_auth);
         btn_login.setOnClickListener(v -> OKLoginWitchAuth());
-        btn_login.setEnabled(false);
+//        btn_login.setEnabled(false);
     }
 
     private void OKGetCaptcha(){
@@ -164,4 +166,16 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

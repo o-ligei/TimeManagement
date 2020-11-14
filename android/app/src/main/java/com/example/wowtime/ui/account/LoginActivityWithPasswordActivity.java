@@ -20,8 +20,10 @@ import com.example.wowtime.util.UserInfoAfterLogin;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.websocket.TWebSocketClient;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Objects;
 
 import okhttp3.FormBody;
@@ -29,10 +31,21 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.example.wowtime.util.InternetConstant.websocket_host;
+
 public class LoginActivityWithPasswordActivity extends AppCompatActivity {
 
     EditText phoneText;
     EditText passwordText;
+
+//    URI uri = URI.create(websocket_host+"/Socket/"+ UserInfoAfterLogin.userid);
+//    URI uri = URI.create("ws://192.168.1.101:8080/Socket/1");
+//    TWebSocketClient client = new TWebSocketClient(uri);
+
+    //
+//        System.out.println(websocket_host+"/Socket/"+ UserInfoAfterLogin.userid);
+//
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +76,12 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
 
         Button btn_login = findViewById(R.id.btn_login_in_pass);
         btn_login.setOnClickListener(v -> OKLoginWitchPass());
+
+//        try {
+//            client.connectBlocking();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void OKLoginWitchPass(){
@@ -128,4 +147,5 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
         return super.onCreateOptionsMenu(menu);
     }
+
 }
