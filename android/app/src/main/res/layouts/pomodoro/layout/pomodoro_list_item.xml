@@ -40,40 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="83dp">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/PomodoroTotalGap"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:layout_marginStart="8dp"-->
-<!--                    android:textSize="22sp"-->
-<!--                    android:text="90min"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/PomodoroName"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/PomodoroTotalGap"-->
-<!--                    app:layout_constraintStart_toStartOf="@id/PomodoroTotalGap"-->
-<!--                    android:text="name"-->
-<!--                    android:background="@drawable/lable_pomodoro"-->
-<!--                    android:layout_gravity="center_horizontal"-->
-<!--                    android:gravity="center"-->
-<!--                    android:textSize="14sp" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/PomodoroOther"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:layout_constraintStart_toStartOf="@id/PomodoroName"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/PomodoroName"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:text="mode+rest"-->
-<!--                android:textSize="14sp" />-->
-<!--            </LinearLayout>-->
 
             <Button
                 android:id="@+id/start_botton"
