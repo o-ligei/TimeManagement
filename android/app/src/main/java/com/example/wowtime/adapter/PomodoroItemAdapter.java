@@ -98,8 +98,8 @@ public class PomodoroItemAdapter extends BaseAdapter {
         int restGap=pomodoroListItem.getRestGap();
 
         txt_name.setText(pomodoroListItem.getName());
-        txt_other.setText(mode+" 每专注"+workGap+"min 可休息"+restGap+"min");
-        txt_gap.setText((hour==0?"":(hour+"hour"))+minute+"min");
+        txt_other.setText(mode+" 每专注"+workGap+"m 休息"+restGap+"m");
+        txt_gap.setText((hour==0?"":(hour+"h"))+minute+"m");
 
         CardView cardView=convertView.findViewById(R.id.PomodoroCard);
         cardView.setOnClickListener(
