@@ -8,6 +8,7 @@ public class Msg<T> {
     public Msg(MsgCode msgCode) {
         this.status = msgCode.getStatus();
         this.msg = msgCode.getMsg();
+        this.data = null;
     }
     public Msg(MsgCode msgCode, T data){
         this.status = msgCode.getStatus();
