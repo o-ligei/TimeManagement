@@ -219,7 +219,6 @@ public class PomodoroItemAdapter extends BaseAdapter {
 //            intent.putExtra("begin",1);
 //            mContext.startActivity(intent);
 //        });
-
         return convertView;
     }
 }

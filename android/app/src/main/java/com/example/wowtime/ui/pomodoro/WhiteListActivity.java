@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
@@ -83,7 +82,6 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
 //        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
 //        return super.onCreateOptionsMenu(menu);
 //    }
-
 
     @Override
     protected void onDestroy() {
