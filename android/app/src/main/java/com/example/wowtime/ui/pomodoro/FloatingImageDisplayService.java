@@ -27,14 +27,10 @@ import com.example.wowtime.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * Created by dongzhong on 2018/5/30.
- */
-
 public class FloatingImageDisplayService extends Service {
     public static boolean isStarted = false;
-    private static boolean isCanceled=false;
-    private static int time=0;
+    private static boolean isCanceled=false;    //when canceled, cannot be start again
+    private static int time=0;  // notice that it's statistic
 
     private WindowManager windowManager;
     private WindowManager.LayoutParams layoutParams;
@@ -45,22 +41,23 @@ public class FloatingImageDisplayService extends Service {
     private TimerTask timingTask;
     private static Handler timingHandler;
 
-//    private int[] images;
-//    private int imageIndex = 0;
-//
-//    private Handler changeImageHandler;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         if(isCanceled) {
             System.out.println("canceled");
             return;
         }
-        System.out.println("floatingService in creating");
+
         isStarted = true;
+        System.out.println("floatingService is creating");
+        //get windowManager
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        //get layoutParams
         layoutParams = new WindowManager.LayoutParams();
+        //set layoutParams
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         } else {
@@ -69,12 +66,11 @@ public class FloatingImageDisplayService extends Service {
         layoutParams.format = PixelFormat.RGBA_8888;
         layoutParams.gravity = Gravity.START | Gravity.TOP;
         layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-
+        //set width, height, x, y of layoutParams
         WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         assert wm != null;
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
-
         layoutParams.width = width;
         layoutParams.height = height;
         layoutParams.x = 0;
@@ -90,9 +86,6 @@ public class FloatingImageDisplayService extends Service {
 //        layoutParams.width=WindowManager.LayoutParams.MATCH_PARENT;
 //        layoutParams.height=(int) (50 * getResources().getDisplayMetrics().scaledDensity);
 //        layoutParams.format=PixelFormat.TRANSPARENT;
-
-
-//        changeImageHandler = new Handler(this.getMainLooper(), changeImageCallback);
     }
 
     @Nullable
@@ -113,6 +106,7 @@ public class FloatingImageDisplayService extends Service {
     private void showFloatingWindow() {
         if (Settings.canDrawOverlays(this)) {
             LayoutInflater layoutInflater = LayoutInflater.from(this);
+            //display screenSaver view
             displayView=layoutInflater.inflate(R.layout.screen_saver_activity,null);
 //            displayView = layoutInflater.inflate(R.layout.image_display, null);
 //            displayView.setOnTouchListener(new FloatingOnTouchListener());
@@ -122,45 +116,49 @@ public class FloatingImageDisplayService extends Service {
 //            View viewbar = new customViewGroup(this);
 //            windowManager.addView(viewbar, layoutParams);
 
+            //implement going time
             TextView textView=displayView.findViewById(R.id.saver_gone_time);
             timingTimer = new Timer();
-            timingTask = new TimerTask() {
-                @Override
-                public void run() {
-                    Message message = timingHandler.obtainMessage(1);
-                    timingHandler.sendMessage(message);
-//                    System.out.println("send");
-                }
-            };
-            Button whitelist=displayView.findViewById(R.id.white_list_button);
-            whitelist.setOnClickListener(v->{
-                windowManager.removeView(displayView);
-                System.out.println("FloatingImageDisplayService:whitelist");
-                Intent intent=new Intent(getApplicationContext(),WhiteListActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-                intent.putExtra("fromScreenSaver",1);
-               startActivity(intent);
-            });
             timingHandler=new Handler(new Handler.Callback() {
                 @Override
                 public boolean handleMessage(Message msg) {
                     switch (msg.what) {
                         case 1:
                             ++time;
-//                            System.out.println("time has gone"+time+"s");
                             textView.setText(secondToTime(time));
-                            break;
                     }
                     return false;
                 }
             });
+            timingTask = new TimerTask() {
+                @Override
+                public void run() {
+                    Message message = timingHandler.obtainMessage(1);
+                    timingHandler.sendMessage(message);
+                }
+            };
+
+            //white list button
+            Button whitelist=displayView.findViewById(R.id.white_list_button);
+            whitelist.setOnClickListener(v->{
+                windowManager.removeView(displayView);
+                System.out.println("FloatingImageDisplayService: go to whitelist");
+                Intent intent=new Intent(getApplicationContext(),WhiteListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+                intent.putExtra("fromScreenSaver",1);
+               startActivity(intent);
+            });
+
             if(windowManager==null) {
+                //something cannot understand happened
                 System.out.println("wm is null?");
                 onCreate();
             }
+
+
+            //display and begin timing
             windowManager.addView(displayView, layoutParams);
             timingTimer.schedule(timingTask, 0, 1000);
-//            changeImageHandler.sendEmptyMessageDelayed(0, 2000);
         }
     }
 
@@ -183,6 +181,7 @@ public class FloatingImageDisplayService extends Service {
         FloatingImageDisplayService.time = time;
     }
 
+
     public static String secondToTime(long second){
         long hours = second / 3600;            //转换小时
         second = second % 3600;                //剩余秒数
@@ -191,33 +190,4 @@ public class FloatingImageDisplayService extends Service {
         return hours + ":" + minutes + ":" + second;
     }
 
-
-//    private class FloatingOnTouchListener implements View.OnTouchListener {
-//        private int x;
-//        private int y;
-//
-//        @Override
-//        public boolean onTouch(View view, MotionEvent event) {
-//            switch (event.getAction()) {
-//                case MotionEvent.ACTION_DOWN:
-//                    x = (int) event.getRawX();
-//                    y = (int) event.getRawY();
-//                    break;
-//                case MotionEvent.ACTION_MOVE:
-//                    int nowX = (int) event.getRawX();
-//                    int nowY = (int) event.getRawY();
-//                    int movedX = nowX - x;
-//                    int movedY = nowY - y;
-//                    x = nowX;
-//                    y = nowY;
-//                    layoutParams.x = layoutParams.x + movedX;
-//                    layoutParams.y = layoutParams.y + movedY;
-//                    windowManager.updateViewLayout(view, layoutParams);
-//                    break;
-//                default:
-//                    break;
-//            }
-//            return false;
-//        }
-//    }
 }
