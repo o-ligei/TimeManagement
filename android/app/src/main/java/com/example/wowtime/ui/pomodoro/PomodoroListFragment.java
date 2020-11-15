@@ -36,12 +36,6 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class PomodoroListFragment extends Fragment {
 
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    private String mParam1;
-//    private String mParam2;
 
     public PomodoroListFragment() {}
 
@@ -49,23 +43,6 @@ public class PomodoroListFragment extends Fragment {
         super(contentLayoutId);
     }
 
-//
-//    /**
-//     * Use this factory method to create a new instance of
-//     * this fragment using the provided parameters.
-//     *
-//     * @param param1 Parameter 1.
-//     * @param param2 Parameter 2.
-//     * @return A new instance of fragment PomodoroListFragment.
-//     */
-//    public static PomodoroListFragment newInstance(String param1, String param2) {
-//        PomodoroListFragment fragment = new PomodoroListFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     private SharedPreferences pomodoroSp;
     private PomodoroItemAdapter adapter;
@@ -83,9 +60,6 @@ public class PomodoroListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.pomodoro_list_fragment, container, false);
-//        ArrayList<PomodoroListItem> list = new ArrayList<>();
-//        list.add(new PomodoroListItem("ICS 强模式 不休息","30min"));
-//        list.add(new PomodoroListItem("CSE 弱模式 每30min休息5min","60min"));
 
         String stringList=pomodoroSp.getString("pomodoroList","");
         System.out.println("pomodoroList:"+stringList);
