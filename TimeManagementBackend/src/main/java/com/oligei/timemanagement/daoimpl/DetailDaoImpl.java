@@ -6,6 +6,7 @@ import com.oligei.timemanagement.repository.DetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,5 +26,12 @@ public class DetailDaoImpl implements DetailDao {
     public List<Detail> getDetailsByUserId(Integer userId) {
         Objects.requireNonNull(userId, "null userId --DetailDaoImpl getDetailsByUserId");
         return detailRepository.getDetailsByUserId(userId);
+    }
+
+    @Override
+    public List<Detail> getDetailsByUserIdAndTimestampGreaterThanEqual(Integer userId, Timestamp timestamp) {
+        Objects.requireNonNull(userId, "null userId --DetailDaoImpl getDetailsByUserIdAndTimestampAfter");
+        Objects.requireNonNull(timestamp, "null timestamp --DetailDaoImpl getDetailsByUserIdAndTimestampAfter");
+        return detailRepository.getDetailsByUserIdAndTimestampGreaterThanEqual(userId, timestamp);
     }
 }
