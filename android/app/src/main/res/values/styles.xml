@@ -1,20 +1,26 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
-        <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-        <!--        <item name="colorAccent">@color/colorAccent</item>-->
-        <item name="colorPrimary">#FBACAC</item>
-        <!--       FFBEC8 CCFF91AB  F8AC90-->
-        <!--        #FFB6C1  #DB7093  #FF7F50-->
-        <!--        #00e5ff  #00b8d4  #64ffda-->
-        <!--        B5EFF4  83C3CD  8FF6BD-->
-        <item name="colorPrimaryDark">#FA7373</item>
-<!--        #FA7373-->
-        <item name="colorAccent">#ffab40</item>
-        <!--        <item name="colorAccent">#FF7F50</item>-->
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorPrimary">@color/colorPrimary</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <item name="colorAccent">@color/colorAccent</item>&ndash;&gt;-->
+<!--        <item name="colorPrimary">#FBACAC</item>-->
+<!--        &lt;!&ndash;       FFBEC8 CCFF91AB  F8AC90&ndash;&gt;-->
+<!--        &lt;!&ndash;        #FFB6C1  #DB7093  #FF7F50&ndash;&gt;-->
+<!--        &lt;!&ndash;        #00e5ff  #00b8d4  #64ffda&ndash;&gt;-->
+<!--        &lt;!&ndash;        B5EFF4  83C3CD  8FF6BD&ndash;&gt;-->
+<!--        <item name="colorPrimaryDark">#FA7373</item>-->
+<!--&lt;!&ndash;        #FA7373&ndash;&gt;-->
+<!--        <item name="colorAccent">#ffab40</item>-->
+<!--        &lt;!&ndash;        <item name="colorAccent">#FF7F50</item>&ndash;&gt;-->
 
+<!--    </style>-->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

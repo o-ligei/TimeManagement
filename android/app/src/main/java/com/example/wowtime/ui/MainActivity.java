@@ -80,12 +80,13 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
         Intent startIntent = new Intent(this, TWebSocketClientService.class);
+        startService(startIntent);
 //        startForegroundService(startIntent);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(startIntent);
-        } else {
-            startService(startIntent);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            startForegroundService(startIntent);
+//        } else {
+//            startService(startIntent);
+//        }
         System.out.println("MainActivity create done!");
     }
 

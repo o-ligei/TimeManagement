@@ -48,15 +48,15 @@ public class FriendsListAdapter extends BaseAdapter {
 
         convertView = LayoutInflater.from(mContext).inflate(R.layout.friends_list_item,parent,false);
 
-        ImageView friendIcon = convertView.findViewById(R.id.FriendIcon);
+        ImageView friendIcon = convertView.findViewById(R.id.UserIcon);
         TextView username = convertView.findViewById(R.id.Username);
         ImageView cancelIcon = convertView.findViewById(R.id.CancelIcon);
 
         Integer userId = mData.get(position).getUserId();
         String userIcon = mData.get(position).getUserIcon();
-        System.out.println(userIcon);
+
         byte[] decodedString = Base64.decode(userIcon, Base64.DEFAULT);
-        System.out.println("We are here"+userId);
+
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0 , decodedString.length);
         friendIcon.setImageBitmap(decodedByte);
         username.setText(mData.get(position).getUsername());

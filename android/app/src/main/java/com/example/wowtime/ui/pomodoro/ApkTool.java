@@ -1,16 +1,29 @@
 package com.example.wowtime.ui.pomodoro;
 
+import android.app.ActivityManager;
+import android.app.Application;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.NumberPicker;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.wowtime.dto.WhiteListItem;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * Created by gray_dog3 on 16/3/3.
@@ -37,14 +50,10 @@ public class ApkTool {
                 if (packageInfo.applicationInfo.loadIcon(packageManager) == null)
                     continue;
                 whiteListItem.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
-                if(alreadySelectedPaackage.indexOf(packageInfo.packageName)!=-1) {
-                    System.out.println("apktoolAlreadySelect:"+packageInfo.packageName);
+                if(alreadySelectedPaackage.indexOf(packageInfo.packageName)!=-1)
                     whiteListItem.setSelected(true);
-                }
-                else {
-                    System.out.println("apktoolHaven'tSelect:"+packageInfo.packageName);
+                else
                     whiteListItem.setSelected(false);
-                }
                 whiteListItem.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
                 whiteListItems.add(whiteListItem);
             }
@@ -95,6 +104,61 @@ public class ApkTool {
             }
             return packageInfos;
     }
+
+    public static void resizePikcer(FrameLayout tp){
+        List<NumberPicker> npList = findNumberPicker(tp);
+        for(NumberPicker np:npList){
+            resizeNumberPicker(np);
+        }
+    }
+    public static List<NumberPicker> findNumberPicker(ViewGroup viewGroup){
+        List<NumberPicker> npList = new ArrayList<NumberPicker>();
+        View child = null;
+        if(null != viewGroup){
+            for(int i = 0;i<viewGroup.getChildCount();i++){
+                child = viewGroup.getChildAt(i);
+                if(child instanceof NumberPicker){
+                    npList.add((NumberPicker)child);
+                }
+                else if(child instanceof LinearLayout){
+                    List<NumberPicker> result = findNumberPicker((ViewGroup)child);
+                    if(result.size()>0){
+                        return result;
+                    }
+                }
+            }
+        }
+        return npList;
+    }
+    public static void resizeNumberPicker(NumberPicker np){
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 400);
+        params.setMargins(10, 0, 10, 0);
+        np.setLayoutParams(params);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
+    public static String getTaskPackname(Application self) {
+        String currentApp = "CurrentNULL";
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            UsageStatsManager usm = (UsageStatsManager) self.getSystemService(Context.USAGE_STATS_SERVICE);
+            long time = System.currentTimeMillis();
+            List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
+            if (appList != null && appList.size() > 0) {
+                SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
+                for (UsageStats usageStats : appList) {
+                    mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
+                }
+                if (mySortedMap != null && !mySortedMap.isEmpty()) {
+                    currentApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
+                }
+            }
+        } else {
+            ActivityManager am = (ActivityManager) self.getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningAppProcessInfo> tasks = am.getRunningAppProcesses();
+            currentApp = tasks.get(0).processName;
+        }
+        return currentApp;
+    }
 }
 
 
@@ -115,19 +179,3 @@ public class ApkTool {
 //
 //        System.out.println("!!!"+pManager.getApplicationLabel(pinfo.applicationInfo).toString());
 //        }
-
-//    public static List<PackageInfo> getAllApps(Context context) {
-//        List<PackageInfo> apps = new ArrayList<PackageInfo>();
-//        PackageManager pManager = context.getPackageManager();
-//        //获取手机内所有应用
-//        List<PackageInfo> paklist = pManager.getInstalledPackages(0);
-//        for (int i = 0; i < paklist.size(); i++) {
-//            PackageInfo pak = (PackageInfo) paklist.get(i);
-//            //判断是否为非系统预装的应用程序
-//            if ((pak.applicationInfo.flags & pak.applicationInfo.FLAG_SYSTEM) <= 0) {
-//                // customs applications
-//                apps.add(pak);
-//            }
-//        }
-//        return apps;
-//    }

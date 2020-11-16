@@ -150,7 +150,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                     JSONObject data = JSONObject.parseObject(str_data);
                     str_user = data.get("user").toString();
                     JSONObject user = JSONObject.parseObject(str_user);
-                    userid = user.get("userid").toString();
+                    userid = user.get("userId").toString();
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     finish();
                     Intent intent = new Intent(LoginActivityWithAuthActivity.this, MainActivity.class);

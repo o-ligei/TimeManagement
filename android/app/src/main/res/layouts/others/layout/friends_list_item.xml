@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/FriendIcon"
+            android:id="@+id/UserIcon"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginStart="48dp"
@@ -37,7 +37,7 @@
             android:text="Username"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/CancelIcon"
-            app:layout_constraintStart_toEndOf="@+id/FriendIcon"
+            app:layout_constraintStart_toEndOf="@+id/UserIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
