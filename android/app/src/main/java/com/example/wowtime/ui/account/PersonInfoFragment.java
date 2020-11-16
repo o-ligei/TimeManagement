@@ -135,7 +135,6 @@ public class PersonInfoFragment extends Fragment {
         return root;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
