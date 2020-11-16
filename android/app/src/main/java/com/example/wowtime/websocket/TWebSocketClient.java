@@ -51,7 +51,7 @@ public class TWebSocketClient extends WebSocketClient {
 //            Toast toast = Toast.makeText(ContextUtil.getInstance(),msg,Toast.LENGTH_SHORT);
             toast.show();
 //            if(msg.equals("remain friend request"))
-                UserInfoAfterLogin.webSocketMessage = true;
+            UserInfoAfterLogin.webSocketMessage = true;
         }
         return false;
     });

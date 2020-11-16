@@ -6,38 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.others.SpeechRecognizeActivity">
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/iat_result"
+        android:layout_width="405dp"
+        android:layout_height="147dp"
+        android:layout_marginTop="28dp"
+        android:ems="10"
+        android:gravity="top|left"
+        android:hint="@string/iat_recognize_hint"
+        android:inputType="textMultiLine|textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/iat_recognize"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/iat_result"
-            android:layout_width="match_parent"
-            android:layout_height="127dp"
-            android:ems="10"
-            android:gravity="top|left"
-            android:hint="@string/iat_recognize_hint"
-            android:inputType="textMultiLine|textPersonName" />
+    <Button
+        android:id="@+id/iat_recognize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="196dp"
+        android:layout_weight="1"
+        android:text="@string/iat_recognize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/iat_recognize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/iat_recognize" />
-
-        </LinearLayout>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
