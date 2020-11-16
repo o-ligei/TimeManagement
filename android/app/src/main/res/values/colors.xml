@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--    <color name="colorPrimary">#6200EE</color>-->
-    <!--    <color name="colorPrimaryDark">#3700B3</color>-->
-    <!--    <color name="colorAccent">#03DAC5</color>-->
+<!--    <color name="colorPrimary">#FFB6C1</color>-->
+<!--    <color name="colorPrimaryDark">#DB7089</color>-->
+<!--    <color name="colorAccent">#FF7F50</color>-->
+<!--    <color name="lightOrange">#FDD290</color>-->
+<!--    <color name="lightPink">#ffccbc</color>-->
 
-    <color name="colorPrimary">#FFB6C1</color>
-    <color name="colorPrimaryDark">#DB7089</color>
-    <color name="colorAccent">#FF7F50</color>
-    <color name="lightOrange">#FDD290</color>
-    <color name="lightPink">#ffccbc</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+
+    <color name="colorPrimary">#FDD692</color>
+    <color name="colorPrimaryDark">#FDC092</color>
+    <color name="colorAccent">#754F44</color>
+    <color name="lightOrange">#FFFFFF</color>
+    <color name="lightPink">#FFFFFF</color>
+
+<!--    <color name="colorPrimary">#FF5722</color>-->
+<!--    &lt;!&ndash;    <color name="colorPrimary">#FF7F50</color>&ndash;&gt;-->
+<!--    <color name="colorPrimaryDark">#E64A19</color>-->
+<!--    &lt;!&ndash;    <color name="colorPrimaryDark">#E65A19</color>&ndash;&gt;-->
+<!--    <color name="colorPrimaryLight">#FFCCBC</color>-->
+<!--    &lt;!&ndash;    <color name="colorAccent">#03A9F4</color>&ndash;&gt;-->
+<!--    <color name="colorAccent">#03C4F4</color>-->
 
 
-<!--    <color name="lightOrange">#FADBAD</color>-->
+
+    <!--    <color name="lightOrange">#FADBAD</color>-->
 <!--    <color name="lightPink">#FFCCBC</color>-->
 
 
@@ -29,6 +43,7 @@
     <color name="lightBlue">#8FDCD9</color>
     <color name="lightGreen">#9DDC98</color>
     <color name="lavender">#B2B5EA</color>
+    <color name="white">#ffffff</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

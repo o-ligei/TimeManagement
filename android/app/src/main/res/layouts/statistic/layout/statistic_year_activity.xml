@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightPink"
     tools:context=".ui.statistic.StatisticYearActivity"
     >
 
@@ -24,7 +23,6 @@
         android:id="@+id/yearBar"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:background="@color/lightPink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="80dp"

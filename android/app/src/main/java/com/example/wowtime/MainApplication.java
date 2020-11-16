@@ -6,6 +6,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 
 
+
 public class MainApplication extends Application {
     public static final String PACKAGE = "com.example.wowtime";
     public static final String VERSION = "Version " + BuildConfig.VERSION_NAME + '(' + BuildConfig.VERSION_CODE + ')';

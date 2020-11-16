@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightPink"
     tools:context=".ui.alarm.TaskSuccessActivity">
 
     <TextView
-        android:id="@+id/SuccessNotice"
+        android:id="@+id/option_game_result"
         android:layout_width="275dp"
         android:layout_height="43dp"
         android:fontFamily="sans-serif"
@@ -15,7 +16,7 @@
         android:text="@string/task_success"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="24sp"
+        android:textSize="32sp"
         android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +25,7 @@
         app:layout_constraintVertical_bias="0.556" />
 
     <Button
-        android:id="@+id/btn_back_to_home"
+        android:id="@+id/option_game_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
@@ -36,12 +37,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/option_game_image"
         android:layout_width="235dp"
         android:layout_height="206dp"
         android:layout_marginTop="132dp"
         android:layout_marginBottom="74dp"
-        app:layout_constraintBottom_toTopOf="@+id/SuccessNotice"
+        app:layout_constraintBottom_toTopOf="@+id/option_game_result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
