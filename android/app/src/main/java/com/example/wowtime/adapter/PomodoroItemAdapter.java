@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,11 +20,8 @@ import androidx.cardview.widget.CardView;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
-import com.example.wowtime.ui.MainActivity;
-import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PomodoroItemAdapter extends BaseAdapter {
@@ -98,7 +94,7 @@ public class PomodoroItemAdapter extends BaseAdapter {
         int restGap=pomodoroListItem.getRestGap();
 
         txt_name.setText(pomodoroListItem.getName());
-        txt_other.setText(mode+" 每专注"+workGap+"m 休息"+restGap+"m");
+        txt_other.setText(mode+" 每专注"+workGap+"m\n休息"+restGap+"m");
         txt_gap.setText((hour==0?"":(hour+"h"))+minute+"m");
 
         CardView cardView=convertView.findViewById(R.id.PomodoroCard);

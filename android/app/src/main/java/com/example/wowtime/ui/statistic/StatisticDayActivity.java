@@ -2,14 +2,11 @@ package com.example.wowtime.ui.statistic;
 
 
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.widget.RadioButton;
-
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -30,14 +27,9 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-
-import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 
 public class StatisticDayActivity extends AppCompatActivity {
 //    @Override
@@ -50,10 +42,6 @@ public class StatisticDayActivity extends AppCompatActivity {
 //        List<PieChartView.PieceDataHolder> pieceDataHolders = new ArrayList<>();
 //
 //        pieceDataHolders.add(new PieChartView.PieceDataHolder(1000, 0xFF8FDCD9, "预习ICS\n15:00-15:25"));
-//        pieceDataHolders.add(new PieChartView.PieceDataHolder(800, 0xFFCB72D8, "洗衣服\n15:30-15:45"));
-//        pieceDataHolders.add(new PieChartView.PieceDataHolder(4000, 0xFFFF9800, "App原型UI\n21:00-23:00"));
-//        pieceDataHolders.add(new PieChartView.PieceDataHolder(5000, 0xFFFFB6C1, "写选修课论文\n19:00-20:20"));
-//        pieceDataHolders.add(new PieChartView.PieceDataHolder(3000, 0xFF9DDC98, "写CSE-lab1\n12:30-14:00"));
 //
 //        pieChartView.setData(pieceDataHolders);
 //    }
@@ -69,35 +57,30 @@ public class StatisticDayActivity extends AppCompatActivity {
 
         list=new ArrayList<>();
 //        list.add(new PieEntry(10,"预习ICS","9:00-9:45"));
-//        list.add(new PieEntry(12,"洗衣服","12:40-13:30"));
-//        list.add(new PieEntry(21,"App原型","14:00-15:30"));
-//        list.add(new PieEntry(27,"CSE-lab1","19:00-21:00"));
-//        list.add(new PieEntry(30,"Android","21:30-23:00"));
-        String statisticString=pomodoroSp.getString("statisticDay","");
+        String statisticString=pomodoroSp.getString("statistic","");
         List<StatisticDayItem> statisticDayItems= JSON.parseArray(statisticString,StatisticDayItem.class);
+        List<Integer> removedIndex=new LinkedList<>();
         Date now=new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        Set<Integer> removed=new HashSet<>();
         for(int i=0;i<statisticDayItems.size();++i){
             StatisticDayItem item=statisticDayItems.get(i);
             Date begin=item.getBegin();
-            if(begin.getDay()!=now.getDay()||begin.getYear()!=now.getYear()||begin.getMonth()!=now.getMonth()){
-                System.out.println("StatisticDay: not today"+i);
-                removed.add(i);
-//                statisticDayItems.remove(item);
+            if(begin.getYear()!=now.getYear()){
+                removedIndex.add(i);
                 continue;
             }
-            list.add(new PieEntry(item.getMinute()+item.getHour(),item.getName(),
-                    sdf.format(begin)+"-"+sdf.format(item.getEnd())));
+            if(begin.getDay()==now.getDay()||begin.getYear()==now.getYear()||begin.getMonth()==now.getMonth()){
+                System.out.println("StatisticDay: today"+item.getName());
+                list.add(new PieEntry(item.getMinute()+item.getHour(),item.getName(),
+                        sdf.format(begin)+"-"+sdf.format(item.getEnd())));
+            }
         }
-        for(Integer i:removed){
-            statisticDayItems.remove(i);
-        }
-        //System.out.println("test"+JSONObject.toJSONString(list));
-        SharedPreferences.Editor editor=pomodoroSp.edit();
-        editor.putString("statisticDay", JSONObject.toJSONString(statisticDayItems));
-        editor.apply();
 
+        for(int index:removedIndex)
+            statisticDayItems.remove(index);
+        SharedPreferences.Editor editor=pomodoroSp.edit();
+        editor.putString("statistic", JSONObject.toJSONString(statisticDayItems));
+        editor.apply();
 
 //        List<StatisticWeekItem> statisticWeekItems=JSONObject.parseArray(pomodoroSp.getString("statisticWeek",""),
 //                StatisticWeekItem.class);
@@ -143,7 +126,7 @@ public class StatisticDayActivity extends AppCompatActivity {
         pieData.setValueTextColor(Color.WHITE);
         pie.setData(pieData);
 
-        pie.setBackgroundColor(0xFFFFCCBC);
+//        pie.setBackgroundColor(0xFFFFCCBC);
         pie.setNoDataText(String.valueOf(R.string.statistic_no_data));//设置当chart为空时显示的描述文字。
         pie.setUsePercentValues(true);//使用百分比显示
         pie.setExtraOffsets(15, 0, 15, 0);//设置图表上下左右的偏移，类似于外边距
@@ -153,7 +136,7 @@ public class StatisticDayActivity extends AppCompatActivity {
         //中间半透明白色圆的半径    设置成0时就是隐藏
         pie.setTransparentCircleRadius(53f);
         //设置中心圆的颜色
-        pie.setHoleColor(0xFFFFCCBC);
+//        pie.setHoleColor(0xFFFFCCBC);
         pie.setTransparentCircleColor(Color.WHITE);//?
         pie.setTransparentCircleAlpha(110);//?
         //设置中心部分的字  （一般中间白色圆不隐藏的情况下才设置）

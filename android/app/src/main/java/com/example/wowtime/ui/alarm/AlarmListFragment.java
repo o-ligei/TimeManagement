@@ -1,27 +1,21 @@
 package com.example.wowtime.ui.alarm;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.alibaba.fastjson.*;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.AlarmItemAdapter;
 import com.example.wowtime.dto.AlarmListItem;
-import com.example.wowtime.ui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,10 +136,10 @@ public class AlarmListFragment extends Fragment{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        SharedPreferences mySharedPreferences= requireActivity().getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = mySharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+//        SharedPreferences mySharedPreferences= requireActivity().getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = mySharedPreferences.edit();
+//        editor.clear();
+//        editor.apply();
     }
 
 //    private void deleteAlarm(int position){
