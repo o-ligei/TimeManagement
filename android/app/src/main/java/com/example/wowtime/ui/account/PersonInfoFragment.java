@@ -127,13 +127,6 @@ public class PersonInfoFragment extends Fragment {
         modifyEmail.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","email")));
         creditText = root.findViewById(R.id.Credit);
         creditText.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
-
-//        passwordLayout = root.findViewById(R.id.PasswordLayout);
-//        passwordLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","password")));
-//        emailLayout = root.findViewById(R.id.EmailLayout);
-//        emailLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","email")));
-//        creditLayout = root.findViewById(R.id.CreditLayout);
-//        creditLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
       
         usernameText = root.findViewById(R.id.Username);
         emailText = root.findViewById(R.id.Email);
