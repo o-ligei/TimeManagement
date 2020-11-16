@@ -32,9 +32,10 @@ public class SocialController {
     private static final Logger logger = LoggerFactory.getLogger(TimemanagementApplication.class);
 
     @RequestMapping("/GetProfile")
-    public Msg<List<Profile>> getProfile(@RequestParam(name = "username") String username) {
+    public Msg<List<Profile>> getProfile(@RequestParam(name = "userid") Integer myId,
+                                         @RequestParam(name = "username") String username) {
         try {
-            return socialService.getProfile(username);
+            return socialService.getProfile(myId, username);
         } catch (NullPointerException e) {
             logger.error("NullPointerException", e);
             return new Msg<>(MsgCode.NULL_ARGUMENT);
@@ -56,7 +57,7 @@ public class SocialController {
                                   @RequestParam(name = "to") Integer to) {
         try {
             Msg<Boolean> msg = socialService.addFriend(from, to);
-            if (msg.getStatus() == MsgConstant.ALREADY_FRIEND || msg.getStatus() == MsgConstant.ALREADY_SEND_FRIEND_REQUEST)
+            if (msg.getStatus() == MsgConstant.ALREADY_FRIEND || msg.getStatus() == MsgConstant.ALREADY_SEND_FRIEND_REQUEST || msg.getStatus() == MsgConstant.FOUND_YOURSELF)
                 return msg;
             Msg<Boolean> request = new Msg<>(MsgCode.NEW_FRIEND_REQUEST);
             WebSocketController.sendMessage((JSONObject)JSONObject.toJSON(request), to.toString());

@@ -68,6 +68,9 @@
     <string name="tapping_game_success">Success</string>
     <string name="tapping_game_failure">Failure</string>
 
+    <!--strings for option game-->
+    <string name="option_game_next">Continue!</string>
+
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
     <string name="navigation_login">Log in</string>

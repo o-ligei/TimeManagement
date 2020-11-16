@@ -25,13 +25,18 @@ public class DetailServiceImpl implements DetailService {
     private UserDao userDao;
 
     @Override
-    public Msg<Boolean> saveDetail(Integer userId, String event, String timestamp, Integer earn) {
-        Objects.requireNonNull(userId, "null userid --DetailServiceImpl saveDetail");
+    public Msg<Boolean> saveDetail(Integer userId, String event, String timestamp) {
+        Objects.requireNonNull(userId, "null userId --DetailServiceImpl saveDetail");
         Objects.requireNonNull(event, "null event --DetailServiceImpl saveDetail");
         Objects.requireNonNull(timestamp, "null timestamp --DetailServiceImpl saveDetail");
-        Objects.requireNonNull(earn, "null earn --DetailServiceImpl saveDetail");
-
         detailDao.save(new Detail(userId, event, FormatUtil.strToTimestamp(timestamp)));
+        return new Msg<>(MsgCode.SUCCESS);
+    }
+
+    @Override
+    public Msg<Boolean> addScore(Integer userId, Integer earn) {
+        Objects.requireNonNull(userId, "null userId --DetailServiceImpl addScore");
+        Objects.requireNonNull(earn, "null earn --DetailServiceImpl addScore");
         UserMongoDB userMongoDB = userDao.getUserMongoDBByUserId(userId);
         userMongoDB.getCredit().addScore(earn);
         userDao.save(userMongoDB);
@@ -39,8 +44,10 @@ public class DetailServiceImpl implements DetailService {
     }
 
     @Override
-    public Msg<List<Detail>> getDetail(Integer userId) {
+    public Msg<List<Detail>> getDetail(Integer userId, String timestamp) {
         Objects.requireNonNull(userId, "null userId --DetailServiceImpl getDetail");
-        return new Msg<>(MsgCode.SUCCESS, detailDao.getDetailsByUserId(userId));
+        Objects.requireNonNull(timestamp, "null timestamp --DetailServiceImpl getDetail");
+        if (timestamp.equals("whole")) return new Msg<>(MsgCode.SUCCESS, detailDao.getDetailsByUserId(userId));
+        return new Msg<>(MsgCode.SUCCESS, detailDao.getDetailsByUserIdAndTimestampGreaterThanEqual(userId, FormatUtil.strToTimestamp(timestamp)));
     }
 }

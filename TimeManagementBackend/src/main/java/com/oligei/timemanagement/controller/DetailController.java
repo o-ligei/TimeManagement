@@ -28,20 +28,32 @@ public class DetailController {
     @RequestMapping("/SaveDetail")
     public Msg<Boolean> saveDetail(@RequestParam(name = "userid") Integer userId,
                                   @RequestParam(name = "event") String event,
-                                  @RequestParam(name = "timestamp") String timestamp,
-                                  @RequestParam(name = "earn") Integer earn) {
+                                  @RequestParam(name = "timestamp") String timestamp) {
         try {
-            return detailService.saveDetail(userId, event, timestamp, earn);
+            return detailService.saveDetail(userId, event, timestamp);
         } catch (NullPointerException e) {
             logger.error("NullPointerException", e);
             return new Msg<>(MsgCode.NULL_ARGUMENT);
         }
     }
 
-    @RequestMapping("/GetDetail")
-    public Msg<List<Detail>> getDetail(@RequestParam(name = "userid") Integer userId) {
+    @RequestMapping("/AddScore")
+    public Msg<Boolean> addScore(@RequestParam(name = "userid") Integer userId,
+                                 @RequestParam(name = "earn") Integer earn) {
         try {
-            return detailService.getDetail(userId);
+            return detailService.addScore(userId, earn);
+        } catch (NullPointerException e) {
+            logger.error("NullPointerException", e);
+            return new Msg<>(MsgCode.NULL_ARGUMENT);
+        }
+    }
+
+    //timestamp = "whole" if searching for all the details
+    @RequestMapping("/GetDetail")
+    public Msg<List<Detail>> getDetail(@RequestParam(name = "userid") Integer userId,
+                                       @RequestParam(name = "timestamp") String timestamp) {
+        try {
+            return detailService.getDetail(userId, timestamp);
         } catch (NullPointerException e) {
             logger.error("NullPointerException", e);
             return new Msg<>(MsgCode.NULL_ARGUMENT);
