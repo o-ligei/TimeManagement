@@ -277,9 +277,9 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void jumpFromCreate() {
         timePicker.setHour(0);
-        timePicker.setMinute(5);
+        timePicker.setMinute(10);
         timePicker2.setHour(0);
-        timePicker2.setMinute(4);
+        timePicker2.setMinute(9);
         timePicker3.setHour(0);
         timePicker3.setMinute(1);
         editText.setText(getResources().getText(R.string.pomodoro_default_name));
