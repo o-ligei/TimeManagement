@@ -2,7 +2,6 @@ package com.example.wowtime.ui.account;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
@@ -11,12 +10,10 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.*;
-
 import com.example.wowtime.R;
-import com.example.wowtime.service.Credit;
 import com.example.wowtime.ui.others.CreditDetailListActivity;
 import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
@@ -24,7 +21,6 @@ import com.example.wowtime.util.UserInfoAfterLogin;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -35,14 +31,19 @@ import okhttp3.Response;
 
 public class PersonInfoFragment extends Fragment {
     TextView usernameText;
-    TextView passwordText;
+//    TextView passwordText;
     TextView emailText;
-    TextView genderText;
+//    TextView genderText;
     TextView creditText;
+    TextView phoneNumberText;
 
-    ConstraintLayout passwordLayout;
-    ConstraintLayout emailLayout;
-    ConstraintLayout creditLayout;
+    TextView forgetPassword;
+
+    ImageView modifyEmail;
+
+//    ConstraintLayout passwordLayout;
+//    ConstraintLayout emailLayout;
+//    ConstraintLayout creditLayout;
     public PersonInfoFragment(){}
 
     public PersonInfoFragment(int contentLayoutId) {
@@ -120,6 +121,12 @@ public class PersonInfoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.person_info_activity, container, false);
+        forgetPassword = root.findViewById(R.id.forgetPassword);
+        forgetPassword.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","password")));
+        modifyEmail = root.findViewById(R.id.modifyEmail);
+        modifyEmail.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","email")));
+        creditText = root.findViewById(R.id.Credit);
+        creditText.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
 
         passwordLayout = root.findViewById(R.id.PasswordLayout);
         passwordLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","password")));
@@ -129,10 +136,8 @@ public class PersonInfoFragment extends Fragment {
         creditLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
       
         usernameText = root.findViewById(R.id.Username);
-        passwordText = root.findViewById(R.id.Password);
         emailText = root.findViewById(R.id.Email);
-        genderText = root.findViewById(R.id.Gender);
-        creditText = root.findViewById(R.id.Credit);
+        phoneNumberText =root.findViewById(R.id.PhoneNumber);
         OKGetProfile();
         fetchCredit(root);
         return root;
@@ -192,11 +197,12 @@ public class PersonInfoFragment extends Fragment {
                 if(msg.equals("success"))
                 {
                     usernameText.setText(username);
-                    passwordText.setText("*******");
+//                    passwordText.setText("*******");
                     emailText.setText(email);
+                    phoneNumberText.setText(phone);
                 }
                 if(!emailText.getText().toString().equals("null"))
-                    emailLayout.setEnabled(false);
+                    emailText.setEnabled(false);
             }
         });
     }
