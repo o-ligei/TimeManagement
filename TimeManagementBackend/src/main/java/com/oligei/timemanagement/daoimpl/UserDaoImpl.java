@@ -8,11 +8,13 @@ import com.oligei.timemanagement.entity.UserNeo4j;
 import com.oligei.timemanagement.repository.UserMongoDBRepository;
 import com.oligei.timemanagement.repository.UserNeo4jRepository;
 import com.oligei.timemanagement.repository.UserRepository;
+import com.oligei.timemanagement.utils.UserIconDefault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -25,6 +27,8 @@ public class UserDaoImpl implements UserDao {
 
     @Autowired
     private UserNeo4jRepository userNeo4jRepository;
+
+    private UserIconDefault userIconDefault = new UserIconDefault();
 
     @Override
     public User getUserByPhone(String phone) {
@@ -39,7 +43,9 @@ public class UserDaoImpl implements UserDao {
         if (new_user) {
             User saved_user = userRepository.save(user);
             UserMongoDB userMongoDB = new UserMongoDB(saved_user.getUserId(), saved_user.getUsername(), new Credit());
-            UserNeo4j userNeo4j = new UserNeo4j(saved_user.getUserId().toString(), saved_user.getUsername(), null);
+            Random random = new Random();
+            String userIcon = userIconDefault.defaultUserIcon.get(random.nextInt(4));
+            UserNeo4j userNeo4j = new UserNeo4j(saved_user.getUserId().toString(), saved_user.getUsername(), userIcon);
             userMongoDBRepository.save(userMongoDB);
             userNeo4jRepository.save(userNeo4j);
             return saved_user;
