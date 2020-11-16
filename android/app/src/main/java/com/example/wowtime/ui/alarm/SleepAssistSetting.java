@@ -28,6 +28,7 @@ public class SleepAssistSetting extends AppCompatActivity {
         Hour=0;
 
         TimePicker timePicker=findViewById(R.id.alarmtimePicker);
+        timePicker.setIs24HourView(true);
         timePicker.setVisibility(View.INVISIBLE);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override

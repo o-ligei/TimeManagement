@@ -74,7 +74,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<UserNeo4j> getUserNeo4jsByUsername(String username) {
         Objects.requireNonNull(username, "null username --UserDaoImpl getUserNeo4jsByUsername");
-        return userNeo4jRepository.getUserNeo4jsByUsername(username);
+        return userNeo4jRepository.searchByUsername(username);
     }
 
     @Override

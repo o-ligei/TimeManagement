@@ -58,7 +58,17 @@
     <string name="pomodoro_rest1">Be focused for</string>
     <string name="pomodoro_rest2">Allow to rest for</string>
     <string name="item_application_name">QQ</string>
+    <string name="pomodoro_save_successfully">Save successfully</string>
+    <string name="pomodoro_default_name">away from phone</string>
+    <string name="pomodoro_delete_title">delete this task?</string>
+    <string name="pomodoro_delete_confirm">Yes</string>
+    <string name="pomodoro_delete_cancel">Cancel</string>
 
+    <!--strings for tapping game-->
+    <string name="tapping_game_rule">Tap 20 greens, and dont tap reds!</string>
+    <string name="tapping_game_start">Start!</string>
+    <string name="tapping_game_success">Success</string>
+    <string name="tapping_game_failure">Failure</string>
 
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
@@ -97,6 +107,16 @@
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
+    <string name="game_setting_header">Game Parameter Setting</string>
+    <string name="blowing_game_setting_header">Blowing Game Setting</string>
+    <string name="shaking_game_setting_header">Shaking Game Setting</string>
+    <string name="volume_setting_header">Sensitivity</string>
+    <string name="blow_time_setting_header">Duration</string>
+    <string name="speed_setting_header">Sensitivity</string>
+    <string name="shake_time_setting_header">Duration</string>
+    <string name="random_game_setting_header">Random Number Game Setting</string>
+    <string name="calculate_game_setting_header">Calculating Game Setting</string>
+    <string name="tapping_game_setting_header">Tapping Game Setting</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
@@ -131,12 +151,58 @@
     <string name="title_activity_screen_saver">Screen Saver</string>
     <string name="screen_saver_button">quit</string>
     <string name="screen_saver_content">STUDY\nFOR THE RISE OF CHINA</string>
+    <string name="screen_saver_title">You have been focused for</string>
 
     <string name="pomodoro_list_title">POMODORA</string>
     <string name="pomodoro_start_button">START</string>
 
     <!--strings for random number input -->
     <string name="number_input_title">please input number below：</string>
-    <string name="random_number_handson">HANDSON</string>
+    <string name="handson">HANDSON</string>
 
+    <!--strings for confirm captcha -->
+    <string name="phone_input">please input the phone number</string>
+    <string name="captcha_input">please input the captcha</string>
+    <string name="get_captcha">get captcha</string>
+
+    <!--strings for password change -->
+    <string name="password_change_title">change password</string>
+    <string name="new_password">new password</string>
+    <string name="new_password_confirm">confirm password</string>
+
+    <!--strings for email activate-->
+    <string name="email_activate_title">activate email</string>
+    <string name="email_hint">please input the email</string>
+    <string name="add_friend">ADD</string>
+    <string name="accept_friend">ACCEPT</string>
+    <string name="app_id">5f9fbccc</string>
+
+    <string name="iat_recognize">start</string>
+    <string name="iat_stop">stop</string>
+    <string name="iat_cancel">cancel</string>
+
+    <string name="iat_recognize_hint">关键词：闹钟，几点，比如您可以说：请订个一点的闹钟</string>
+    <string name="text_tts_source">科大讯飞作为中国最大的智能语音技术提供商，在智能语音技术领域有着长期的研究积累，并在中文语音合成、语音识别、口语评测等多项技术上拥有国际领先的成果。科大讯飞是我国唯一以语音技术为产业化方向的“国家863计划成果产业化基地”…</string>
+    <string name="text_tts_source_en">iFLYTEK is a national key software enterprise dedicated to the research of intelligent speech and language technologies, development of software and chip products, provision of speech information services, and integration of E-government systems. The intelligent speech technology of iFLYTEK, the core technology of the company, represents the top level in the world.</string>
+    <string name="text_isr_abnf_hint">\t上传内容为：\n\t#ABNF 1.0 gb2312;\n\tlanguage zh-CN;\n\tmode voice;\n\troot $main;\n\t$main = $place1 到$place2 ;\n\t$place1 = 北京 | 武汉 | 南京 | 天津 | 东京;\n\t$place2 = 上海 | 合肥;</string>
+    <string name="text_understand_hint">\t您可以说：\n\t今天的天气怎么样?\n\t北京到上海的火车?\n\t来首歌吧?\n\n\t更多语义请登录：\n\thttp://aiui.xfyun.cn/ \n\t配置您的专属语义吧!</string>
+    <!-- 听写 -->
+    <string name="text_begin">请开始说话…</string>
+    <string name="text_begin_recognizer">开始音频流识别</string>
+    <string name="text_begin_ise">开始音频流评测</string>
+    <string name="text_upload_contacts">上传联系人</string>
+    <string name="text_upload_userwords">上传用户词表</string>
+    <string name="text_upload_success">上传成功</string>
+    <string name="text_userword_empty">词表下载失败或内容为空</string>
+    <string name="text_download_success">下载成功</string>
+    <string name="pref_key_iat_show">iat_show</string>
+    <string name="pref_title_iat_show">显示听写界面</string>
+    <string name="text_show_contacts">上传联系人/词表显示</string>
+    <string name="text_show_iat_result">听写结果显示</string>
+
+    <string name="forget_password">forget password?</string>
+    <string name="username">Username:</string>
+    <string name="phonenumber">Phone:</string>
+    <string name="email">Email:</string>
+    <string name="credit">Growth:</string>
 </resources>

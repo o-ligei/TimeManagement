@@ -1,0 +1,69 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/blowing_game_setting_header">
+        <ListPreference
+            android:defaultValue="60"
+            android:entries="@array/blow_volume_entries"
+            android:entryValues="@array/blow_volume_values"
+            android:key="blow_volume"
+            android:title="灵敏度"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            android:defaultValue="5000"
+            android:entries="@array/blow_duration_entries"
+            android:entryValues="@array/blow_duration_values"
+            android:key="blow_duration"
+            android:title="时长"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/shaking_game_setting_header">
+    <ListPreference
+        android:defaultValue="5000"
+        android:entries="@array/shake_speed_entries"
+        android:entryValues="@array/shake_speed_values"
+        android:key="shake_speed"
+        android:title="灵敏度"
+        app:useSimpleSummaryProvider="true" />
+    <ListPreference
+        android:defaultValue="10000"
+        android:entries="@array/shake_duration_entries"
+        android:entryValues="@array/shake_duration_values"
+        android:key="shake_duration"
+        android:title="时长"
+        app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/random_game_setting_header">
+        <ListPreference
+            android:defaultValue="15"
+            android:entries="@array/random_digit_entries"
+            android:entryValues="@array/random_digit_values"
+            android:key="random_digit"
+            android:title="难度"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/calculate_game_setting_header">
+        <ListPreference
+            android:defaultValue="3"
+            android:entries="@array/calculate_magnitude_entries"
+            android:entryValues="@array/calculate_magnitude_values"
+            android:key="calculate_magnitude"
+            android:title="位数"
+            app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            android:defaultValue="4"
+            android:entries="@array/calculate_cnt_entries"
+            android:entryValues="@array/calculate_cnt_values"
+            android:key="calculate_cnt"
+            android:title="题目数"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/tapping_game_setting_header">
+        <ListPreference
+            android:defaultValue="11"
+            android:entries="@array/tap_round_entries"
+            android:entryValues="@array/tap_round_values"
+            android:key="tap_round"
+            android:title="难度"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

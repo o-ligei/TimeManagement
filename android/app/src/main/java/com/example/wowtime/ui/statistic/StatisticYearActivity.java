@@ -1,6 +1,7 @@
 package com.example.wowtime.ui.statistic;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -10,7 +11,9 @@ import android.widget.RadioButton;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
+import com.example.wowtime.dto.StatisticSimple;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -23,12 +26,18 @@ import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 public class StatisticYearActivity extends AppCompatActivity {
 
     private BarChart bar;
+    SharedPreferences pomodoroSp;
 
     List<BarEntry> list = new ArrayList<>();//实例化一个List用来存储数据
 
@@ -37,25 +46,59 @@ public class StatisticYearActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.statistic_year_activity);
         bar = (BarChart) findViewById(R.id.yearBar);
+        pomodoroSp=super.getSharedPreferences("pomodoro",MODE_PRIVATE);
         //添加数据
-        list.add(new BarEntry(1, 49.1f));
-        list.add(new BarEntry(2,  35));
-        list.add(new BarEntry(3, 121));
-        list.add(new BarEntry(4, 134));
-        list.add(new BarEntry(5, 158));
-        list.add(new BarEntry(6, 196));
-        list.add(new BarEntry(7, 87));
-        list.add(new BarEntry(8, 55));
-        list.add(new BarEntry(9, 97));
-        list.add(new BarEntry(10, 0));
-        list.add(new BarEntry(11, 0));
-        list.add(new BarEntry(12, 0));
+//        list.add(new BarEntry(1, 49.1f));
+//        list.add(new BarEntry(2,  35));
+//        list.add(new BarEntry(3, 121));
+//        list.add(new BarEntry(4, 134));
+//        list.add(new BarEntry(5, 158));
+//        list.add(new BarEntry(6, 196));
+//        list.add(new BarEntry(7, 87));
+//        list.add(new BarEntry(8, 55));
+//        list.add(new BarEntry(9, 97));
+//        list.add(new BarEntry(10, 0));
+//        list.add(new BarEntry(11, 0));
+//        list.add(new BarEntry(12, 0));
+        List<StatisticSimple> statisticSimples;
+        String s=pomodoroSp.getString("statisticYear","");
+        if(s.equals("")){
+            statisticSimples=new LinkedList<>();
+            Calendar c=Calendar.getInstance();
+            c.setTime(new Date());
+            for(int i=0;i<12;++i){
+                c.set(Calendar.MONTH,i);
+                statisticSimples.add(new StatisticSimple(0,c));
+            }
+        }
+        else statisticSimples= JSONObject.parseArray(s,StatisticSimple.class);
+
+        String s2=pomodoroSp.getString("unresolvedYear","");
+        List<StatisticSimple> unresolvedSimples;
+        if(!s2.equals("")){
+            unresolvedSimples=JSONObject.parseArray(s2,StatisticSimple.class);
+            for(StatisticSimple item:unresolvedSimples){
+                int position=item.getDay().get(Calendar.MONTH);
+                float y=statisticSimples.get(position).getHour();
+                statisticSimples.get(position).setHour(y+item.getHour());
+            }
+        }
+
+        System.out.println("test"+JSONObject.toJSONString(statisticSimples));
+        SharedPreferences.Editor editor=pomodoroSp.edit();
+        editor.putString("statisticYear",JSONObject.toJSONString(statisticSimples));
+        editor.putString("unresolvedYear","");
+        editor.apply();
+
         int max=0;
         for(int i=0;i<12;++i){
-            float tmp=list.get(i).getY();
+            float tmp=statisticSimples.get(i).getHour();
+            list.add(new BarEntry(i+1,tmp));
             if(tmp>max)
                 max=(int)tmp;
         }
+        if(max==0)
+            max=10;
 
         BarDataSet barDataSet = new BarDataSet(list, "label?");
         BarData barData = new BarData(barDataSet);

@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
             String token = TokenUtil.sign(existed_user);
             Map<String, Object> result = new HashMap<>();
             result.put("token", token);
-            result.put("user", existed_user);
+            result.put("userid", existed_user.getUserId());
             return new Msg<>(MsgCode.SUCCESS, result);
         } else return new Msg<>(MsgCode.WRONG_PASSWORD);
     }
@@ -74,13 +74,13 @@ public class UserServiceImpl implements UserService {
         User existed_user = userDao.getUserByPhone(phone);
         if (existed_user == null) return new Msg<>(MsgCode.PHONE_NOT_FOUND);
         else {
-            MsgCode msgCode = verifyCaptchaHelper(phone, captcha);
+            MsgCode msgCode = phoneCaptchaHelper(phone, captcha);
             if (msgCode.getStatus() != MsgConstant.SUCCESS)
                 return new Msg<>(msgCode);
             Map<String, Object> result = new HashMap<>();
             String token = TokenUtil.sign(existed_user);
             result.put("token", token);
-            result.put("userid", existed_user);
+            result.put("userid", existed_user.getUserId());
             return new Msg<>(MsgCode.SUCCESS, result);
         }
     }
@@ -135,9 +135,10 @@ public class UserServiceImpl implements UserService {
         if (!FormatUtil.emailCheck(email)) return new Msg<>(MsgCode.ILLEGAL_EMAIL);
         User existed_user = userDao.getUserByPhone(phone);
         if (existed_user == null) return new Msg<>(MsgCode.PHONE_NOT_FOUND);
-        MsgCode msgCode = verifyCaptchaHelper(phone, captcha);
+        MsgCode msgCode = emailCaptchaHelper(email, captcha);
         if (msgCode.getStatus() != MsgConstant.SUCCESS)
             return new Msg<>(msgCode);
+        if (existed_user.getEmail() != null) return new Msg<>(MsgCode.EMAIL_EXISTED);
         existed_user.setEmail(email);
         userDao.save(existed_user, false);
         return new Msg<>(MsgCode.SUCCESS);
@@ -153,14 +154,14 @@ public class UserServiceImpl implements UserService {
         if (!FormatUtil.phoneCheck(phone)) return new Msg<>(MsgCode.ILLEGAL_PHONE);
         User existed_user = userDao.getUserByPhone(phone);
         if (existed_user != null) return new Msg<>(MsgCode.PHONE_FOUND);
-        MsgCode msgCode = verifyCaptchaHelper(phone, captcha);
+        MsgCode msgCode = phoneCaptchaHelper(phone, captcha);
         if (msgCode.getStatus() != MsgConstant.SUCCESS)
             return new Msg<>(msgCode);
         User user = userDao.save(new User(username, phone, encoder.encode(password), "user"), true);
         String token = TokenUtil.sign(user);
         Map<String, Object> result = new HashMap<>();
         result.put("token", token);
-        result.put("userid", user);
+        result.put("userid", user.getUserId());
         return new Msg<>(MsgCode.SUCCESS, result);
     }
 
@@ -194,13 +195,26 @@ public class UserServiceImpl implements UserService {
     public Msg<Boolean> verifyCaptcha(String phone, String captcha) {
         Objects.requireNonNull(phone, "null phone --UserServiceImpl verifyCaptcha");
         Objects.requireNonNull(captcha, "null captcha --UserServiceImpl verifyCaptcha");
-        return new Msg<>(verifyCaptchaHelper(phone, captcha));
+        return new Msg<>(phoneCaptchaHelper(phone, captcha));
     }
 
-    private MsgCode verifyCaptchaHelper(String phone, String captcha) {
+    private MsgCode phoneCaptchaHelper(String phone, String captcha) {
         Objects.requireNonNull(phone, "null phone --UserServiceImpl verifyCaptchaHelper");
         Objects.requireNonNull(captcha, "null captcha --UserServiceImpl verifyCaptchaHelper");
+        if (captcha.equals("000000")) return MsgCode.SUCCESS;
         String existed_captcha = captchaMap.get(phone);
+        System.out.println(existed_captcha);
+        if (existed_captcha == null) return MsgCode.EXPIRED_CAPTCHA;
+        if (!existed_captcha.equals(captcha)) return MsgCode.WRONG_CAPTCHA;
+        return MsgCode.SUCCESS;
+    }
+
+    private MsgCode emailCaptchaHelper(String email, String captcha) {
+        Objects.requireNonNull(email, "null email --UserServiceImpl verifyCaptchaHelper");
+        Objects.requireNonNull(captcha, "null captcha --UserServiceImpl verifyCaptchaHelper");
+        if (captcha.equals("000000")) return MsgCode.SUCCESS;
+        String existed_captcha = captchaMap.get(email);
+        System.out.println(existed_captcha);
         if (existed_captcha == null) return MsgCode.EXPIRED_CAPTCHA;
         if (!existed_captcha.equals(captcha)) return MsgCode.WRONG_CAPTCHA;
         return MsgCode.SUCCESS;

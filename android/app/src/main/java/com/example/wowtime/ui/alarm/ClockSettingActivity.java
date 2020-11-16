@@ -125,7 +125,7 @@ public class ClockSettingActivity extends AppCompatActivity {
                 AlarmListItem alarm=new AlarmListItem(tag,frequency,game,ring,Hour,Minute);
                 alarm.setSleepFlag(sleepFlag);
                 alarm.setSleepHour(sleepHour);
-                alarm.setMinute(sleepMinute);
+                alarm.setSleepMinute(sleepMinute);
                 System.out.println("add alarm:"+alarm.getTag());
                 if(!shared.equals("") &&shared!=null){
                     alarmList=JSONObject.parseArray(shared,AlarmListItem.class);

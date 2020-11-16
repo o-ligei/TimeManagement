@@ -1,10 +1,12 @@
 package com.example.wowtime.ui.games;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.app.AlarmManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ProgressBar;
@@ -34,9 +36,20 @@ public class ShakingGameActivity extends AppCompatActivity {
     private Long t1 = System.currentTimeMillis(), t2;
     private int shakeCount = 0;
 
-    private static final int SHAKE_INTERVAL = 250;
-    private static final int TOTAL_TIME = 10000;
-    private static final int NEED_COUNT = TOTAL_TIME/SHAKE_INTERVAL;
+    private int SHAKE_INTERVAL = 250;
+    private int TOTAL_TIME = 10000;
+    private int NEED_COUNT = TOTAL_TIME/SHAKE_INTERVAL;
+
+    private SensorManagerHelper paramSetting() {
+        SharedPreferences shakeSettingPreference =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        TOTAL_TIME = Integer.parseInt(shakeSettingPreference.getString("shake_duration", "10000"));
+        Integer SPEED = Integer.parseInt(shakeSettingPreference.getString("shake_speed","5000"));
+        NEED_COUNT = TOTAL_TIME/SHAKE_INTERVAL;
+        System.out.println("speed: "+SPEED);
+        System.out.println("duration: "+TOTAL_TIME);
+        return new SensorManagerHelper(this, SPEED);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

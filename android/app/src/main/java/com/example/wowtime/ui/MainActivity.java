@@ -1,11 +1,13 @@
 package com.example.wowtime.ui;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -20,16 +22,28 @@ import com.example.wowtime.databinding.ActivityMainBinding;
 import com.example.wowtime.ui.alarm.AlarmListFragment;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.alarm.TaskListActivity;
+import com.example.wowtime.ui.others.FriendsListFragment;
+import com.example.wowtime.ui.others.InternetFriendListActivity;
+import com.example.wowtime.ui.others.SpeechRecognizeActivity;
 import com.example.wowtime.ui.pomodoro.PomodoroListFragment;
 import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
+import com.example.wowtime.util.UserInfoAfterLogin;
+import com.example.wowtime.websocket.TWebSocketClient;
+import com.example.wowtime.websocket.TWebSocketClientService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.net.URI;
+
+import static com.example.wowtime.util.InternetConstant.websocket_host;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("MainActivity create !");
         setContentView(R.layout.main_used_to_debug);
 //        Button button = findViewById(R.id.button);
 //        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PersonInfo.class)));
@@ -55,7 +69,24 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ClockSettingActivity.class));
             if(c== PomodoroListFragment.class)
                 startActivity(new Intent(MainActivity.this, PomodoroSettingActivity.class));
+            if(c== FriendsListFragment.class)
+                startActivity(new Intent(MainActivity.this, InternetFriendListActivity.class));
         });
+
+        button.setOnLongClickListener(v->{
+            Class<? extends Fragment> c=getPrimaryFragmentClass();
+            if(c==AlarmListFragment.class)
+                startActivity(new Intent(MainActivity.this, SpeechRecognizeActivity.class));
+            return false;
+        });
+//        Intent startIntent = new Intent(this, TWebSocketClientService.class);
+////        startForegroundService(startIntent);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            startForegroundService(startIntent);
+//        } else {
+//            startService(startIntent);
+//        }
+        System.out.println("MainActivity create done!");
     }
 
     @Override

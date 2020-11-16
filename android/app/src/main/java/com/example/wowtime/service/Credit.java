@@ -85,5 +85,4 @@ public class Credit {
         Ajax ajax=new Ajax("/Detail/AddScore",formBody,handler,InternetConstant.FETCH);
         ajax.fetch();
     }
-
 }

@@ -14,17 +14,28 @@ public class AddAlarm {
     AlarmListItem newAlarm;
     private Context mContext;
 
-    public AddAlarm(Context mContext){
+//    public AddAlarm(Context mContext){
+//        this.mContext = mContext;
+//        ArrayList<Boolean> options=new ArrayList<>();
+//        for (int i=0;i<8;i++){
+//            options.add(false);
+//        }
+//        newAlarm=new AlarmListItem("made by voice",options,"使劲摇摇摇","radar",0,0);
+//    }
+
+    public AddAlarm(boolean flag,int weekday,int hour,Context mContext){
         this.mContext = mContext;
         ArrayList<Boolean> options=new ArrayList<>();
         for (int i=0;i<8;i++){
             options.add(false);
         }
-        newAlarm=new AlarmListItem("made by voice",options,"使劲摇摇摇","radar",0,0);
-    }
-
-    public AddAlarm(ArrayList<Boolean> options,int hour, int minute){
-        newAlarm=new AlarmListItem("made by voice",options,"使劲摇摇摇","radar",hour,minute);
+        if(flag){
+            options.set(0,true);
+        }
+        else{
+            options.set(weekday,true);
+        }
+        newAlarm=new AlarmListItem("made by voice",options,"使劲摇摇摇","radar",hour,0);
     }
 
     public void setTime(int hour,int minute){

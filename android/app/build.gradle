@@ -43,6 +43,7 @@ android {
                             'src/main/res/layouts',
                             'src/main/res'
                     ]
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -67,6 +68,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
 
     implementation 'com.alibaba:fastjson:1.2.4'
+    implementation 'org.java-websocket:Java-WebSocket:1.5.1'
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
 
     def nav_version = "2.3.0"
 
@@ -83,4 +86,7 @@ dependencies {
 
     // Testing Navigation
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    //object->json string
+    implementation 'com.alibaba:fastjson:1.2.4'
 }
