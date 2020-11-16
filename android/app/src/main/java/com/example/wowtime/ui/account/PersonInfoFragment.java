@@ -38,32 +38,32 @@ public class PersonInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    private void fetchCredit(View view){
-        FormBody.Builder formBody = new FormBody.Builder();
-        formBody.add("userid", UserInfoAfterLogin.userid.toString());
-
-        android.os.Handler handler = new Handler(message -> {
-            if (message.what == InternetConstant.FETCH) {
-                String msg= message.getData().get("msg").toString();
-                String data=message.getData().get("data").toString();
-                System.out.println("msg"+msg);
-                System.out.println("data"+data);
-                org.json.JSONObject jsonObject = null;
-                if(msg.equals("success")){
-                    try {
-                        jsonObject=new org.json.JSONObject(data);
-                        data=jsonObject.get("credit").toString();
-                        jsonObject=new org.json.JSONObject(data);
-                        data=jsonObject.get("score").toString();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    TextView credit_detail=view.findViewById(R.id.CreditdetailLayout);
-                    credit_detail.setText(data);
-                }
-                else{
-                    System.out.println("failed");
-                }
+//    private void fetchCredit(View view){
+//        FormBody.Builder formBody = new FormBody.Builder();
+//        formBody.add("userid", UserInfoAfterLogin.userid.toString());
+//
+//        android.os.Handler handler = new Handler(message -> {
+//            if (message.what == InternetConstant.FETCH) {
+//                String msg= message.getData().get("msg").toString();
+//                String data=message.getData().get("data").toString();
+//                System.out.println("msg"+msg);
+//                System.out.println("data"+data);
+//                org.json.JSONObject jsonObject = null;
+//                if(msg.equals("success")){
+//                    try {
+//                        jsonObject=new org.json.JSONObject(data);
+//                        data=jsonObject.get("credit").toString();
+//                        jsonObject=new org.json.JSONObject(data);
+//                        data=jsonObject.get("score").toString();
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    TextView credit_detail=view.findViewById(R.id.CreditdetailLayout);
+//                    credit_detail.setText(data);
+//                }
+//                else{
+//                    System.out.println("failed");
+//                }
 
 //                String result = (String) msg.obj;
 //                org.json.JSONObject jsonObject = null;
@@ -92,13 +92,13 @@ public class PersonInfoFragment extends Fragment {
 //                else{
 //                    System.out.println("failed");
 //                }
-            }
-            return false;
-        });
-
-        Ajax ajax=new Ajax("/User/GetPersonalCredit",formBody,handler,InternetConstant.FETCH);
-        ajax.fetch();
-    }
+//            }
+//            return false;
+//        });
+//
+//        Ajax ajax=new Ajax("/User/GetPersonalCredit",formBody,handler,InternetConstant.FETCH);
+//        ajax.fetch();
+//    }
 
     @Nullable
     @Override
@@ -108,9 +108,9 @@ public class PersonInfoFragment extends Fragment {
         passwordLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class)));
         ConstraintLayout emailLayout = root.findViewById(R.id.EmailLayout);
         emailLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class)));
-        ConstraintLayout creditLayout = root.findViewById(R.id.CreditLayout);
-        creditLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
-        fetchCredit(root);
+//        ConstraintLayout creditLayout = root.findViewById(R.id.CreditLayout);
+//        creditLayout.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
+//        fetchCredit(root);
         return root;
     }
 }

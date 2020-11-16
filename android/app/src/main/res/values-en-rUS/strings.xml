@@ -48,6 +48,8 @@
     <string name="ring_setting_title">Setting ring</string>
     <string name="game_setting_title">Select game</string>
     <string name="alarm_list_title">alarm</string>
+    <string name="sleep_assist_title">sleep assist</string>
+    <string name="sleep_assist_default">closed</string>
 
     <!-- Strings used for pomomdoro setting-->
     <string name="pomodoro_setting_title">Setting pomorodo</string>

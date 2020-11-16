@@ -47,6 +47,8 @@
     <string name="ring_setting_title">设置铃声</string>
     <string name="game_setting_title">设置小游戏</string>
     <string name="alarm_list_title">闹钟</string>
+    <string name="sleep_assist_title">睡眠助手</string>
+    <string name="sleep_assist_default">关闭</string>
 
     <!-- Strings used for pomomdoro setting-->
     <string name="pomodoro_setting_title">设置远离手机任务</string>

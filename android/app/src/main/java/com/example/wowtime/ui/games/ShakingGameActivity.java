@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.ProgressBar;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wowtime.R;
+import com.example.wowtime.service.Accumulation;
 import com.example.wowtime.service.Credit;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.SensorManagerHelper;
@@ -45,6 +47,10 @@ public class ShakingGameActivity extends AppCompatActivity {
         mp.setLooping(true);
         mp.start();
 
+        Intent intent=getIntent();
+        String ringName=intent.getStringExtra("ring");
+        boolean sleepFlag=intent.getBooleanExtra("sleepFlag",false);
+
         progressBar = findViewById(R.id.progress1);
         progressValue = findViewById(R.id.progress_value1);
         SensorManagerHelper sensorHelper = new SensorManagerHelper(this);
@@ -73,6 +79,13 @@ public class ShakingGameActivity extends AppCompatActivity {
                 mp.stop();
                 Credit credit=new Credit();
                 credit.modifyCredit(InternetConstant.alarm_credit,"shakingGame");
+                if(sleepFlag){
+                    Accumulation accumulation=new Accumulation(getApplicationContext());
+                    int num=accumulation.getAccumulation();
+                    accumulation.setAccumulation(0);
+                    accumulation.initStartTime();
+                    credit.addScore(num);
+                }
                 ShakingGameActivity.this.finish();
             }
             t2 = System.currentTimeMillis();

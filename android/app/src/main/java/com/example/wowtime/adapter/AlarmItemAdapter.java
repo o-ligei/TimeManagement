@@ -164,6 +164,7 @@ public class AlarmItemAdapter extends BaseAdapter {
                         intent = new Intent(mContext, AlarmPlay.class);
                     }
                     intent.putExtra("ring", mData.get(position).getRing());
+                    intent.putExtra("sleepFlag",mData.get(position).getSleepFlag());
 
                     /*deal with frequency*/
 //                    if(mData.get(position).getFrequency().equals("无重复")) {
