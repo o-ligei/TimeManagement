@@ -64,10 +64,8 @@ public class PomodoroListFragment extends Fragment {
         String stringList=pomodoroSp.getString("pomodoroList","");
         System.out.println("pomodoroList:"+stringList);
         List<PomodoroListItem> listItems = new LinkedList<>();
-        if (stringList != null && !stringList.equals("")) {
-            System.out.println("You Are Here.");
+        if (stringList != null && !stringList.equals(""))
             listItems = JSON.parseArray(stringList, PomodoroListItem.class);
-        }
         adapter = new PomodoroItemAdapter(listItems,getContext());
         listView = view.findViewById(R.id.PomodoroCardList);
 
@@ -106,10 +104,8 @@ public class PomodoroListFragment extends Fragment {
         String stringList=pomodoroSp.getString("pomodoroList","");
         System.out.println("pomodoroList:"+stringList);
         List<PomodoroListItem> listItems = new LinkedList<>();
-        if (stringList != null && !stringList.equals("")) {
-            System.out.println("You Are Here.");
+        if (stringList != null && !stringList.equals(""))
             listItems = JSON.parseArray(stringList, PomodoroListItem.class);
-        }
         adapter = new PomodoroItemAdapter(listItems,getContext());
         listView.setAdapter(adapter);
 //        adapter.notifyDataSetChanged();

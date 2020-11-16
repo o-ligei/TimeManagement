@@ -134,7 +134,7 @@ public class PersonInfoFragment extends Fragment {
         usernameText = root.findViewById(R.id.Username);
         emailText = root.findViewById(R.id.Email);
         phoneNumberText =root.findViewById(R.id.PhoneNumber);
-        OKGetProfile();
+//        OKGetProfile();
 //        fetchCredit(root);
         return root;
     }
@@ -142,27 +142,7 @@ public class PersonInfoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        OKGetProfile();
-    }
-
-
-    private void OKGetProfile(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-                formBody.add("userid",String.valueOf(UserInfoAfterLogin.userid));
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/GetPersonalProfile").post(formBody.build()).build();
-                try {
-                    Response response = client.newCall(request).execute();//发送请求
-                    String result = response.body().string();
-                    GetProfile(result);
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+//        OKGetProfile();
     }
   
     private void GetProfile(String result ) throws JSONException{

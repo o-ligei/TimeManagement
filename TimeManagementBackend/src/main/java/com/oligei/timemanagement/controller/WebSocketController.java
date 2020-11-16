@@ -52,7 +52,7 @@ public class WebSocketController {
             Msg<List<Profile>> existFriendRequest = socialService.getFriendRequest(Integer.valueOf(userId));
             existFriendRequest.setStatus(MsgConstant.REMAIN_FRIEND_REQUEST);
             existFriendRequest.setMsg(MsgConstant.REMAIN_FRIEND_REQUEST_MESSAGE);
-            Msg<Boolean> msg = new Msg<>(MsgCode.SUCCESS);
+            Msg<Boolean> msg = new Msg<>(MsgCode.SUCCESS, true);
             if (existFriendRequest.getData().isEmpty()) sendMessage((JSONObject) JSONObject.toJSON(msg), userId);
             else {
                 existFriendRequest.setData(new ArrayList<>());

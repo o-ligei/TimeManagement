@@ -24,15 +24,19 @@ import java.util.ArrayList;
 
 import okhttp3.FormBody;
 
+import static com.example.wowtime.util.UserInfoAfterLogin.webSocketMessage;
+
 public class InternetFriendRequestItemAdapter extends BaseAdapter {
 
     private ArrayList<InternetFriendItem> mData;
     private Context mContext;
+    private int cnt;
 
     public InternetFriendRequestItemAdapter(ArrayList<InternetFriendItem> mData, Context mContext) {
 
         this.mData = mData;
         this.mContext = mContext;
+        this.cnt = mData.size();
     }
 
     @Override
@@ -59,7 +63,21 @@ public class InternetFriendRequestItemAdapter extends BaseAdapter {
         ImageView img_icon = (ImageView) convertView.findViewById(R.id.user_icon_internet_request);
         TextView txt_aName = (TextView) convertView.findViewById(R.id.username_internet_request);
         Button add_friend = convertView.findViewById(R.id.add_friend_button_request);
-        add_friend.setOnClickListener(v->OKAddFriend(mData.get(position).getUserId()));
+//        add_friend.setOnClickListener(v->OKAddFriend(mData.get(position).getUserId()));
+        View finalConvertView = convertView;
+        add_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OKAddFriend(mData.get(position).getUserId());
+                add_friend.setText(finalConvertView.getResources().getString(R.string.already_accept_friend));
+                add_friend.setEnabled(false);
+//                Intent intent = new Intent(mContext, ClockSettingActivity.class);
+//                intent.putExtra("position",position);
+//                mContext.startActivity(intent);
+                if(--cnt == 0)
+                    webSocketMessage = false;
+            }
+        });
 
         String userIcon = mData.get(position).getUserIcon();
         byte[] decodedString = Base64.decode(userIcon, Base64.DEFAULT);

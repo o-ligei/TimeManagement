@@ -70,6 +70,7 @@ public class InternetFriendListActivity extends AppCompatActivity {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
                 formBody.add("username", s);
+                formBody.add("userid",String.valueOf(UserInfoAfterLogin.userid));
                 Request request = new Request.Builder().url(InternetConstant.host + "/Social/GetProfile").post(formBody.build()).build();
                 try {
                     Response response = client.newCall(request).execute();//发送请求

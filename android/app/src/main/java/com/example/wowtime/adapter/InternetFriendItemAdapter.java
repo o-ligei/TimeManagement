@@ -2,6 +2,7 @@ package com.example.wowtime.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.FriendsListItem;
 import com.example.wowtime.dto.InternetFriendItem;
+import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
@@ -42,7 +44,6 @@ public class InternetFriendItemAdapter extends BaseAdapter {
     private Context mContext;
 
     public InternetFriendItemAdapter(ArrayList<InternetFriendItem> mData, Context mContext) {
-
         this.mData = mData;
         this.mContext = mContext;
     }
@@ -71,7 +72,19 @@ public class InternetFriendItemAdapter extends BaseAdapter {
         ImageView img_icon = (ImageView) convertView.findViewById(R.id.user_icon_internet);
         TextView txt_aName = (TextView) convertView.findViewById(R.id.username_internet);
         Button add_friend = convertView.findViewById(R.id.add_friend_button);
-        add_friend.setOnClickListener(v->OKAddFriend(mData.get(position).getUserId()));
+//        add_friend.setOnClickListener(v->OKAddFriend(mData.get(position).getUserId()));
+        View finalConvertView = convertView;
+        add_friend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OKAddFriend(mData.get(position).getUserId());
+                add_friend.setText(finalConvertView.getResources().getString(R.string.already_add_friend));
+                add_friend.setEnabled(false);
+//                Intent intent = new Intent(mContext, ClockSettingActivity.class);
+//                intent.putExtra("position",position);
+//                mContext.startActivity(intent);
+            }
+        });
 
         String userIcon = mData.get(position).getUserIcon();
         byte[] decodedString = Base64.decode(userIcon, Base64.DEFAULT);
@@ -95,7 +108,7 @@ public class InternetFriendItemAdapter extends BaseAdapter {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+                FormBody.Builder formBody = new FormBody.Builder();
                 System.out.println(to);
                 formBody.add("from", String.valueOf(UserInfoAfterLogin.userid));
                 formBody.add("to", String.valueOf(to));

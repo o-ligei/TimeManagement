@@ -111,13 +111,16 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         //begin button
         Button buttonBegin = findViewById(R.id.setPomodoroButton);
         buttonBegin.setOnClickListener(v -> {
-            int totalTime = getTimeFromPicker(timePicker) / 60;
-            int time = getTimeFromPicker(timePicker2) / 60;
-            int rest = getTimeFromPicker(timePicker3) / 60;
+            int totalTime = getTimeFromPickerMS(timePicker) / 60;
+            int time = getTimeFromPickerMS(timePicker2) / 60;
+            int rest = getTimeFromPickerMS(timePicker3) / 60;
 
             FloatingImageDisplayService.setIsCanceled(false);
             begin = new Date();
-            startFloatingImageDisplayService(buttonBegin, time, rest);
+            if(rest!=0)
+                startFloatingImageDisplayService(buttonBegin, time, rest);
+            else
+                startFloatingImageDisplayService(buttonBegin,totalTime,0);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
             new Thread() {
@@ -131,6 +134,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     System.out.println("cancel");
+                    finish();
                     stopService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
                     focusedSeconds = FloatingImageDisplayService.setIsCanceled(true);
                     FloatingImageDisplayService.setTime(0);
@@ -173,7 +177,6 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 //                    editor.putString("unresolvedWeek",JSONObject.toJSONString(weekUnresolved));
 //                    editor.putString("unresolvedYear",JSONObject.toJSONString(yearUnresolved));
 //                    editor.apply();
-                    finish();
                 }
             }.start();
 
@@ -186,9 +189,9 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         //save button
         Button buttonSave = findViewById(R.id.PomodoroSettingConfirm);
         buttonSave.setOnClickListener(v -> {
-            int totalGap = getTimeFromPicker(timePicker);
-            int workGap = getTimeFromPicker(timePicker2);
-            int restGap = getTimeFromPicker(timePicker3);
+            int totalGap = getTimeFromPickerMIN(timePicker);
+            int workGap = getTimeFromPickerMIN(timePicker2);
+            int restGap = getTimeFromPickerMIN(timePicker3);
             String name = editText.getText().toString();
             PomodoroListItem pomodoroListItem = new PomodoroListItem(name, totalGap, workGap, restGap, mode);
             SharedPreferences.Editor editor = pomodoroSp.edit();
@@ -245,7 +248,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                 Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
-                startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
+//                startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
             }
         }
     }
@@ -274,18 +277,25 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void jumpFromCreate() {
         timePicker.setHour(0);
-        timePicker.setMinute(8);
+        timePicker.setMinute(10);
         timePicker2.setHour(0);
-        timePicker2.setMinute(2);
+        timePicker2.setMinute(9);
         timePicker3.setHour(0);
-        timePicker3.setMinute(2);
+        timePicker3.setMinute(1);
         editText.setText(getResources().getText(R.string.pomodoro_default_name));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private int getTimeFromPicker(TimePicker tmpTimePicker) {
+    private int getTimeFromPickerMS(TimePicker tmpTimePicker) {
         int hour = tmpTimePicker.getHour();
         int minite = tmpTimePicker.getMinute();
         return 1000 * (hour * 3600 + minite * 60);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private int getTimeFromPickerMIN(TimePicker tmpTimePicker) {
+        int hour = tmpTimePicker.getHour();
+        int minite = tmpTimePicker.getMinute();
+        return hour * 60 + minite;
     }
 }

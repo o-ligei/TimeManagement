@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.FriendsListAdapter;
 import com.example.wowtime.dto.FriendsListItem;
-import com.example.wowtime.ui.account.LoginActivityWithPasswordActivity;
-import com.example.wowtime.ui.alarm.ClockSettingActivity;
+import com.example.wowtime.ui.account.InternetFriendRequestActivity;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 
@@ -28,14 +26,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
 public class FriendsListFragment extends Fragment {
@@ -47,6 +43,7 @@ public class FriendsListFragment extends Fragment {
     ArrayList<FriendsListItem> searchfriendsListItems = new ArrayList<>();
     SearchView searchText;
     FriendsListAdapter friendsListAdapter;
+    TextView friendRequest;
 
     public FriendsListFragment() {
     }
@@ -72,6 +69,14 @@ public class FriendsListFragment extends Fragment {
 
         friendsListAdapter = new FriendsListAdapter(allfriendsListItems, getContext());
         listView.setAdapter(friendsListAdapter);
+
+        friendRequest = root.findViewById(R.id.friend_notice);
+        if(UserInfoAfterLogin.webSocketMessage){
+            friendRequest.setVisibility(View.VISIBLE);
+            friendRequest.setOnClickListener(v -> startActivity(new Intent(getActivity(), InternetFriendRequestActivity.class)));
+        }else{
+            friendRequest.setVisibility(View.GONE);
+        }
 
         searchText.setOnQueryTextListener(new OnQueryTextListener(){
 
