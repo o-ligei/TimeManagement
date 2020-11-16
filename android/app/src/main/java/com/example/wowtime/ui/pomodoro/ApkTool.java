@@ -1,6 +1,7 @@
 package com.example.wowtime.ui.pomodoro;
 
 import android.app.ActivityManager;
+import android.app.Application;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
@@ -49,14 +50,10 @@ public class ApkTool {
                 if (packageInfo.applicationInfo.loadIcon(packageManager) == null)
                     continue;
                 whiteListItem.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
-                if(alreadySelectedPaackage.indexOf(packageInfo.packageName)!=-1) {
-                    System.out.println("apktoolAlreadySelect:"+packageInfo.packageName);
+                if(alreadySelectedPaackage.indexOf(packageInfo.packageName)!=-1)
                     whiteListItem.setSelected(true);
-                }
-                else {
-                    System.out.println("apktoolHaven'tSelect:"+packageInfo.packageName);
+                else
                     whiteListItem.setSelected(false);
-                }
                 whiteListItem.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
                 whiteListItems.add(whiteListItem);
             }
@@ -140,7 +137,7 @@ public class ApkTool {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
-    public static String getTaskPackname(PomodoroSettingActivity self) {
+    public static String getTaskPackname(Application self) {
         String currentApp = "CurrentNULL";
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             UsageStatsManager usm = (UsageStatsManager) self.getSystemService(Context.USAGE_STATS_SERVICE);

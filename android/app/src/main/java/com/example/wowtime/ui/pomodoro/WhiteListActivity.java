@@ -46,9 +46,8 @@ public class WhiteListActivity extends AppCompatActivity {
         System.out.println("whitelistSaveBefore:" + s);
         if (s.equals(""))
             alreadySelectedPackage = new LinkedList<>();
-        else {
+        else
             alreadySelectedPackage = JSONObject.parseArray(s, String.class);
-        }
 
         Intent intent = getIntent();
         fromScreen = intent.getIntExtra("fromScreenSaver", 0);

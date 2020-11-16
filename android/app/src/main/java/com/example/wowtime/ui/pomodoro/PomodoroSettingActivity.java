@@ -248,7 +248,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                 Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
-                startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
+//                startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
             }
         }
     }

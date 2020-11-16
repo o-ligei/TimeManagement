@@ -159,26 +159,24 @@ public class FloatingImageDisplayService extends Service {
                     public void run() {
                         try {
                             windowManager.addView(displayView, layoutParams);
+
+                            int SCAN_INTERVAL = 1000;
+                            for (int i = 0; i < workTime / SCAN_INTERVAL - 2; i++) {
+                                String currentApp = ApkTool.getTaskPackname(getApplication());
+                                System.out.println("Current Runnning: " + currentApp);
+                                if (currentApp.equals("CurrentNULL"))
+                                    startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+                                if (currentApp.equals("com.netease.cloudmusic"))
+
+                                try {
+                                    Thread.sleep(SCAN_INTERVAL);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         }catch (Exception e){
                             System.out.println("already add view");
                         }
-//                        System.out.println("stop");
-//                        int SCAN_INTERVAL = 1000;
-//                        for (int i = 0; i < rest / SCAN_INTERVAL - 2; i++) {
-//                            String currentApp = ApkTool.getTaskPackname(PomodoroSettingActivity.this);
-//                            System.out.println("Current Runnning: " + currentApp);
-//                            if (currentApp.equals("CurrentNULL"))
-//                                startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-//                            if (currentApp.equals("com.netease.cloudmusic"))
-//                                runOnUiThread(() -> {
-//                                    startFloatingImageDisplayService(buttonBegin);
-//                                });
-//                            try {
-//                                Thread.sleep(SCAN_INTERVAL);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
                     }
                 });
             }
