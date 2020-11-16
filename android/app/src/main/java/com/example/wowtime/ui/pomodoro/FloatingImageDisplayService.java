@@ -285,6 +285,8 @@ public class FloatingImageDisplayService extends Service {
         workTimerTask.cancel();
         restTimer.cancel();
         restTimerTask.cancel();
+        monitorTimer.cancel();
+        monitorTimerTask.cancel();
 
         try {
             windowManager.removeView(displayView);
