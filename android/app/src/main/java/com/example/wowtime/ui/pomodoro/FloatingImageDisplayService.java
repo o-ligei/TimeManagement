@@ -187,7 +187,15 @@ public class FloatingImageDisplayService extends Service {
                 restHanlder.post(new Runnable() {
                     @Override
                     public void run() {
-                        windowManager.removeView(displayView);
+                        if(restTime!=0) {
+                            try {
+                                windowManager.removeView(displayView);
+                            } catch (Exception e) {
+                                System.out.println("it's in rest or whitelist\n" + e.toString());
+                            }
+                        }
+                        else
+                            System.out.println("no rest");
                     }
                 });
             }
@@ -242,7 +250,7 @@ public class FloatingImageDisplayService extends Service {
         try {
             windowManager.removeView(displayView);
         } catch (Exception e) {
-            System.out.println("it's in rest\n" + e.toString());
+            System.out.println("it's in rest or whitelist\n" + e.toString());
         }
 
         System.out.println("onDestroy finish");
