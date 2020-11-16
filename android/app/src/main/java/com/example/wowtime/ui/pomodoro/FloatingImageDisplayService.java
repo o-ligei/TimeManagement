@@ -101,13 +101,12 @@ public class FloatingImageDisplayService extends Service {
             System.out.println("work:" + work);
             System.out.println("rest:" + rest);
             if (work != 0) showFloatingWindow(work, rest);
-            else showFloatingWindow();
         }
         return super.onStartCommand(intent, flags, startId);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void showFloatingWindow() {
+    private void showFloatingWindowPrepare() {
         if (Settings.canDrawOverlays(this)) {
             LayoutInflater layoutInflater = LayoutInflater.from(this);
             //display screenSaver view
@@ -137,8 +136,6 @@ public class FloatingImageDisplayService extends Service {
                 onCreate();
             }
 
-            //display and begin timing
-//            windowManager.addView(displayView, layoutParams);
             System.out.println("preparation of floatingWindow has been ok");
         }
     }
@@ -146,7 +143,7 @@ public class FloatingImageDisplayService extends Service {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void showFloatingWindow(int workTime, int restTime) {
-        showFloatingWindow();
+        showFloatingWindowPrepare();
 
         Handler workHandler = new Handler(), restHanlder = new Handler();
         workTimer = new Timer();

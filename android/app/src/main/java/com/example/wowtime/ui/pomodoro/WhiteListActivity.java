@@ -27,7 +27,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.WhiteListItem;
 
-public class WhiteListActivity extends ListActivity implements CompoundButton.OnCheckedChangeListener, AdapterView.OnItemLongClickListener {
+public class WhiteListActivity extends ListActivity {
 
     private ListView lv_app_list;
     private AppAdapter mAppAdapter;
@@ -40,41 +40,21 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.white_list_activity);
-        pomodoroSp=super.getSharedPreferences("pomodoro",MODE_PRIVATE);
-        String s=pomodoroSp.getString("whitelist","");
-        if(s.equals(""))
-            alreadySelectedPackage =new LinkedList<>();
-        else{
-            alreadySelectedPackage = JSONObject.parseArray(s,String.class);
+        pomodoroSp = super.getSharedPreferences("pomodoro", MODE_PRIVATE);
+        String s = pomodoroSp.getString("whitelist", "");
+        System.out.println("whitelistSaveBefore:"+s);
+        if (s.equals(""))
+            alreadySelectedPackage = new LinkedList<>();
+        else {
+            alreadySelectedPackage = JSONObject.parseArray(s, String.class);
         }
 
-//        LinkedList<AppListItem> appListItems = new LinkedList<>();
-//
-//        appListItems.add(new AppListItem("WeChat",R.drawable.wechat));
-//        appListItems.add(new AppListItem("QQ",R.drawable.qq));
-//
-//        AppItemAdapter appItemAdapter = new AppItemAdapter(appListItems,getApplicationContext());
-//
-//        ListView listView = (ListView) findViewById(R.id.white_list);
-//        listView.setAdapter(appItemAdapter);
-        Intent intent=getIntent();
-        fromScreen=intent.getIntExtra("fromScreenSaver",0);
+        Intent intent = getIntent();
+        fromScreen = intent.getIntExtra("fromScreenSaver", 0);
         lv_app_list = (ListView) findViewById(android.R.id.list);
         mAppAdapter = new AppAdapter();
         initAppList(fromScreen);
         lv_app_list.setAdapter(mAppAdapter);
-
-//        lv_app_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                System.out.println("whiteListPosition:"+position);
-//                System.out.println("whiteListId:"+id);
-//            }
-//        });
-
-        //getListView().setOnItemLongClickListener(this);
-
-
     }
 
 //    @Override
@@ -88,29 +68,28 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(fromScreen==0) {
-            SharedPreferences.Editor editor=pomodoroSp.edit();
-            String s=JSONObject.toJSONString(alreadySelectedPackage);
-            System.out.println("whitelistSave:"+s);
-            editor.putString("whitelist",s);
+        if (fromScreen == 0) {
+            SharedPreferences.Editor editor = pomodoroSp.edit();
+            String s = JSONObject.toJSONString(alreadySelectedPackage);
+            System.out.println("whitelistSave:" + s);
+            editor.putString("whitelist", s);
             editor.apply();
         }
     }
 
-    private void initAppList(int fromScreen){
-        new Thread(){
+    private void initAppList(int fromScreen) {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
                 List<WhiteListItem> appInfos;
-                if(fromScreen==0) {
+                if (fromScreen == 0) {
                     //扫描得到APP列表
                     appInfos = ApkTool.scanLocalInstallAppList(WhiteListActivity.this.getPackageManager(), alreadySelectedPackage);
                     if (appInfos == null)
                         Toast.makeText(getApplicationContext(), "获取应用失败", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    appInfos=ApkTool.getSelectedPackageList(WhiteListActivity.this.getPackageManager(), alreadySelectedPackage);
+                } else {
+                    appInfos = ApkTool.getSelectedPackageList(WhiteListActivity.this.getPackageManager(), alreadySelectedPackage);
                 }
                 mHandler.post(new Runnable() {
                     @Override
@@ -153,7 +132,7 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         @Override
@@ -171,46 +150,45 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
                 CheckBox cb = (CheckBox) convertView.findViewById(R.id.WhiteListCheckBox);
                 // 小技巧：checkBox 的  tag 为它所在的行，在onCheckedChanged方法里面用到
                 cb.setTag(position);
-                cb.setOnCheckedChangeListener(WhiteListActivity.this);
+//                cb.setOnCheckedChangeListener(WhiteListActivity.this);
 
                 mViewHolder = (ViewHolder) convertView.getTag();
-                ImageView icon=convertView.findViewById(R.id.iv_app_icon);
-                // 小技巧：checkBox 的  tag 为它所在的行，在onCheckedChanged方法里面用到
-                if(fromScreen==0) {
+                ImageView icon = convertView.findViewById(R.id.iv_app_icon);
+
+                if (fromScreen == 0) {
                     cb.setTag(position);
                     cb.setOnClickListener(v -> {
                         System.out.println("test" + whiteListItems.get(position).getAppName());
-                        String packageName=whiteListItems.get(position).getPackageName();
-                        if(alreadySelectedPackage.indexOf(packageName)==-1) {
+                        String packageName = whiteListItems.get(position).getPackageName();
+                        if (alreadySelectedPackage.indexOf(packageName) == -1) {
                             alreadySelectedPackage.add(packageName);
-                            System.out.println("whitelistSelect:"+packageName);
-                        }
-                        else {
+                            System.out.println("whitelistSelect:" + packageName);
+                        } else {
                             alreadySelectedPackage.remove(packageName);
-                            System.out.println("whitelistRemove:"+packageName);
+                            System.out.println("whitelistRemove:" + packageName);
                         }
                     });
-                    new Thread(){
+
+                    new Thread() {
                         @Override
                         public void run() {
                             super.run();
-                            while(whiteListItems.isEmpty()){
+                            while (whiteListItems.isEmpty()) {
                                 try {
-                                    sleep(1000);
+                                    sleep(500);
                                 } catch (InterruptedException e) {
-                                    System.out.println("interrupt???");
+                                    System.out.println("interrupt when sleep to set whitelist selected");
                                     e.printStackTrace();
                                 }
                             }
                             cb.setChecked(whiteListItems.get(position).getSelected());
                         }
                     }.start();
-//                    cb.setSelected(whiteListItems.get(position).getSelected());
-                }
-                else{
+                    cb.setSelected(whiteListItems.get(position).getSelected());
+                } else {
                     PackageManager packageManager = getPackageManager();
-                    icon.setOnClickListener(v->{
-                        System.out.println("whitelistImageclick:"+whiteListItems.get(position).getPackageName());
+                    icon.setOnClickListener(v -> {
+                        System.out.println("whitelistImageclick:" + whiteListItems.get(position).getPackageName());
                         Intent intent = packageManager.getLaunchIntentForPackage(whiteListItems.get(position).getPackageName());
                         startActivity(intent);
                     });
@@ -232,18 +210,4 @@ public class WhiteListActivity extends ListActivity implements CompoundButton.On
         }
     }
 
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        int row = (Integer) buttonView.getTag();
-        Toast.makeText(this, "第"+row+"行的checkBox被点击", Toast.LENGTH_LONG).show();
-    }
-
-    public boolean onItemLongClick(AdapterView<?> av, View v, int position, long id) {
-        Toast.makeText(this, "第"+position+"行被长按", Toast.LENGTH_LONG).show();
-        return true;
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        Toast.makeText(this, "第"+position+"行被点击", Toast.LENGTH_LONG).show();
-    }
 }
