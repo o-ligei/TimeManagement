@@ -74,6 +74,7 @@
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
     <string name="navigation_login">Log in</string>
+    <string name="navigation_sunflower">Sunflower</string>
     <string name="navigation_clock">Alarm</string>
     <string name="navigation_away_from_phone">Away from phone</string>
     <string name="navigation_friends">Friends</string>
