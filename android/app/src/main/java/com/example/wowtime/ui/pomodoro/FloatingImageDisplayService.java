@@ -157,7 +157,11 @@ public class FloatingImageDisplayService extends Service {
                 workHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        windowManager.addView(displayView, layoutParams);
+                        try {
+                            windowManager.addView(displayView, layoutParams);
+                        }catch (Exception e){
+                            System.out.println("already add view");
+                        }
 //                        System.out.println("stop");
 //                        int SCAN_INTERVAL = 1000;
 //                        for (int i = 0; i < rest / SCAN_INTERVAL - 2; i++) {

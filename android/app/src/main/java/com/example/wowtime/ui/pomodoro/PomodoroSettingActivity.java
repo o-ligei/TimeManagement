@@ -117,7 +117,10 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
             FloatingImageDisplayService.setIsCanceled(false);
             begin = new Date();
-            startFloatingImageDisplayService(buttonBegin, time, rest);
+            if(rest!=0)
+                startFloatingImageDisplayService(buttonBegin, time, rest);
+            else
+                startFloatingImageDisplayService(buttonBegin,totalTime,0);
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
             new Thread() {
