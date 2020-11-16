@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.WhiteListItem;
@@ -63,7 +64,6 @@ public class WhiteListActivity extends AppCompatActivity {
         if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
         return super.onCreateOptionsMenu(menu);
     }
-
 
     @Override
     protected void onDestroy() {

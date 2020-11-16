@@ -6,6 +6,7 @@ import com.oligei.timemanagement.utils.msgutils.Msg;
 import java.util.List;
 
 public interface DetailService {
-    Msg<Boolean> saveDetail(Integer userId, String event, String timestamp, Integer earn);
-    Msg<List<Detail>> getDetail(Integer userId);
+    Msg<Boolean> saveDetail(Integer userId, String event, String timestamp);
+    Msg<Boolean> addScore(Integer userId, Integer earn);
+    Msg<List<Detail>> getDetail(Integer userId, String timestamp);
 }
