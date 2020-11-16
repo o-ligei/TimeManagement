@@ -57,7 +57,7 @@
         <activity android:name=".ui.account.PasswordChangeActivity" />
         <activity android:name=".ui.account.CaptchaConfirmActivity" />
 
-        <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
+<!--        <service android:name=".ui.pomodoro.FloatingImageDisplayService" />-->
         <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
 
         <activity android:name=".ui.games.BlowingGameActivity">
@@ -90,6 +90,7 @@
         <activity
             android:name=".ui.others.SettingsActivity"
             android:label="@string/title_activity_settings" />
+        <activity android:name=".ui.others.SpeechRecognizeActivity" />
         <activity android:name=".ui.others.CreditDetailListActivity" /> <!-- <activity android:name=".FriendsList" /> -->
         <!-- <activity android:name=".PersonInfoDetail" /> -->
         <!-- <activity -->

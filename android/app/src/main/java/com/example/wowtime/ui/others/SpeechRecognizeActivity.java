@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.wowtime.R;
 
+import com.example.wowtime.service.AddAlarm;
+import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.util.FucUtil;
 import com.example.wowtime.util.JsonParser;
 import com.iflytek.cloud.ErrorCode;
@@ -68,6 +71,8 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
     private boolean cyclic = false;//音频流识别是否循环调用
 
     private StringBuffer buffer = new StringBuffer();
+
+    int cnt = 0;
 
     Handler han = new Handler(){
 
@@ -230,20 +235,20 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         }
     }
 
-    /**
-     * 上传联系人/词表监听器。
-     */
-    private LexiconListener mLexiconListener = new LexiconListener() {
-
-        @Override
-        public void onLexiconUpdated(String lexiconId, SpeechError error) {
-            if (error != null) {
-                showTip(error.toString());
-            } else {
-                showTip(getString(R.string.text_upload_success));
-            }
-        }
-    };
+//    /**
+//     * 上传联系人/词表监听器。
+//     */
+//    private LexiconListener mLexiconListener = new LexiconListener() {
+//
+//        @Override
+//        public void onLexiconUpdated(String lexiconId, SpeechError error) {
+//            if (error != null) {
+//                showTip(error.toString());
+//            } else {
+//                showTip(getString(R.string.text_upload_success));
+//            }
+//        }
+//    };
 
     /**
      * 听写监听器。
@@ -286,7 +291,6 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
             }
 
             if (isLast & cyclic) {
-                // TODO 最后的结果
                 Message message = Message.obtain();
                 message.what = 0x001;
                 han.sendMessageDelayed(message,100);
@@ -311,11 +315,8 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
     };
 
     private void printResult(RecognizerResult results) {
-        //TODO:处理results
         String text = JsonParser.parseIatResult(results.getResultString());
-//        System.out.println("result:"+text);
         String sn = null;
-        // 读取json结果中的sn字段
         try {
             JSONObject resultJson = new JSONObject(results.getResultString());
             sn = resultJson.optString("sn");
@@ -329,24 +330,59 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         for (String key : mIatResults.keySet()) {
             resultBuffer.append(mIatResults.get(key));
         }
-        String resultString = resultBuffer.toString();
-        System.out.println("result2"+resultBuffer.toString());
-        String[] one_clock_words = {"1点","一点","1:00"};
-        String key_words = "闹钟";
-        boolean flag = false;
-        if(resultBuffer.indexOf(key_words) != -1){
-            for(String item : one_clock_words){
-                if(resultBuffer.indexOf(item) != -1){
-                    flag = true;
-                    break;
+
+        boolean single = true;
+        int day = -1,hour = -1;
+        String [][] week_words = new String[][]{{"每周一","每周1"},{"每周二","每周2"},{"每周三","每周3"},
+                {"每周四","每周4"},{"每周五","每周5"},{"每周六","每周6"},{"每周日","每周末"}};
+
+        String[][] clock_words = new String[][]{{"0点","零点","0:00"},{"1点","一点","1:00"},{"2点","两点","2:00"},{"3点","三点","3:00"},{"4点","四点","4:00"},
+                {"5点","五点","5:00"},{"6点","六点","6:00"},{"7点","七点","7:00"},{"8点","八点","8:00"},{"9点","九点","9:00"},{"10点","十点","10:00"}
+                ,{"11点","十一点","11:00"},{"12点","十二点","12:00"},{"13点","十三点","13:00"},{"14点","十四点","14:00"},{"15点","十五点","15:00"},{"16点","十六点","16:00"}
+                ,{"17点","十七点","17:00"},{"18点","十八点","18:00"},{"19点","十九点","19:00"},{"20点","二十点","20:00"},{"21点","二十一点","21:00"},{"22点","二十二点","22:00"},{"23点","二十三点","23:00"}};
+
+        String alarm_key_words = "闹钟";
+        if(resultBuffer.indexOf(alarm_key_words) != -1){
+            for(int j = 0 ; j < 7; j++){
+                boolean flag = false;
+                for (int i = 0 ; i < 2 ; i++){
+                    if(resultBuffer.indexOf(week_words[j][i])!=-1){
+                        day = j + 1;
+                        single = false;
+                        flag = true;
+                        break;
+                    }
                 }
+                if(flag)
+                    break;
+            }
+            for(int j = 0; j < 24 ; j++){
+                boolean flag = false;
+                for (int i = 0 ; i < 3; i++){
+                    if(resultBuffer.indexOf(clock_words[j][i])!=-1){
+                        hour = j;
+                        flag = true;
+                        break;
+                    }
+                }
+                if(flag)
+                    break;
             }
         }
-        if(!flag){
-            showTip("输入不规范");
-//            return;
-        }else {
-            showTip("成功设定闹钟");
+
+        if(cnt == 0){
+            if((single && hour != -1)||(!single && day != -1 && hour != -1)){
+                System.out.println("不重复："+single+"，星期"+day+"，"+hour+"点");
+                showTip("不重复："+single+"，星期"+day+"，"+hour+"点");
+                AddAlarm addAlarm = new AddAlarm(single,day,hour,getApplicationContext());
+                addAlarm.storeAlarm();
+                cnt++;
+                startActivity(new Intent(SpeechRecognizeActivity.this, MainActivity.class));
+                finish();
+            }else {
+                showTip("输入不规范");
+                cnt++;
+            }
         }
         mResultText.setText(resultBuffer.toString());
         mResultText.setSelection(mResultText.length());
