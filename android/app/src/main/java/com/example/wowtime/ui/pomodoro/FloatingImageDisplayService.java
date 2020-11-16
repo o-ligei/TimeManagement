@@ -217,7 +217,7 @@ public class FloatingImageDisplayService extends Service {
                     @Override
                     public void run() {
                         String currentApp = ApkTool.getTaskPackname(getApplication());
-                        System.out.println("Current Runnning: " + currentApp);
+//                        System.out.println("Current Runnning: " + currentApp);
                         if (currentApp.equals("CurrentNULL"))
                             startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK));
                         if (!isAppInWhitelist(currentApp) && !currentApp.equals("com.example.wowtime")&&!isInRest)
