@@ -11,10 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.wowtime.R;
 import com.example.wowtime.dto.FriendsListItem;
-
 import java.util.ArrayList;
 
 public class FriendsListAdapter extends BaseAdapter {
@@ -46,7 +44,8 @@ public class FriendsListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.friends_list_item,parent,false);
+        convertView = LayoutInflater.from(mContext)
+                                    .inflate(R.layout.friends_list_item, parent, false);
 
         ImageView friendIcon = convertView.findViewById(R.id.UserIcon);
         TextView username = convertView.findViewById(R.id.Username);
@@ -57,7 +56,7 @@ public class FriendsListAdapter extends BaseAdapter {
 
         byte[] decodedString = Base64.decode(userIcon, Base64.DEFAULT);
 
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0 , decodedString.length);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         friendIcon.setImageBitmap(decodedByte);
         username.setText(mData.get(position).getUsername());
         cancelIcon.setImageResource(R.drawable.ic_baseline_remove_circle_outline_24);

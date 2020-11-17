@@ -4,24 +4,24 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.Handler;
-
-
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
-
 import java.net.URI;
 
 public class TWebSocketClientService extends Service {
-    private URI uri = URI.create(InternetConstant.websocket_host +"/Socket/"+ UserInfoAfterLogin.userid);
+
+    private URI uri = URI
+            .create(InternetConstant.websocket_host + "/Socket/" + UserInfoAfterLogin.userid);
     public TWebSocketClient client = new TWebSocketClient(uri);
     private TWebSocketClientBinder mBinder;
 
     class TWebSocketClientBinder extends Binder {
-        public void doTask(){
+
+        public void doTask() {
             System.out.println("doTask");
         }
     }
+
     public TWebSocketClientService() {
     }
 
@@ -50,8 +50,7 @@ public class TWebSocketClientService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        if(mBinder != null)
-            return mBinder;
+        if (mBinder != null) { return mBinder; }
         return null;
     }
 

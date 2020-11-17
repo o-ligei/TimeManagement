@@ -1,16 +1,14 @@
 package com.example.wowtime.ui.alarm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.wowtime.R;
 
 public class AlarmPlay extends AppCompatActivity {
+
     private MediaPlayer mp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

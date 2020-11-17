@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AlarmListItem {
+
     private String tag;
     private List<Boolean> frequency;
     private String game;
@@ -15,50 +16,51 @@ public class AlarmListItem {
     private int sleepHour;
     private int sleepMinute;
 
-    public AlarmListItem(){
+    public AlarmListItem() {
     }
 
-    public AlarmListItem(String tag, List<Boolean> frequency, String game, String ring, int hour, int minute){
-        this.tag=tag;
-        this.frequency=frequency;
-        this.game=game;
-        this.ring=ring;
-        this.hour=hour;
-        this.minute=minute;
-        sleepFlag=false;
-        sleepHour=0;
-        sleepMinute=0;
+    public AlarmListItem(String tag, List<Boolean> frequency, String game, String ring, int hour,
+            int minute) {
+        this.tag = tag;
+        this.frequency = frequency;
+        this.game = game;
+        this.ring = ring;
+        this.hour = hour;
+        this.minute = minute;
+        sleepFlag = false;
+        sleepHour = 0;
+        sleepMinute = 0;
     }
 
-    public String getTag(){
+    public String getTag() {
         return this.tag;
     }
 
-    public List<Boolean> getFrequency(){
+    public List<Boolean> getFrequency() {
         return this.frequency;
     }
 
-    public String getGame(){
+    public String getGame() {
         return this.game;
     }
 
-    public String getRing(){
+    public String getRing() {
         return this.ring;
     }
 
-    public int getHour(){
+    public int getHour() {
         return this.hour;
     }
 
-    public int getMinute(){
+    public int getMinute() {
         return this.minute;
     }
 
-    public boolean getSleepFlag(){return this.sleepFlag;}
+    public boolean getSleepFlag() {return this.sleepFlag;}
 
-    public int getSleepHour(){return this.sleepHour;}
+    public int getSleepHour() {return this.sleepHour;}
 
-    public int getSleepMinute(){return this.sleepMinute;}
+    public int getSleepMinute() {return this.sleepMinute;}
 
     public void setTag(String tag) {
         this.tag = tag;
@@ -84,15 +86,15 @@ public class AlarmListItem {
         this.ring = ring;
     }
 
-    public void setSleepFlag(boolean flag){
-        this.sleepFlag=flag;
+    public void setSleepFlag(boolean flag) {
+        this.sleepFlag = flag;
     }
 
-    public void setSleepHour(int hour){
-        this.sleepHour=hour;
+    public void setSleepHour(int hour) {
+        this.sleepHour = hour;
     }
 
-    public void setSleepMinute(int minute){
-        this.sleepMinute=minute;
+    public void setSleepMinute(int minute) {
+        this.sleepMinute = minute;
     }
 }

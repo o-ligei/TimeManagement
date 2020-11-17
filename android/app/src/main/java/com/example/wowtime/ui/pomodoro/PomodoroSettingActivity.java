@@ -16,10 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
@@ -29,7 +27,6 @@ import com.example.wowtime.service.Accumulation;
 import com.example.wowtime.service.Credit;
 import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 import com.example.wowtime.util.InternetConstant;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,10 +45,9 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus)
-            System.out.println("Focused!!!!!");
-        else
+        if (hasFocus) { System.out.println("Focused!!!!!"); } else {
             System.out.println("Not Focused!!");
+        }
         super.onWindowFocusChanged(hasFocus);
     }
 
@@ -81,36 +77,37 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         //get data if jumped by clicking existed task
         Intent intent = getIntent();
         position = intent.getIntExtra("position", -1);
-        if (position != -1)
-            jumpFromExisted();
-        else
-            jumpFromCreate();
+        if (position != -1) { jumpFromExisted(); } else { jumpFromCreate(); }
 
         //mode text
         String text = spinner.getItemAtPosition(mode).toString();
         spinnerText.setText(text);
 
         //spinner select
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {//通过此方法为下拉列表设置点击事件
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (first) {
-                    mode = i;
-                    String text = spinner.getItemAtPosition(i).toString();
-                    spinnerText.setText(text);
-                    System.out.println("PomodoroMode:" + i);
-                } else first = true;
-            }
+        spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {//通过此方法为下拉列表设置点击事件
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i,
+                            long l) {
+                        if (first) {
+                            mode = i;
+                            String text = spinner.getItemAtPosition(i).toString();
+                            spinnerText.setText(text);
+                            System.out.println("PomodoroMode:" + i);
+                        } else { first = true; }
+                    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                spinnerText.setText(getBaseContext().getResources().getText(R.string.pomodoro_mode));
-            }
-        });
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        spinnerText.setText(
+                                getBaseContext().getResources().getText(R.string.pomodoro_mode));
+                    }
+                });
 
         //whiteList button
         TextView textView = findViewById(R.id.PomodoroSelectWhiteListText);
-        textView.setOnClickListener(v -> startActivity(new Intent(PomodoroSettingActivity.this, WhiteListActivity.class)));
+        textView.setOnClickListener(v -> startActivity(
+                new Intent(PomodoroSettingActivity.this, WhiteListActivity.class)));
 
         //begin button
         Button buttonBegin = findViewById(R.id.setPomodoroButton);
@@ -121,11 +118,11 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
             FloatingImageDisplayService.setIsCanceled(false);
             begin = new Date();
-            if(rest!=0)
-                startFloatingImageDisplayService(buttonBegin, time, rest);
-            else
-                startFloatingImageDisplayService(buttonBegin,totalTime,0);
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            if (rest != 0) { startFloatingImageDisplayService(buttonBegin, time, rest); } else {
+                startFloatingImageDisplayService(buttonBegin, totalTime, 0);
+            }
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
             new Thread() {
                 @Override
@@ -139,30 +136,33 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     }
                     System.out.println("cancel");
                     finish();
-                    stopService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
+                    stopService(new Intent(PomodoroSettingActivity.this,
+                                           FloatingImageDisplayService.class));
                     focusedSeconds = FloatingImageDisplayService.setIsCanceled(true);
                     FloatingImageDisplayService.setTime(0);
                     System.out.println("cancel successfully?");
                     runOnUiThread(() -> {
-                        Credit credit=new Credit();
-                        credit.modifyCredit(InternetConstant.away_from_phone,"awayFromPhone");
-                        Accumulation accumulation=new Accumulation(getApplicationContext());
+                        Credit credit = new Credit();
+                        credit.modifyCredit(InternetConstant.away_from_phone, "awayFromPhone");
+                        Accumulation accumulation = new Accumulation(getApplicationContext());
                         accumulation.addAccumulation(InternetConstant.away_from_phone);
-                        startActivity(new Intent(PomodoroSettingActivity.this, TaskSuccessActivity.class));
+                        startActivity(new Intent(PomodoroSettingActivity.this,
+                                                 TaskSuccessActivity.class));
                     });
 
-
                     List<StatisticDayItem> statisticDay;
-                    String statisticDayString=pomodoroSp.getString("statistic","");
-                    if(statisticDayString.equals(""))
-                        statisticDay=new LinkedList<>();
-                    else
-                        statisticDay=JSONObject.parseArray(statisticDayString,StatisticDayItem.class);
-                    System.out.println("focusedSeconds:"+focusedSeconds);
-                    statisticDay.add(new StatisticDayItem(editText.getText().toString(),focusedSeconds/3600,
-                                    (focusedSeconds%3600)/60,begin,new Date()));
-                    SharedPreferences.Editor editor=pomodoroSp.edit();
-                    editor.putString("statistic",JSONObject.toJSONString(statisticDay));
+                    String statisticDayString = pomodoroSp.getString("statistic", "");
+                    if (statisticDayString.equals("")) { statisticDay = new LinkedList<>(); } else {
+                        statisticDay = JSONObject
+                                .parseArray(statisticDayString, StatisticDayItem.class);
+                    }
+                    System.out.println("focusedSeconds:" + focusedSeconds);
+                    statisticDay.add(new StatisticDayItem(editText.getText().toString(),
+                                                          focusedSeconds / 3600,
+                                                          (focusedSeconds % 3600) / 60, begin,
+                                                          new Date()));
+                    SharedPreferences.Editor editor = pomodoroSp.edit();
+                    editor.putString("statistic", JSONObject.toJSONString(statisticDay));
                     editor.apply();
 
 //                    List<StatisticDayItem> statisticDay;
@@ -205,8 +205,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         });
 
         int ifBegin = intent.getIntExtra("begin", 0);
-        if (ifBegin == 1)
-            buttonBegin.callOnClick();
+        if (ifBegin == 1) { buttonBegin.callOnClick(); }
 
         //save button
         Button buttonSave = findViewById(R.id.PomodoroSettingConfirm);
@@ -215,18 +214,23 @@ public class PomodoroSettingActivity extends AppCompatActivity {
             int workGap = getTimeFromPickerMIN(timePicker2);
             int restGap = getTimeFromPickerMIN(timePicker3);
             String name = editText.getText().toString();
-            PomodoroListItem pomodoroListItem = new PomodoroListItem(name, totalGap, workGap, restGap, mode);
+            PomodoroListItem pomodoroListItem = new PomodoroListItem(name, totalGap, workGap,
+                                                                     restGap, mode);
             SharedPreferences.Editor editor = pomodoroSp.edit();
             String stringList = pomodoroSp.getString("pomodoroList", "");
             System.out.println("pomodoroList:" + stringList);
             List<PomodoroListItem> pomodoroListItems = new LinkedList<>();
-            if (stringList != null && !stringList.equals(""))
+            if (stringList != null && !stringList.equals("")) {
                 pomodoroListItems = JSON.parseArray(stringList, PomodoroListItem.class);
-            if (position == -1) pomodoroListItems.add(pomodoroListItem);
-            else pomodoroListItems.set(position, pomodoroListItem);
+            }
+            if (position == -1) { pomodoroListItems.add(pomodoroListItem); } else {
+                pomodoroListItems.set(position, pomodoroListItem);
+            }
             editor.putString("pomodoroList", JSONObject.toJSONString(pomodoroListItems));
             editor.commit();
-            Toast.makeText(this, getBaseContext().getResources().getText(R.string.pomodoro_save_successfully), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getBaseContext().getResources()
+                                                 .getText(R.string.pomodoro_save_successfully),
+                           Toast.LENGTH_LONG).show();
             finish();
         });
     }
@@ -251,11 +255,18 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                 Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }
-            startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName())), 1);
+            startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                              Uri.parse("package:" + getPackageName())), 1);
         } else {
             System.out.println("Floating window starts!");
-            startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class).
-                    putExtra("work", time).putExtra("rest", rest));
+            startService(
+                    new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class).
+                                                                                                       putExtra(
+                                                                                                               "work",
+                                                                                                               time)
+                                                                                               .putExtra(
+                                                                                                       "rest",
+                                                                                                       rest));
 //            startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
         }
     }
@@ -278,7 +289,8 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void jumpFromExisted() {
         String stringList = pomodoroSp.getString("pomodoroList", "");
-        List<PomodoroListItem> pomodoroListItems = JSON.parseArray(stringList, PomodoroListItem.class);
+        List<PomodoroListItem> pomodoroListItems = JSON
+                .parseArray(stringList, PomodoroListItem.class);
         assert (pomodoroListItems != null);
 
         PomodoroListItem pomodoroListItem = pomodoroListItems.get(position);

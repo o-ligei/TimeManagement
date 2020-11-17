@@ -1,36 +1,27 @@
 package com.example.wowtime.ui.alarm;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.AlarmItemAdapter;
 import com.example.wowtime.dto.AlarmListItem;
-import com.example.wowtime.ui.pomodoro.FloatingImageDisplayService;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
-public class AlarmListFragment extends Fragment{
+public class AlarmListFragment extends Fragment {
+
     List<AlarmListItem> alarmList = new ArrayList<>();
 
-    public AlarmListFragment(){}
+    public AlarmListFragment() {}
 
     public AlarmListFragment(int contentLayoutId) {
         super(contentLayoutId);
@@ -44,7 +35,8 @@ public class AlarmListFragment extends Fragment{
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.alarm_list_fragment, container, false);
 
 //        Calendar calendar= Calendar.getInstance();
@@ -66,13 +58,14 @@ public class AlarmListFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences mySharedPreferences= requireActivity().getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
-        String shared=mySharedPreferences.getString("list","");
-        System.out.println("alarmList:"+shared);
-        if(shared==null|| shared.equals("")){
+        SharedPreferences mySharedPreferences = requireActivity()
+                .getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
+        String shared = mySharedPreferences.getString("list", "");
+        System.out.println("alarmList:" + shared);
+        if (shared == null || shared.equals("")) {
             return;
         }
-        alarmList=JSONObject.parseArray(shared,AlarmListItem.class);
+        alarmList = JSONObject.parseArray(shared, AlarmListItem.class);
         AlarmItemAdapter adapter = new AlarmItemAdapter(alarmList, getContext());
         ListView listView = requireView().findViewById(R.id.AlarmCardList);
         listView.setAdapter(adapter);

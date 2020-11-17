@@ -1,11 +1,8 @@
 package com.example.wowtime.ui.others;
 
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,16 +13,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.core.app.ActivityCompat;
 import com.example.wowtime.R;
-
 import com.example.wowtime.service.AddAlarm;
-import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.util.FucUtil;
 import com.example.wowtime.util.JsonParser;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
-import com.iflytek.cloud.LexiconListener;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
@@ -34,13 +28,11 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SpeechRecognizeActivity extends Activity implements View.OnClickListener {
 
@@ -57,14 +49,14 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
     private EditText showContacts;
     private TextView languageText;
     private Toast mToast;
-//    private SharedPreferences mSharedPreferences;
+    //    private SharedPreferences mSharedPreferences;
     // 引擎类型
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
 
-    private String[] languageEntries ;
+    private String[] languageEntries;
     private String[] languageValues;
-    private String language="zh_cn";
-    private int selectedNum=0;
+    private String language = "zh_cn";
+    private int selectedNum = 0;
 
     private String resultType = "json";
 
@@ -74,7 +66,7 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
 
     int cnt = 0;
 
-    Handler han = new Handler(){
+    Handler han = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
@@ -85,14 +77,14 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         }
     };
 
-    private static int flg=0;
+    private static int flg = 0;
 
     @Override
     @SuppressLint("ShowToast")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_speech_recognize);
-        SpeechUtility.createUtility(this, SpeechConstant.APPID +"=5f9fbccc");
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5f9fbccc");
         requestPermissions();
         initLayout();
         // 初始化识别无UI识别对象
@@ -128,13 +120,13 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if( null == mIat ){
+        if (null == mIat) {
             // 创建单例失败，与 21001 错误为同样原因，参考 http://bbs.xfyun.cn/forum.php?mod=viewthread&tid=9688
-            this.showTip( "创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化" );
+            this.showTip("创建对象失败，请确认 libmsc.so 放置正确，且有调用 createUtility 进行初始化");
             return;
         }
 
-        switch (view.getId()){
+        switch (view.getId()) {
             // 开始听写
             // 如何判断一次听写结束：OnResult isLast=true 或者 onError
             case R.id.iat_recognize:
@@ -149,10 +141,10 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
 //                boolean isShowDialog = mSharedPreferences.getBoolean(
 //                        getString(R.string.pref_key_iat_show), true);
 //                if (isShowDialog) {
-                    // 显示听写对话框
-                    mIatDialog.setListener(mRecognizerDialogListener);
-                    mIatDialog.show();
-                    showTip(getString(R.string.text_begin));
+                // 显示听写对话框
+                mIatDialog.setListener(mRecognizerDialogListener);
+                mIatDialog.show();
+                showTip(getString(R.string.text_begin));
 //                } else {
 //                    // 不显示听写对话框
 //                    ret = mIat.startListening(mRecognizerListener);
@@ -185,7 +177,8 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         public void onInit(int code) {
             Log.d(TAG, "SpeechRecognizer init() code = " + code);
             if (code != ErrorCode.SUCCESS) {
-                showTip("初始化失败，错误码：" + code+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+                showTip("初始化失败，错误码：" + code
+                                + ",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
             }
         }
     };
@@ -220,15 +213,15 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (SpeechUtility.getUtility()!= null) {
+        if (SpeechUtility.getUtility() != null) {
             SpeechUtility.getUtility().destroy();
-            try{
+            try {
                 new Thread().sleep(40);
-            }catch (InterruptedException e) {
-                Log.w(TAG,"msc uninit failed"+e.toString());
+            } catch (InterruptedException e) {
+                Log.w(TAG, "msc uninit failed" + e.toString());
             }
         }
-        if( null != mIat ){
+        if (null != mIat) {
             // 退出时释放连接
             mIat.cancel();
             mIat.destroy();
@@ -284,7 +277,7 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
 
                 printResult(results);
 
-            }else if(resultType.equals("plain")) {
+            } else if (resultType.equals("plain")) {
                 buffer.append(results.getResultString());
                 mResultText.setText(buffer.toString());
                 mResultText.setSelection(mResultText.length());
@@ -293,14 +286,14 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
             if (isLast & cyclic) {
                 Message message = Message.obtain();
                 message.what = 0x001;
-                han.sendMessageDelayed(message,100);
+                han.sendMessageDelayed(message, 100);
             }
         }
 
         @Override
         public void onVolumeChanged(int volume, byte[] data) {
             showTip("当前正在说话，音量大小：" + volume);
-            Log.d(TAG, "返回音频数据："+data.length);
+            Log.d(TAG, "返回音频数据：" + data.length);
         }
 
         @Override
@@ -332,56 +325,60 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         }
 
         boolean single = true;
-        int day = -1,hour = -1;
-        String [][] week_words = new String[][]{{"周一","周1",},{"周二","周2"},{"周三","周3"},
-                {"周四","每周4"},{"周五","周5"},{"周六","周6"},{"周日","周末"}};
+        int day = -1, hour = -1;
+        String[][] week_words = new String[][]{{"周一", "周1",}, {"周二", "周2"}, {"周三", "周3"},
+                {"周四", "每周4"}, {"周五", "周5"}, {"周六", "周6"}, {"周日", "周末"}};
 
-        String[][] clock_words = new String[][]{{"0点","零点","0:00"},{"1点","一点","1:00"},{"2点","两点","2:00"},{"3点","三点","3:00"},{"4点","四点","4:00"},
-                {"5点","五点","5:00"},{"6点","六点","6:00"},{"7点","七点","7:00"},{"8点","八点","8:00"},{"9点","九点","9:00"},{"10点","十点","10:00"}
-                ,{"11点","十一点","11:00"},{"12点","十二点","12:00"},{"13点","十三点","13:00","中午1点"},{"14点","十四点","14:00","中午2点"},{"15点","十五点","15:00","下午3点"},{"16点","十六点","16:00","下午4点"}
-                ,{"17点","十七点","17:00","下午5点"},{"18点","十八点","18:00","下午6点"},{"19点","十九点","19:00","晚上7点"},{"20点","二十点","20:00","晚上8点"},
-                {"21点","二十一点","21:00","晚上9点"},{"22点","二十二点","22:00","晚上10点"},{"23点","二十三点","23:00","晚上11点"}};
+        String[][] clock_words = new String[][]{{"0点", "零点", "0:00"}, {"1点", "一点", "1:00"},
+                {"2点", "两点", "2:00"}, {"3点", "三点", "3:00"}, {"4点", "四点", "4:00"},
+                {"5点", "五点", "5:00"}, {"6点", "六点", "6:00"}, {"7点", "七点", "7:00"},
+                {"8点", "八点", "8:00"}, {"9点", "九点", "9:00"}, {"10点", "十点", "10:00"}
+                , {"11点", "十一点", "11:00"}, {"12点", "十二点", "12:00"}, {"13点", "十三点", "13:00", "中午1点"},
+                {"14点", "十四点", "14:00", "中午2点"}, {"15点", "十五点", "15:00", "下午3点"},
+                {"16点", "十六点", "16:00", "下午4点"}
+                , {"17点", "十七点", "17:00", "下午5点"}, {"18点", "十八点", "18:00", "下午6点"},
+                {"19点", "十九点", "19:00", "晚上7点"}, {"20点", "二十点", "20:00", "晚上8点"},
+                {"21点", "二十一点", "21:00", "晚上9点"}, {"22点", "二十二点", "22:00", "晚上10点"},
+                {"23点", "二十三点", "23:00", "晚上11点"}};
 
         String alarm_key_words = "闹钟";
         System.out.println(resultBuffer);
-        if(resultBuffer.indexOf(alarm_key_words) != -1){
-            for(int j = 0 ; j < 7; j++){
+        if (resultBuffer.indexOf(alarm_key_words) != -1) {
+            for (int j = 0; j < 7; j++) {
                 boolean flag = false;
-                for (int i = 0 ; i < 2 ; i++){
-                    if(resultBuffer.indexOf(week_words[j][i])!=-1){
+                for (int i = 0; i < 2; i++) {
+                    if (resultBuffer.indexOf(week_words[j][i]) != -1) {
                         day = j + 1;
                         single = false;
                         flag = true;
                         break;
                     }
                 }
-                if(flag)
-                    break;
+                if (flag) { break; }
             }
-            for(int j = 23; j >= 0 ; j--){
+            for (int j = 23; j >= 0; j--) {
                 boolean flag = false;
-                for (int i = 0 ; i < 4; i++){
-                    if(resultBuffer.indexOf(clock_words[j][i])!=-1){
+                for (int i = 0; i < 4; i++) {
+                    if (resultBuffer.indexOf(clock_words[j][i]) != -1) {
                         hour = j;
                         flag = true;
                         break;
                     }
                 }
-                if(flag)
-                    break;
+                if (flag) { break; }
             }
         }
 
-        if(cnt == 0){
-            if((single && hour != -1)||(!single && day != -1 && hour != -1)){
-                System.out.println("不重复："+single+"，星期"+day+"，"+hour+"点");
+        if (cnt == 0) {
+            if ((single && hour != -1) || (!single && day != -1 && hour != -1)) {
+                System.out.println("不重复：" + single + "，星期" + day + "，" + hour + "点");
 //                showTip("不重复："+single+"，星期"+day+"，"+hour+"点");
-                AddAlarm addAlarm = new AddAlarm(single,day,hour,getApplicationContext());
+                AddAlarm addAlarm = new AddAlarm(single, day, hour, getApplicationContext());
                 addAlarm.storeAlarm();
                 cnt++;
 //                startActivity(new Intent(SpeechRecognizeActivity.this, MainActivity.class));
                 finish();
-            }else {
+            } else {
                 showTip("输入不规范");
                 cnt++;
             }
@@ -414,6 +411,7 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         mToast.setText(str);
         mToast.show();
     }
+
     /**
      * 参数设置
      *
@@ -427,7 +425,6 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         mIat.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
         // 设置返回结果格式
         mIat.setParameter(SpeechConstant.RESULT_TYPE, resultType);
-
 
 //        if(language.equals("zh_cn")) {
 //            String lag = mSharedPreferences.getString("iat_language_preference",
@@ -444,7 +441,7 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         mIat.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
         //设置结果返回语言
         mIat.setParameter(SpeechConstant.ACCENT, "mandarin");
-        Log.e(TAG,"last language:"+mIat.getParameter(SpeechConstant.LANGUAGE));
+        Log.e(TAG, "last language:" + mIat.getParameter(SpeechConstant.LANGUAGE));
 
         //此处用于设置dialog中不显示错误码信息
         //mIat.setParameter("view_tips_plain","false");
@@ -459,30 +456,33 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
 
         // 设置标点符号,设置为"0"返回结果无标点,设置为"1"返回结果有标点
 //        mIat.setParameter(SpeechConstant.ASR_PTT, mSharedPreferences.getString("iat_punc_preference", "1"));
-        mIat.setParameter(SpeechConstant.ASR_PTT,"1");
+        mIat.setParameter(SpeechConstant.ASR_PTT, "1");
 
         // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
 //        mIat.setParameter(SpeechConstant.AUDIO_FORMAT,"wav");
 //        mIat.setParameter(SpeechConstant.ASR_AUDIO_PATH, Environment.getExternalStorageDirectory()+"/msc/iat.wav");
     }
 
-    private void requestPermissions(){
+    private void requestPermissions() {
         try {
             if (Build.VERSION.SDK_INT >= 23) {
                 int permission = ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                if(permission!= PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this,new String[]
+                                                                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (permission != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]
                             {Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.LOCATION_HARDWARE,Manifest.permission.READ_PHONE_STATE,
-                                    Manifest.permission.WRITE_SETTINGS,Manifest.permission.READ_EXTERNAL_STORAGE,
-                                    Manifest.permission.RECORD_AUDIO,Manifest.permission.READ_CONTACTS},0x0010);
+                                    Manifest.permission.LOCATION_HARDWARE,
+                                    Manifest.permission.READ_PHONE_STATE,
+                                    Manifest.permission.WRITE_SETTINGS,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                                    Manifest.permission.RECORD_AUDIO,
+                                    Manifest.permission.READ_CONTACTS}, 0x0010);
                 }
 
-                if(permission != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this,new String[] {
+                if (permission != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{
                             Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.ACCESS_FINE_LOCATION},0x0010);
+                            Manifest.permission.ACCESS_FINE_LOCATION}, 0x0010);
                 }
             }
         } catch (Exception e) {
@@ -504,7 +504,7 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         //mIat.setParameter(SpeechConstant.ASR_SOURCE_PATH, "sdcard/XXX/XXX.pcm");
         ret = mIat.startListening(mRecognizerListener);
         if (ret != ErrorCode.SUCCESS) {
-            showTip("识别失败,错误码：" + ret+",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
+            showTip("识别失败,错误码：" + ret + ",请点击网址https://www.xfyun.cn/document/error-code查询解决方案");
         } else {
             byte[] audioData = FucUtil.readAudioFile(SpeechRecognizeActivity.this, "iattest.wav");
 
@@ -514,13 +514,14 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
                 // 位长16bit，单声道的wav或者pcm
                 // 写入8KHz采样的音频时，必须先调用setParameter(SpeechConstant.SAMPLE_RATE, "8000")设置正确的采样率
                 // 注：当音频过长，静音部分时长超过VAD_EOS将导致静音后面部分不能识别。
-                ArrayList<byte[]> bytes = FucUtil.splitBuffer(audioData,audioData.length,audioData.length/3);
-                for(int i=0;i<bytes.size();i++) {
-                    mIat.writeAudio(bytes.get(i), 0, bytes.get(i).length );
+                ArrayList<byte[]> bytes = FucUtil
+                        .splitBuffer(audioData, audioData.length, audioData.length / 3);
+                for (int i = 0; i < bytes.size(); i++) {
+                    mIat.writeAudio(bytes.get(i), 0, bytes.get(i).length);
 
                     try {
                         Thread.sleep(1000);
-                    }catch(Exception e){
+                    } catch (Exception e) {
 
                     }
                 }

@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.example.wowtime.R;
-
 import java.util.ArrayList;
 
 public class AchievementAdapter extends BaseAdapter {
+
     private ArrayList<String> mData;
     private Context mContext;
 
@@ -41,7 +40,8 @@ public class AchievementAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.achievement_item,parent,false);
+        convertView = LayoutInflater.from(mContext)
+                                    .inflate(R.layout.achievement_item, parent, false);
 
         TextView txt_aName = (TextView) convertView.findViewById(R.id.achievementTitle);
 

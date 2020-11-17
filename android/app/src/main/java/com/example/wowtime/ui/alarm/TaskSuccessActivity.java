@@ -1,13 +1,9 @@
 package com.example.wowtime.ui.alarm;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.wowtime.R;
 
 public class TaskSuccessActivity extends AppCompatActivity {
@@ -17,7 +13,7 @@ public class TaskSuccessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_success_activity);
 
-        Button back_to_home=findViewById(R.id.btn_back_to_home);
+        Button back_to_home = findViewById(R.id.btn_back_to_home);
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

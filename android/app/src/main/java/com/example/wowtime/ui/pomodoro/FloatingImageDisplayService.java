@@ -1,5 +1,7 @@
 package com.example.wowtime.ui.pomodoro;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -16,23 +18,17 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
-import com.example.wowtime.service.Accumulation;
-import com.example.wowtime.service.Credit;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-
 public class FloatingImageDisplayService extends Service {
+
     public static boolean isStarted = false;
     private static boolean isCanceled = false;    //when canceled, cannot be start again
     private static int time = 0;  // notice that it's statistic
@@ -42,7 +38,7 @@ public class FloatingImageDisplayService extends Service {
 
     private View displayView;
 
-    private Timer timingTimer, workTimer, restTimer,monitorTimer;
+    private Timer timingTimer, workTimer, restTimer, monitorTimer;
     private TimerTask timingTask, workTimerTask, restTimerTask, monitorTimerTask;
     private static Handler timingHandler;
 
@@ -65,10 +61,9 @@ public class FloatingImageDisplayService extends Service {
         pomodoroSp = super.getSharedPreferences("pomodoro", MODE_PRIVATE);
         String s = pomodoroSp.getString("whitelist", "");
         System.out.println("whitelistGetInFloatingWindow:" + s);
-        if (s.equals(""))
-            whitelist = new LinkedList<>();
-        else
+        if (s.equals("")) { whitelist = new LinkedList<>(); } else {
             whitelist = JSONObject.parseArray(s, String.class);
+        }
         //get windowManager
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         //get layoutParams
@@ -81,10 +76,12 @@ public class FloatingImageDisplayService extends Service {
         }
         layoutParams.format = PixelFormat.RGBA_8888;
         layoutParams.gravity = Gravity.START | Gravity.TOP;
-        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                 | WindowManager.LayoutParams.FLAG_FULLSCREEN;
         //set width, height, x, y of layoutParams
-        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) getApplicationContext()
+                .getSystemService(Context.WINDOW_SERVICE);
         assert wm != null;
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
@@ -115,15 +112,15 @@ public class FloatingImageDisplayService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!isCanceled) {
-            int work=0,rest=0,sleep=0;
-            if(intent!=null) {
+            int work = 0, rest = 0, sleep = 0;
+            if (intent != null) {
                 work = intent.getIntExtra("work", 0);
                 rest = intent.getIntExtra("rest", 0);
-                sleep=intent.getIntExtra("sleep",0);
+                sleep = intent.getIntExtra("sleep", 0);
             }
             System.out.println("work:" + work);
             System.out.println("rest:" + rest);
-            if (work != 0) showFloatingWindow(work, rest,sleep);
+            if (work != 0) { showFloatingWindow(work, rest, sleep); }
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -165,13 +162,13 @@ public class FloatingImageDisplayService extends Service {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void showFloatingWindow(int workTime, int restTime,int sleep) {
+    public void showFloatingWindow(int workTime, int restTime, int sleep) {
         showFloatingWindowPrepare();
 
-        Handler workHandler = new Handler(), restHanlder = new Handler(), monitorHandler=new Handler();
+        Handler workHandler = new Handler(), restHanlder = new Handler(), monitorHandler = new Handler();
         workTimer = new Timer();
         restTimer = new Timer();
-        monitorTimer=new Timer();
+        monitorTimer = new Timer();
 
         workTimerTask = new TimerTask() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -182,7 +179,7 @@ public class FloatingImageDisplayService extends Service {
                     @Override
                     public void run() {
                         try {
-                            isInRest=false;
+                            isInRest = false;
                             windowManager.addView(displayView, layoutParams);
                         } catch (Exception e) {
                             System.out.println("already add view");
@@ -201,13 +198,12 @@ public class FloatingImageDisplayService extends Service {
                     public void run() {
                         if (restTime != 0) {
                             try {
-                                isInRest=true;
+                                isInRest = true;
                                 windowManager.removeView(displayView);
                             } catch (Exception e) {
                                 System.out.println("it's in rest or whitelist\n" + e.toString());
                             }
-                        } else
-                            System.out.println("no rest");
+                        } else { System.out.println("no rest"); }
                     }
                 });
             }
@@ -221,15 +217,19 @@ public class FloatingImageDisplayService extends Service {
                     public void run() {
                         String currentApp = ApkTool.getTaskPackname(getApplication());
 //                        System.out.println("Current Runnning: " + currentApp);
-                        if (currentApp.equals("CurrentNULL"))
-                            startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK));
-                        if (!isAppInWhitelist(currentApp) && !currentApp.equals("com.example.wowtime")&&!isInRest)
+                        if (currentApp.equals("CurrentNULL")) {
+                            startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+                                                  .addFlags(FLAG_ACTIVITY_NEW_TASK));
+                        }
+                        if (!isAppInWhitelist(currentApp) && !currentApp
+                                .equals("com.example.wowtime") && !isInRest) {
                             try {
                                 System.out.println("not in whiteList, go back.");
                                 windowManager.addView(displayView, layoutParams);
                             } catch (Exception e) {
                                 System.out.println("already add view");
                             }
+                        }
                     }
                 });
             }
@@ -245,10 +245,10 @@ public class FloatingImageDisplayService extends Service {
                 switch (msg.what) {
                     case 1:
                         ++time;
-                        if (textView == null && displayView != null)
+                        if (textView == null && displayView != null) {
                             textView = displayView.findViewById(R.id.saver_gone_time);
-                        if (textView != null)
-                            textView.setText(secondToTime(time));
+                        }
+                        if (textView != null) { textView.setText(secondToTime(time)); }
                 }
                 return false;
             }
@@ -261,21 +261,20 @@ public class FloatingImageDisplayService extends Service {
             }
         };
 
-        if(sleep==0) {
+        if (sleep == 0) {
             workTimer.schedule(workTimerTask, 0, restTime + workTime);
             restTimer.schedule(restTimerTask, workTime, workTime + restTime);
             timingTimer.schedule(timingTask, 0, 1000);
             monitorTimer.schedule(monitorTimerTask, 1000, 1000);
             System.out.println("begin 3 timers in floatingDisplayService");
-        }
-        else{
-            workTimer.schedule(workTimerTask, 0,  workTime);
-            new Thread(){
+        } else {
+            workTimer.schedule(workTimerTask, 0, workTime);
+            new Thread() {
                 @Override
                 public void run() {
                     super.run();
                     try {
-                        sleep(workTime-60*1000);
+                        sleep(workTime - 60 * 1000);
                     } catch (InterruptedException e) {
                         System.out.println("interrupted when sleep alarm");
                     }
@@ -287,8 +286,7 @@ public class FloatingImageDisplayService extends Service {
 
     private boolean isAppInWhitelist(String app) {
         for (String s : whitelist) {
-            if (s.equals(app))
-                return true;
+            if (s.equals(app)) { return true; }
         }
         return false;
     }

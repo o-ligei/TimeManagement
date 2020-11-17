@@ -1,23 +1,14 @@
 package com.example.wowtime.ui.games;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.preference.PreferenceManager;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Looper;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.TappingGameAdapter;
-
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -42,7 +33,7 @@ public class TappingGameActivity extends AppCompatActivity {
         SharedPreferences calculateSettingPreference =
                 PreferenceManager.getDefaultSharedPreferences(this);
         TOTAL_ROUND = Integer.parseInt(calculateSettingPreference.getString("tap_round", "11"));
-        System.out.println("round: "+TOTAL_ROUND);
+        System.out.println("round: " + TOTAL_ROUND);
     }
 
     @Override
@@ -51,18 +42,18 @@ public class TappingGameActivity extends AppCompatActivity {
         setContentView(R.layout.tapping_game_activity);
         paramSetting();
         ArrayList<String> arrayList = new ArrayList<>();
-        for (int i=0; i<12; i++)
-            arrayList.add(Integer.toString(i));
+        for (int i = 0; i < 12; i++) { arrayList.add(Integer.toString(i)); }
         TappingGameAdapter adapter = new TappingGameAdapter(arrayList, getApplicationContext());
         GridView gridView = findViewById(R.id.TappingGameTable);
         TextView getGreen = findViewById(R.id.GetGreen);
         gridView.setAdapter(adapter);
 
         class GameThread extends Thread {
+
             @Override
             public void run() {
                 try {
-                    for (Integer i=1;i<=TOTAL_ROUND;i++) {
+                    for (Integer i = 1; i <= TOTAL_ROUND; i++) {
                         Thread.sleep(INTERVAL);
                         runOnUiThread(() -> {
                             generateColorPosition();
@@ -73,8 +64,9 @@ public class TappingGameActivity extends AppCompatActivity {
                     }
                     Thread.sleep(INTERVAL);
                     runOnUiThread(() -> {
-                        if (getGreenCount > NEED_GREEN) getGreen.setText(R.string.tapping_game_success);
-                        else getGreen.setText(R.string.tapping_game_failure);
+                        if (getGreenCount > NEED_GREEN) {
+                            getGreen.setText(R.string.tapping_game_success);
+                        } else { getGreen.setText(R.string.tapping_game_failure); }
                         gameStarted = false;
                     });
                 } catch (InterruptedException e) {
@@ -83,23 +75,25 @@ public class TappingGameActivity extends AppCompatActivity {
                     gameStarted = false;
                 }
             }
+
             void generateColorPosition() {
-                green.clear();red.clear();
+                green.clear();
+                red.clear();
                 Random random = new Random();
-                for (int i=1;i<=3;i++) {
+                for (int i = 1; i <= 3; i++) {
                     while (true) {
                         int num = random.nextInt() % 12;
-                        num = (num<0) ? -num:num;
-                        if (green.contains(num)) continue;
+                        num = (num < 0) ? -num : num;
+                        if (green.contains(num)) { continue; }
                         green.add(num);
                         break;
                     }
                 }
-                for (int i=1;i<=3;i++) {
+                for (int i = 1; i <= 3; i++) {
                     while (true) {
                         int num = random.nextInt() % 12;
-                        num = (num<0) ? -num:num;
-                        if (green.contains(num) || red.contains(num)) continue;
+                        num = (num < 0) ? -num : num;
+                        if (green.contains(num) || red.contains(num)) { continue; }
                         red.add(num);
                         break;
                     }
@@ -110,9 +104,9 @@ public class TappingGameActivity extends AppCompatActivity {
 
         gridView.setOnItemClickListener((parent, view, position, id) -> {
             if (gameStarted) {
-                if (clicked.contains(position)) return;
+                if (clicked.contains(position)) { return; }
                 clicked.add(position);
-                if (red.contains(position)) gameThread.interrupt();
+                if (red.contains(position)) { gameThread.interrupt(); }
                 if (green.contains(position)) {
                     getGreenCount++;
                     runOnUiThread(() -> getGreen.setText(getGreenCount.toString()));

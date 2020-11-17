@@ -8,14 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
-
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
-import com.example.wowtime.ui.alarm.ClockFrequencyActivity;
-
 import java.util.ArrayList;
 
 public class FrequencyItemAdapter extends BaseAdapter {
+
     private ArrayList<String> mData;
     private Context mContext;
     private ArrayList<Boolean> options;
@@ -25,34 +23,35 @@ public class FrequencyItemAdapter extends BaseAdapter {
 
         this.mData = mData;
         this.mContext = mContext;
-        options=new ArrayList<>();
-        for (int i=0;i<mData.size();i++){
+        options = new ArrayList<>();
+        for (int i = 0; i < mData.size(); i++) {
             options.add(false);
         }
-        flag=0;
+        flag = 0;
     }
 
-    private void checkFlag(){
-        if(options.get(0)){
-            flag=1;
+    private void checkFlag() {
+        if (options.get(0)) {
+            flag = 1;
             return;
         }
-        for (int i=1;i<options.size();i++){
-            if (options.get(i)){
-                flag=-1;
+        for (int i = 1; i < options.size(); i++) {
+            if (options.get(i)) {
+                flag = -1;
                 return;
             }
         }
-        flag=0;
+        flag = 0;
     }
 
-    public void sendOptions(){
-        SharedPreferences mySharedPreferences= mContext.getSharedPreferences("clock", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = mySharedPreferences.edit();
-                String shared= JSONObject.toJSONString(options);
-                System.out.println("shared:"+shared);
-                editor.putString("frequency", shared);
-                editor.apply();
+    public void sendOptions() {
+        SharedPreferences mySharedPreferences = mContext
+                .getSharedPreferences("clock", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = mySharedPreferences.edit();
+        String shared = JSONObject.toJSONString(options);
+        System.out.println("shared:" + shared);
+        editor.putString("frequency", shared);
+        editor.apply();
     }
 
     @Override
@@ -73,26 +72,27 @@ public class FrequencyItemAdapter extends BaseAdapter {
     @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.frequency_check_box,parent,false);
-        CheckedTextView txt_aName = (CheckedTextView) convertView.findViewById(R.id.FrequencySetting);
+        convertView = LayoutInflater.from(mContext)
+                                    .inflate(R.layout.frequency_check_box, parent, false);
+        CheckedTextView txt_aName = (CheckedTextView) convertView
+                .findViewById(R.id.FrequencySetting);
         txt_aName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean tmp=options.get(position);
-                tmp=!tmp;
-                options.set(position,tmp);
+                boolean tmp = options.get(position);
+                tmp = !tmp;
+                options.set(position, tmp);
                 notifyDataSetInvalidated();
             }
         });
         checkFlag();
-        if(flag==-1){
-            if(position==0){
+        if (flag == -1) {
+            if (position == 0) {
                 txt_aName.setVisibility(View.GONE);
                 return convertView;
             }
-        }
-        else if(flag==1){
-            if(position!=0){
+        } else if (flag == 1) {
+            if (position != 0) {
                 txt_aName.setVisibility(View.GONE);
                 return convertView;
             }

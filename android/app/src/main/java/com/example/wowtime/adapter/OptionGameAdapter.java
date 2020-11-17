@@ -2,18 +2,14 @@ package com.example.wowtime.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import androidx.cardview.widget.CardView;
-
 import com.example.wowtime.R;
 import com.example.wowtime.dto.OptionGameItem;
-
 import java.util.ArrayList;
 
 public class OptionGameAdapter extends BaseAdapter {
@@ -44,7 +40,9 @@ public class OptionGameAdapter extends BaseAdapter {
     }
 
     public void setGreen(Integer green) {this.green = green;}
+
     public String getChoose() {return choose;}
+
     public void setChoose(int position) {
         OptionGameItem optionGameItem = (OptionGameItem) getItem(position);
         choose = optionGameItem.getOpt();
@@ -53,13 +51,15 @@ public class OptionGameAdapter extends BaseAdapter {
     @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.option_item, parent,false);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.option_item, parent, false);
         TextView optionView = convertView.findViewById(R.id.option_item_option);
         TextView statementView = convertView.findViewById(R.id.option_item_statement);
         CardView cardView = convertView.findViewById(R.id.option_item_card);
         optionView.setText(mData.get(position).getOpt());
         statementView.setText(mData.get(position).getStatement());
-        if (position == green) cardView.setBackgroundColor(mContext.getResources().getColor(R.color.lightPink));
+        if (position == green) {
+            cardView.setBackgroundColor(mContext.getResources().getColor(R.color.lightPink));
+        }
         return convertView;
     }
 }

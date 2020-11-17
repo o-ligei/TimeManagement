@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.example.wowtime.R;
 import com.example.wowtime.dto.TaskListItem;
-
 import java.util.ArrayList;
 
 public class TaskItemAdapter extends BaseAdapter {
@@ -43,7 +41,7 @@ public class TaskItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.task_item,parent,false);
+        convertView = LayoutInflater.from(mContext).inflate(R.layout.task_item, parent, false);
 
         TextView txt_aName = (TextView) convertView.findViewById(R.id.task_item_name);
 

@@ -3,16 +3,17 @@ package com.example.wowtime.dto;
 import java.util.Calendar;
 
 public class StatisticSimple {
+
     private float hour;
     Calendar day;
 
-    public StatisticSimple(){
+    public StatisticSimple() {
 
     }
 
-    public StatisticSimple(float h, Calendar d){
-        hour=h;
-        day=d;
+    public StatisticSimple(float h, Calendar d) {
+        hour = h;
+        day = d;
     }
 
     public void setHour(float hour) {

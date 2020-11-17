@@ -16,15 +16,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.WhiteListItem;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,10 +41,9 @@ public class WhiteListActivity extends AppCompatActivity {
         pomodoroSp = super.getSharedPreferences("pomodoro", MODE_PRIVATE);
         String s = pomodoroSp.getString("whitelist", "");
         System.out.println("whitelistSaveBefore:" + s);
-        if (s.equals(""))
-            alreadySelectedPackage = new LinkedList<>();
-        else
+        if (s.equals("")) { alreadySelectedPackage = new LinkedList<>(); } else {
             alreadySelectedPackage = JSONObject.parseArray(s, String.class);
+        }
 
         Intent intent = getIntent();
         fromScreen = intent.getIntExtra("fromScreenSaver", 0);
@@ -61,7 +56,7 @@ public class WhiteListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) { actionBar.setDisplayHomeAsUpEnabled(true); }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -84,11 +79,17 @@ public class WhiteListActivity extends AppCompatActivity {
                 super.run();
                 List<WhiteListItem> appInfos;
                 if (fromScreen == 0) {
-                    appInfos = ApkTool.scanLocalInstallAppList(WhiteListActivity.this.getPackageManager(), alreadySelectedPackage);
-                    if (appInfos == null)
-                        Toast.makeText(getApplicationContext(), "获取应用失败", Toast.LENGTH_SHORT).show();
+                    appInfos = ApkTool
+                            .scanLocalInstallAppList(WhiteListActivity.this.getPackageManager(),
+                                                     alreadySelectedPackage);
+                    if (appInfos == null) {
+                        Toast.makeText(getApplicationContext(), "获取应用失败", Toast.LENGTH_SHORT)
+                             .show();
+                    }
                 } else {
-                    appInfos = ApkTool.getSelectedPackageList(WhiteListActivity.this.getPackageManager(), alreadySelectedPackage);
+                    appInfos = ApkTool
+                            .getSelectedPackageList(WhiteListActivity.this.getPackageManager(),
+                                                    alreadySelectedPackage);
                 }
                 mHandler.post(new Runnable() {
                     @Override
@@ -140,7 +141,8 @@ public class WhiteListActivity extends AppCompatActivity {
             WhiteListItem whiteListItem = whiteListItems.get(position);
             if (convertView == null) {
                 mViewHolder = new ViewHolder();
-                convertView = LayoutInflater.from(getBaseContext()).inflate(R.layout.app_info_item, null);
+                convertView = LayoutInflater.from(getBaseContext())
+                                            .inflate(R.layout.app_info_item, null);
                 mViewHolder.cb = (CheckBox) convertView.findViewById(R.id.WhiteListCheckBox);
                 mViewHolder.iv_app_icon = (ImageView) convertView.findViewById(R.id.iv_app_icon);
                 mViewHolder.tx_app_name = (TextView) convertView.findViewById(R.id.tv_app_name);
@@ -175,7 +177,8 @@ public class WhiteListActivity extends AppCompatActivity {
                             try {
                                 sleep(500);
                             } catch (InterruptedException e) {
-                                System.out.println("interrupt when sleep to wait whiteListItems is not empty");
+                                System.out.println(
+                                        "interrupt when sleep to wait whiteListItems is not empty");
                                 e.printStackTrace();
                             }
                         }
@@ -187,8 +190,10 @@ public class WhiteListActivity extends AppCompatActivity {
                 System.out.println("whitelist when working");
                 PackageManager packageManager = getPackageManager();
                 relativeLayout.setOnClickListener(v -> {
-                    System.out.println("whitelistLayoutClick:" + whiteListItems.get(position).getPackageName());
-                    Intent intent = packageManager.getLaunchIntentForPackage(whiteListItems.get(position).getPackageName());
+                    System.out.println("whitelistLayoutClick:" + whiteListItems.get(position)
+                                                                               .getPackageName());
+                    Intent intent = packageManager.getLaunchIntentForPackage(
+                            whiteListItems.get(position).getPackageName());
                     startActivity(intent);
                 });
                 cb.setVisibility(View.INVISIBLE);
@@ -202,6 +207,7 @@ public class WhiteListActivity extends AppCompatActivity {
 
 
         class ViewHolder {
+
             CheckBox cb;
             ImageView iv_app_icon;
             TextView tx_app_name;

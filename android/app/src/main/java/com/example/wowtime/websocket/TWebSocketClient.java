@@ -1,36 +1,13 @@
 package com.example.wowtime.websocket;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-
-import androidx.core.app.NotificationCompat;
-
-import com.example.wowtime.R;
-import com.example.wowtime.ui.MainActivity;
-import com.example.wowtime.ui.account.InternetFriendRequestActivity;
-import com.example.wowtime.util.ContextUtil;
+import android.os.Handler;
+import android.os.Message;
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.util.UserInfoAfterLogin;
-
+import java.net.URI;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
-import org.json.JSONException;
-import com.alibaba.fastjson.JSONObject;
-
-import android.app.Notification;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.widget.Toast;
-
-import java.net.URI;
-
-import static android.content.ContentValues.TAG;
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class TWebSocketClient extends WebSocketClient {
 
@@ -38,7 +15,7 @@ public class TWebSocketClient extends WebSocketClient {
         if (message.what == 1) {
             String response = (String) message.obj;
             JSONObject jsonObject = JSONObject.parseObject(response);
-            System.out.println("response:"+response);
+            System.out.println("response:" + response);
             String msg = null;
             msg = jsonObject.getString("msg");
 //            Toast toast = Toast.makeText(ContextUtil.getInstance(),response,Toast.LENGTH_SHORT);
@@ -46,8 +23,9 @@ public class TWebSocketClient extends WebSocketClient {
 //            String data = message.getData().get("data").toString();
 //            Toast toast = Toast.makeText(ContextUtil.getInstance(),msg,Toast.LENGTH_SHORT);
 //            toast.show();
-            if(msg.equals("remain friend request") || msg.equals("new friend request"))
+            if (msg.equals("remain friend request") || msg.equals("new friend request")) {
                 UserInfoAfterLogin.webSocketMessage = true;
+            }
 //            Intent intent = new Intent();
 //            intent.setAction("friend request");
 //            sendBroadcast(intent);

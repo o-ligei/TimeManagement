@@ -1,45 +1,35 @@
 package com.example.wowtime.ui.games;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.PreferenceManager;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.text.method.Touch;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import com.example.wowtime.R;
 import com.example.wowtime.service.Accumulation;
 import com.example.wowtime.service.Credit;
 import com.example.wowtime.util.AudioRecordManger;
 import com.example.wowtime.util.InternetConstant;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class BlowingGameActivity extends AppCompatActivity {
+
     private MediaPlayer mp;
     private ProgressBar progressBar;
     private TextView progressValue;
 
-    String ringName=null;
-    boolean sleepFlag=false;
+    String ringName = null;
+    boolean sleepFlag = false;
 //    private LinearLayout full;
 
-//    private int x1, x2, dx;
+    //    private int x1, x2, dx;
     private int blowCount = 0;
     private Long t1 = System.currentTimeMillis(), t2;
 
@@ -47,17 +37,17 @@ public class BlowingGameActivity extends AppCompatActivity {
     private int VOLUME_THRESHOLD = 60;
     private int BLOW_INTERVAL = 250;
     private int TOTAL_TIME = 5000;
-    private int NEED_COUNT = TOTAL_TIME/BLOW_INTERVAL;
+    private int NEED_COUNT = TOTAL_TIME / BLOW_INTERVAL;
 
-    private void handleSoundValues(double values){
+    private void handleSoundValues(double values) {
         if (blowCount == NEED_COUNT) {
             mp.stop();
-            Accumulation accumulation=new Accumulation(getApplicationContext());
-            Credit credit=new Credit();
+            Accumulation accumulation = new Accumulation(getApplicationContext());
+            Credit credit = new Credit();
             accumulation.addAccumulation(InternetConstant.alarm_credit);
-            credit.modifyCredit(InternetConstant.alarm_credit,"BlowingGame");
-            if(sleepFlag){
-                int num=accumulation.getAccumulation();
+            credit.modifyCredit(InternetConstant.alarm_credit, "BlowingGame");
+            if (sleepFlag) {
+                int num = accumulation.getAccumulation();
                 accumulation.setAccumulation(0);
                 accumulation.initStartTime();
                 credit.addScore(num);
@@ -65,13 +55,14 @@ public class BlowingGameActivity extends AppCompatActivity {
             System.out.println("blowing game finish");
             BlowingGameActivity.this.finish();
         }
-        if (values > VOLUME_THRESHOLD){
+        if (values > VOLUME_THRESHOLD) {
             t2 = System.currentTimeMillis();
-            if (t2-t1>=BLOW_INTERVAL) {
+            if (t2 - t1 >= BLOW_INTERVAL) {
                 t1 = t2;
                 blowCount++;
-                progressBar.setProgress(100*blowCount/NEED_COUNT);
-                progressValue.setText(new StringBuffer().append(progressBar.getProgress()).append("%"));
+                progressBar.setProgress(100 * blowCount / NEED_COUNT);
+                progressValue
+                        .setText(new StringBuffer().append(progressBar.getProgress()).append("%"));
                 System.out.println(blowCount);
             }
         }
@@ -90,9 +81,9 @@ public class BlowingGameActivity extends AppCompatActivity {
                 PreferenceManager.getDefaultSharedPreferences(this);
         VOLUME_THRESHOLD = Integer.parseInt(blowSettingPreference.getString("blow_volume", "60"));
         TOTAL_TIME = Integer.parseInt(blowSettingPreference.getString("blow_duration", "5000"));
-        System.out.println("volume: "+VOLUME_THRESHOLD);
-        System.out.println("duration: "+TOTAL_TIME);
-        NEED_COUNT = TOTAL_TIME/BLOW_INTERVAL;
+        System.out.println("volume: " + VOLUME_THRESHOLD);
+        System.out.println("duration: " + TOTAL_TIME);
+        NEED_COUNT = TOTAL_TIME / BLOW_INTERVAL;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -103,9 +94,9 @@ public class BlowingGameActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress1);
         progressValue = findViewById(R.id.progress_value1);
 
-        Intent intent=getIntent();
-        ringName=intent.getStringExtra("ring");
-        sleepFlag=intent.getBooleanExtra("sleepFlag",false);
+        Intent intent = getIntent();
+        ringName = intent.getStringExtra("ring");
+        sleepFlag = intent.getBooleanExtra("sleepFlag", false);
 
 //        full = findViewById(R.id.full);
 //        initView();
@@ -117,7 +108,7 @@ public class BlowingGameActivity extends AppCompatActivity {
         mp.setLooping(true);
         mp.start();
 
-        Button onBlowBtn=findViewById(R.id.OnBlowButton);
+        Button onBlowBtn = findViewById(R.id.OnBlowButton);
         onBlowBtn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

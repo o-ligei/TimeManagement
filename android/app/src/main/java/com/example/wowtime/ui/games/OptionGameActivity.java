@@ -3,29 +3,24 @@ package com.example.wowtime.ui.games;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.wowtime.R;
 import com.example.wowtime.adapter.OptionGameAdapter;
 import com.example.wowtime.dto.OptionGameItem;
-
+import com.example.wowtime.dto.Question;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.atomic.AtomicReference;
-
-import com.example.wowtime.R;
-import com.example.wowtime.dto.Question;
 
 public class OptionGameActivity extends AppCompatActivity {
 
     private ArrayList<Question> addQuestions() {
         ArrayList<Question> questions = new ArrayList<>();
 
-        Question question1 = new Question("resemblance","A");
+        Question question1 = new Question("resemblance", "A");
         question1.addOption("A", "相像");
         question1.addOption("B", "组建");
         question1.addOption("C", "聚合");
@@ -88,7 +83,8 @@ public class OptionGameActivity extends AppCompatActivity {
                     continueFlag = false;
                     Question question = questions.get(i);
                     ArrayList<OptionGameItem> optionGameItems = question.getOptions();
-                    OptionGameAdapter optionGameAdapter = new OptionGameAdapter(optionGameItems, getApplicationContext());
+                    OptionGameAdapter optionGameAdapter = new OptionGameAdapter(optionGameItems,
+                                                                                getApplicationContext());
                     runOnUiThread(() -> {
                         questionView.setText(question.getQuestion());
                         options.setAdapter(optionGameAdapter);
@@ -98,20 +94,20 @@ public class OptionGameActivity extends AppCompatActivity {
                             optionGameAdapter.notifyDataSetChanged();
                         });
                         next.setOnClickListener(v -> {
-                            if (question.verifyCorrect(optionGameAdapter.getChoose()))
+                            if (question.verifyCorrect(optionGameAdapter.getChoose())) {
                                 correct++;
+                            }
                             continueFlag = true;
                         });
                     });
                     Thread.sleep(INTERVAL / PROGRESSBAR_ACCURACY * 2);
                     for (int j = 1; j <= PROGRESSBAR_ACCURACY; j++) {
                         progressBar.setProgress(100 * j / PROGRESSBAR_ACCURACY);
-                        if (continueFlag) continue LOOP;
+                        if (continueFlag) { continue LOOP; }
                         Thread.sleep(INTERVAL / PROGRESSBAR_ACCURACY);
                     }
                     Thread.sleep(INTERVAL / PROGRESSBAR_ACCURACY * 2);
-                    if (question.verifyCorrect(optionGameAdapter.getChoose()))
-                        correct++;
+                    if (question.verifyCorrect(optionGameAdapter.getChoose())) { correct++; }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

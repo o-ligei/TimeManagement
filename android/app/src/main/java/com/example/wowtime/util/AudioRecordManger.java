@@ -8,10 +8,12 @@ import android.os.Message;
 import android.util.Log;
 
 public class AudioRecordManger {
+
     private static final String TAG = "AudioRecord";//标记
     public static final int SAMPLE_RATE_IN_HZ = 8000;//通道配置
     public static final int BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE_IN_HZ,
-            AudioFormat.CHANNEL_IN_DEFAULT, AudioFormat.ENCODING_PCM_16BIT);//用于写入声音的缓存
+                                                                       AudioFormat.CHANNEL_IN_DEFAULT,
+                                                                       AudioFormat.ENCODING_PCM_16BIT);//用于写入声音的缓存
     private AudioRecord mAudioRecord;//话筒类
     public boolean isGetVoiceRun;//是否录音运行
     private Handler mHandler;//句柄
@@ -24,9 +26,9 @@ public class AudioRecordManger {
         this.mWhat = what;//动作ID
     }
 
-    public void stop_record(){
+    public void stop_record() {
         System.out.println("stop_record");
-        isGetVoiceRun=false;
+        isGetVoiceRun = false;
         mAudioRecord.stop();
 //        mAudioRecord.release();
 //        mAudioRecord = null;
@@ -39,8 +41,8 @@ public class AudioRecordManger {
         }
         //创建录音对象，并初始化对象属性
         mAudioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
-                SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_IN_DEFAULT,
-                AudioFormat.ENCODING_PCM_16BIT, BUFFER_SIZE);
+                                       SAMPLE_RATE_IN_HZ, AudioFormat.CHANNEL_IN_DEFAULT,
+                                       AudioFormat.ENCODING_PCM_16BIT, BUFFER_SIZE);
         //判断话筒对象是否为空
         isGetVoiceRun = true;//开启录音
 
@@ -52,7 +54,8 @@ public class AudioRecordManger {
                 short[] buffer = new short[BUFFER_SIZE];//设置缓存数组
 
                 while (isGetVoiceRun) {
-                    int r = mAudioRecord.read(buffer, 0, BUFFER_SIZE);//r是实际读取的数据长度，一般而言r会小于buffersize
+                    int r = mAudioRecord
+                            .read(buffer, 0, BUFFER_SIZE);//r是实际读取的数据长度，一般而言r会小于buffersize
                     long v = 0;
                     // 将 buffer 内容取出，进行平方和运算
                     for (short value : buffer) {

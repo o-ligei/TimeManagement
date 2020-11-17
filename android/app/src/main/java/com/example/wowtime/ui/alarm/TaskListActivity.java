@@ -1,26 +1,21 @@
 package com.example.wowtime.ui.alarm;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.view.Menu;
 import android.widget.ListView;
-import android.widget.TextView;
-
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.TaskItemAdapter;
 import com.example.wowtime.dto.TaskListItem;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TaskListActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,20 +28,28 @@ public class TaskListActivity extends AppCompatActivity {
 //        taskListItems.add(new TaskListItem("使劲摇摇摇"));
 //        taskListItems.add(new TaskListItem("努力吹吹吹"));
 
-        taskListItems.add(new TaskListItem(getResources().getString(R.string.calculate_game_setting_header)));
-        taskListItems.add(new TaskListItem(getResources().getString(R.string.shaking_game_setting_header)));
-        taskListItems.add(new TaskListItem(getResources().getString(R.string.blowing_game_setting_header)));
-        taskListItems.add(new TaskListItem(getResources().getString(R.string.random_game_setting_header)));
-        taskListItems.add(new TaskListItem(getResources().getString(R.string.tapping_game_setting_header)));
-        taskListItems.add(new TaskListItem(getResources().getString(R.string.Answering_game_setting_header)));
-        TaskItemAdapter taskItemAdapter = new TaskItemAdapter(taskListItems,getApplicationContext());
+        taskListItems.add(new TaskListItem(
+                getResources().getString(R.string.calculate_game_setting_header)));
+        taskListItems.add(new TaskListItem(
+                getResources().getString(R.string.shaking_game_setting_header)));
+        taskListItems.add(new TaskListItem(
+                getResources().getString(R.string.blowing_game_setting_header)));
+        taskListItems.add(new TaskListItem(
+                getResources().getString(R.string.random_game_setting_header)));
+        taskListItems.add(new TaskListItem(
+                getResources().getString(R.string.tapping_game_setting_header)));
+        taskListItems.add(new TaskListItem(
+                getResources().getString(R.string.Answering_game_setting_header)));
+        TaskItemAdapter taskItemAdapter = new TaskItemAdapter(taskListItems,
+                                                              getApplicationContext());
 
         ListView listView = (ListView) findViewById(R.id.task_list);
         listView.setAdapter(taskItemAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SharedPreferences mySharedPreferences= getSharedPreferences("clock", Activity.MODE_PRIVATE);
+                SharedPreferences mySharedPreferences = getSharedPreferences("clock",
+                                                                             Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = mySharedPreferences.edit();
 //                System.out.println(taskItemAdapter.getItem(position).toString());
                 editor.putString("game", taskItemAdapter.getItem(position).toString());
@@ -59,7 +62,7 @@ public class TaskListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) { actionBar.setDisplayHomeAsUpEnabled(true); }
         return super.onCreateOptionsMenu(menu);
     }
 

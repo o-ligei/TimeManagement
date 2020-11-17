@@ -1,55 +1,45 @@
 package com.example.wowtime.ui.account;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.ImageView;
-
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.example.wowtime.R;
 import com.example.wowtime.service.Accumulation;
-import com.example.wowtime.service.Credit;
-import com.example.wowtime.ui.others.CreditDetailListActivity;
-import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.Objects;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PersonInfoFragment extends Fragment {
+
     TextView usernameText;
     TextView usernameTitle;
     TextView emailText;
-//    TextView genderText;
+    //    TextView genderText;
     TextView creditText;
     TextView phoneNumberText;
     ImageView icon;
     TextView forgetPassword;
     ImageView modifyEmail;
 
-//    ConstraintLayout passwordLayout;
+    //    ConstraintLayout passwordLayout;
 //    ConstraintLayout emailLayout;
 //    ConstraintLayout creditLayout;
-    public PersonInfoFragment(){}
+    public PersonInfoFragment() {}
 
     public PersonInfoFragment(int contentLayoutId) {
         super(contentLayoutId);
@@ -62,21 +52,26 @@ public class PersonInfoFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.person_info_activity, container, false);
         icon = root.findViewById(R.id.UserIcon);
         forgetPassword = root.findViewById(R.id.forgetPassword);
-        forgetPassword.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","password")));
+        forgetPassword.setOnClickListener(v -> startActivity(
+                new Intent(getActivity(), CaptchaConfirmActivity.class)
+                        .putExtra("target", "password")));
         modifyEmail = root.findViewById(R.id.modifyEmail);
-        modifyEmail.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","email")));
+        modifyEmail.setOnClickListener(v -> startActivity(
+                new Intent(getActivity(), CaptchaConfirmActivity.class)
+                        .putExtra("target", "email")));
         creditText = root.findViewById(R.id.Credit);
 //        System.out.println(creditText.getText());
-        Accumulation accumulation=new Accumulation(requireContext());
+        Accumulation accumulation = new Accumulation(requireContext());
         creditText.setText(String.valueOf(accumulation.getAccumulation()));
 //        creditText.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
         usernameText = root.findViewById(R.id.Username);
         emailText = root.findViewById(R.id.Email);
-        phoneNumberText =root.findViewById(R.id.PhoneNumber);
+        phoneNumberText = root.findViewById(R.id.PhoneNumber);
         OKGetProfile();
         return root;
     }
@@ -87,14 +82,16 @@ public class PersonInfoFragment extends Fragment {
 //        OKGetProfile();
     }
 
-    private void OKGetProfile(){
+    private void OKGetProfile() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-                formBody.add("userid",String.valueOf(UserInfoAfterLogin.userid));
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/GetPersonalProfile").post(formBody.build()).build();
+                formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
+                Request request = new Request.Builder()
+                        .url(InternetConstant.host + "/User/GetPersonalProfile")
+                        .post(formBody.build()).build();
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
@@ -105,8 +102,8 @@ public class PersonInfoFragment extends Fragment {
             }
         }).start();
     }
-  
-    private void GetProfile(String result ) throws JSONException{
+
+    private void GetProfile(String result) throws JSONException {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -133,17 +130,15 @@ public class PersonInfoFragment extends Fragment {
                 }
                 BitmapFactory.Options op = new BitmapFactory.Options();
                 op.inSampleSize = 2;
-                if(msg.equals("success"))
-                {
+                if (msg.equals("success")) {
                     usernameText.setText(username);
                     usernameTitle.setText(username);
                     emailText.setText(email);
                     phoneNumberText.setText(phone);
                     bytes = Base64.decode(userIcon, Base64.DEFAULT);
-                    icon.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length,op));
+                    icon.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length, op));
                 }
-                if(!emailText.getText().toString().equals("null"))
-                    emailText.setEnabled(false);
+                if (!emailText.getText().toString().equals("null")) { emailText.setEnabled(false); }
             }
         });
     }

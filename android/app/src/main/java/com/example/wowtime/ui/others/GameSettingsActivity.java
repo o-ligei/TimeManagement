@@ -1,12 +1,9 @@
 package com.example.wowtime.ui.others;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-
 import com.example.wowtime.R;
 
 public class GameSettingsActivity extends AppCompatActivity {
@@ -26,6 +23,7 @@ public class GameSettingsActivity extends AppCompatActivity {
     }
 
     public static class GameSettingsFragment extends PreferenceFragmentCompat {
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.game_setting_preferences, rootKey);

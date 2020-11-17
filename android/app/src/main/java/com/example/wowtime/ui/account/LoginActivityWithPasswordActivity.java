@@ -2,36 +2,26 @@ package com.example.wowtime.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.wowtime.R;
-import com.example.wowtime.ui.MainActivity;
-import com.example.wowtime.ui.alarm.ClockSettingActivity;
-import com.example.wowtime.util.InternetConstant;
-import com.example.wowtime.util.UserInfoAfterLogin;
-
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.example.wowtime.websocket.TWebSocketClient;
-
+import com.example.wowtime.R;
+import com.example.wowtime.ui.MainActivity;
+import com.example.wowtime.util.InternetConstant;
+import com.example.wowtime.util.UserInfoAfterLogin;
 import java.io.IOException;
-import java.net.URI;
 import java.util.Objects;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static com.example.wowtime.util.InternetConstant.websocket_host;
 
 public class LoginActivityWithPasswordActivity extends AppCompatActivity {
 
@@ -55,7 +45,8 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                Intent signUpIntent = new Intent(LoginActivityWithPasswordActivity.this, LoginActivityWithAuthActivity.class);
+                Intent signUpIntent = new Intent(LoginActivityWithPasswordActivity.this,
+                                                 LoginActivityWithAuthActivity.class);
                 startActivity(signUpIntent);
             }
         });
@@ -65,7 +56,8 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                Intent signUpIntent = new Intent(LoginActivityWithPasswordActivity.this, RegisterActivity.class);
+                Intent signUpIntent = new Intent(LoginActivityWithPasswordActivity.this,
+                                                 RegisterActivity.class);
                 startActivity(signUpIntent);
             }
         });
@@ -84,15 +76,17 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
 //        }
     }
 
-    private void OKLoginWitchPass(){
+    private void OKLoginWitchPass() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-                formBody.add("phone",phoneText.getText().toString());
-                formBody.add("password",passwordText.getText().toString());
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/LoginWithPassword").post(formBody.build()).build();
+                formBody.add("phone", phoneText.getText().toString());
+                formBody.add("password", passwordText.getText().toString());
+                Request request = new Request.Builder()
+                        .url(InternetConstant.host + "/User/LoginWithPassword")
+                        .post(formBody.build()).build();
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
@@ -104,7 +98,7 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void LoginWitchPass(String result ) throws JSONException{
+    private void LoginWitchPass(String result) throws JSONException {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -114,7 +108,6 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
                 String str_user = null;
                 String userid = null;
 
-
                 try {
                     jsonObject = JSONObject.parseObject(result);
                     msg = Objects.requireNonNull(jsonObject.get("msg")).toString();
@@ -122,11 +115,10 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
                 toast.show();
                 assert msg != null;
-                if(msg.equals("success"))
-                {
+                if (msg.equals("success")) {
                     str_data = Objects.requireNonNull(jsonObject.get("data")).toString();
                     JSONObject data = JSONObject.parseObject(str_data);
                     str_user = Objects.requireNonNull(data.get("user")).toString();
@@ -134,7 +126,8 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
                     userid = Objects.requireNonNull(user.get("userId")).toString();
                     assert userid != null;
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
-                    Intent intent = new Intent(LoginActivityWithPasswordActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivityWithPasswordActivity.this,
+                                               MainActivity.class);
                     startActivity(intent);
                 }
             }
@@ -144,7 +137,7 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) { actionBar.setDisplayHomeAsUpEnabled(true); }
         return super.onCreateOptionsMenu(menu);
     }
 

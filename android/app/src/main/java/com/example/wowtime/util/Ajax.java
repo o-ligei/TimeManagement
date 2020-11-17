@@ -3,39 +3,37 @@ package com.example.wowtime.util;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Ajax {
+
     private String url;
     private FormBody.Builder formBody;
     private Handler mHandler;
     private int mWhat;
 
-    public Ajax(){}
+    public Ajax() {}
 
-    public Ajax(String requestUrl,FormBody.Builder data,Handler handler,int what){
-        url=InternetConstant.host+requestUrl;
-        formBody=data;
-        mHandler=handler;
-        mWhat=what;
+    public Ajax(String requestUrl, FormBody.Builder data, Handler handler, int what) {
+        url = InternetConstant.host + requestUrl;
+        formBody = data;
+        mHandler = handler;
+        mWhat = what;
     }
 
-    private void checkMsg(String result){
-        System.out.println("ajax: result "+result);
+    private void checkMsg(String result) {
+        System.out.println("ajax: result " + result);
         Bundle bundle = new Bundle();
         Message message = Message.obtain();
         JSONObject jsonObject = null;
-        String msg=null;
-        String data=null;
+        String msg = null;
+        String data = null;
         try {
             jsonObject = new JSONObject(result);
             msg = jsonObject.get("msg").toString();
@@ -43,8 +41,8 @@ public class Ajax {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        bundle.putString("msg",msg);
-        bundle.putString("data",data);
+        bundle.putString("msg", msg);
+        bundle.putString("data", data);
         message.setData(bundle);
         message.what = mWhat;
 //        message.obj = result;
@@ -52,7 +50,7 @@ public class Ajax {
         mHandler.sendMessage(message);
     }
 
-    public void fetch(){
+    public void fetch() {
         new Thread(new Runnable() {
             @Override
             public void run() {

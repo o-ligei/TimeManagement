@@ -3,22 +3,23 @@ package com.example.wowtime.dto;
 import java.util.Date;
 
 public class StatisticDayItem {
+
     String name;
     int hour;
     int minute;
     Date begin;
     Date end;
 
-    public StatisticDayItem(){
+    public StatisticDayItem() {
 
     }
 
-    public StatisticDayItem(String n,int h,int m, Date b,Date e){
-        name=n;
-        hour=h;
-        minute=m;
-        begin=b;
-        end=e;
+    public StatisticDayItem(String n, int h, int m, Date b, Date e) {
+        name = n;
+        hour = h;
+        minute = m;
+        begin = b;
+        end = e;
     }
 
     public void setMinute(int minute) {

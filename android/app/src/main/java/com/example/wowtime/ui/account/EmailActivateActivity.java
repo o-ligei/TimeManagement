@@ -1,29 +1,24 @@
 package com.example.wowtime.ui.account;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.wowtime.R;
 import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.util.InternetConstant;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class EmailActivateActivity extends AppCompatActivity {
+
     TextView emailInput;
     TextView captchaInput;
     String phone;
@@ -47,15 +42,17 @@ public class EmailActivateActivity extends AppCompatActivity {
         btn_handson.setOnClickListener(v -> OkHandsOn());
     }
 
-    void OKGetCaptcha(){
+    void OKGetCaptcha() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();
                 formBody.add("phone", phone);
-                formBody.add("email",emailInput.getText().toString());
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/SendCaptchaToEmail").post(formBody.build()).build();
+                formBody.add("email", emailInput.getText().toString());
+                Request request = new Request.Builder()
+                        .url(InternetConstant.host + "/User/SendCaptchaToEmail")
+                        .post(formBody.build()).build();
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
@@ -67,7 +64,7 @@ public class EmailActivateActivity extends AppCompatActivity {
         }).start();
     }
 
-    void GetCaptcha(){
+    void GetCaptcha() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -76,16 +73,18 @@ public class EmailActivateActivity extends AppCompatActivity {
         });
     }
 
-    void OkHandsOn(){
+    void OkHandsOn() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();
                 formBody.add("phone", phone);
-                formBody.add("email",emailInput.getText().toString());
-                formBody.add("captcha",captchaInput.getText().toString());
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/ActivateEmail").post(formBody.build()).build();
+                formBody.add("email", emailInput.getText().toString());
+                formBody.add("captcha", captchaInput.getText().toString());
+                Request request = new Request.Builder()
+                        .url(InternetConstant.host + "/User/ActivateEmail").post(formBody.build())
+                        .build();
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
@@ -109,9 +108,9 @@ public class EmailActivateActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
                 toast.show();
-                if(msg.equals("success")){
+                if (msg.equals("success")) {
                     Intent intent = null;
                     intent = new Intent(EmailActivateActivity.this, MainActivity.class);
                     startActivity(intent);

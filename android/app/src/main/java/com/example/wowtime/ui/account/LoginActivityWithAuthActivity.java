@@ -2,39 +2,36 @@ package com.example.wowtime.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.view.Menu;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
-
-import org.json.JSONException;
-//import org.json.JSONObject;
-import com.alibaba.fastjson.JSONObject;
-
 import java.io.IOException;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONException;
+
+//import org.json.JSONObject;
 
 public class LoginActivityWithAuthActivity extends AppCompatActivity {
 
     EditText phoneText;
     EditText captchaText;
     Button btn_login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +41,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, LoginActivityWithPasswordActivity.class);
+                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this,
+                                                 LoginActivityWithPasswordActivity.class);
                 startActivity(signUpIntent);
             }
         });
@@ -55,7 +53,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class);
+                Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this,
+                                                 RegisterActivity.class);
 //                 Intent signUpIntent = new Intent(LoginActivityWithAuthActivity.this, RegisterActivity.class);
                 startActivity(signUpIntent);
             }
@@ -73,14 +72,16 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
 //        btn_login.setEnabled(false);
     }
 
-    private void OKGetCaptcha(){
+    private void OKGetCaptcha() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-                formBody.add("phone",phoneText.getText().toString());//传递键值对参数
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/SendCaptchaToPhone").post(formBody.build()).build();
+                formBody.add("phone", phoneText.getText().toString());//传递键值对参数
+                Request request = new Request.Builder()
+                        .url(InternetConstant.host + "/User/SendCaptchaToPhone")
+                        .post(formBody.build()).build();
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
@@ -100,23 +101,24 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                 jsonObject = JSONObject.parseObject(result);
                 String msg = null;
                 msg = jsonObject.get("msg").toString();
-                Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
                 toast.show();
-                if(msg.equals("success"))
-                    btn_login.setEnabled(true);
+                if (msg.equals("success")) { btn_login.setEnabled(true); }
             }
         });
     }
 
-    private void OKLoginWitchAuth(){
+    private void OKLoginWitchAuth() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-                formBody.add("phone",phoneText.getText().toString());
-                formBody.add("captcha",captchaText.getText().toString());
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/LoginWithCaptcha").post(formBody.build()).build();
+                formBody.add("phone", phoneText.getText().toString());
+                formBody.add("captcha", captchaText.getText().toString());
+                Request request = new Request.Builder()
+                        .url(InternetConstant.host + "/User/LoginWithCaptcha")
+                        .post(formBody.build()).build();
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
@@ -128,7 +130,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void LoginWitchAuth(String result ) throws JSONException{
+    private void LoginWitchAuth(String result) throws JSONException {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -141,11 +143,9 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                 jsonObject = JSONObject.parseObject(result);
                 msg = jsonObject.get("msg").toString();
 
-
-                Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
                 toast.show();
-                if(msg.equals("success"))
-                {
+                if (msg.equals("success")) {
                     str_data = jsonObject.get("data").toString();
                     JSONObject data = JSONObject.parseObject(str_data);
                     str_user = data.get("user").toString();
@@ -153,7 +153,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                     userid = user.get("userId").toString();
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     finish();
-                    Intent intent = new Intent(LoginActivityWithAuthActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivityWithAuthActivity.this,
+                                               MainActivity.class);
                     startActivity(intent);
                 }
             }
@@ -163,14 +164,14 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) { actionBar.setDisplayHomeAsUpEnabled(true); }
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{
+        switch (item.getItemId()) {
+            case android.R.id.home: {
                 finish();
                 break;
             }

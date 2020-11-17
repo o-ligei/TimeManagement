@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +14,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.example.wowtime.R;
 import com.example.wowtime.databinding.ActivityMainBinding;
-
 import com.example.wowtime.ui.alarm.AlarmListFragment;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.alarm.TaskListActivity;
@@ -27,14 +24,7 @@ import com.example.wowtime.ui.others.InternetFriendListActivity;
 import com.example.wowtime.ui.others.SpeechRecognizeActivity;
 import com.example.wowtime.ui.pomodoro.PomodoroListFragment;
 import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
-import com.example.wowtime.util.UserInfoAfterLogin;
-import com.example.wowtime.websocket.TWebSocketClient;
-import com.example.wowtime.websocket.TWebSocketClientService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.net.URI;
-
-import static com.example.wowtime.util.InternetConstant.websocket_host;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,34 +39,42 @@ public class MainActivity extends AppCompatActivity {
 //        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PersonInfo.class)));
         Button button2 = findViewById(R.id.button3);
 
-        button2.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, TaskListActivity.class)));
+        button2.setOnClickListener(
+                v -> startActivity(new Intent(MainActivity.this, TaskListActivity.class)));
 
-        ActivityMainBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(binding.toolbarMain);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_person_info,R.id.navigation_sunflower,R.id.navigation_clock,R.id.navigation_away_from_phone,R.id.navigation_friends,
-                R.id.navigation_statistics,R.id.navigation_achievement).setDrawerLayout(binding.drawer).build();
+                R.id.navigation_person_info, R.id.navigation_sunflower, R.id.navigation_clock,
+                R.id.navigation_away_from_phone, R.id.navigation_friends,
+                R.id.navigation_statistics, R.id.navigation_achievement)
+                .setDrawerLayout(binding.drawer).build();
         binding.fragmentMain.post(() -> {
             NavController navController = Navigation.findNavController(this, R.id.fragment_main);
-            NavigationUI.setupWithNavController(binding.toolbarMain, navController, appBarConfiguration);
+            NavigationUI.setupWithNavController(binding.toolbarMain, navController,
+                                                appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navigationMain, navController);
         });
 
-        FloatingActionButton button=findViewById(R.id.fab_main);
-        button.setOnClickListener(v->{
-            Class<? extends Fragment> c=getPrimaryFragmentClass();
-            if(c==AlarmListFragment.class)
+        FloatingActionButton button = findViewById(R.id.fab_main);
+        button.setOnClickListener(v -> {
+            Class<? extends Fragment> c = getPrimaryFragmentClass();
+            if (c == AlarmListFragment.class) {
                 startActivity(new Intent(MainActivity.this, ClockSettingActivity.class));
-            if(c== PomodoroListFragment.class)
+            }
+            if (c == PomodoroListFragment.class) {
                 startActivity(new Intent(MainActivity.this, PomodoroSettingActivity.class));
-            if(c== FriendsListFragment.class)
+            }
+            if (c == FriendsListFragment.class) {
                 startActivity(new Intent(MainActivity.this, InternetFriendListActivity.class));
+            }
         });
 
-        button.setOnLongClickListener(v->{
-            Class<? extends Fragment> c=getPrimaryFragmentClass();
-            if(c==AlarmListFragment.class)
+        button.setOnLongClickListener(v -> {
+            Class<? extends Fragment> c = getPrimaryFragmentClass();
+            if (c == AlarmListFragment.class) {
                 startActivity(new Intent(MainActivity.this, SpeechRecognizeActivity.class));
+            }
             return false;
         });
 //        Intent startIntent = new Intent(this, TWebSocketClientService.class);
@@ -97,14 +95,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private Fragment getCFragment(){
-        return   getSupportFragmentManager().findFragmentById(R.id.fragment_main);
+    private Fragment getCFragment() {
+        return getSupportFragmentManager().findFragmentById(R.id.fragment_main);
     }
 
     public Class<? extends Fragment> getPrimaryFragmentClass() {
-        for (Fragment fragment : getCFragment().getChildFragmentManager().getFragments()){
-            if (fragment!=null)
-                return fragment.getClass();
+        for (Fragment fragment : getCFragment().getChildFragmentManager().getFragments()) {
+            if (fragment != null) { return fragment.getClass(); }
         }
         return null;
     }

@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.example.wowtime.R;
 import com.example.wowtime.dto.CreditDetailListItem;
-
 import java.util.ArrayList;
 
 public class CreditDetailListAdapter extends BaseAdapter {
@@ -42,7 +40,8 @@ public class CreditDetailListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.credit_detail_list_item,parent,false);
+        convertView = LayoutInflater.from(mContext)
+                                    .inflate(R.layout.credit_detail_list_item, parent, false);
 
         TextView timestamp = convertView.findViewById(R.id.Timestamp);
         TextView eventName = convertView.findViewById(R.id.Eventname);

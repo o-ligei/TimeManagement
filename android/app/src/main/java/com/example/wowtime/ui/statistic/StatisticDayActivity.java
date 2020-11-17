@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
@@ -24,7 +22,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ColorTemplate;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,7 +30,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class StatisticDayActivity extends AppCompatActivity {
-//    @Override
+
+    //    @Override
 //    protected void onCreate(@Nullable Bundle savedInstanceState) {
 //
 //        super.onCreate(savedInstanceState);
@@ -49,42 +47,44 @@ public class StatisticDayActivity extends AppCompatActivity {
     private PieChart pie;
     List<PieEntry> list;
     private SharedPreferences pomodoroSp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.statistic_day_activity);
         pie = (PieChart) findViewById(R.id.chart);
-        pomodoroSp=super.getSharedPreferences("pomodoro",MODE_PRIVATE);
+        pomodoroSp = super.getSharedPreferences("pomodoro", MODE_PRIVATE);
 
-        list=new ArrayList<>();
+        list = new ArrayList<>();
 //        list.add(new PieEntry(10,"预习ICS","9:00-9:45"));
-        String statisticString=pomodoroSp.getString("statistic","");
-        List<StatisticDayItem> statisticDayItems= JSON.parseArray(statisticString,StatisticDayItem.class);
-        List<Integer> removedIndex=new LinkedList<>();
-        Calendar beginCalendar=Calendar.getInstance();
-        Calendar nowCalendar=Calendar.getInstance();
-        Date now=new Date();
+        String statisticString = pomodoroSp.getString("statistic", "");
+        List<StatisticDayItem> statisticDayItems = JSON
+                .parseArray(statisticString, StatisticDayItem.class);
+        List<Integer> removedIndex = new LinkedList<>();
+        Calendar beginCalendar = Calendar.getInstance();
+        Calendar nowCalendar = Calendar.getInstance();
+        Date now = new Date();
         nowCalendar.setTime(now);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        for(int i=0;i<statisticDayItems.size();++i){
-            StatisticDayItem item=statisticDayItems.get(i);
-            Date begin=item.getBegin();
+        for (int i = 0; i < statisticDayItems.size(); ++i) {
+            StatisticDayItem item = statisticDayItems.get(i);
+            Date begin = item.getBegin();
             beginCalendar.setTime(begin);
-            if(beginCalendar.get(Calendar.YEAR)!=nowCalendar.get(Calendar.YEAR)){
+            if (beginCalendar.get(Calendar.YEAR) != nowCalendar.get(Calendar.YEAR)) {
                 removedIndex.add(i);
                 continue;
             }
-            if((beginCalendar.get(Calendar.DAY_OF_MONTH)==nowCalendar.get(Calendar.DAY_OF_MONTH))&&
-                    (beginCalendar.get(Calendar.MONTH)==nowCalendar.get(Calendar.MONTH))){
-                System.out.println("StatisticDay: today"+item.getName());
-                list.add(new PieEntry(item.getMinute()+item.getHour(),item.getName(),
-                        sdf.format(begin)+"-"+sdf.format(item.getEnd())));
+            if ((beginCalendar.get(Calendar.DAY_OF_MONTH) == nowCalendar.get(Calendar.DAY_OF_MONTH))
+                    &&
+                    (beginCalendar.get(Calendar.MONTH) == nowCalendar.get(Calendar.MONTH))) {
+                System.out.println("StatisticDay: today" + item.getName());
+                list.add(new PieEntry(item.getMinute() + item.getHour(), item.getName(),
+                                      sdf.format(begin) + "-" + sdf.format(item.getEnd())));
             }
         }
 
-        for(int index:removedIndex)
-            statisticDayItems.remove(index);
-        SharedPreferences.Editor editor=pomodoroSp.edit();
+        for (int index : removedIndex) { statisticDayItems.remove(index); }
+        SharedPreferences.Editor editor = pomodoroSp.edit();
         editor.putString("statistic", JSONObject.toJSONString(statisticDayItems));
         editor.apply();
 
@@ -108,27 +108,21 @@ public class StatisticDayActivity extends AppCompatActivity {
 //        }
 //        editor.putString("statisticWeek",JSONObject.toJSONString(statisticWeekItems));
 
-
-        PieDataSet pieDataSet=new PieDataSet(list,"");
+        PieDataSet pieDataSet = new PieDataSet(list, "");
         pieDataSet.setSliceSpace(3f);//设置不同DataSet之间的间距
         pieDataSet.setSelectionShift(5f);
 //        pieDataSet.setHighlightEnabled(true);
         //设置各个数据的颜色
 //        pieDataSet.setColors(0xFF8FDCD9,0xFFCB72D8,0xFFFF9800,0xFFFFB6C1,0xFF9DDC98);
         ArrayList<Integer> colors = new ArrayList<Integer>();
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
+        for (int c : ColorTemplate.VORDIPLOM_COLORS) { colors.add(c); }
+        for (int c : ColorTemplate.JOYFUL_COLORS) { colors.add(c); }
+        for (int c : ColorTemplate.COLORFUL_COLORS) { colors.add(c); }
+        for (int c : ColorTemplate.LIBERTY_COLORS) { colors.add(c); }
+        for (int c : ColorTemplate.PASTEL_COLORS) { colors.add(c); }
         colors.add(ColorTemplate.getHoloBlue());
         pieDataSet.setColors(colors);
-        PieData pieData=new PieData(pieDataSet);
+        PieData pieData = new PieData(pieDataSet);
         pieData.setValueTextColor(Color.WHITE);
         pie.setData(pieData);
 
@@ -175,7 +169,7 @@ public class StatisticDayActivity extends AppCompatActivity {
         pie.getDescription().setTextColor(Color.WHITE);             //字体颜色
 
         //图例
-        Legend legend=pie.getLegend();
+        Legend legend = pie.getLegend();
         legend.setEnabled(true);    //是否显示图例
 //        legend.setTextColor(Color.WHITE);
         legend.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);   //图例的位置
@@ -184,26 +178,25 @@ public class StatisticDayActivity extends AppCompatActivity {
         pie.setRotationEnabled(true);
         pie.setHighlightPerTapEnabled(true);
 
-
         //数据更新
         pie.notifyDataSetChanged();
         pie.invalidate();
-
 
         //动画（如果使用了动画可以则省去更新数据的那一步）
         pie.animateY(1000); //在Y轴的动画  参数是动画执行时间 毫秒为单位
 //        line.animateX(2000); //X轴动画
 //        line.animateXY(2000,2000);//XY两轴混合动画
 
-        pie.setOnChartValueSelectedListener(new com.github.mikephil.charting.listener.OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                if(e==null)return;
+        pie.setOnChartValueSelectedListener(
+                new com.github.mikephil.charting.listener.OnChartValueSelectedListener() {
+                    @Override
+                    public void onValueSelected(Entry e, Highlight h) {
+                        if (e == null) { return; }
 //                String s=JSONObject.toJSONString(e);
-                System.out.println("StatisticDay: click"+JSONObject.toJSONString(e));
-                TextView textView=findViewById(R.id.textViewDayBottom);
-                PieEntry pieEntry=(PieEntry) e;
-                textView.setText(pieEntry.getLabel()+"\n"+pieEntry.getData());
+                        System.out.println("StatisticDay: click" + JSONObject.toJSONString(e));
+                        TextView textView = findViewById(R.id.textViewDayBottom);
+                        PieEntry pieEntry = (PieEntry) e;
+                        textView.setText(pieEntry.getLabel() + "\n" + pieEntry.getData());
 //                PieEntry pieEntry=JSON.parseObject(s,PieEntry.class);
 //                textView.setText(pieEntry.getLabel()+"\n"+pieEntry.getData());
 
@@ -215,25 +208,24 @@ public class StatisticDayActivity extends AppCompatActivity {
 //                        System.out.println("pie click:"+pieDataSet.getEntryForIndex(i).getLabel());
 //                    }
 //                }
-            }
+                    }
 
-            @Override
-            public void onNothingSelected() {
-                TextView textView=findViewById(R.id.textViewDayBottom);
-                textView.setText("");
-            }
-        });
+                    @Override
+                    public void onNothingSelected() {
+                        TextView textView = findViewById(R.id.textViewDayBottom);
+                        textView.setText("");
+                    }
+                });
 
-
-        RadioButton radioButtonWeek=findViewById(R.id.day_week);
-        radioButtonWeek.setOnClickListener(v->{
+        RadioButton radioButtonWeek = findViewById(R.id.day_week);
+        radioButtonWeek.setOnClickListener(v -> {
 //            startActivity((new Intent
 //                (StatisticDayActivity.this, StatisticWeekActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             startActivity(new Intent(StatisticDayActivity.this, StatisticWeekActivity.class));
             finish();
         });
-        RadioButton radioButtonYear=findViewById(R.id.day_year);
-        radioButtonYear.setOnClickListener(v->{
+        RadioButton radioButtonYear = findViewById(R.id.day_year);
+        radioButtonYear.setOnClickListener(v -> {
 //            startActivity((new Intent
 //                (StatisticDayActivity.this, StatisticYearActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             startActivity(new Intent(StatisticDayActivity.this, StatisticYearActivity.class));
@@ -255,7 +247,7 @@ public class StatisticDayActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) { actionBar.setDisplayHomeAsUpEnabled(true); }
         return super.onCreateOptionsMenu(menu);
     }
 }

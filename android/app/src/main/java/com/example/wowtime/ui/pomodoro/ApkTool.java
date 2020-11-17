@@ -15,25 +15,23 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
-
 import androidx.annotation.RequiresApi;
-
 import com.example.wowtime.dto.WhiteListItem;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * Created by gray_dog3 on 16/3/3.
- * 扫描本地安装的应用,工具类
+ * Created by gray_dog3 on 16/3/3. 扫描本地安装的应用,工具类
  */
 public class ApkTool {
-    static  String TAG = "ApkTool";
+
+    static String TAG = "ApkTool";
     public static List<WhiteListItem> mLocalInstallApps = null;
 
-    public static List<WhiteListItem> scanLocalInstallAppList(PackageManager packageManager, List<String> alreadySelectedPaackage) {
+    public static List<WhiteListItem> scanLocalInstallAppList(PackageManager packageManager,
+            List<String> alreadySelectedPaackage) {
         List<WhiteListItem> whiteListItems = new ArrayList<WhiteListItem>();
         try {
             List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
@@ -41,30 +39,31 @@ public class ApkTool {
                 PackageInfo packageInfo = packageInfos.get(i);
 
                 //过滤掉系统app
-                if ((ApplicationInfo.FLAG_SYSTEM & packageInfo.applicationInfo.flags) != 0)
+                if ((ApplicationInfo.FLAG_SYSTEM & packageInfo.applicationInfo.flags) != 0) {
                     continue;
+                }
 
                 WhiteListItem whiteListItem = new WhiteListItem();
                 whiteListItem.setPackageName(packageInfo.packageName);
-                whiteListItem.setAppName(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
-                if (packageInfo.applicationInfo.loadIcon(packageManager) == null)
-                    continue;
+                whiteListItem.setAppName(
+                        packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
+                if (packageInfo.applicationInfo.loadIcon(packageManager) == null) { continue; }
                 whiteListItem.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
-                if(alreadySelectedPaackage.indexOf(packageInfo.packageName)!=-1)
+                if (alreadySelectedPaackage.indexOf(packageInfo.packageName) != -1) {
                     whiteListItem.setSelected(true);
-                else
-                    whiteListItem.setSelected(false);
+                } else { whiteListItem.setSelected(false); }
                 whiteListItem.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
                 whiteListItems.add(whiteListItem);
             }
-        }catch (Exception e){
-            Log.e(TAG,"===============获取应用包信息失败");
+        } catch (Exception e) {
+            Log.e(TAG, "===============获取应用包信息失败");
             return null;
         }
         return whiteListItems;
     }
 
-    public static List<WhiteListItem> getSelectedPackageList(PackageManager packageManager, List<String> selectedPackage) {
+    public static List<WhiteListItem> getSelectedPackageList(PackageManager packageManager,
+            List<String> selectedPackage) {
         List<WhiteListItem> whiteListItems = new ArrayList<WhiteListItem>();
         List<PackageInfo> packageInfos;
         try {
@@ -73,14 +72,15 @@ public class ApkTool {
             Log.e(TAG, "===============获取应用包信息失败");
             return null;
         }
-        for (String selected:selectedPackage) {
+        for (String selected : selectedPackage) {
             for (PackageInfo packageInfo : packageInfos) {
                 if (packageInfo.packageName.equals(selected)) {
                     WhiteListItem whiteListItem = new WhiteListItem();
                     whiteListItem.setPackageName(packageInfo.packageName);
-                    whiteListItem.setAppName(packageManager.getApplicationLabel(packageInfo.applicationInfo).toString());
-                    if (packageInfo.applicationInfo.loadIcon(packageManager) == null)
-                        continue;
+                    whiteListItem.setAppName(
+                            packageManager.getApplicationLabel(packageInfo.applicationInfo)
+                                          .toString());
+                    if (packageInfo.applicationInfo.loadIcon(packageManager) == null) { continue; }
                     whiteListItem.setImage(packageInfo.applicationInfo.loadIcon(packageManager));
                     whiteListItem.setSelected(true);
                     whiteListItems.add(whiteListItem);
@@ -92,37 +92,38 @@ public class ApkTool {
         return whiteListItems;
     }
 
-    public static List<PackageInfo> scanLocalInstallAppListByPackage(PackageManager packageManager) {
-            List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
-            for (int i = 0; i < packageInfos.size(); i++) {
-                PackageInfo packageInfo = packageInfos.get(i);
+    public static List<PackageInfo> scanLocalInstallAppListByPackage(
+            PackageManager packageManager) {
+        List<PackageInfo> packageInfos = packageManager.getInstalledPackages(0);
+        for (int i = 0; i < packageInfos.size(); i++) {
+            PackageInfo packageInfo = packageInfos.get(i);
 
-                //过滤掉系统app
-                if ((ApplicationInfo.FLAG_SYSTEM & packageInfo.applicationInfo.flags) != 0) {
-                    packageInfos.remove(packageInfo);
-                }
+            //过滤掉系统app
+            if ((ApplicationInfo.FLAG_SYSTEM & packageInfo.applicationInfo.flags) != 0) {
+                packageInfos.remove(packageInfo);
             }
-            return packageInfos;
+        }
+        return packageInfos;
     }
 
-    public static void resizePikcer(FrameLayout tp){
+    public static void resizePikcer(FrameLayout tp) {
         List<NumberPicker> npList = findNumberPicker(tp);
-        for(NumberPicker np:npList){
+        for (NumberPicker np : npList) {
             resizeNumberPicker(np);
         }
     }
-    public static List<NumberPicker> findNumberPicker(ViewGroup viewGroup){
+
+    public static List<NumberPicker> findNumberPicker(ViewGroup viewGroup) {
         List<NumberPicker> npList = new ArrayList<NumberPicker>();
         View child = null;
-        if(null != viewGroup){
-            for(int i = 0;i<viewGroup.getChildCount();i++){
+        if (null != viewGroup) {
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
                 child = viewGroup.getChildAt(i);
-                if(child instanceof NumberPicker){
-                    npList.add((NumberPicker)child);
-                }
-                else if(child instanceof LinearLayout){
-                    List<NumberPicker> result = findNumberPicker((ViewGroup)child);
-                    if(result.size()>0){
+                if (child instanceof NumberPicker) {
+                    npList.add((NumberPicker) child);
+                } else if (child instanceof LinearLayout) {
+                    List<NumberPicker> result = findNumberPicker((ViewGroup) child);
+                    if (result.size() > 0) {
                         return result;
                     }
                 }
@@ -130,7 +131,8 @@ public class ApkTool {
         }
         return npList;
     }
-    public static void resizeNumberPicker(NumberPicker np){
+
+    public static void resizeNumberPicker(NumberPicker np) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 400);
         params.setMargins(10, 0, 10, 0);
         np.setLayoutParams(params);
@@ -140,9 +142,11 @@ public class ApkTool {
     public static String getTaskPackname(Application self) {
         String currentApp = "CurrentNULL";
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            UsageStatsManager usm = (UsageStatsManager) self.getSystemService(Context.USAGE_STATS_SERVICE);
+            UsageStatsManager usm = (UsageStatsManager) self
+                    .getSystemService(Context.USAGE_STATS_SERVICE);
             long time = System.currentTimeMillis();
-            List<UsageStats> appList = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
+            List<UsageStats> appList = usm
+                    .queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
             if (appList != null && appList.size() > 0) {
                 SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
                 for (UsageStats usageStats : appList) {
@@ -160,7 +164,6 @@ public class ApkTool {
         return currentApp;
     }
 }
-
 
 //some reference for feaaaaaa
 //

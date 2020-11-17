@@ -1,25 +1,16 @@
 package com.example.wowtime.ui.alarm;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.ListView;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.FrequencyItemAdapter;
-import com.example.wowtime.adapter.RingItemAdapter;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ClockFrequencyActivity extends AppCompatActivity {
+
     private boolean flag;
     private FrequencyItemAdapter adapter;
 
@@ -28,9 +19,9 @@ public class ClockFrequencyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clock_frequency);
 
-        flag=false;
+        flag = false;
 
-        ArrayList<String> arr=new ArrayList<>();
+        ArrayList<String> arr = new ArrayList<>();
         arr.add("无重复");
         arr.add("每周一");
         arr.add("每周二");
@@ -41,9 +32,8 @@ public class ClockFrequencyActivity extends AppCompatActivity {
         arr.add("每周日");
 //        arr.add("每天");
 
-
 //        RingItemAdapter adapter=new RingItemAdapter(arr,getApplicationContext());
-        adapter=new FrequencyItemAdapter(arr,getApplicationContext());
+        adapter = new FrequencyItemAdapter(arr, getApplicationContext());
 //        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,R.layout.ring_list_item,arr);
         ListView listView = findViewById(R.id.ClockFrequencyList);
         listView.setAdapter(adapter);
@@ -61,10 +51,10 @@ public class ClockFrequencyActivity extends AppCompatActivity {
 //            }
 //        });
 
-        Button btn=findViewById(R.id.FrequencySettingBtn);
-        btn.setOnClickListener(new View.OnClickListener(){
+        Button btn = findViewById(R.id.FrequencySettingBtn);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 adapter.sendOptions();
                 finish();
             }

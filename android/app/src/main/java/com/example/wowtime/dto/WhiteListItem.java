@@ -3,17 +3,19 @@ package com.example.wowtime.dto;
 import android.graphics.drawable.Drawable;
 
 public class WhiteListItem {
+
     private Drawable image;
     private String appName;
     private String packageName;
     private Boolean selected;
 
-    public WhiteListItem(Drawable image, String appName,String packageName) {
+    public WhiteListItem(Drawable image, String appName, String packageName) {
         this.image = image;
         this.appName = appName;
-        this.packageName=packageName;
-        this.selected=false;
+        this.packageName = packageName;
+        this.selected = false;
     }
+
     public WhiteListItem() {
 
     }
@@ -43,8 +45,8 @@ public class WhiteListItem {
     }
 
     public Boolean getSelected() {
-        if(this.selected==null) {
-            System.out.println("whitelistitem:null select when"+appName);
+        if (this.selected == null) {
+            System.out.println("whitelistitem:null select when" + appName);
             return false;
         }
         return selected;

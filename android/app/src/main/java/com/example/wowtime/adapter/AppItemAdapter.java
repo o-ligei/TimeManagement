@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AppListItem;
-
 import java.util.LinkedList;
 
 public class AppItemAdapter extends BaseAdapter {
@@ -44,7 +42,8 @@ public class AppItemAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = LayoutInflater.from(mContext).inflate(R.layout.white_list_item,parent,false);
+        convertView = LayoutInflater.from(mContext)
+                                    .inflate(R.layout.white_list_item, parent, false);
 
         ImageView img_icon = (ImageView) convertView.findViewById(R.id.apps_icon);
         TextView txt_aName = (TextView) convertView.findViewById(R.id.name);

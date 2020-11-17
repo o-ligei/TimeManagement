@@ -1,9 +1,5 @@
 package com.example.wowtime.ui.others;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,28 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.FriendsListAdapter;
 import com.example.wowtime.dto.FriendsListItem;
 import com.example.wowtime.ui.account.InternetFriendRequestActivity;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import android.widget.SearchView.OnQueryTextListener;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class FriendsListFragment extends Fragment {
 
@@ -55,13 +49,14 @@ public class FriendsListFragment extends Fragment {
         super(contentLayoutId);
     }
 
-    private class FriendRequestReceiver extends BroadcastReceiver{
+    private class FriendRequestReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             onResume();
         }
     }
+
     private FriendRequestReceiver friendRequestReceiver;
     private IntentFilter intentFilter;
 
@@ -78,7 +73,8 @@ public class FriendsListFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.friend_list_fragment, container, false);
         OKGetFriends();
         listView = (ListView) root.findViewById(R.id.friends_list);
@@ -89,27 +85,29 @@ public class FriendsListFragment extends Fragment {
 
         friendRequest = root.findViewById(R.id.friend_notice);
 
-        friendRequest.setOnClickListener(v -> startActivity(new Intent(getActivity(), InternetFriendRequestActivity.class)));
+        friendRequest.setOnClickListener(
+                v -> startActivity(new Intent(getActivity(), InternetFriendRequestActivity.class)));
 
-        searchText.setOnQueryTextListener(new OnQueryTextListener(){
+        searchText.setOnQueryTextListener(new OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(String s) {
-                System.out.println("onQueryTextSubmit:"+s);
-                if(s.isEmpty()){
+                System.out.println("onQueryTextSubmit:" + s);
+                if (s.isEmpty()) {
                     System.out.println("empty!");
-                    FriendsListAdapter friendsListAdapter = new FriendsListAdapter(allfriendsListItems, getContext());
+                    FriendsListAdapter friendsListAdapter = new FriendsListAdapter(
+                            allfriendsListItems, getContext());
                     listView.setAdapter(friendsListAdapter);
                     return false;
                 }
                 searchfriendsListItems.clear();
-                for(FriendsListItem item : allfriendsListItems){
-                    if(item.getUsername().contains(s))
-                    {
+                for (FriendsListItem item : allfriendsListItems) {
+                    if (item.getUsername().contains(s)) {
                         searchfriendsListItems.add(item);
                     }
                 }
-                FriendsListAdapter friendsListAdapter = new FriendsListAdapter(searchfriendsListItems, getContext());
+                FriendsListAdapter friendsListAdapter = new FriendsListAdapter(
+                        searchfriendsListItems, getContext());
                 listView.setAdapter(friendsListAdapter);
                 System.out.println("flush");
                 return true;
@@ -118,7 +116,7 @@ public class FriendsListFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
 
-                System.out.println("onQueryTextChange:"+s);
+                System.out.println("onQueryTextChange:" + s);
                 return onQueryTextSubmit(s);
             }
         });
@@ -129,21 +127,23 @@ public class FriendsListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(UserInfoAfterLogin.webSocketMessage){
+        if (UserInfoAfterLogin.webSocketMessage) {
             friendRequest.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             friendRequest.setVisibility(View.GONE);
         }
     }
 
-    private void OKGetFriends(){
+    private void OKGetFriends() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
                 formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
-                Request request = new Request.Builder().url(InternetConstant.host + "/Social/GetFriendsList").post(formBody.build()).build();
+                Request request = new Request.Builder()
+                        .url(InternetConstant.host + "/Social/GetFriendsList")
+                        .post(formBody.build()).build();
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
@@ -155,11 +155,11 @@ public class FriendsListFragment extends Fragment {
         }).start();
     }
 
-    private void GetFriends(String result) throws JSONException{
+    private void GetFriends(String result) throws JSONException {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("result:"+result);
+                System.out.println("result:" + result);
                 JSONObject jsonObject = null;
                 String str_data = null;
                 JSONArray jsonArray = null;
@@ -171,13 +171,16 @@ public class FriendsListFragment extends Fragment {
                     e.printStackTrace();
                 }
                 allfriendsListItems.clear();
-                for(int i = 0; i < jsonArray.length(); i++){
-                    System.out.println(i+" item");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    System.out.println(i + " item");
                     JSONObject item = null;
                     FriendsListItem listItem = null;
                     try {
                         item = (JSONObject) jsonArray.get(i);
-                        listItem = new FriendsListItem(Integer.valueOf(item.get("userId").toString()),String.valueOf(item.get("userIcon")),String.valueOf(item.get("username")));
+                        listItem = new FriendsListItem(
+                                Integer.valueOf(item.get("userId").toString()),
+                                String.valueOf(item.get("userIcon")),
+                                String.valueOf(item.get("username")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

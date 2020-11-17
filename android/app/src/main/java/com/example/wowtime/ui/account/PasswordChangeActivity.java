@@ -1,26 +1,21 @@
 package com.example.wowtime.ui.account;
 
-import androidx.appcompat.app.AppCompatActivity;
-import com.example.wowtime.R;
-import com.example.wowtime.ui.MainActivity;
-import com.example.wowtime.util.InternetConstant;
-import com.example.wowtime.util.UserInfoAfterLogin;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import androidx.appcompat.app.AppCompatActivity;
+import com.example.wowtime.R;
+import com.example.wowtime.ui.MainActivity;
+import com.example.wowtime.util.InternetConstant;
 import java.io.IOException;
-
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class PasswordChangeActivity extends AppCompatActivity {
 
@@ -43,9 +38,10 @@ public class PasswordChangeActivity extends AppCompatActivity {
         phone = getIntent().getStringExtra("phone");
     }
 
-    void OKHandsOn(){
-        if(!passwordInputView.getText().toString().equals(passwordConfirmView.getText().toString())){
-            Toast.makeText(getApplicationContext(),"密码不一致",Toast.LENGTH_SHORT).show();
+    void OKHandsOn() {
+        if (!passwordInputView.getText().toString()
+                              .equals(passwordConfirmView.getText().toString())) {
+            Toast.makeText(getApplicationContext(), "密码不一致", Toast.LENGTH_SHORT).show();
             return;
         }
         new Thread(new Runnable() {
@@ -53,9 +49,11 @@ public class PasswordChangeActivity extends AppCompatActivity {
             public void run() {
                 OkHttpClient client = new OkHttpClient();
                 FormBody.Builder formBody = new FormBody.Builder();
-                formBody.add("phone",phone);
-                formBody.add("password",passwordInputView.getText().toString());
-                Request request = new Request.Builder().url(InternetConstant.host + "/User/ResetPassword").post(formBody.build()).build();
+                formBody.add("phone", phone);
+                formBody.add("password", passwordInputView.getText().toString());
+                Request request = new Request.Builder()
+                        .url(InternetConstant.host + "/User/ResetPassword").post(formBody.build())
+                        .build();
                 try {
                     Response response = client.newCall(request).execute();
                     String result = response.body().string();
@@ -67,7 +65,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
         }).start();
     }
 
-    void handsOn(String result) throws JSONException{
+    void handsOn(String result) throws JSONException {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -80,10 +78,9 @@ public class PasswordChangeActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
                 toast.show();
-                if(msg.equals("success"))
-                {
+                if (msg.equals("success")) {
 //                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     Intent intent = new Intent(PasswordChangeActivity.this, MainActivity.class);
                     startActivity(intent);

@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.widget.RadioButton;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.StatisticSimple;
@@ -25,9 +22,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-
-
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,7 +40,7 @@ public class StatisticYearActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.statistic_year_activity);
         bar = (BarChart) findViewById(R.id.yearBar);
-        pomodoroSp=super.getSharedPreferences("pomodoro",MODE_PRIVATE);
+        pomodoroSp = super.getSharedPreferences("pomodoro", MODE_PRIVATE);
         //添加数据
 //        list.add(new BarEntry(1, 49.1f));
 //        list.add(new BarEntry(2,  35));
@@ -61,44 +55,41 @@ public class StatisticYearActivity extends AppCompatActivity {
 //        list.add(new BarEntry(11, 0));
 //        list.add(new BarEntry(12, 0));
         List<StatisticSimple> statisticSimples;
-        String s=pomodoroSp.getString("statisticYear","");
-        if(s.equals("")){
-            statisticSimples=new LinkedList<>();
-            Calendar c=Calendar.getInstance();
+        String s = pomodoroSp.getString("statisticYear", "");
+        if (s.equals("")) {
+            statisticSimples = new LinkedList<>();
+            Calendar c = Calendar.getInstance();
             c.setTime(new Date());
-            for(int i=0;i<12;++i){
-                c.set(Calendar.MONTH,i);
-                statisticSimples.add(new StatisticSimple(0,c));
+            for (int i = 0; i < 12; ++i) {
+                c.set(Calendar.MONTH, i);
+                statisticSimples.add(new StatisticSimple(0, c));
             }
-        }
-        else statisticSimples= JSONObject.parseArray(s,StatisticSimple.class);
+        } else { statisticSimples = JSONObject.parseArray(s, StatisticSimple.class); }
 
-        String s2=pomodoroSp.getString("unresolvedYear","");
+        String s2 = pomodoroSp.getString("unresolvedYear", "");
         List<StatisticSimple> unresolvedSimples;
-        if(!s2.equals("")){
-            unresolvedSimples=JSONObject.parseArray(s2,StatisticSimple.class);
-            for(StatisticSimple item:unresolvedSimples){
-                int position=item.getDay().get(Calendar.MONTH);
-                float y=statisticSimples.get(position).getHour();
-                statisticSimples.get(position).setHour(y+item.getHour());
+        if (!s2.equals("")) {
+            unresolvedSimples = JSONObject.parseArray(s2, StatisticSimple.class);
+            for (StatisticSimple item : unresolvedSimples) {
+                int position = item.getDay().get(Calendar.MONTH);
+                float y = statisticSimples.get(position).getHour();
+                statisticSimples.get(position).setHour(y + item.getHour());
             }
         }
 
-        System.out.println("test"+JSONObject.toJSONString(statisticSimples));
-        SharedPreferences.Editor editor=pomodoroSp.edit();
-        editor.putString("statisticYear",JSONObject.toJSONString(statisticSimples));
-        editor.putString("unresolvedYear","");
+        System.out.println("test" + JSONObject.toJSONString(statisticSimples));
+        SharedPreferences.Editor editor = pomodoroSp.edit();
+        editor.putString("statisticYear", JSONObject.toJSONString(statisticSimples));
+        editor.putString("unresolvedYear", "");
         editor.apply();
 
-        int max=0;
-        for(int i=0;i<12;++i){
-            float tmp=statisticSimples.get(i).getHour();
-            list.add(new BarEntry(i+1,tmp));
-            if(tmp>max)
-                max=(int)tmp;
+        int max = 0;
+        for (int i = 0; i < 12; ++i) {
+            float tmp = statisticSimples.get(i).getHour();
+            list.add(new BarEntry(i + 1, tmp));
+            if (tmp > max) { max = (int) tmp; }
         }
-        if(max==0)
-            max=10;
+        if (max == 0) { max = 10; }
 
         BarDataSet barDataSet = new BarDataSet(list, "label?");
         BarData barData = new BarData(barDataSet);
@@ -116,12 +107,12 @@ public class StatisticYearActivity extends AppCompatActivity {
         bar.getAxisRight().setEnabled(false);//隐藏右侧Y轴   默认是左右两侧都有Y轴
 
         //图例
-        Legend legend=bar.getLegend();
+        Legend legend = bar.getLegend();
         legend.setEnabled(false);    //是否显示图例
 //        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);    //图例的位置
 
         //X
-        XAxis xAxis=bar.getXAxis();
+        XAxis xAxis = bar.getXAxis();
 
         xAxis.setTextSize(14);
         xAxis.setAxisLineColor(ColorTemplate.JOYFUL_COLORS[0]);   //X轴颜色
@@ -136,10 +127,10 @@ public class StatisticYearActivity extends AppCompatActivity {
         xAxis.setAxisMaximum(12);   //X轴最大数值
         xAxis.setAxisMinimum(0);   //X轴最小数值
         //X轴坐标的个数    第二个参数一般填false     true表示强制设置标签数 可能会导致X轴坐标显示不全等问题
-        xAxis.setLabelCount(12,false);
+        xAxis.setLabelCount(12, false);
 
         //Y
-        YAxis AxisLeft=bar.getAxisLeft();
+        YAxis AxisLeft = bar.getAxisLeft();
         AxisLeft.setTextSize(14);
         AxisLeft.setDrawGridLines(false);  //是否绘制Y轴上的网格线（背景里面的横线）
         AxisLeft.setAxisLineColor(ColorTemplate.JOYFUL_COLORS[1]);  //Y轴颜色
@@ -155,25 +146,20 @@ public class StatisticYearActivity extends AppCompatActivity {
 //                return "";
 //            }
 //        });
-        System.out.println("statistic year max:"+max);
-        AxisLeft.setAxisMaximum(max-max%100+(max%100==0?0:100));   //Y轴最大数值
+        System.out.println("statistic year max:" + max);
+        AxisLeft.setAxisMaximum(max - max % 100 + (max % 100 == 0 ? 0 : 100));   //Y轴最大数值
         AxisLeft.setAxisMinimum(0);   //Y轴最小数值
         //Y轴坐标的个数    第二个参数一般填false     true表示强制设置标签数 可能会导致y轴坐标显示不全等问题
-        AxisLeft.setLabelCount(10,false);
+        AxisLeft.setLabelCount(10, false);
 
         //柱子
 //        barDataSet.setColor(Color.BLACK);  //柱子的颜色
         ArrayList<Integer> colors = new ArrayList<Integer>();
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
+        for (int c : ColorTemplate.VORDIPLOM_COLORS) { colors.add(c); }
+        for (int c : ColorTemplate.PASTEL_COLORS) { colors.add(c); }
+        for (int c : ColorTemplate.COLORFUL_COLORS) { colors.add(c); }
+        for (int c : ColorTemplate.LIBERTY_COLORS) { colors.add(c); }
+        for (int c : ColorTemplate.JOYFUL_COLORS) { colors.add(c); }
         barDataSet.setColors(colors);//设置柱子多种颜色  循环使用
         barDataSet.setBarBorderColor(Color.WHITE);//柱子边框颜色
         barDataSet.setBarBorderWidth(1);       //柱子边框厚度
@@ -185,9 +171,10 @@ public class StatisticYearActivity extends AppCompatActivity {
         //定义柱子上的数据显示    可以实现加单位    以及显示整数（默认是显示小数）
         barDataSet.setValueFormatter(new IValueFormatter() {
             @Override
-            public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
-                if (entry.getY()==v){
-                    return (int)v+"h";
+            public String getFormattedValue(float v, Entry entry, int i,
+                    ViewPortHandler viewPortHandler) {
+                if (entry.getY() == v) {
+                    return (int) v + "h";
                 }
                 return "";
             }
@@ -201,17 +188,17 @@ public class StatisticYearActivity extends AppCompatActivity {
         //动画（如果使用了动画可以则省去更新数据的那一步）
 //        bar.animateY(3000); //在Y轴的动画  参数是动画执行时间 毫秒为单位
 //        bar.animateX(2000); //X轴动画
-        bar.animateXY(1500,1500);//XY两轴混合动画
+        bar.animateXY(1500, 1500);//XY两轴混合动画
 
-        RadioButton radioButtonDay=findViewById(R.id.year_day);
-        radioButtonDay.setOnClickListener(v->{
+        RadioButton radioButtonDay = findViewById(R.id.year_day);
+        radioButtonDay.setOnClickListener(v -> {
 //            startActivity((new Intent
 //                (StatisticYearActivity.this, StatisticDayActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             startActivity(new Intent(StatisticYearActivity.this, StatisticDayActivity.class));
             finish();
         });
-        RadioButton radioButtonWeek=findViewById(R.id.year_week);
-        radioButtonWeek.setOnClickListener(v->{
+        RadioButton radioButtonWeek = findViewById(R.id.year_week);
+        radioButtonWeek.setOnClickListener(v -> {
 //            startActivity((new Intent
 //                    (StatisticYearActivity.this, StatisticWeekActivity.class)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             startActivity(new Intent(StatisticYearActivity.this, StatisticWeekActivity.class));
@@ -233,7 +220,7 @@ public class StatisticYearActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
+        if (actionBar != null) { actionBar.setDisplayHomeAsUpEnabled(true); }
         return super.onCreateOptionsMenu(menu);
     }
 }

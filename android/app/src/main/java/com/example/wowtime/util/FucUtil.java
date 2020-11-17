@@ -1,79 +1,75 @@
 package com.example.wowtime.util;
 
 import android.content.Context;
-
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class FucUtil {
+
     /**
      * 读取asset目录下文件。
+     *
      * @return content
      */
-    public static String readFile(Context mContext, String file, String code)
-    {
+    public static String readFile(Context mContext, String file, String code) {
         int len = 0;
-        byte []buf = null;
+        byte[] buf = null;
         String result = "";
         try {
             InputStream in = mContext.getAssets().open(file);
-            len  = in.available();
+            len = in.available();
             buf = new byte[len];
             in.read(buf, 0, len);
 
-            result = new String(buf,code);
+            result = new String(buf, code);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
+
     /**
      * 将字节缓冲区按照固定大小进行分割成数组
+     *
      * @param buffer 缓冲区
      * @param length 缓冲区大小
      * @param spsize 切割块大小
      * @return
      */
-    public static ArrayList<byte[]> splitBuffer(byte[] buffer, int length, int spsize)
-    {
+    public static ArrayList<byte[]> splitBuffer(byte[] buffer, int length, int spsize) {
         ArrayList<byte[]> array = new ArrayList<byte[]>();
-        if(spsize <= 0 || length <= 0 || buffer == null || buffer.length < length)
+        if (spsize <= 0 || length <= 0 || buffer == null || buffer.length < length) {
             return array;
+        }
         int size = 0;
-        while(size < length)
-        {
+        while (size < length) {
             int left = length - size;
-            if(spsize < left)
-            {
+            if (spsize < left) {
                 byte[] sdata = new byte[spsize];
-                System.arraycopy(buffer,size,sdata,0,spsize);
+                System.arraycopy(buffer, size, sdata, 0, spsize);
                 array.add(sdata);
                 size += spsize;
-            }else
-            {
+            } else {
                 byte[] sdata = new byte[left];
-                System.arraycopy(buffer,size,sdata,0,left);
+                System.arraycopy(buffer, size, sdata, 0, left);
                 array.add(sdata);
                 size += left;
             }
         }
         return array;
     }
+
     /**
-     * 获取语记是否包含离线听写资源，如未包含跳转至资源下载页面
-     *1.PLUS_LOCAL_ALL: 本地所有资源
-     2.PLUS_LOCAL_ASR: 本地识别资源
-     3.PLUS_LOCAL_TTS: 本地合成资源
+     * 获取语记是否包含离线听写资源，如未包含跳转至资源下载页面 1.PLUS_LOCAL_ALL: 本地所有资源 2.PLUS_LOCAL_ASR: 本地识别资源
+     * 3.PLUS_LOCAL_TTS: 本地合成资源
      */
-    public static String checkLocalResource(){
+    public static String checkLocalResource() {
         String resource = SpeechUtility.getUtility().getParameter(SpeechConstant.PLUS_LOCAL_ASR);
         try {
             JSONObject result = new JSONObject(resource);
@@ -85,7 +81,8 @@ public class FucUtil {
                         int i = 0;
                         // 查询否包含离线听写资源
                         for (; i < asrArray.length(); i++) {
-                            if("iat".equals(asrArray.getJSONObject(i).get(SpeechConstant.DOMAIN))){
+                            if ("iat"
+                                    .equals(asrArray.getJSONObject(i).get(SpeechConstant.DOMAIN))) {
                                 //asrArray中包含语言、方言字段，后续会增加支持方言的本地听写。
                                 //如："accent": "mandarin","language": "zh_cn"
                                 break;
@@ -96,7 +93,7 @@ public class FucUtil {
                             SpeechUtility.getUtility().openEngineSettings(SpeechConstant.ENG_ASR);
                             return "没有听写资源，跳转至资源下载页面";
                         }
-                    }else {
+                    } else {
                         SpeechUtility.getUtility().openEngineSettings(SpeechConstant.ENG_ASR);
                         return "没有听写资源，跳转至资源下载页面";
                     }
