@@ -60,16 +60,21 @@ public class StatisticDayActivity extends AppCompatActivity {
         String statisticString=pomodoroSp.getString("statistic","");
         List<StatisticDayItem> statisticDayItems= JSON.parseArray(statisticString,StatisticDayItem.class);
         List<Integer> removedIndex=new LinkedList<>();
+        Calendar beginCalendar=Calendar.getInstance();
+        Calendar nowCalendar=Calendar.getInstance();
         Date now=new Date();
+        nowCalendar.setTime(now);
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         for(int i=0;i<statisticDayItems.size();++i){
             StatisticDayItem item=statisticDayItems.get(i);
             Date begin=item.getBegin();
-            if(begin.getYear()!=now.getYear()){
+            beginCalendar.setTime(begin);
+            if(beginCalendar.get(Calendar.YEAR)!=nowCalendar.get(Calendar.YEAR)){
                 removedIndex.add(i);
                 continue;
             }
-            if(begin.getDay()==now.getDay()||begin.getYear()==now.getYear()||begin.getMonth()==now.getMonth()){
+            if((beginCalendar.get(Calendar.DAY_OF_MONTH)==nowCalendar.get(Calendar.DAY_OF_MONTH))&&
+                    (beginCalendar.get(Calendar.MONTH)==nowCalendar.get(Calendar.MONTH))){
                 System.out.println("StatisticDay: today"+item.getName());
                 list.add(new PieEntry(item.getMinute()+item.getHour(),item.getName(),
                         sdf.format(begin)+"-"+sdf.format(item.getEnd())));
