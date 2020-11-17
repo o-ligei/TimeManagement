@@ -28,11 +28,17 @@ public class TaskListActivity extends AppCompatActivity {
 
         ArrayList<TaskListItem> taskListItems = new ArrayList<>();
 
-        taskListItems.add(new TaskListItem("随机"));
-        taskListItems.add(new TaskListItem("快速算算算"));
-        taskListItems.add(new TaskListItem("使劲摇摇摇"));
-        taskListItems.add(new TaskListItem("努力吹吹吹"));
+//        taskListItems.add(new TaskListItem("随机"));
+//        taskListItems.add(new TaskListItem("快速算算算"));
+//        taskListItems.add(new TaskListItem("使劲摇摇摇"));
+//        taskListItems.add(new TaskListItem("努力吹吹吹"));
 
+        taskListItems.add(new TaskListItem(getResources().getString(R.string.calculate_game_setting_header)));
+        taskListItems.add(new TaskListItem(getResources().getString(R.string.shaking_game_setting_header)));
+        taskListItems.add(new TaskListItem(getResources().getString(R.string.blowing_game_setting_header)));
+        taskListItems.add(new TaskListItem(getResources().getString(R.string.random_game_setting_header)));
+        taskListItems.add(new TaskListItem(getResources().getString(R.string.tapping_game_setting_header)));
+        taskListItems.add(new TaskListItem(getResources().getString(R.string.Answering_game_setting_header)));
         TaskItemAdapter taskItemAdapter = new TaskItemAdapter(taskListItems,getApplicationContext());
 
         ListView listView = (ListView) findViewById(R.id.task_list);

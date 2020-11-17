@@ -121,6 +121,7 @@
     <string name="random_game_setting_header">Random Number Game Setting</string>
     <string name="calculate_game_setting_header">Calculating Game Setting</string>
     <string name="tapping_game_setting_header">Tapping Game Setting</string>
+    <string name="Answering_game_setting_header">Answering Game Setting</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
