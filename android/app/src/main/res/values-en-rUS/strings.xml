@@ -48,6 +48,8 @@
     <string name="ring_setting_title">Setting ring</string>
     <string name="game_setting_title">Select game</string>
     <string name="alarm_list_title">alarm</string>
+    <string name="sleep_assist_title">sleep assist</string>
+    <string name="sleep_assist_default">closed</string>
 
     <!-- Strings used for pomomdoro setting-->
     <string name="pomodoro_setting_title">Setting pomorodo</string>
@@ -74,6 +76,7 @@
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>
     <string name="navigation_login">Log in</string>
+    <string name="navigation_sunflower">Sunflower</string>
     <string name="navigation_clock">Alarm</string>
     <string name="navigation_away_from_phone">Away from phone</string>
     <string name="navigation_friends">Friends</string>
@@ -200,5 +203,5 @@
     <string name="username">Username:</string>
     <string name="phonenumber">Phone:</string>
     <string name="email">Email:</string>
-    <string name="credit">Growth:</string>
+    <string name="credit">Accumulation:</string>
 </resources>

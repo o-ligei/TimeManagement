@@ -39,7 +39,7 @@ public class Credit {
         formBody.add("userid", UserInfoAfterLogin.userid.toString());
         formBody.add("event", eventName+" "+n);
         formBody.add("timestamp",sdf.format(date));
-        formBody.add("earn", String.valueOf(n));
+//        formBody.add("earn", String.valueOf(n));
 
         /*handler*/
         android.os.Handler handler = new Handler(message -> {
@@ -52,26 +52,6 @@ public class Credit {
                 else{
                     System.out.println("save detail failed");
                 }
-//                String result = (String) msg.obj;
-//                JSONObject jsonObject = null;
-//                try {
-//                    jsonObject = new JSONObject(result);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                String message = null;
-//                try {
-//                    message = jsonObject.get("msg").toString();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                assert message != null;
-//                if(message.equals("success")){
-//                    System.out.println("save detail success");
-//                }
-//                else{
-//                    System.out.println("save detail failed");
-//                }
             }
             return false;
         });
@@ -80,4 +60,29 @@ public class Credit {
         ajax.fetch();
     }
 
+    public void addScore(int n) {
+        /*timestamp*/
+        System.out.println("add score");
+        FormBody.Builder formBody = new FormBody.Builder();
+        formBody.add("userid", UserInfoAfterLogin.userid.toString());
+        formBody.add("earn", String.valueOf(n));
+
+        /*handler*/
+        android.os.Handler handler = new Handler(message -> {
+            if (message.what == InternetConstant.FETCH) {
+                String msg= message.getData().get("msg").toString();
+                String data=message.getData().get("data").toString();
+                if(msg.equals("success")){
+                    System.out.println("add score success");
+                }
+                else{
+                    System.out.println("add score failed");
+                }
+            }
+            return false;
+        });
+
+        Ajax ajax=new Ajax("/Detail/AddScore",formBody,handler,InternetConstant.FETCH);
+        ajax.fetch();
+    }
 }

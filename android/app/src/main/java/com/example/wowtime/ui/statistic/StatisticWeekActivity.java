@@ -7,16 +7,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.RadioButton;
-
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
-import com.example.wowtime.dto.StatisticSimple;
+import com.example.wowtime.dto.StatisticDayItem;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -30,15 +28,11 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-
-import static android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP;
 
 public class StatisticWeekActivity extends AppCompatActivity {
 
@@ -63,38 +57,33 @@ public class StatisticWeekActivity extends AppCompatActivity {
 //        list.add(new BarEntry(7, 24,"Amazing!!!"));
         for(int i =1;i<8;++i)
             list.add(new BarEntry(i,0,"day"+i));
-        String statisticString=pomodoroSp.getString("unresolvedWeek","");
-        List<StatisticSimple> statisticSimples;
+        String statisticString=pomodoroSp.getString("statistic","");
+        List<StatisticDayItem> statisticDayItems;
         if(statisticString.equals(""))
-            statisticSimples=new LinkedList<>();
+            statisticDayItems=new LinkedList<>();
         else
-            statisticSimples= JSON.parseArray(statisticString,StatisticSimple.class);
-        Calendar day=Calendar.getInstance();
-        day.set(Calendar.DAY_OF_YEAR, day.get(Calendar.DAY_OF_YEAR) - 7);
+            statisticDayItems=JSON.parseArray(statisticString,StatisticDayItem.class);
+
+        Calendar now=Calendar.getInstance();
+        now.set(Calendar.DAY_OF_YEAR, now.get(Calendar.DAY_OF_YEAR) - 7);
         float max=0;
-        //System.out.println("test"+day.get(Calendar.DAY_OF_YEAR));
-        Set<Integer> removed=new HashSet<>();
-        for(int i=0;i<statisticSimples.size();++i){
-            StatisticSimple simple=statisticSimples.get(i);
-            if(simple.getDay().before(day)){
-                System.out.println("statisticWeek: not recently 7 days");
-                removed.add(i);
-//                statisticSimples.remove(simple);
+        for(StatisticDayItem item:statisticDayItems){
+            Calendar itemCalendar=Calendar.getInstance();
+            itemCalendar.setTime(item.getBegin());
+            if(itemCalendar.before(now))
                 continue;
-            }
-            int position=simple.getDay().get(Calendar.DAY_OF_YEAR)-day.get(Calendar.DAY_OF_YEAR);
-            System.out.println("statisticWeek: position"+position);
+            int position=itemCalendar.get(Calendar.DAY_OF_YEAR)-now.get(Calendar.DAY_OF_YEAR);
+            System.out.println("statisticWeek: position"+position+item.getName());
             position--;
-            float y=list.get(position).getY();
-            list.get(position).setY(y+(float) (Math.round(simple.getHour()*100))/100);
-            if(list.get(position).getY()>max){
+            float oldy=list.get(position).getY();
+            float deltay=(float)item.getMinute()/60;
+            float newy=oldy+item.getHour()+deltay;
+            BigDecimal bg = new BigDecimal(newy);
+            list.get(position).setY((float) bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            if(list.get(position).getY()>max)
                 max=list.get(position).getY();
-            }
         }
-        for(Integer i:removed)
-            statisticSimples.remove(i);
-        SharedPreferences.Editor editor=pomodoroSp.edit();
-        editor.putString("unresolvedWeek", JSONObject.toJSONString(statisticSimples));
+
         max*=2;
         if(max<1)max=1;
         if(max>24)max=24;
@@ -190,9 +179,7 @@ public class StatisticWeekActivity extends AppCompatActivity {
             @Override
             public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
                 if (entry.getY()==v){
-
                     return v+"h";
-
                 }
                 return "";
             }

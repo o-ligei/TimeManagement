@@ -23,6 +23,10 @@
             android:icon="@drawable/ic_round_person_24"
             android:title="@string/navigation_person_info" />
         <item
+            android:id="@id/navigation_sunflower"
+            android:icon="@drawable/ic_round_brightness_high_24"
+            android:title="@string/navigation_sunflower" />
+        <item
             android:id="@id/navigation_clock"
             android:icon="@drawable/ic_round_alarm_on_24"
             android:title="@string/navigation_clock" />

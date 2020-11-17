@@ -47,6 +47,8 @@
     <string name="ring_setting_title">设置铃声</string>
     <string name="game_setting_title">设置小游戏</string>
     <string name="alarm_list_title">闹钟</string>
+    <string name="sleep_assist_title">睡眠助手</string>
+    <string name="sleep_assist_default">关闭</string>
 
     <!-- Strings used for pomomdoro setting-->
     <string name="pomodoro_setting_title">设置远离手机任务</string>
@@ -77,6 +79,7 @@
     <!--strings for navigation-->
     <string name="navigation_person_info">个人信息</string>
     <string name="navigation_login">登录</string>
+    <string name="navigation_sunflower">向日葵</string>
     <string name="navigation_clock">闹钟</string>
     <string name="navigation_away_from_phone">远离手机</string>
     <string name="navigation_friends">好友</string>
@@ -193,5 +196,5 @@
     <string name="username">用户名:</string>
     <string name="phonenumber">手机号:</string>
     <string name="email">邮箱:</string>
-    <string name="credit">成长值:</string>
+    <string name="credit">养分:</string>
 </resources>

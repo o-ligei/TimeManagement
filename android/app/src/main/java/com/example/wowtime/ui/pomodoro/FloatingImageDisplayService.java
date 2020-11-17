@@ -22,6 +22,8 @@ import androidx.annotation.RequiresApi;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
+import com.example.wowtime.service.Accumulation;
+import com.example.wowtime.service.Credit;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -113,14 +115,15 @@ public class FloatingImageDisplayService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!isCanceled) {
-            int work=0,rest=0;
+            int work=0,rest=0,sleep=0;
             if(intent!=null) {
                 work = intent.getIntExtra("work", 0);
                 rest = intent.getIntExtra("rest", 0);
+                sleep=intent.getIntExtra("sleep",0);
             }
             System.out.println("work:" + work);
             System.out.println("rest:" + rest);
-            if (work != 0) showFloatingWindow(work, rest);
+            if (work != 0) showFloatingWindow(work, rest,sleep);
         }
         return super.onStartCommand(intent, flags, startId);
     }
@@ -162,7 +165,7 @@ public class FloatingImageDisplayService extends Service {
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void showFloatingWindow(int workTime, int restTime) {
+    public void showFloatingWindow(int workTime, int restTime,int sleep) {
         showFloatingWindowPrepare();
 
         Handler workHandler = new Handler(), restHanlder = new Handler(), monitorHandler=new Handler();
@@ -217,7 +220,7 @@ public class FloatingImageDisplayService extends Service {
                     @Override
                     public void run() {
                         String currentApp = ApkTool.getTaskPackname(getApplication());
-                        System.out.println("Current Runnning: " + currentApp);
+//                        System.out.println("Current Runnning: " + currentApp);
                         if (currentApp.equals("CurrentNULL"))
                             startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK));
                         if (!isAppInWhitelist(currentApp) && !currentApp.equals("com.example.wowtime")&&!isInRest)
@@ -258,11 +261,28 @@ public class FloatingImageDisplayService extends Service {
             }
         };
 
-        workTimer.schedule(workTimerTask, 0, restTime + workTime);
-        restTimer.schedule(restTimerTask, workTime, workTime + restTime);
-        timingTimer.schedule(timingTask, 0, 1000);
-        monitorTimer.schedule(monitorTimerTask,1000,1000);
-        System.out.println("begin 3 timers in floatingDisplayService");
+        if(sleep==0) {
+            workTimer.schedule(workTimerTask, 0, restTime + workTime);
+            restTimer.schedule(restTimerTask, workTime, workTime + restTime);
+            timingTimer.schedule(timingTask, 0, 1000);
+            monitorTimer.schedule(monitorTimerTask, 1000, 1000);
+            System.out.println("begin 3 timers in floatingDisplayService");
+        }
+        else{
+            workTimer.schedule(workTimerTask, 0,  workTime);
+            new Thread(){
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        sleep(workTime-60*1000);
+                    } catch (InterruptedException e) {
+                        System.out.println("interrupted when sleep alarm");
+                    }
+                    onDestroy();
+                }
+            }.start();
+        }
     }
 
     private boolean isAppInWhitelist(String app) {
@@ -285,6 +305,8 @@ public class FloatingImageDisplayService extends Service {
         workTimerTask.cancel();
         restTimer.cancel();
         restTimerTask.cancel();
+        monitorTimer.cancel();
+        monitorTimerTask.cancel();
 
         try {
             windowManager.removeView(displayView);
@@ -292,6 +314,11 @@ public class FloatingImageDisplayService extends Service {
             System.out.println("it's in rest or whitelist\n" + e.toString());
         }
 
+//        Credit credit=new Credit();
+//        credit.modifyCredit(100,"away from phone");
+//        Accumulation accumulation=new Accumulation(getApplicationContext());
+//        accumulation.addAccumulation(100);
+//        System.out.println("accumulation: "+accumulation.getAccumulation());
         System.out.println("onDestroy finish");
     }
 
