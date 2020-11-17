@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 import android.widget.ImageView;
 
@@ -24,8 +23,6 @@ import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 
 import org.json.JSONException;
-
-import okhttp3.FormBody;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -62,8 +59,6 @@ public class PersonInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
-    @SuppressLint("ResourceType")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
