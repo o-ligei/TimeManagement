@@ -46,16 +46,12 @@ public class StatisticWeekActivity extends AppCompatActivity {
         pomodoroSp = super.getSharedPreferences("pomodoro", MODE_PRIVATE);
         //添加数据
 //        list.add(new BarEntry(1, 8.1f,"今日事今日毕"));
-//        list.add(new BarEntry(2,  19.5f,"perfect day"));
-//        list.add(new BarEntry(3, 12));
-//        list.add(new BarEntry(4, 18,"坚持就是胜利"));
-//        list.add(new BarEntry(5, 6));
-//        list.add(new BarEntry(6, 0));
-//        list.add(new BarEntry(7, 24,"Amazing!!!"));
         for (int i = 1; i < 8; ++i) { list.add(new BarEntry(i, 0, "day" + i)); }
         String statisticString = pomodoroSp.getString("statistic", "");
         List<StatisticDayItem> statisticDayItems;
-        if (statisticString.equals("")) { statisticDayItems = new LinkedList<>(); } else {
+        if (statisticString.equals("")) {
+            statisticDayItems = new LinkedList<>();
+        } else {
             statisticDayItems = JSON.parseArray(statisticString, StatisticDayItem.class);
         }
 
