@@ -18,7 +18,7 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
-import org.json.JSONObject;
+import com.alibaba.fastjson.JSONObject;
 
 import android.app.Notification;
 import android.os.Build;
@@ -37,21 +37,20 @@ public class TWebSocketClient extends WebSocketClient {
     private Handler handler = new Handler(message -> {
         if (message.what == 1) {
             String response = (String) message.obj;
-//            System.out.println("getData:"+message.getData());
-//            System.out.println(response);
-//            String msg = null;
-//            try {
-//                msg = response.getString("msg");
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-            Toast toast = Toast.makeText(ContextUtil.getInstance(),response,Toast.LENGTH_SHORT);
+            JSONObject jsonObject = JSONObject.parseObject(response);
+            System.out.println("response:"+response);
+            String msg = null;
+            msg = jsonObject.getString("msg");
+//            Toast toast = Toast.makeText(ContextUtil.getInstance(),response,Toast.LENGTH_SHORT);
 //            String msg = message.getData().get("msg").toString();
 //            String data = message.getData().get("data").toString();
 //            Toast toast = Toast.makeText(ContextUtil.getInstance(),msg,Toast.LENGTH_SHORT);
-            toast.show();
-//            if(msg.equals("remain friend request"))
-            UserInfoAfterLogin.webSocketMessage = true;
+//            toast.show();
+            if(msg.equals("remain friend request") || msg.equals("new friend request"))
+                UserInfoAfterLogin.webSocketMessage = true;
+//            Intent intent = new Intent();
+//            intent.setAction("friend request");
+//            sendBroadcast(intent);
         }
         return false;
     });

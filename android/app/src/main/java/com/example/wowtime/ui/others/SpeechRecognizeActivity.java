@@ -333,15 +333,17 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
 
         boolean single = true;
         int day = -1,hour = -1;
-        String [][] week_words = new String[][]{{"每周一","每周1"},{"每周二","每周2"},{"每周三","每周3"},
-                {"每周四","每周4"},{"每周五","每周5"},{"每周六","每周6"},{"每周日","每周末"}};
+        String [][] week_words = new String[][]{{"周一","周1",},{"周二","周2"},{"周三","周3"},
+                {"周四","每周4"},{"周五","周5"},{"周六","周6"},{"周日","周末"}};
 
         String[][] clock_words = new String[][]{{"0点","零点","0:00"},{"1点","一点","1:00"},{"2点","两点","2:00"},{"3点","三点","3:00"},{"4点","四点","4:00"},
                 {"5点","五点","5:00"},{"6点","六点","6:00"},{"7点","七点","7:00"},{"8点","八点","8:00"},{"9点","九点","9:00"},{"10点","十点","10:00"}
-                ,{"11点","十一点","11:00"},{"12点","十二点","12:00"},{"13点","十三点","13:00"},{"14点","十四点","14:00"},{"15点","十五点","15:00"},{"16点","十六点","16:00"}
-                ,{"17点","十七点","17:00"},{"18点","十八点","18:00"},{"19点","十九点","19:00"},{"20点","二十点","20:00"},{"21点","二十一点","21:00"},{"22点","二十二点","22:00"},{"23点","二十三点","23:00"}};
+                ,{"11点","十一点","11:00"},{"12点","十二点","12:00"},{"13点","十三点","13:00","中午1点"},{"14点","十四点","14:00","中午2点"},{"15点","十五点","15:00","下午3点"},{"16点","十六点","16:00","下午4点"}
+                ,{"17点","十七点","17:00","下午5点"},{"18点","十八点","18:00","下午6点"},{"19点","十九点","19:00","晚上7点"},{"20点","二十点","20:00","晚上8点"},
+                {"21点","二十一点","21:00","晚上9点"},{"22点","二十二点","22:00","晚上10点"},{"23点","二十三点","23:00","晚上11点"}};
 
         String alarm_key_words = "闹钟";
+        System.out.println(resultBuffer);
         if(resultBuffer.indexOf(alarm_key_words) != -1){
             for(int j = 0 ; j < 7; j++){
                 boolean flag = false;
@@ -356,9 +358,9 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
                 if(flag)
                     break;
             }
-            for(int j = 0; j < 24 ; j++){
+            for(int j = 23; j >= 0 ; j--){
                 boolean flag = false;
-                for (int i = 0 ; i < 3; i++){
+                for (int i = 0 ; i < 4; i++){
                     if(resultBuffer.indexOf(clock_words[j][i])!=-1){
                         hour = j;
                         flag = true;
@@ -373,11 +375,11 @@ public class SpeechRecognizeActivity extends Activity implements View.OnClickLis
         if(cnt == 0){
             if((single && hour != -1)||(!single && day != -1 && hour != -1)){
                 System.out.println("不重复："+single+"，星期"+day+"，"+hour+"点");
-                showTip("不重复："+single+"，星期"+day+"，"+hour+"点");
+//                showTip("不重复："+single+"，星期"+day+"，"+hour+"点");
                 AddAlarm addAlarm = new AddAlarm(single,day,hour,getApplicationContext());
                 addAlarm.storeAlarm();
                 cnt++;
-                startActivity(new Intent(SpeechRecognizeActivity.this, MainActivity.class));
+//                startActivity(new Intent(SpeechRecognizeActivity.this, MainActivity.class));
                 finish();
             }else {
                 showTip("输入不规范");

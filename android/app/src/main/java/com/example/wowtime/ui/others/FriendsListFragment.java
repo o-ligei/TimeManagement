@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,11 +55,25 @@ public class FriendsListFragment extends Fragment {
         super(contentLayoutId);
     }
 
+    private class FriendRequestReceiver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onResume();
+        }
+    }
+    private FriendRequestReceiver friendRequestReceiver;
+    private IntentFilter intentFilter;
+
+//    private void doRegisterReceiver() {
+//        friendRequestReceiver = new FriendRequestReceiver();
+//        intentFilter = new IntentFilter("friend request");
+//        registerReceiver(friendRequestReceiver, intentFilter);
+//    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Nullable
@@ -71,12 +88,8 @@ public class FriendsListFragment extends Fragment {
         listView.setAdapter(friendsListAdapter);
 
         friendRequest = root.findViewById(R.id.friend_notice);
-        if(UserInfoAfterLogin.webSocketMessage){
-            friendRequest.setVisibility(View.VISIBLE);
-            friendRequest.setOnClickListener(v -> startActivity(new Intent(getActivity(), InternetFriendRequestActivity.class)));
-        }else{
-            friendRequest.setVisibility(View.GONE);
-        }
+
+        friendRequest.setOnClickListener(v -> startActivity(new Intent(getActivity(), InternetFriendRequestActivity.class)));
 
         searchText.setOnQueryTextListener(new OnQueryTextListener(){
 
@@ -111,6 +124,16 @@ public class FriendsListFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(UserInfoAfterLogin.webSocketMessage){
+            friendRequest.setVisibility(View.VISIBLE);
+        }else{
+            friendRequest.setVisibility(View.GONE);
+        }
     }
 
     private void OKGetFriends(){
