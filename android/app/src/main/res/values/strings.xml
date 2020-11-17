@@ -196,5 +196,5 @@
     <string name="username">用户名:</string>
     <string name="phonenumber">手机号:</string>
     <string name="email">邮箱:</string>
-    <string name="credit">成长值:</string>
+    <string name="credit">养分:</string>
 </resources>

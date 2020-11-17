@@ -71,7 +71,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.alarm.RingSettingActivity" />
         <activity android:name=".ui.alarm.TaskListActivity" />
-        <activity android:name=".ui.alarm.TaskSuccessActivity" />
+        <activity android:name=".ui.alarm.TaskSuccessActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.pomodoro.WhiteListActivity" />
         <activity android:name=".ui.account.RegisterActivity" />
         <activity android:name=".ui.account.LoginActivityWithPasswordActivity" />

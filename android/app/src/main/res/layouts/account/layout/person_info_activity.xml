@@ -10,159 +10,204 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-
-        <ImageView
-            android:id="@+id/UserIcon"
-            android:layout_width="86dp"
-            android:layout_height="86dp"
-            android:layout_marginTop="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-        <TextView
-            android:id="@+id/UsernameTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ziliuziliu"
-            android:textSize="24sp"
-            android:layout_marginStart="50dp"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toBottomOf="@id/UserIcon"
-            app:layout_constraintStart_toEndOf="@id/UserIcon" />
-
-
-        <TextView
-            android:id="@+id/Username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ziliuziliu"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/UserIcon"
-            app:layout_constraintTop_toBottomOf="@id/UserIcon"
-             android:layout_marginTop="80dp"
-            android:layout_marginStart="50dp"/>
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/username"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/Username"
-            app:layout_constraintTop_toTopOf="@id/Username"
-            android:layout_marginEnd="10dp"
-            />
-        <ImageView
-            android:id="@+id/modifyUsername"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/Username"
-            android:layout_marginEnd="70dp"
-            app:srcCompat="@drawable/ic_baseline_build_24" />
-
-
-        <TextView
-            android:id="@+id/PhoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="13615519527"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/Username"
-            app:layout_constraintTop_toBottomOf="@id/Username"
-            android:layout_marginTop="30dp"
-            />
-        <TextView
-            android:id="@+id/phonenumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phonenumber"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/PhoneNumber"
-            app:layout_constraintTop_toTopOf="@id/PhoneNumber"
-            android:layout_marginEnd="10dp"
-            />
-        <ImageView
-            android:id="@+id/modifyPhoneNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/PhoneNumber"
-            android:layout_marginEnd="70dp"
-            app:srcCompat="@drawable/ic_baseline_build_24" />
-
-
-        <TextView
-            android:id="@+id/Email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ziliuziliu@sjtu.edu.cn"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/PhoneNumber"
-            app:layout_constraintTop_toBottomOf="@id/PhoneNumber"
-            android:layout_marginTop="30dp"
-            />
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/Email"
-            app:layout_constraintTop_toTopOf="@id/Email"
-            android:layout_marginEnd="10dp"
-            />
-        <ImageView
-            android:id="@+id/modifyEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/Email"
-            android:layout_marginEnd="70dp"
-            app:srcCompat="@drawable/ic_baseline_build_24" />
-
-
-        <TextView
-            android:id="@+id/Credit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="152"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/Email"
-            app:layout_constraintTop_toBottomOf="@id/Email"
-            android:layout_marginTop="30dp"
-            />
-        <TextView
-            android:id="@+id/credit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/credit"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/Credit"
-            app:layout_constraintTop_toTopOf="@id/Credit"
-            android:layout_marginEnd="10dp"
-            />
-
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="87dp">
 
         <TextView
             android:id="@+id/forgetPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
             android:text="@string/forget_password"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="150dp"
             android:textColor="@color/secondary_text"
-            />
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/UserIcon"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:layout_marginStart="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/UsernameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:text="ziliuziliu"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+
+            <TextView
+                android:id="@+id/credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="@string/credit"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:text="152"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/credit"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+            tools:layout_editor_absoluteX="150dp">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="@string/username"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:text="ziliuziliu"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/username"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/modifyUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_build_24" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+            <TextView
+                android:id="@+id/phonenumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="@string/phonenumber"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/PhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:text="13615519527"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/phonenumber"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/modifyPhoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_build_24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:text="@string/email"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/Email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:text="ziliuziliu@sjtu.edu.cn"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/email"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/modifyEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_build_24" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
 <!--        android:id="@+id/Layout1"-->
 <!--        android:layout_width="414dp"-->
 <!--        android:layout_height="300dp"-->

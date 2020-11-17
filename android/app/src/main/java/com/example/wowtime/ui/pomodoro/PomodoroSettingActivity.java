@@ -25,7 +25,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
 import com.example.wowtime.dto.StatisticDayItem;
+import com.example.wowtime.service.Accumulation;
+import com.example.wowtime.service.Credit;
 import com.example.wowtime.ui.alarm.TaskSuccessActivity;
+import com.example.wowtime.util.InternetConstant;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -141,6 +144,10 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     FloatingImageDisplayService.setTime(0);
                     System.out.println("cancel successfully?");
                     runOnUiThread(() -> {
+                        Credit credit=new Credit();
+                        credit.modifyCredit(InternetConstant.away_from_phone,"awayFromPhone");
+                        Accumulation accumulation=new Accumulation(getApplicationContext());
+                        accumulation.addAccumulation(InternetConstant.away_from_phone);
                         startActivity(new Intent(PomodoroSettingActivity.this, TaskSuccessActivity.class));
                     });
 

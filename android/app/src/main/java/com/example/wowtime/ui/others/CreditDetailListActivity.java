@@ -73,8 +73,8 @@ public class CreditDetailListActivity extends AppCompatActivity {
             if (message.what == InternetConstant.FETCH) {
                 String msg= message.getData().get("msg").toString();
                 String data=message.getData().get("data").toString();
-//                System.out.println("msg: "+msg);
-//                System.out.println("data: "+data);
+                System.out.println("msg: "+msg);
+                System.out.println("data: "+data);
                 if(msg.equals("success")){
                     JSONArray jsArr = JSONObject.parseArray(data);
                     for(int i=0;i<jsArr.size();i++){
