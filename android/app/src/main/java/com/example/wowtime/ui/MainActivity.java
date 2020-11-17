@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
         setSupportActionBar(binding.toolbarMain);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_person_info,R.id.navigation_clock,R.id.navigation_away_from_phone,R.id.navigation_friends,
+                R.id.navigation_person_info,R.id.navigation_sunflower,R.id.navigation_clock,R.id.navigation_away_from_phone,R.id.navigation_friends,
                 R.id.navigation_statistics,R.id.navigation_achievement).setDrawerLayout(binding.drawer).build();
         binding.fragmentMain.post(() -> {
             NavController navController = Navigation.findNavController(this, R.id.fragment_main);
