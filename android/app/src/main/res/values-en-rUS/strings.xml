@@ -201,14 +201,4 @@
     <string name="phonenumber">Phone:</string>
     <string name="email">Email:</string>
     <string name="credit">Growth:</string>
-    <!--    <string name="text_begin_ise">开始音频流评测</string>-->
-    <!--    <string name="text_upload_contacts">上传联系人</string>-->
-    <!--    <string name="text_upload_userwords">上传用户词表</string>-->
-    <!--    <string name="text_upload_success">上传成功</string>-->
-    <!--    <string name="text_userword_empty">词表下载失败或内容为空</string>-->
-    <!--    <string name="text_download_success">下载成功</string>-->
-    <!--    <string name="pref_key_iat_show">iat_show</string>-->
-    <!--    <string name="pref_title_iat_show">显示听写界面</string>-->
-    <!--    <string name="text_show_contacts">上传联系人/词表显示</string>-->
-    <!--    <string name="text_show_iat_result">听写结果显示</string>-->
 </resources>
