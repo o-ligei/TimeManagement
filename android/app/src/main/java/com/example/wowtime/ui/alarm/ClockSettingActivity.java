@@ -33,11 +33,15 @@ public class ClockSettingActivity extends AppCompatActivity {
     private List<Boolean> frequency;
     private int Hour;
     private int Minute;
+    private int sleepHour;
+    private int sleepMinute;
+    private boolean sleepFlag;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*initialize*/
         tag=this.getString(R.string.alarm_list_title);
         game=this.getString(R.string.clock_setting_game_default);
         ring="雷达";
@@ -48,6 +52,10 @@ public class ClockSettingActivity extends AppCompatActivity {
         }
         Hour=0;
         Minute=0;
+        sleepFlag=false;
+        sleepHour=0;
+        sleepMinute=0;
+
         Intent intent=getIntent();
         position=intent.getIntExtra("position",-1);
         //navigate from existed alarm
@@ -66,7 +74,11 @@ public class ClockSettingActivity extends AppCompatActivity {
             frequency=alarm.getFrequency();
             Hour=alarm.getHour();
             Minute=alarm.getMinute();
+            sleepFlag=alarm.getSleepFlag();
+            sleepHour=alarm.getSleepHour();
+            sleepMinute=alarm.getSleepMinute();
         }
+
         setContentView(R.layout.clock_setting_activity);
         Button gameSetting=findViewById(R.id.GameSetting);
         gameSetting.setText(game);
@@ -89,7 +101,7 @@ public class ClockSettingActivity extends AppCompatActivity {
         Button repeatBtn=findViewById(R.id.ClockRepeatButton);
         repeatBtn.setOnClickListener(v->startActivity(new Intent(ClockSettingActivity.this, ClockFrequencyActivity.class)));
 
-        TimePicker timePicker=findViewById(R.id.timePicker);
+        TimePicker timePicker=findViewById(R.id.alarmtimePicker);
         timePicker.setIs24HourView(true);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
@@ -111,6 +123,9 @@ public class ClockSettingActivity extends AppCompatActivity {
 //                System.out.println("alarmList:"+shared);
                 List<AlarmListItem> alarmList=new ArrayList<>();
                 AlarmListItem alarm=new AlarmListItem(tag,frequency,game,ring,Hour,Minute);
+                alarm.setSleepFlag(sleepFlag);
+                alarm.setSleepHour(sleepHour);
+                alarm.setSleepMinute(sleepMinute);
                 System.out.println("add alarm:"+alarm.getTag());
                 if(!shared.equals("") &&shared!=null){
                     alarmList=JSONObject.parseArray(shared,AlarmListItem.class);
@@ -121,16 +136,13 @@ public class ClockSettingActivity extends AppCompatActivity {
                 alarmList.add(alarm);
                 shared=JSONObject.toJSONString(alarmList);
                 editor.putString("list",shared);
-//                String dto=mySharedPreferences.getString("list","");
-//                if(dto==null){
-//                    dto="";
-//                }
-//                dto=dto+tag+","+game+","+ring+","+frequency+","+Hour+","+Minute+";";
-//                editor.putString("list",dto);
                 editor.apply();
                 finish();
             }
         });
+
+        Button assistSetting=findViewById(R.id.SleepAssistButton);
+        assistSetting.setOnClickListener(v->startActivity(new Intent(ClockSettingActivity.this, SleepAssistSetting.class)));
     }
 
     @SuppressLint("SetTextI18n")
@@ -141,36 +153,18 @@ public class ClockSettingActivity extends AppCompatActivity {
                 Activity.MODE_PRIVATE);
         tag = mySharedPreferences.getString("tag", tag);
         Button tagSetting = findViewById(R.id.ClockTagSetting);
-//        if(tag.equals("")){
-//            tag=this.getString(R.string.alarm_list_title);
-//        }
-//        System.out.println("tag:"+tag);
         tagSetting.setText(tag);
 
         game = mySharedPreferences.getString("game",game);
-//        if(game==null||game.equals("")){
-//            game=this.getString(R.string.clock_setting_game_default);
-//        }
-//        System.out.println("game:"+game);
         Button gameSetting=findViewById(R.id.GameSetting);
         gameSetting.setText(game);
 
         ring = mySharedPreferences.getString("ring",ring);
-//        if(ring==null||ring.equals("")){
-//            ring=getString((R.string.clock_setting_ring_default));
-//        }
-//        System.out.println("game:"+game);
         Button ringSetting=findViewById(R.id.ClockRingSetting);
         ringSetting.setText(ring);
 
-
         String tmp=mySharedPreferences.getString("frequency","[true,false,false,false,false,false,false,false]");
         frequency = JSONObject.parseArray(tmp,boolean.class);
-//        if(frequency==null||frequency.equals("")){
-//            frequency=getString(R.string.clock_setting_repeat_select);
-//        }
-
-//        System.out.println("game:"+game);
         Button repeatBtn=findViewById(R.id.ClockRepeatButton);
         if(frequency.get(0)){
             repeatBtn.setText("无重复");
@@ -186,6 +180,16 @@ public class ClockSettingActivity extends AppCompatActivity {
             }
         }
 
+        Button assistSetting=findViewById(R.id.SleepAssistButton);
+        sleepFlag=mySharedPreferences.getBoolean("sleepFlag",false);
+        if(sleepFlag){
+            assistSetting.setText("开启");
+        }
+        else{
+            assistSetting.setText("关闭");
+        }
+        sleepHour=mySharedPreferences.getInt("sleepHour",0);
+        sleepMinute=mySharedPreferences.getInt("sleepMinute",0);
     }
 
     @Override

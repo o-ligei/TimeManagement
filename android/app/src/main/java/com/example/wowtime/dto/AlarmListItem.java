@@ -11,6 +11,9 @@ public class AlarmListItem {
     private String ring;
     private int hour;
     private int minute;
+    private boolean sleepFlag;
+    private int sleepHour;
+    private int sleepMinute;
 
     public AlarmListItem(){
     }
@@ -22,6 +25,9 @@ public class AlarmListItem {
         this.ring=ring;
         this.hour=hour;
         this.minute=minute;
+        sleepFlag=false;
+        sleepHour=0;
+        sleepMinute=0;
     }
 
     public String getTag(){
@@ -48,6 +54,12 @@ public class AlarmListItem {
         return this.minute;
     }
 
+    public boolean getSleepFlag(){return this.sleepFlag;}
+
+    public int getSleepHour(){return this.sleepHour;}
+
+    public int getSleepMinute(){return this.sleepMinute;}
+
     public void setTag(String tag) {
         this.tag = tag;
     }
@@ -72,4 +84,15 @@ public class AlarmListItem {
         this.ring = ring;
     }
 
+    public void setSleepFlag(boolean flag){
+        this.sleepFlag=flag;
+    }
+
+    public void setSleepHour(int hour){
+        this.sleepHour=hour;
+    }
+
+    public void setSleepMinute(int minute){
+        this.sleepMinute=minute;
+    }
 }

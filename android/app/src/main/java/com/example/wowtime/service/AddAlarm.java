@@ -38,17 +38,16 @@ public class AddAlarm {
         newAlarm=new AlarmListItem("made by voice",options,"使劲摇摇摇","radar",hour,0);
     }
 
-//    public void setTime(int hour,int minute){
-//        newAlarm.setHour(hour);
-//        newAlarm.setMinute(minute);
-//    }
-//
-//    public void setFrequency(ArrayList<Boolean> options){
-//        newAlarm.setFrequency(options);
-//    }
+    public void setTime(int hour,int minute){
+        newAlarm.setHour(hour);
+        newAlarm.setMinute(minute);
+    }
+
+    public void setFrequency(ArrayList<Boolean> options){
+        newAlarm.setFrequency(options);
+    }
 
     public void storeAlarm(){
-        System.out.println("store voice alarm");
         SharedPreferences mySharedPreferences= mContext.getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = mySharedPreferences.edit();
         String shared=mySharedPreferences.getString("list","");
