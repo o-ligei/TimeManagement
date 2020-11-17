@@ -5,6 +5,7 @@ import androidx.preference.PreferenceManager;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -21,7 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wowtime.R;
+import com.example.wowtime.service.Accumulation;
+import com.example.wowtime.service.Credit;
 import com.example.wowtime.util.AudioRecordManger;
+import com.example.wowtime.util.InternetConstant;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -30,6 +34,9 @@ public class BlowingGameActivity extends AppCompatActivity {
     private MediaPlayer mp;
     private ProgressBar progressBar;
     private TextView progressValue;
+
+    String ringName=null;
+    boolean sleepFlag=false;
 //    private LinearLayout full;
 
 //    private int x1, x2, dx;
@@ -45,6 +52,16 @@ public class BlowingGameActivity extends AppCompatActivity {
     private void handleSoundValues(double values){
         if (blowCount == NEED_COUNT) {
             mp.stop();
+            Accumulation accumulation=new Accumulation(getApplicationContext());
+            Credit credit=new Credit();
+            accumulation.addAccumulation(InternetConstant.alarm_credit);
+            credit.modifyCredit(InternetConstant.alarm_credit,"BlowingGame");
+            if(sleepFlag){
+                int num=accumulation.getAccumulation();
+                accumulation.setAccumulation(0);
+                accumulation.initStartTime();
+                credit.addScore(num);
+            }
             System.out.println("blowing game finish");
             BlowingGameActivity.this.finish();
         }
@@ -85,6 +102,11 @@ public class BlowingGameActivity extends AppCompatActivity {
         setContentView(R.layout.blowing_game_activity);
         progressBar = findViewById(R.id.progress1);
         progressValue = findViewById(R.id.progress_value1);
+
+        Intent intent=getIntent();
+        ringName=intent.getStringExtra("ring");
+        sleepFlag=intent.getBooleanExtra("sleepFlag",false);
+
 //        full = findViewById(R.id.full);
 //        initView();
         paramSetting();

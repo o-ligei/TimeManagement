@@ -118,6 +118,7 @@
     <string name="random_game_setting_header">随机点点点</string>
     <string name="calculate_game_setting_header">仔细算算算</string>
     <string name="tapping_game_setting_header">快速拍拍拍</string>
+    <string name="Answering_game_setting_header">智力大闯关</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">自定义</string>

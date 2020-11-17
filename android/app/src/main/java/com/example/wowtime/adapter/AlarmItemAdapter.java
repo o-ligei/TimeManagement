@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,7 +29,11 @@ import com.example.wowtime.ui.alarm.AlarmPlay;
 
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.games.BlowingGameActivity;
+import com.example.wowtime.ui.games.CalculateGameActivity;
+import com.example.wowtime.ui.games.OptionGameActivity;
+import com.example.wowtime.ui.games.RandomNumberGameActivity;
 import com.example.wowtime.ui.games.ShakingGameActivity;
+import com.example.wowtime.ui.games.TappingGameActivity;
 import com.example.wowtime.ui.pomodoro.FloatingImageDisplayService;
 import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 import com.example.wowtime.util.Weekday;
@@ -162,12 +167,21 @@ public class AlarmItemAdapter extends BaseAdapter {
 //                    System.out.println(mData.get(position).getGame());
 
                     /*deal with game*/
-                    if (mData.get(position).getGame().equals("努力吹吹吹")) {
+                    if (mData.get(position).getGame().equals(mContext.getResources().getString(R.string.blowing_game_setting_header))) {
                         intent = new Intent(mContext, BlowingGameActivity.class);
-                    } else if (mData.get(position).getGame().equals("使劲摇摇摇")) {
+                    } else if (mData.get(position).getGame().equals(mContext.getResources().getString(R.string.shaking_game_setting_header))) {
                         intent = new Intent(mContext, ShakingGameActivity.class);
-                    } else {
-                        intent = new Intent(mContext, ShakingGameActivity.class);
+                    } else if(mData.get(position).getGame().equals(mContext.getResources().getString(R.string.calculate_game_setting_header))){
+                        intent = new Intent(mContext, CalculateGameActivity.class);
+                    }
+                    else if(mData.get(position).getGame().equals(mContext.getResources().getString(R.string.tapping_game_setting_header))){
+                        intent = new Intent(mContext, TappingGameActivity.class);
+                    }
+                    else if(mData.get(position).getGame().equals(mContext.getResources().getString(R.string.Answering_game_setting_header))){
+                        intent = new Intent(mContext, OptionGameActivity.class);
+                    }
+                    else{
+                        intent=new Intent(mContext, RandomNumberGameActivity.class);
                     }
                     intent.putExtra("ring", mData.get(position).getRing());
                     intent.putExtra("sleepFlag",mData.get(position).getSleepFlag());
