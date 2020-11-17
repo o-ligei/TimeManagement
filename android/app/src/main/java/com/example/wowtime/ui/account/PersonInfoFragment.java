@@ -70,6 +70,7 @@ public class PersonInfoFragment extends Fragment {
         creditText.setText(String.valueOf(accumulation.getAccumulation()));
 //        creditText.setOnClickListener(v -> startActivity(new Intent(getActivity(), CreditDetailListActivity.class)));
         usernameText = root.findViewById(R.id.Username);
+        usernameTitle = root.findViewById(R.id.UsernameTitle);
         emailText = root.findViewById(R.id.Email);
         phoneNumberText = root.findViewById(R.id.PhoneNumber);
         OKGetProfile();
