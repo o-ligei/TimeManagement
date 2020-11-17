@@ -175,7 +175,8 @@ public class AlarmItemAdapter extends BaseAdapter {
                     /*deal with sleepAssist*/
                     Calendar sleepCalender = Calendar.getInstance();
                     Intent sleepIntent=new Intent(mContext, FloatingImageDisplayService.class);
-                    sleepIntent.putExtra("work",60*60*1000*3);
+                    sleepIntent.putExtra("work",65*1000);
+                    sleepIntent.putExtra("sleep",1);
                     if(mData.get(position).getSleepFlag()){
                         sleepCalender.set(Calendar.HOUR_OF_DAY, mData.get(position).getSleepHour());
                         sleepCalender.set(Calendar.MINUTE, mData.get(position).getSleepMinute());
@@ -200,9 +201,11 @@ public class AlarmItemAdapter extends BaseAdapter {
 
                         if(mData.get(position).getSleepFlag()){
                             if (sleepCalender.getTimeInMillis() <= currentTime.getTimeInMillis()) {
-                                sleepCalender.setTimeInMillis(calendar.getTimeInMillis() + 24 * 60 * 60 * 1000);
+                                sleepCalender.setTimeInMillis(sleepCalender.getTimeInMillis() + 24 * 60 * 60 * 1000);
                             }
                             requestCode=-position*10;
+                            System.out.println("sleepCalender:"+sleepCalender.getTimeInMillis());
+                            System.out.println("currentTime:"+currentTime.getTimeInMillis());
                             tmp=PendingIntent.getService(mContext,requestCode,sleepIntent,0);
                             alarmManager.set(AlarmManager.RTC_WAKEUP, sleepCalender.getTimeInMillis(), tmp);
                             arrayPi=new ArrayList<>();
@@ -214,6 +217,7 @@ public class AlarmItemAdapter extends BaseAdapter {
                         }
                     }
                     else {
+                        System.out.println("每周闹钟");
                         int currentWeekday = calendar.get(Calendar.DAY_OF_WEEK);
                         int setWeekday = currentWeekday;
                         for (int i = 1; i <= 7; i++) {
@@ -224,6 +228,8 @@ public class AlarmItemAdapter extends BaseAdapter {
                                     delta_day += 7;
                                 }
                                 long start_time = calendar.getTimeInMillis() + 24 * 60 * 60 * 1000 * delta_day;
+                                System.out.println("Calender:"+start_time);
+                                System.out.println("currentTime:"+currentTime.getTimeInMillis());
                                 int requestCode=position*10+i;
                                 PendingIntent tmp = PendingIntent.getActivity(mContext, requestCode, intent, 0);
                                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, start_time, 24 * 60 * 60 * 1000 * 7, tmp);
@@ -235,10 +241,9 @@ public class AlarmItemAdapter extends BaseAdapter {
                                 pi.set(position,arrayPi);
 
                                 if(mData.get(position).getSleepFlag()){
-                                    if (sleepCalender.getTimeInMillis() <= currentTime.getTimeInMillis()) {
-                                        sleepCalender.setTimeInMillis(calendar.getTimeInMillis() + 24 * 60 * 60 * 1000);
-                                    }
                                     start_time=sleepCalender.getTimeInMillis()+24*60*60*1000*(delta_day-1);
+                                    System.out.println("sleepCalender:"+start_time);
+                                    System.out.println("currentTime:"+currentTime.getTimeInMillis());
                                     requestCode=-(position*10+i);
                                     tmp=PendingIntent.getService(mContext,requestCode,sleepIntent,0);
                                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, start_time, 24 * 60 * 60 * 1000 * 7, tmp);
@@ -267,6 +272,7 @@ public class AlarmItemAdapter extends BaseAdapter {
                         }
                     }
                     pi.set(position,null);
+                    sleepPi.set(position,null);
                 }
             }
         });

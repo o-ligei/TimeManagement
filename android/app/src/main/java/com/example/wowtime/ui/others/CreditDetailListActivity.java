@@ -67,6 +67,7 @@ public class CreditDetailListActivity extends AppCompatActivity {
     private void fetchCredit(){
         FormBody.Builder formBody = new FormBody.Builder();
         formBody.add("userid", UserInfoAfterLogin.userid.toString());
+        formBody.add("timestamp","whole");
 
         android.os.Handler handler = new Handler(message -> {
             if (message.what == InternetConstant.FETCH) {

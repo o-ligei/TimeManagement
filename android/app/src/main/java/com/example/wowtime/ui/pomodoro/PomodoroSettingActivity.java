@@ -24,6 +24,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
+import com.example.wowtime.dto.StatisticDayItem;
 import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 
 import java.util.Date;
@@ -142,6 +143,20 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     runOnUiThread(() -> {
                         startActivity(new Intent(PomodoroSettingActivity.this, TaskSuccessActivity.class));
                     });
+
+
+                    List<StatisticDayItem> statisticDay;
+                    String statisticDayString=pomodoroSp.getString("statistic","");
+                    if(statisticDayString.equals(""))
+                        statisticDay=new LinkedList<>();
+                    else
+                        statisticDay=JSONObject.parseArray(statisticDayString,StatisticDayItem.class);
+                    System.out.println("focusedSeconds:"+focusedSeconds);
+                    statisticDay.add(new StatisticDayItem(editText.getText().toString(),focusedSeconds/3600,
+                                    (focusedSeconds%3600)/60,begin,new Date()));
+                    SharedPreferences.Editor editor=pomodoroSp.edit();
+                    editor.putString("statistic",JSONObject.toJSONString(statisticDay));
+                    editor.apply();
 
 //                    List<StatisticDayItem> statisticDay;
 //                    List<StatisticSimple> weekUnresolved,yearUnresolved;
@@ -276,12 +291,12 @@ public class PomodoroSettingActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void jumpFromCreate() {
-        timePicker.setHour(0);
+        timePicker.setHour(1);
         timePicker.setMinute(10);
         timePicker2.setHour(0);
-        timePicker2.setMinute(9);
+        timePicker2.setMinute(32);
         timePicker3.setHour(0);
-        timePicker3.setMinute(1);
+        timePicker3.setMinute(3);
         editText.setText(getResources().getText(R.string.pomodoro_default_name));
     }
 

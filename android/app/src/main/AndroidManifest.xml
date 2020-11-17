@@ -29,7 +29,7 @@
         >
         <activity android:name=".ui.alarm.SleepAssistSetting"/>
         <activity
-            android:name=".ui.others.Credit"
+            android:name=".ui.others.Sunflower"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.MainActivity"

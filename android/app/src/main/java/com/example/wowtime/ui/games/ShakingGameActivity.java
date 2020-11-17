@@ -91,9 +91,10 @@ public class ShakingGameActivity extends AppCompatActivity {
             {
                 mp.stop();
                 Credit credit=new Credit();
+                Accumulation accumulation=new Accumulation(getApplicationContext());
+                accumulation.addAccumulation(InternetConstant.alarm_credit);
                 credit.modifyCredit(InternetConstant.alarm_credit,"shakingGame");
                 if(sleepFlag){
-                    Accumulation accumulation=new Accumulation(getApplicationContext());
                     int num=accumulation.getAccumulation();
                     accumulation.setAccumulation(0);
                     accumulation.initStartTime();

@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.wowtime.R;
@@ -21,14 +20,14 @@ import java.util.Calendar;
 
 import okhttp3.FormBody;
 
-public class Credit extends AppCompatActivity {
+public class Sunflower extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credit);
         TextView CreditNumber = findViewById(R.id.CreditNumber);
-        CreditNumber.setOnClickListener(v -> startActivity(new Intent(Credit.this, CreditDetailListActivity.class)));
+        CreditNumber.setOnClickListener(v -> startActivity(new Intent(Sunflower.this, CreditDetailListActivity.class)));
         fetchCredit();
         checkTime();
     }
