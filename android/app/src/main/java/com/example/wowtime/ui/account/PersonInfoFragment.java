@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,14 +37,13 @@ import okhttp3.Response;
 
 public class PersonInfoFragment extends Fragment {
     TextView usernameText;
-//    TextView passwordText;
+    TextView usernameTitle;
     TextView emailText;
 //    TextView genderText;
     TextView creditText;
     TextView phoneNumberText;
-
+    ImageView icon;
     TextView forgetPassword;
-
     ImageView modifyEmail;
 
 //    ConstraintLayout passwordLayout;
@@ -63,6 +64,7 @@ public class PersonInfoFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.person_info_activity, container, false);
+        icon = root.findViewById(R.id.UserIcon);
         forgetPassword = root.findViewById(R.id.forgetPassword);
         forgetPassword.setOnClickListener(v -> startActivity(new Intent(getActivity(), CaptchaConfirmActivity.class).putExtra("target","password")));
         modifyEmail = root.findViewById(R.id.modifyEmail);
@@ -75,8 +77,7 @@ public class PersonInfoFragment extends Fragment {
         usernameText = root.findViewById(R.id.Username);
         emailText = root.findViewById(R.id.Email);
         phoneNumberText =root.findViewById(R.id.PhoneNumber);
-//        OKGetProfile();
-//        fetchCredit(root);
+       OKGetProfile();
         return root;
     }
 
@@ -97,6 +98,7 @@ public class PersonInfoFragment extends Fragment {
                 String userIcon = null;
                 String phone = null;
                 String email = null;
+                byte[] bytes = null;
                 try {
                     jsonObject = new JSONObject(result);
                     msg = jsonObject.get("msg").toString();
@@ -104,19 +106,22 @@ public class PersonInfoFragment extends Fragment {
                     JSONObject data = new JSONObject(str_data);
                     username = data.get("username").toString();
                     userIcon = data.get("userIcon").toString();
+//                    bytes = Base64.decode(data.get("userIcon").toString(), Base64.DEFAULT);
                     phone = data.get("phone").toString();
                     email = data.get("email").toString();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                Toast toast = Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT);
-//                toast.show();
+                BitmapFactory.Options op = new BitmapFactory.Options();
+                op.inSampleSize = 2;
                 if(msg.equals("success"))
                 {
                     usernameText.setText(username);
-//                    passwordText.setText("*******");
+                    usernameTitle.setText(username);
                     emailText.setText(email);
                     phoneNumberText.setText(phone);
+                    bytes = Base64.decode(userIcon, Base64.DEFAULT);
+                    icon.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length,op));
                 }
                 if(!emailText.getText().toString().equals("null"))
                     emailText.setEnabled(false);
