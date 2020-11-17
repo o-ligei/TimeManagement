@@ -47,6 +47,8 @@
     <string name="ring_setting_title">设置铃声</string>
     <string name="game_setting_title">设置小游戏</string>
     <string name="alarm_list_title">闹钟</string>
+    <string name="sleep_assist_title">睡眠助手</string>
+    <string name="sleep_assist_default">关闭</string>
 
     <!-- Strings used for pomomdoro setting-->
     <string name="pomodoro_setting_title">设置远离手机任务</string>
@@ -116,6 +118,7 @@
     <string name="random_game_setting_header">随机点点点</string>
     <string name="calculate_game_setting_header">仔细算算算</string>
     <string name="tapping_game_setting_header">快速拍拍拍</string>
+    <string name="Answering_game_setting_header">智力大闯关</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">自定义</string>
@@ -194,5 +197,5 @@
     <string name="username">用户名:</string>
     <string name="phonenumber">手机号:</string>
     <string name="email">邮箱:</string>
-    <string name="credit">成长值:</string>
+    <string name="credit">养分:</string>
 </resources>

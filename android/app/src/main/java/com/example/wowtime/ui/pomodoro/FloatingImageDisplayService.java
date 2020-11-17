@@ -22,6 +22,8 @@ import androidx.annotation.RequiresApi;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
+import com.example.wowtime.service.Accumulation;
+import com.example.wowtime.service.Credit;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -218,7 +220,7 @@ public class FloatingImageDisplayService extends Service {
                     @Override
                     public void run() {
                         String currentApp = ApkTool.getTaskPackname(getApplication());
-                        System.out.println("Current Runnning: " + currentApp);
+//                        System.out.println("Current Runnning: " + currentApp);
                         if (currentApp.equals("CurrentNULL"))
                             startActivity(new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS).addFlags(FLAG_ACTIVITY_NEW_TASK));
                         if (!isAppInWhitelist(currentApp) && !currentApp.equals("com.example.wowtime")&&!isInRest)
@@ -312,6 +314,11 @@ public class FloatingImageDisplayService extends Service {
             System.out.println("it's in rest or whitelist\n" + e.toString());
         }
 
+//        Credit credit=new Credit();
+//        credit.modifyCredit(100,"away from phone");
+//        Accumulation accumulation=new Accumulation(getApplicationContext());
+//        accumulation.addAccumulation(100);
+//        System.out.println("accumulation: "+accumulation.getAccumulation());
         System.out.println("onDestroy finish");
     }
 

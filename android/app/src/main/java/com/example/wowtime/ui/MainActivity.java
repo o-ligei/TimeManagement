@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SpeechRecognizeActivity.class));
             return false;
         });
-        Intent startIntent = new Intent(this, TWebSocketClientService.class);
-        startService(startIntent);
+//        Intent startIntent = new Intent(this, TWebSocketClientService.class);
+//        startService(startIntent);
 //        startForegroundService(startIntent);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //            startForegroundService(startIntent);
