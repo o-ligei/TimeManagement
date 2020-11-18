@@ -58,8 +58,10 @@ public class StatisticDayActivity extends AppCompatActivity {
         list = new ArrayList<>();
 //        list.add(new PieEntry(10,"预习ICS","9:00-9:45"));
         String statisticString = pomodoroSp.getString("statistic", "");
-        List<StatisticDayItem> statisticDayItems = JSON
-                .parseArray(statisticString, StatisticDayItem.class);
+        List<StatisticDayItem> statisticDayItems;
+        if(!statisticString.equals(""))
+        statisticDayItems = JSON.parseArray(statisticString, StatisticDayItem.class);
+        else statisticDayItems=new LinkedList<>();
         List<Integer> removedIndex = new LinkedList<>();
         Calendar beginCalendar = Calendar.getInstance();
         Calendar nowCalendar = Calendar.getInstance();

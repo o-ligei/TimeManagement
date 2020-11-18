@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
+import com.example.wowtime.dto.StatisticDayItem;
 import com.example.wowtime.dto.StatisticSimple;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -22,6 +23,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,49 +46,35 @@ public class StatisticYearActivity extends AppCompatActivity {
         pomodoroSp = super.getSharedPreferences("pomodoro", MODE_PRIVATE);
         //添加数据
 //        list.add(new BarEntry(1, 49.1f));
-//        list.add(new BarEntry(2,  35));
-//        list.add(new BarEntry(3, 121));
-//        list.add(new BarEntry(4, 134));
-//        list.add(new BarEntry(5, 158));
-//        list.add(new BarEntry(6, 196));
-//        list.add(new BarEntry(7, 87));
-//        list.add(new BarEntry(8, 55));
-//        list.add(new BarEntry(9, 97));
-//        list.add(new BarEntry(10, 0));
-//        list.add(new BarEntry(11, 0));
 //        list.add(new BarEntry(12, 0));
-        List<StatisticSimple> statisticSimples;
-        String s = pomodoroSp.getString("statisticYear", "");
-        if (s.equals("")) {
-            statisticSimples = new LinkedList<>();
-            Calendar c = Calendar.getInstance();
-            c.setTime(new Date());
-            for (int i = 0; i < 12; ++i) {
-                c.set(Calendar.MONTH, i);
-                statisticSimples.add(new StatisticSimple(0, c));
-            }
-        } else { statisticSimples = JSONObject.parseArray(s, StatisticSimple.class); }
+        List<StatisticDayItem> statisticDayItems;
+        String s = pomodoroSp.getString("statistic", "");
+        if (s.equals(""))
+            statisticDayItems = new LinkedList<>();
+        else
+            statisticDayItems = JSONObject.parseArray(s, StatisticDayItem.class);
 
-        String s2 = pomodoroSp.getString("unresolvedYear", "");
-        List<StatisticSimple> unresolvedSimples;
-        if (!s2.equals("")) {
-            unresolvedSimples = JSONObject.parseArray(s2, StatisticSimple.class);
-            for (StatisticSimple item : unresolvedSimples) {
-                int position = item.getDay().get(Calendar.MONTH);
-                float y = statisticSimples.get(position).getHour();
-                statisticSimples.get(position).setHour(y + item.getHour());
-            }
+        List<Float> yOfMonth=new LinkedList<>();
+
+        for(int i=0;i<12;++i){
+            yOfMonth.add((float) 0);
         }
 
-        System.out.println("test" + JSONObject.toJSONString(statisticSimples));
-        SharedPreferences.Editor editor = pomodoroSp.edit();
-        editor.putString("statisticYear", JSONObject.toJSONString(statisticSimples));
-        editor.putString("unresolvedYear", "");
-        editor.apply();
+        Calendar calendar=Calendar.getInstance();
+        for(StatisticDayItem item :statisticDayItems){
+            calendar.setTime(item.getBegin());
+            int index=calendar.get(Calendar.MONTH);
+            float oldy=yOfMonth.get(index);
+            float deltay=item.getHour()+(float)item.getMinute()/60;
+            float newy=oldy+deltay;
+            BigDecimal bg = new BigDecimal(newy);
+            yOfMonth.set(index,(float) bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        }
+
 
         int max = 0;
         for (int i = 0; i < 12; ++i) {
-            float tmp = statisticSimples.get(i).getHour();
+            float tmp = yOfMonth.get(i);
             list.add(new BarEntry(i + 1, tmp));
             if (tmp > max) { max = (int) tmp; }
         }
