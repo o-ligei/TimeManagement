@@ -290,9 +290,11 @@ public class AlarmItemAdapter extends BaseAdapter {
                         if (tmp != null) {
                             alarmManager.cancel(tmp);
                         }
-                        tmp = tmpSleepPi.get(position);
-                        if (tmp != null) {
-                            alarmManager.cancel(tmp);
+                        if (tmpSleepPi != null) {
+                            tmp = tmpSleepPi.get(position);
+                            if (tmp != null) {
+                                alarmManager.cancel(tmp);
+                            }
                         }
                     }
                     pi.set(position, null);
