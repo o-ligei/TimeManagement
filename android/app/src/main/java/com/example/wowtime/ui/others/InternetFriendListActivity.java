@@ -33,7 +33,6 @@ public class InternetFriendListActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.friend_internet_list);
         searchView = findViewById(R.id.searchText_internet);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override

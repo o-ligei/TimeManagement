@@ -24,6 +24,7 @@ import com.example.wowtime.ui.others.InternetFriendListActivity;
 import com.example.wowtime.ui.others.SpeechRecognizeActivity;
 import com.example.wowtime.ui.pomodoro.PomodoroListFragment;
 import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
+import com.example.wowtime.websocket.TWebSocketClientService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -77,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-//        Intent startIntent = new Intent(this, TWebSocketClientService.class);
-//        startService(startIntent);
+        Intent startIntent = new Intent(this, TWebSocketClientService.class);
+        startService(startIntent);
 //        startForegroundService(startIntent);
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //            startForegroundService(startIntent);
