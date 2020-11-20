@@ -16,6 +16,8 @@ import com.example.wowtime.R;
 import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
+import com.example.wowtime.websocket.TWebSocketClientService;
+
 import java.io.IOException;
 import java.util.Objects;
 import okhttp3.FormBody;
@@ -126,9 +128,12 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
                     userid = Objects.requireNonNull(user.get("userId")).toString();
                     assert userid != null;
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
+                    Intent startIntent = new Intent(LoginActivityWithPasswordActivity.this, TWebSocketClientService.class);
+                    startService(startIntent);
                     Intent intent = new Intent(LoginActivityWithPasswordActivity.this,
                                                MainActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
