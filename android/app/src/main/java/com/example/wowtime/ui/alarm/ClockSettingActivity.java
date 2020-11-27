@@ -9,12 +9,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
 import com.example.wowtime.util.Weekday;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +40,8 @@ public class ClockSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(MainApplication.getThemeNumber()==1)
+            setTheme(R.style.DarkTheme);
         /*initialize*/
         tag = this.getString(R.string.alarm_list_title);
         game = this.getString(R.string.clock_setting_game_default);

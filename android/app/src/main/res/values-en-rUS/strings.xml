@@ -112,6 +112,8 @@
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
     <string name="game_setting_header">Game Parameter Setting</string>
+    <string name="theme_setting">Night Mode</string>
+    <string name="theme_setting_header">Theme</string>
     <string name="blowing_game_setting_header">Blowing Game Setting</string>
     <string name="shaking_game_setting_header">Shaking Game Setting</string>
     <string name="volume_setting_header">Sensitivity</string>

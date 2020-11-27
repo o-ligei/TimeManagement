@@ -7,6 +7,12 @@
             app:title="@string/game_setting_header" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/theme_setting_header">
+        <SwitchPreferenceCompat
+            app:key="theme"
+            app:title="@string/theme_setting" />
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/messages_header">
 
         <EditTextPreference
