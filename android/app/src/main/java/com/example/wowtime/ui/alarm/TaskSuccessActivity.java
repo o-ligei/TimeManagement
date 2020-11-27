@@ -12,12 +12,15 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.wowtime.R;
 
 public class TaskSuccessActivity extends AppCompatActivity {
 
     Button btn_shot_and_share;
+    TextView successView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class TaskSuccessActivity extends AppCompatActivity {
         setContentView(R.layout.task_success_activity);
 
         Button back_to_home = findViewById(R.id.btn_back_to_home);
+        successView = findViewById(R.id.successText);
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

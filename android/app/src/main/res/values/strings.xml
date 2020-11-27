@@ -15,8 +15,10 @@
     <string name="phone_hint">请输入手机号…</string>
     <string name="captcha_hint">验证码…</string>
     <string name="username_hint">请输入用户名…</string>
+    <string name="username_warning">用户名以字母开头，长度至少为四个字符</string>
     <string name="get_captcha_hint">获取验证码</string>
     <string name="password_hint">请输入密码…</string>
+    <string name="password_warning">密码必须包含数字、大小写字母，长度至少为六个字符</string>
     <string name="logo_description">This is the logo description.</string>
     <string name="login_usepw_hint">使用账号密码登录</string>
     <string name="login_useregis_hint">没有账号?注册</string>
@@ -198,5 +200,8 @@
     <string name="phonenumber">手机号:</string>
     <string name="email">邮箱:</string>
     <string name="credit">养分:</string>
+
     <string name="take_screen_shot_and_share">截屏分享</string>
+
+    <string name="set_alarm_for_friend">设闹钟</string>
 </resources>

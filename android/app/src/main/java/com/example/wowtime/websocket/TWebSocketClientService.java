@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
@@ -89,14 +90,23 @@ public class TWebSocketClientService extends Service {
                 Log.e("TWebSocketClientService", "收到的消息：" + message);
                 JSONObject jsonObject = JSONObject.parseObject(message);
 //                System.out.println("response:" + response);
-                String msg = null;
-                msg = jsonObject.getString("msg");
+                String msg = jsonObject.getString("msg");
+                String data = jsonObject.getString("data");
                 if (msg.equals("remain friend request") || msg.equals("new friend request")) {
                     UserInfoAfterLogin.webSocketMessage = true;
+                    Intent intent = new Intent();
+                    intent.setAction("friend request");
+                    sendBroadcast(intent);
+                }else if(msg.equals("new friend alarm")){
+                    JSONArray AlarmArray = JSONObject.parseArray(data);
+                    for(int i = 0; i < AlarmArray.size();i++){
+                        String item = AlarmArray.get(i).toString();
+                        JSONObject json_item = JSONObject.parseObject(item);
+                        String clocksetting = json_item.getString("clockSetting");
+                        String username = json_item.getString("username");
+                    }
                 }
-                Intent intent = new Intent();
-                intent.setAction("friend request");
-                sendBroadcast(intent);
+
 //                checkLockAndShowNotification(message);
             }
 
