@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.ui.MainActivity;
+import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 import com.example.wowtime.websocket.TWebSocketClientService;
@@ -59,7 +60,7 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
                 Intent signUpIntent = new Intent(LoginActivityWithPasswordActivity.this,
-                                                 RegisterActivity.class);
+                                                 TaskSuccessActivity.class);
                 startActivity(signUpIntent);
             }
         });

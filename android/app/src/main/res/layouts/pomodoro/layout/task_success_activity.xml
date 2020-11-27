@@ -47,4 +47,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_done_24" />
+
+    <Button
+        android:id="@+id/ScreenShotAndShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/take_screen_shot_and_share"
+        app:layout_constraintBottom_toTopOf="@+id/btn_back_to_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SuccessNotice" />
 </androidx.constraintlayout.widget.ConstraintLayout>

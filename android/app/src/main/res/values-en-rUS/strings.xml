@@ -205,4 +205,5 @@
     <string name="phonenumber">Phone:</string>
     <string name="email">Email:</string>
     <string name="credit">Accumulation:</string>
+    <string name="take_screen_shot_and_share">SHOT AND SHARE</string>
 </resources>
