@@ -3,6 +3,7 @@ package com.example.wowtime.ui.account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,8 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
+import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 import com.example.wowtime.util.InternetConstant;
 import java.io.IOException;
+
+import kotlin.ranges.CharProgression;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,7 +29,8 @@ public class RegisterActivity extends AppCompatActivity {
     TextView passwordTextView;
     TextView captchaTextView;
     Button btn_register;
-
+    TextView usernameWarning;
+    TextView passwordWaring;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +40,11 @@ public class RegisterActivity extends AppCompatActivity {
         phoneTextView = findViewById(R.id.phone_input);
         passwordTextView = findViewById(R.id.passsword_input);
         captchaTextView = findViewById(R.id.captcha_input);
+        usernameWarning = findViewById(R.id.username_warning);
+        passwordWaring = findViewById(R.id.password_warning);
 
-        String telRegex = "[1][3456789]\\d{9}";
+        usernameWarning.setVisibility(View.INVISIBLE);
+        passwordWaring.setVisibility(View.INVISIBLE);
         Button btn_getCaptcha = findViewById(R.id.btn_getCaptcha);
 //        btn_getCaptcha.setEnabled(false);
 //
@@ -44,7 +52,13 @@ public class RegisterActivity extends AppCompatActivity {
 //            btn_getCaptcha.setEnabled(true);
         btn_getCaptcha.setOnClickListener(v -> OKGetCaptcha());
         btn_register = findViewById(R.id.btn_register);
-        btn_register.setOnClickListener(v -> OKRegister());
+//        btn_register.setOnClickListener(v -> OKRegister());
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OKRegister();
+            }
+        });
         btn_register.setEnabled(false);
     }
 
