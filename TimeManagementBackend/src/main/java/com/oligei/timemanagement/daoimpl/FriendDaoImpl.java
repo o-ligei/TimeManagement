@@ -1,11 +1,14 @@
 package com.oligei.timemanagement.daoimpl;
 
 import com.oligei.timemanagement.dao.FriendDao;
+import com.oligei.timemanagement.dto.FriendAlarmMsg;
 import com.oligei.timemanagement.entity.AskNeo4j;
 import com.oligei.timemanagement.entity.FollowNeo4j;
+import com.oligei.timemanagement.entity.SetNeo4j;
 import com.oligei.timemanagement.entity.UserNeo4j;
 import com.oligei.timemanagement.repository.AskNeo4jRepository;
 import com.oligei.timemanagement.repository.FollowNeo4jRepository;
+import com.oligei.timemanagement.repository.SetNeo4jRepository;
 import com.oligei.timemanagement.repository.UserNeo4jRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,6 +27,9 @@ public class FriendDaoImpl implements FriendDao {
 
     @Autowired
     private AskNeo4jRepository askNeo4jRepository;
+
+    @Autowired
+    private SetNeo4jRepository setNeo4jRepository;
 
     @Override
     public List<UserNeo4j> getFriendsList(Integer userId) {
@@ -70,5 +76,19 @@ public class FriendDaoImpl implements FriendDao {
         Objects.requireNonNull(from, "null from --FriendDaoImpl addFollowRelation");
         Objects.requireNonNull(to, "null to --FriendDaoImpl addFollowRelation");
         return followNeo4jRepository.addFollowRelation(from.toString(), to.toString());
+    }
+
+    @Override
+    public SetNeo4j saveAlarmForFriend(Integer from, Integer to, FriendAlarmMsg friendAlarmMsg) {
+        Objects.requireNonNull(from, "null from --FriendDaoImpl saveAlarmForFriend");
+        Objects.requireNonNull(to, "null to --FriendDaoImpl saveAlarmForFriend");
+        Objects.requireNonNull(friendAlarmMsg, "null friendAlarmMsg --FriendDaoImpl saveAlarmForFriend");
+        return setNeo4jRepository.addSetRelation(from.toString(), to.toString(), friendAlarmMsg.getUsername(), friendAlarmMsg.getClockSetting());
+    }
+
+    @Override
+    public List<SetNeo4j> getAlarmRequest(Integer userId) {
+        Objects.requireNonNull(userId, "null userId --FriendDaoImpl getAlarmRequest");
+        return setNeo4jRepository.getAlarmRequest(userId.toString());
     }
 }

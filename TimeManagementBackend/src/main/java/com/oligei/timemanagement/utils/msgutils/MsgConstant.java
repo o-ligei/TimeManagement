@@ -21,6 +21,8 @@ public final class MsgConstant {
     public static final Integer NEW_FRIEND = 216;
     public static final Integer EMAIL_EXISTED = 217;
     public static final Integer FOUND_YOURSELF = 218;
+    public static final Integer NEW_FRIEND_ALARM = 219;
+    public static final Integer REMAIN_FRIEND_ALARM = 220;
 
     public static final String SUCCESS_MESSAGE = "success";
     public static final String WRONG_PASSWORD_MESSAGE = "wrong password";
@@ -41,6 +43,8 @@ public final class MsgConstant {
     public static final String NEW_FRIEND_MESSAGE = "new friend";
     public static final String EMAIL_EXISTED_MESSAGE = "email existed";
     public static final String FOUND_YOURSELF_MESSAGE = "found yourself";
+    public static final String NEW_FRIEND_ALARM_MESSAGE = "new friend alarm";
+    public static final String REMAIN_FRIEND_ALARM_MESSAGE = "remain friend alarm";
 
     public static final Integer NULL_ARGUMENT = -1;
 
