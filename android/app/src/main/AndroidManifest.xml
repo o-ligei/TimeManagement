@@ -90,6 +90,7 @@
         <activity android:name=".ui.others.GameSettingsActivity" />
         <activity android:name=".ui.games.OptionGameActivity"/>
         <activity android:name=".ui.games.OptionGameResultActivity"/>
+        <activity android:name=".ui.others.AchivementDetailActivity"/>
     </application>
 
 </manifest>

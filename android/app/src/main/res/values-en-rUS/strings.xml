@@ -209,4 +209,29 @@
     <string name="email">Email:</string>
     <string name="credit">Accumulation:</string>
     <string name="take_screen_shot_and_share">SHOT AND SHARE</string>
+
+    <string name="achievement_header_friend_0">Social entry task</string>
+    <string name="achievement_content_friend_0">Add a friend successfully</string>
+    <string name="achievement_header_share_0">Sharing entry task</string>
+    <string name="achievement_content_share_0">Share to other apps successfully</string>
+    <string name="achievement_header_alarm_0">Alarm entry tasks</string>
+    <string name="achievement_content_alarm_0">Set the alarm five times</string>
+    <string name="achievement_header_pomodoro_0">Pomodoro entry tasks</string>
+    <string name="achievement_content_pomodoro_0">Set the pomodoro five times</string>
+
+    <string name="achievement_header_friend_1">Social talent</string>
+    <string name="achievement_content_friend_1">Add ten friends successfully</string>
+    <string name="achievement_header_share_1">Sharing talent</string>
+    <string name="achievement_content_share_1">Share to other apps ten times</string>
+    <string name="achievement_header_alarm_1">Alarm talent</string>
+    <string name="achievement_content_alarm_1">Set the alarm fifty times</string>
+    <string name="achievement_header_pomodoro_1">Pomodoro talent</string>
+    <string name="achievement_content_pomodoro_1">Set the pomodoro fifty times</string>
+
+    <string name="achievement_header_sleep">Sleeping entry task</string>
+    <string name="achievement_content_sleep">Set the sleeping alarm successfully</string>
+    <string name="achievement_header_pomodoro_time_0">Many a little make a mickle</string>
+    <string name="achievement_content_pomodoro_time_0">Pomodoro time accumulated for one hour</string>
+    <string name="achievement_header_pomodoro_time_1">Keep on carving</string>
+    <string name="achievement_content_pomodoro_time_1">A single pomodoro time for one hour</string>
 </resources>
