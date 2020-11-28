@@ -1,6 +1,7 @@
 package com.example.wowtime.ui.others;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,16 +23,54 @@ public class AchivementDetailActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
         assert intent!=null;
+        int position=intent.getIntExtra("position",-1);
         String titleString=intent.getStringExtra("title");
         String contentString=intent.getStringExtra("content");
 
         TextView title=findViewById(R.id.achievement_detail_title);
         TextView content=findViewById(R.id.achievement_detail_content);
+        TextView achieveOrNot=findViewById(R.id.achievement_detail_achieve);
 //        ImageView imageView=findViewById(R.id.achievement_detail_icon);
 
+        SharedPreferences achievement=super.getSharedPreferences("achievement",MODE_PRIVATE);
+        boolean achieve=false;
+        String achieveDetail="";
+        switch (position){
+            case 3:{
+                int count=Integer.parseInt(achievement.getString("pomodoro_count","0"));
+                if(count>=5)
+                    achieve=true;
+                achieveDetail="已完成"+count+"次";
+                break;
+            }
+            case 7:{
+                int count=Integer.parseInt(achievement.getString("pomodoro_count","0"));
+                if(count>=50)
+                    achieve=true;
+                achieveDetail="已完成"+count+"次";
+                break;
+            }
+            case 9:{
+                int focusedMinute=Integer.parseInt(achievement.getString("pomodoro_time_minite","0"));
+                if(focusedMinute>=60)
+                    achieve=true;
+                achieveDetail="已累计专注"+focusedMinute+"分钟";
+                break;
+            }
+            case 10:{
+                String s=achievement.getString("pomodoro_single_60","0");
+                if(s.equals("1"))
+                    achieve=true;
+                break;
+            }
+        }
 
         title.setText(titleString);
-        content.setText(contentString);
+        content.setText(contentString+"\n"+achieveDetail);
+        if(achieve)
+            achieveOrNot.setText("已获得该成就");
+        else
+            achieveOrNot.setText("未获得该成就");
     }
 
     @Override

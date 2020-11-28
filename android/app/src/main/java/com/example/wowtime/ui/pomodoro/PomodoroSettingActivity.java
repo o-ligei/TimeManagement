@@ -170,41 +170,20 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = pomodoroSp.edit();
                     editor.putString("statistic", JSONObject.toJSONString(statisticDay));
                     editor.apply();
-
-//                    List<StatisticDayItem> statisticDay;
-//                    List<StatisticSimple> weekUnresolved,yearUnresolved;
-//                    String statisticDayString=pomodoroSp.getString("statisticDay","");
-//                    String statisticWeekString=pomodoroSp.getString("unresolvedWeek","");
-//                    String statisticYearString=pomodoroSp.getString("unresolvedYear","");
-//                    System.out.println(statisticDayString);
-//
-//                    if(statisticDayString.equals(""))
-//                        statisticDay=new LinkedList<>();
-//                    else
-//                        statisticDay=JSONObject.parseArray(statisticDayString,StatisticDayItem.class);
-//                    if(statisticWeekString.equals(""))
-//                        weekUnresolved=new LinkedList<>();
-//                    else
-//                        weekUnresolved=JSONObject.parseArray(statisticWeekString, StatisticSimple.class);
-//                    if(statisticYearString.equals(""))
-//                        yearUnresolved=new LinkedList<>();
-//                    else
-//                        yearUnresolved=JSONObject.parseArray(statisticYearString, StatisticSimple.class);
-//
-//                    System.out.println("focusedSeconds:"+focusedSeconds);
-//                    statisticDay.add(new StatisticDayItem(editText.getText().toString(),focusedSeconds/3600,
-//                                    (focusedSeconds%3600)/60,begin,new Date()));
-//                    Calendar c=Calendar.getInstance();
-//                    c.setTime(new Date());
-//                    float hourSaved=(float)focusedSeconds/3600;
-//                    weekUnresolved.add(new StatisticSimple((float) (Math.round(hourSaved*100))/100,c));
-//                    yearUnresolved.add(new StatisticSimple((float) (Math.round(hourSaved*100))/100,c));
-//
-//                    SharedPreferences.Editor editor=pomodoroSp.edit();
-//                    editor.putString("statisticDay",JSONObject.toJSONString(statisticDay));
-//                    editor.putString("unresolvedWeek",JSONObject.toJSONString(weekUnresolved));
-//                    editor.putString("unresolvedYear",JSONObject.toJSONString(yearUnresolved));
-//                    editor.apply();
+                    //achievement
+                    SharedPreferences achievement=PomodoroSettingActivity.super.getSharedPreferences("achievement",MODE_PRIVATE);
+                    //次数
+                    int count=Integer.parseInt(achievement.getString("pomodoro_count","0"));
+                    //累计时长
+                    int time=Integer.parseInt(achievement.getString("pomodoro_time_minite","0"));
+                    count+=1;
+                    time+=(int)(focusedSeconds/60);
+                    SharedPreferences.Editor editorAchievement=achievement.edit();
+                    editorAchievement.putString("pomodoro_count", Integer.toString(count));
+                    editorAchievement.putString("pomodoro_time_minite", Integer.toString(time));
+                    if(focusedSeconds>=3600)
+                        editorAchievement.putString("pomodoro_single_60","1");
+                    editorAchievement.apply();
                 }
             }.start();
 
