@@ -36,6 +36,13 @@ public class AchivementDetailActivity extends AppCompatActivity {
         boolean achieve=false;
         String achieveDetail="";
         switch (position){
+            case 0:{
+                int count=Integer.parseInt(achievement.getString("friend_have","0"));
+                if(count!=0)
+                    achieve=true;
+                achieveDetail="已添加"+count+"个好友";
+                break;
+            }
             case 2:{
                 int count=Integer.parseInt(achievement.getString("alarm_count","0"));
                 if(count>=5)
@@ -48,6 +55,13 @@ public class AchivementDetailActivity extends AppCompatActivity {
                 if(count>=5)
                     achieve=true;
                 achieveDetail="已完成"+count+"次";
+                break;
+            }
+            case 4:{
+                int count=Integer.parseInt(achievement.getString("friend_have","0"));
+                if(count>=10)
+                    achieve=true;
+                achieveDetail="已添加"+count+"个好友";
                 break;
             }
             case 6:{

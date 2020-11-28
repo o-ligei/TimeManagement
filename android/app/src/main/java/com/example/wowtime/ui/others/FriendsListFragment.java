@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -195,6 +196,13 @@ public class FriendsListFragment extends Fragment {
                     allfriendsListItems.add(listItem);
                 }
                 friendsListAdapter.notifyDataSetChanged();
+                //achievement needs to know the number of friends
+                Integer number = allfriendsListItems.size();
+                assert getActivity() != null;
+                SharedPreferences achievement = getActivity().getSharedPreferences("achievement", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = achievement.edit();
+                editor.putString("friend_have",number.toString());
+                editor.apply();
             }
         });
     }
