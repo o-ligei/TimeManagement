@@ -8,10 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.ui.alarm.TaskSuccessActivity;
@@ -21,6 +24,7 @@ import com.example.wowtime.websocket.TWebSocketClientService;
 
 import java.io.IOException;
 import java.util.Objects;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -42,6 +46,8 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(MainApplication.getThemeNumber()==1)
+            setTheme(R.style.DarkTheme);
         setContentView(R.layout.login_with_password_activity);
         TextView useCaptchaTextView = findViewById(R.id.textView7);
         useCaptchaTextView.setOnClickListener(new View.OnClickListener() {

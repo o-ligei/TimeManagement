@@ -108,7 +108,8 @@
     <!-- Preference Titles -->
     <string name="messages_header">消息</string>
     <string name="sync_header">同步</string>
-    <string name="game_setting_header">游戏参数设定</string>
+    <string name="game_setting_header">游戏参数</string>
+    <string name="game_setting">游戏参数设定</string>
     <string name="theme_setting_header">主题</string>
     <string name="theme_setting">黑夜模式</string>
     <string name="blowing_game_setting_header">努力吹吹吹</string>

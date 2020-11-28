@@ -16,10 +16,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
 import com.example.wowtime.dto.StatisticDayItem;
@@ -27,6 +30,7 @@ import com.example.wowtime.service.Accumulation;
 import com.example.wowtime.service.Credit;
 import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 import com.example.wowtime.util.InternetConstant;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,6 +59,8 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(MainApplication.getThemeNumber()==1)
+            setTheme(R.style.DarkTheme);
         setContentView(R.layout.pomodoro_setting_activity);
 
         //pomodoro.xml
