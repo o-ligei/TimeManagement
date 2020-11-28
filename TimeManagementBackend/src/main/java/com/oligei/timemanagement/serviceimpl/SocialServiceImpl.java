@@ -2,7 +2,10 @@ package com.oligei.timemanagement.serviceimpl;
 
 import com.oligei.timemanagement.dao.FriendDao;
 import com.oligei.timemanagement.dao.UserDao;
+import com.oligei.timemanagement.dto.FriendAlarmMsg;
 import com.oligei.timemanagement.dto.Profile;
+import com.oligei.timemanagement.entity.AskNeo4j;
+import com.oligei.timemanagement.entity.SetNeo4j;
 import com.oligei.timemanagement.entity.UserNeo4j;
 import com.oligei.timemanagement.service.SocialService;
 import com.oligei.timemanagement.utils.msgutils.Msg;
@@ -75,5 +78,24 @@ public class SocialServiceImpl implements SocialService {
         friendDao.addFollowRelation(from, to);
         friendDao.addFollowRelation(to, from);
         return new Msg<>(MsgCode.SUCCESS);
+    }
+
+    @Override
+    public Msg<Boolean> saveAlarmForFriend(Integer from, Integer to, FriendAlarmMsg friendAlarmMsg) {
+        Objects.requireNonNull(from, "null from --SocialServiceImpl saveAlarmForFriend");
+        Objects.requireNonNull(to, "null to --SocialServiceImpl saveAlarmForFriend");
+        Objects.requireNonNull(friendAlarmMsg, "null friendAlarmMsg --SocialServiceImpl saveAlarmForFriend");
+        friendDao.saveAlarmForFriend(from, to, friendAlarmMsg);
+        return new Msg<>(MsgCode.SUCCESS);
+    }
+
+    @Override
+    public Msg<List<FriendAlarmMsg>> getAlarmRequest(Integer userId) {
+        Objects.requireNonNull(userId, "null userId --SocialServiceImpl getAlarmRequest");
+        List<SetNeo4j> setNeo4js = friendDao.getAlarmRequest(userId);
+        List<FriendAlarmMsg> friendAlarmMsgs = new ArrayList<>();
+        for (SetNeo4j setNeo4j : setNeo4js)
+            friendAlarmMsgs.add(new FriendAlarmMsg(setNeo4j.getUsername(), setNeo4j.getClockSetting()));
+        return new Msg<>(MsgCode.SUCCESS, friendAlarmMsgs);
     }
 }

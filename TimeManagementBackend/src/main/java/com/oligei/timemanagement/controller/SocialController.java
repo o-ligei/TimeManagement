@@ -3,6 +3,7 @@ package com.oligei.timemanagement.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.oligei.timemanagement.TimemanagementApplication;
+import com.oligei.timemanagement.dto.FriendAlarmMsg;
 import com.oligei.timemanagement.dto.Profile;
 import com.oligei.timemanagement.entity.UserNeo4j;
 import com.oligei.timemanagement.exceptions.NotOnlineException;
@@ -99,6 +100,39 @@ public class SocialController {
         } catch (NotOnlineException e) {
             logger.error("NotOnlineException", e);
             return new Msg<>(MsgCode.SUCCESS);
+        } catch (NullPointerException e) {
+            logger.error("NullPointerException", e);
+            return new Msg<>(MsgCode.NULL_ARGUMENT);
+        }
+    }
+
+    @RequestMapping("/SetAlarmForFriend")
+    public Msg<Boolean> setAlarmForFriend(@RequestParam(name = "from") Integer from,
+                                          @RequestParam(name = "to") Integer to,
+                                          @RequestParam(name = "username") String username,
+                                          @RequestParam(name = "clocksetting") String clockSetting) {
+        FriendAlarmMsg friendAlarmMsg = new FriendAlarmMsg(username, clockSetting);
+        Msg<FriendAlarmMsg> msg = new Msg<>(MsgCode.NEW_FRIEND_ALARM, friendAlarmMsg);
+        try {
+            WebSocketController.sendMessage((JSONObject) JSONObject.toJSON(msg), to.toString());
+            return new Msg<>(MsgCode.SUCCESS);
+        } catch (NotOnlineException e) {
+            logger.error("NotOnlineException", e);
+            socialService.saveAlarmForFriend(from, to, friendAlarmMsg);
+            return new Msg<>(MsgCode.SUCCESS);
+        } catch (IOException e) {
+            logger.error("IOException", e);
+            return new Msg<>(MsgCode.CONNECTION_FAILURE);
+        } catch (NullPointerException e) {
+            logger.error("NullPointerException", e);
+            return new Msg<>(MsgCode.NULL_ARGUMENT);
+        }
+    }
+
+    @RequestMapping("/GetAlarmRequest")
+    public Msg<List<FriendAlarmMsg>> getAlarmRequest(@RequestParam(name = "userid") Integer userId) {
+        try {
+            return socialService.getAlarmRequest(userId);
         } catch (NullPointerException e) {
             logger.error("NullPointerException", e);
             return new Msg<>(MsgCode.NULL_ARGUMENT);
