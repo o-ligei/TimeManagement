@@ -38,20 +38,6 @@ public class AlarmListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.alarm_list_fragment, container, false);
-
-//        Calendar calendar= Calendar.getInstance();
-//        AlarmManager alarmManager= (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
-//        Intent sleepIntent=new Intent(getContext(), FloatingImageDisplayService.class);
-//        sleepIntent.putExtra("work",1000*65).putExtra("sleep",1);
-//        PendingIntent tmp= PendingIntent.getService(getContext(),0,sleepIntent,0);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()+3000, tmp);
-//        PendingIntent tmp2= PendingIntent.getService(getContext(),1,sleepIntent,0);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis()+30000,tmp2);
-
-//        AlarmItemAdapter adapter = new AlarmItemAdapter(alarmList, getContext());
-//        ListView listView = root.findViewById(R.id.AlarmCardList);
-//        listView.setAdapter(adapter);
-//        System.out.println(Uri.parse("R.raw.radar"));
         return root;
     }
 

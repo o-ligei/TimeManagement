@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,8 @@ public class AddAlarm {
         } else {
             options.set(weekday, true);
         }
-        newAlarm = new AlarmListItem("made by voice", options, "使劲摇摇摇", "radar", hour, 0);
+        String game=mContext.getResources().getString(R.string.blowing_game_setting_header);
+        newAlarm = new AlarmListItem("made by voice", options, game, "radar", hour, 0);
     }
 
     public void setTime(int hour, int minute) {
