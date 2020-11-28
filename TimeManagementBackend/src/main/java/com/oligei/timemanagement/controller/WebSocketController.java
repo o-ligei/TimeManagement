@@ -57,7 +57,7 @@ public class WebSocketController {
                 sendMessage((JSONObject) JSONObject.toJSON(existFriendMsg), userId);
             }
             if (!friendAlarmRequest.getData().isEmpty()) {
-                Msg<List<FriendAlarmMsg>> existAlarmMsg = new Msg<>(MsgCode.REMAIN_FRIEND_ALARM, new ArrayList<>());
+                Msg<List<FriendAlarmMsg>> existAlarmMsg = new Msg<>(MsgCode.REMAIN_FRIEND_ALARM, friendAlarmRequest.getData());
                 sendMessage((JSONObject) JSONObject.toJSON(existAlarmMsg), userId);
             }
             Msg<Boolean> loginSuccessMsg = new Msg<>(MsgCode.SUCCESS, true);
