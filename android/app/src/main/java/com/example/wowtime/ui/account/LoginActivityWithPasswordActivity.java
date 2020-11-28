@@ -110,6 +110,7 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
                 String str_data = null;
                 String str_user = null;
                 String userid = null;
+                String username = null;
 
                 try {
                     jsonObject = JSONObject.parseObject(result);
@@ -127,8 +128,9 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
                     str_user = Objects.requireNonNull(data.get("user")).toString();
                     JSONObject user = JSONObject.parseObject(str_user);
                     userid = Objects.requireNonNull(user.get("userId")).toString();
-                    assert userid != null;
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
+                    username = user.get("username").toString();
+                    UserInfoAfterLogin.username = username;
                     Intent startIntent = new Intent(LoginActivityWithPasswordActivity.this, TWebSocketClientService.class);
                     startService(startIntent);
                     Intent intent = new Intent(LoginActivityWithPasswordActivity.this,
