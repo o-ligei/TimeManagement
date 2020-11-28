@@ -78,6 +78,11 @@ public class AchivementDetailActivity extends AppCompatActivity {
                 achieveDetail="已完成"+count+"次";
                 break;
             }
+            case 8:{
+                if((achievement.getString("alarm_sleep","0")).equals("1"))
+                    achieve=true;
+                break;
+            }
             case 9:{
                 int focusedMinute=Integer.parseInt(achievement.getString("pomodoro_time_minite","0"));
                 if(focusedMinute>=60)
@@ -86,8 +91,7 @@ public class AchivementDetailActivity extends AppCompatActivity {
                 break;
             }
             case 10:{
-                String s=achievement.getString("pomodoro_single_60","0");
-                if(s.equals("1"))
+                if((achievement.getString("pomodoro_single_60","0")).equals("1"))
                     achieve=true;
                 break;
             }

@@ -146,12 +146,15 @@ public class ClockSettingActivity extends AppCompatActivity {
                 editor.putString("list", shared);
                 editor.apply();
                 //achievement
+                //count of alarm
                 SharedPreferences achievement=ClockSettingActivity.super.getSharedPreferences("achievement",MODE_PRIVATE);
-                //次数
                 int count=Integer.parseInt(achievement.getString("alarm_count","0"));
                 count+=1;
                 SharedPreferences.Editor editorAchievement=achievement.edit();
                 editorAchievement.putString("alarm_count", Integer.toString(count));
+                //try of sleep alarm
+                if(sleepFlag)
+                    editorAchievement.putString("alarm_sleep","1");
                 editorAchievement.apply();
                 finish();
             }
