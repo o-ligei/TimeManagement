@@ -17,6 +17,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
+import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 import com.example.wowtime.util.Weekday;
 
 import java.util.ArrayList;
@@ -144,6 +145,14 @@ public class ClockSettingActivity extends AppCompatActivity {
                 shared = JSONObject.toJSONString(alarmList);
                 editor.putString("list", shared);
                 editor.apply();
+                //achievement
+                SharedPreferences achievement=ClockSettingActivity.super.getSharedPreferences("achievement",MODE_PRIVATE);
+                //次数
+                int count=Integer.parseInt(achievement.getString("alarm_count","0"));
+                count+=1;
+                SharedPreferences.Editor editorAchievement=achievement.edit();
+                editorAchievement.putString("alarm_count", Integer.toString(count));
+                editorAchievement.apply();
                 finish();
             }
         });

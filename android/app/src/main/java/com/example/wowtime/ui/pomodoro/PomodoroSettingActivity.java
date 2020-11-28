@@ -181,6 +181,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     SharedPreferences.Editor editorAchievement=achievement.edit();
                     editorAchievement.putString("pomodoro_count", Integer.toString(count));
                     editorAchievement.putString("pomodoro_time_minite", Integer.toString(time));
+                    //单个时长
                     if(focusedSeconds>=3600)
                         editorAchievement.putString("pomodoro_single_60","1");
                     editorAchievement.apply();

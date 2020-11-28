@@ -36,9 +36,23 @@ public class AchivementDetailActivity extends AppCompatActivity {
         boolean achieve=false;
         String achieveDetail="";
         switch (position){
+            case 2:{
+                int count=Integer.parseInt(achievement.getString("alarm_count","0"));
+                if(count>=5)
+                    achieve=true;
+                achieveDetail="已完成"+count+"次";
+                break;
+            }
             case 3:{
                 int count=Integer.parseInt(achievement.getString("pomodoro_count","0"));
                 if(count>=5)
+                    achieve=true;
+                achieveDetail="已完成"+count+"次";
+                break;
+            }
+            case 6:{
+                int count=Integer.parseInt(achievement.getString("alarm_count","0"));
+                if(count>=50)
                     achieve=true;
                 achieveDetail="已完成"+count+"次";
                 break;
