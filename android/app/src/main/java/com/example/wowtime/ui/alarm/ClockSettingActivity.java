@@ -184,6 +184,12 @@ public class ClockSettingActivity extends AppCompatActivity {
         });
 
         Button assistSetting = findViewById(R.id.SleepAssistButton);
+        if(sleepFlag){
+            assistSetting.setText(getResources().getString(R.string.sleep_assist_open));
+        }
+        else{
+            assistSetting.setText(getResources().getString(R.string.sleep_assist_default));
+        }
         assistSetting.setOnClickListener(v -> startActivity(
                 new Intent(ClockSettingActivity.this, SleepAssistSetting.class)));
     }
