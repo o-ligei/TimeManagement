@@ -29,6 +29,11 @@ public class TaskSuccessActivity extends AppCompatActivity {
 
         Button back_to_home = findViewById(R.id.btn_back_to_home);
         successView = findViewById(R.id.successText);
+        String successMessage = getIntent().getStringExtra("description");
+        assert successMessage != null;
+        if(!successMessage.isEmpty()){
+            successView.setText(successMessage);
+        }
         back_to_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
