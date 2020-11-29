@@ -211,6 +211,14 @@
     <string name="take_screen_shot_and_share">SHOT AND SHARE</string>
 
     <string name="set_alarm_for_friend">ALARM</string>
+    <string name="receive_alarm_title">alarm send by friend</string>
+    <string name="send_alarm_tag">tag: </string>
+    <string name="send_alarm_time">time: </string>
+    <string name="send_alarm_repeat">repeat: </string>
+    <string name="send_alarm_game">game: </string>
+    <string name="send_alarm_ring">ring: </string>
+    <string name="send_alarm_assist">sleep assist: </string>
+    <string name="send_alarm_assist_time">sleep assist time: </string>
 
     <!--strings for alarm frequency-->
     <string name="alarm_frequency_no_repeat">one time</string>

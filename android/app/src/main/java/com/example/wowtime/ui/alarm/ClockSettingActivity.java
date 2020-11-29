@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TimePicker;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
@@ -156,7 +157,7 @@ public class ClockSettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 AlarmListItem alarm = new AlarmListItem(tag, frequency, game, ring, Hour, Minute);
                 if(action!=null&&action.equals("set for friend")) {
-
+                    send_alarm(userid,alarm);
                 }
                 SharedPreferences mySharedPreferences = getSharedPreferences("alarmList",
                                                                              Activity.MODE_PRIVATE);
@@ -188,8 +189,12 @@ public class ClockSettingActivity extends AppCompatActivity {
     }
 
     private void send_alarm(int userid,AlarmListItem alarm){
+        String clockSetting= JSON.toJSONString(alarm);
         FormBody.Builder formBody = new FormBody.Builder();
-        formBody.add("userid", String.valueOf(userid));
+        formBody.add("from",String.valueOf(UserInfoAfterLogin.userid));
+        formBody.add("to", String.valueOf(userid));
+        formBody.add("username",UserInfoAfterLogin.username);
+        formBody.add("clocksetting",clockSetting);
         /*handler*/
         android.os.Handler handler = new Handler(message -> {
             if (message.what == InternetConstant.FETCH) {
@@ -203,7 +208,7 @@ public class ClockSettingActivity extends AppCompatActivity {
             return false;
         });
 
-        Ajax ajax = new Ajax("/Detail/AddScore", formBody, handler, InternetConstant.FETCH);
+        Ajax ajax = new Ajax("/Social/SetAlarmForFriend", formBody, handler, InternetConstant.FETCH);
         ajax.fetch();
     }
 

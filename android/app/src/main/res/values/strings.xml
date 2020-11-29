@@ -206,6 +206,14 @@
   <string name="take_screen_shot_and_share">截屏分享</string>
 
   <string name="set_alarm_for_friend">设闹钟</string>
+  <string name="receive_alarm_title">好友为你设置的闹钟</string>
+  <string name="send_alarm_tag">标签： </string>
+  <string name="send_alarm_time">时间： </string>
+  <string name="send_alarm_repeat">重复： </string>
+  <string name="send_alarm_game">游戏： </string>
+  <string name="send_alarm_ring">铃声： </string>
+  <string name="send_alarm_assist">睡眠助手： </string>
+  <string name="send_alarm_assist_time">睡眠助手时间： </string>
 
   <!--strings for alarm frequency-->
   <string name="alarm_frequency_no_repeat">无重复</string>
@@ -220,4 +228,5 @@
   <!--strings for alarm ring-->
   <string name="alarm_ring_radar">雷达</string>
   <string name="alarm_ring_classic">经典</string>
+
 </resources>

@@ -14,14 +14,19 @@ public class AddAlarm {
     AlarmListItem newAlarm;
     private Context mContext;
 
-//    public AddAlarm(Context mContext){
-//        this.mContext = mContext;
-//        ArrayList<Boolean> options=new ArrayList<>();
-//        for (int i=0;i<8;i++){
-//            options.add(false);
-//        }
-//        newAlarm=new AlarmListItem("made by voice",options,"使劲摇摇摇","radar",0,0);
-//    }
+    public AddAlarm(Context mContext){
+        this.mContext = mContext;
+        ArrayList<Boolean> options=new ArrayList<>();
+        for (int i=0;i<8;i++){
+            options.add(false);
+        }
+        newAlarm=new AlarmListItem("made by voice",options,"使劲摇摇摇","radar",0,0);
+    }
+
+    public AddAlarm(Context mContext,AlarmListItem alarmListItem){
+        this.mContext = mContext;
+        newAlarm=alarmListItem;
+    }
 
     public AddAlarm(boolean flag, int weekday, int hour, Context mContext) {
         this.mContext = mContext;
