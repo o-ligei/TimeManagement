@@ -49,8 +49,7 @@ public class UserDaoImpl implements UserDao {
             userMongoDBRepository.save(userMongoDB);
             userNeo4jRepository.save(userNeo4j);
             return saved_user;
-        }
-        else return userRepository.save(user);
+        } else { return userRepository.save(user); }
     }
 
     @Override

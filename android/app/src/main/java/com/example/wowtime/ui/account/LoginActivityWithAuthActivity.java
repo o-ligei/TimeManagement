@@ -154,7 +154,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                     JSONObject user = JSONObject.parseObject(str_user);
                     userid = user.get("userId").toString();
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
-                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this, TWebSocketClientService.class);
+                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this,
+                                                    TWebSocketClientService.class);
                     startService(startIntent);
                     finish();
                     Intent intent = new Intent(LoginActivityWithAuthActivity.this,

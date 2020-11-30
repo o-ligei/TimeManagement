@@ -49,28 +49,26 @@ public class StatisticYearActivity extends AppCompatActivity {
 //        list.add(new BarEntry(12, 0));
         List<StatisticDayItem> statisticDayItems;
         String s = pomodoroSp.getString("statistic", "");
-        if (s.equals(""))
-            statisticDayItems = new LinkedList<>();
-        else
+        if (s.equals("")) { statisticDayItems = new LinkedList<>(); } else {
             statisticDayItems = JSONObject.parseArray(s, StatisticDayItem.class);
+        }
 
-        List<Float> yOfMonth=new LinkedList<>();
+        List<Float> yOfMonth = new LinkedList<>();
 
-        for(int i=0;i<12;++i){
+        for (int i = 0; i < 12; ++i) {
             yOfMonth.add((float) 0);
         }
 
-        Calendar calendar=Calendar.getInstance();
-        for(StatisticDayItem item :statisticDayItems){
+        Calendar calendar = Calendar.getInstance();
+        for (StatisticDayItem item : statisticDayItems) {
             calendar.setTime(item.getBegin());
-            int index=calendar.get(Calendar.MONTH);
-            float oldy=yOfMonth.get(index);
-            float deltay=item.getHour()+(float)item.getMinute()/60;
-            float newy=oldy+deltay;
+            int index = calendar.get(Calendar.MONTH);
+            float oldy = yOfMonth.get(index);
+            float deltay = item.getHour() + (float) item.getMinute() / 60;
+            float newy = oldy + deltay;
             BigDecimal bg = new BigDecimal(newy);
-            yOfMonth.set(index,(float) bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            yOfMonth.set(index, (float) bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         }
-
 
         int max = 0;
         for (int i = 0; i < 12; ++i) {

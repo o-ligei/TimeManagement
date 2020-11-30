@@ -83,7 +83,8 @@ public class FriendDaoImpl implements FriendDao {
         Objects.requireNonNull(from, "null from --FriendDaoImpl saveAlarmForFriend");
         Objects.requireNonNull(to, "null to --FriendDaoImpl saveAlarmForFriend");
         Objects.requireNonNull(friendAlarmMsg, "null friendAlarmMsg --FriendDaoImpl saveAlarmForFriend");
-        return setNeo4jRepository.addSetRelation(from.toString(), to.toString(), friendAlarmMsg.getUsername(), friendAlarmMsg.getClockSetting());
+        return setNeo4jRepository.addSetRelation(from.toString(), to.toString(), friendAlarmMsg.getUsername(),
+                                                 friendAlarmMsg.getClockSetting());
     }
 
     @Override

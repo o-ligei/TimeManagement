@@ -66,7 +66,7 @@ public class FriendsListFragment extends Fragment {
         requireActivity().registerReceiver(friendRequestReceiver, intentFilter);
     }
 
-    private void FlushFriendRequest(){
+    private void FlushFriendRequest() {
         System.out.println("flush friend request");
         if (UserInfoAfterLogin.webSocketMessage) {
             friendRequest.setVisibility(View.VISIBLE);

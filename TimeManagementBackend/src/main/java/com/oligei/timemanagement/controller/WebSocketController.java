@@ -57,7 +57,8 @@ public class WebSocketController {
                 sendMessage((JSONObject) JSONObject.toJSON(existFriendMsg), userId);
             }
             if (!friendAlarmRequest.getData().isEmpty()) {
-                Msg<List<FriendAlarmMsg>> existAlarmMsg = new Msg<>(MsgCode.REMAIN_FRIEND_ALARM, friendAlarmRequest.getData());
+                Msg<List<FriendAlarmMsg>> existAlarmMsg = new Msg<>(MsgCode.REMAIN_FRIEND_ALARM,
+                                                                    friendAlarmRequest.getData());
                 sendMessage((JSONObject) JSONObject.toJSON(existAlarmMsg), userId);
             }
             Msg<Boolean> loginSuccessMsg = new Msg<>(MsgCode.SUCCESS, true);
@@ -82,7 +83,7 @@ public class WebSocketController {
         Objects.requireNonNull(jsonObject, "null message --WebSocketController sendMessage");
         Objects.requireNonNull(toUserId, "null toUserId --WebSocketController sendMessage");
         WebSocketController webSocketController = webSocketMap.get(toUserId);
-        if (webSocketController == null) throw new NotOnlineException(MsgConstant.NOT_ONLINE_MESSAGE);
+        if (webSocketController == null) { throw new NotOnlineException(MsgConstant.NOT_ONLINE_MESSAGE); }
         String message = JSON.toJSONString(jsonObject);
         webSocketController.sendMessageHelper(message);
     }
