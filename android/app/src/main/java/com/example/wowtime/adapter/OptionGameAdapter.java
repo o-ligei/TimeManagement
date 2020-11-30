@@ -2,6 +2,7 @@ package com.example.wowtime.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,9 @@ public class OptionGameAdapter extends BaseAdapter {
 
     private ArrayList<OptionGameItem> mData;
     private Context mContext;
+    private Integer gray = -1;
     private Integer green = -1;
+    private Integer red = -1;
     private String choose = "";
 
     public OptionGameAdapter(ArrayList<OptionGameItem> mData, Context mContext) {
@@ -39,7 +42,11 @@ public class OptionGameAdapter extends BaseAdapter {
         return position;
     }
 
+    public void setGray(Integer gray) {this.gray = gray;}
+
     public void setGreen(Integer green) {this.green = green;}
+
+    public void setRed(Integer red) {this.red = red;}
 
     public String getChoose() {return choose;}
 
@@ -57,9 +64,9 @@ public class OptionGameAdapter extends BaseAdapter {
         CardView cardView = convertView.findViewById(R.id.option_item_card);
         optionView.setText(mData.get(position).getOpt());
         statementView.setText(mData.get(position).getStatement());
-        if (position == green) {
-            cardView.setBackgroundColor(mContext.getResources().getColor(R.color.lightPink));
-        }
+        if (position == gray) { cardView.setBackgroundColor(Color.GRAY); }
+        if (position == red) { cardView.setBackgroundColor(Color.RED); }
+        if (position == green) { cardView.setBackgroundColor(Color.GREEN); }
         return convertView;
     }
 }

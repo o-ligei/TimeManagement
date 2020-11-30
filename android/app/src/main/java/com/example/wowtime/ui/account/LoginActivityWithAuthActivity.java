@@ -147,6 +147,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                 String str_data = null;
                 String str_user = null;
                 String userid = null;
+                String username = null;
 
                 jsonObject = JSONObject.parseObject(result);
                 msg = jsonObject.get("msg").toString();
@@ -160,8 +161,9 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                     JSONObject user = JSONObject.parseObject(str_user);
                     userid = user.get("userId").toString();
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
-                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this,
-                                                    TWebSocketClientService.class);
+                    username = user.get("username").toString();
+                    UserInfoAfterLogin.username = username;
+                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this, TWebSocketClientService.class);
                     startService(startIntent);
                     finish();
                     Intent intent = new Intent(LoginActivityWithAuthActivity.this,

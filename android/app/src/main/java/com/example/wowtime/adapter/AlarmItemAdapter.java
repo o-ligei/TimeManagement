@@ -39,20 +39,57 @@ public class AlarmItemAdapter extends BaseAdapter {
     private List<AlarmListItem> mData;
     private Context mContext;
     private AlarmManager alarmManager;
-    private ArrayList<ArrayList<PendingIntent>> pi;
-    private ArrayList<ArrayList<PendingIntent>> sleepPi;
 
     public AlarmItemAdapter(List<AlarmListItem> mData, Context mContext) {
-        pi = new ArrayList<>();
-        for (int i = 0; i < mData.size(); i++) {
-            pi.add(null);
-        }
-        sleepPi = new ArrayList<>();
-        for (int i = 0; i < mData.size(); i++) {
-            sleepPi.add(null);
-        }
         this.mData = mData;
         this.mContext = mContext;
+    }
+
+    private void modifyState(boolean flag, int position) {
+        SharedPreferences mySharedPreferences = mContext.getSharedPreferences("alarmList",
+                                                                              Activity.MODE_PRIVATE);
+        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = mySharedPreferences
+                .edit();
+        String shared = mySharedPreferences.getString("list", "");
+        List<AlarmListItem> alarmList = new ArrayList<>();
+        if (!shared.equals("") && shared != null) {
+            alarmList = JSONObject.parseArray(shared, AlarmListItem.class);
+        }
+        AlarmListItem alarm = alarmList.get(position);
+        alarm.setStatus(flag);
+        alarmList.set(position, alarm);
+        shared = JSONObject.toJSONString(alarmList);
+        editor.putString("list", shared);
+        editor.apply();
+    }
+
+    private Intent getIntent(int position) {
+        Intent intent;
+        if (mData.get(position).getGame().equals(mContext.getResources().getString(
+                R.string.blowing_game_setting_header))) {
+            intent = new Intent(mContext, BlowingGameActivity.class);
+        } else if (mData.get(position).getGame().equals(mContext.getResources()
+                                                                .getString(
+                                                                        R.string.shaking_game_setting_header))) {
+            intent = new Intent(mContext, ShakingGameActivity.class);
+        } else if (mData.get(position).getGame().equals(mContext.getResources()
+                                                                .getString(
+                                                                        R.string.calculate_game_setting_header))) {
+            intent = new Intent(mContext, CalculateGameActivity.class);
+        } else if (mData.get(position).getGame().equals(mContext.getResources()
+                                                                .getString(
+                                                                        R.string.tapping_game_setting_header))) {
+            intent = new Intent(mContext, TappingGameActivity.class);
+        } else if (mData.get(position).getGame().equals(mContext.getResources()
+                                                                .getString(
+                                                                        R.string.Answering_game_setting_header))) {
+            intent = new Intent(mContext, OptionGameActivity.class);
+        } else {
+            intent = new Intent(mContext, RandomNumberGameActivity.class);
+        }
+        intent.putExtra("ring", mData.get(position).getRing());
+        intent.putExtra("sleepFlag", mData.get(position).getSleepFlag());
+        return intent;
     }
 
     @Override
@@ -81,16 +118,25 @@ public class AlarmItemAdapter extends BaseAdapter {
         List<Boolean> frequency = new ArrayList<>();
         frequency = mData.get(position).getFrequency();
         if (frequency.get(0)) {
-            txt_frequency.setText("无重复");
+            txt_frequency.setText(mContext.getResources().getString(R.string.alarm_frequency_no_repeat));
         } else {
-            Weekday weekday = new Weekday();
-            StringBuilder out = new StringBuilder("星期");
-            for (int i = 1; i <= 7; i++) {
-                if (frequency.get(i)) {
-                    out.append(weekday.getDay(i));
-                    txt_frequency.setText(out);
+            boolean flag=mContext.getResources()
+                    .getString(R.string.alarm_frequency_no_repeat).equals("无重复");
+            Weekday weekday = new Weekday(flag);
+            StringBuilder out;
+            if(flag) {
+                out= new StringBuilder("星期");
+            }
+            else {
+                out= new StringBuilder("");
+            }
+            for (int j = 1; j <= 7; j++) {
+                if (frequency.get(j)) {
+                    out.append(weekday.getDay(j));
+                    out.append(" ");
                 }
             }
+            txt_frequency.setText(out);
         }
 //        txt_frequency.setText(mData.get(position).getFrequency());
         txt_tag.setText(mData.get(position).getTag());
@@ -146,57 +192,36 @@ public class AlarmItemAdapter extends BaseAdapter {
         });
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch trigger = convertView.findViewById(R.id.AlarmSwitch);
+        trigger.setChecked(mData.get(position).getStatus());
         trigger.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                /*data init*/
+                PendingIntent wakeup = null;
+                PendingIntent sleepAssist = null;
+                Calendar calendar = Calendar.getInstance();
+                Calendar currentTime = Calendar.getInstance();
+                alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+                Intent intent = getIntent(position);
+
+                calendar.set(Calendar.HOUR_OF_DAY, mData.get(position).getHour());
+                calendar.set(Calendar.MINUTE, mData.get(position).getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                /*deal with sleepAssist*/
+                Calendar sleepCalender = Calendar.getInstance();
+                Intent sleepIntent = new Intent(mContext, FloatingImageDisplayService.class);
+                sleepIntent.putExtra("work", 65 * 1000);
+                sleepIntent.putExtra("sleep", 1);
+                if (mData.get(position).getSleepFlag()) {
+                    sleepCalender.set(Calendar.HOUR_OF_DAY, mData.get(position).getSleepHour());
+                    sleepCalender.set(Calendar.MINUTE, mData.get(position).getSleepMinute());
+                    sleepCalender.set(Calendar.SECOND, 0);
+                    sleepCalender.set(Calendar.MILLISECOND, 0);
+                }
+
                 if (isChecked) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, mData.get(position).getHour());
-                    calendar.set(Calendar.MINUTE, mData.get(position).getMinute());
-                    calendar.set(Calendar.SECOND, 0);
-                    calendar.set(Calendar.MILLISECOND, 0);
-                    Calendar currentTime = Calendar.getInstance();
-                    alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
-                    Intent intent;
-//                    System.out.println(mData.get(position).getGame());
-
-                    /*deal with game*/
-                    if (mData.get(position).getGame().equals(mContext.getResources().getString(
-                            R.string.blowing_game_setting_header))) {
-                        intent = new Intent(mContext, BlowingGameActivity.class);
-                    } else if (mData.get(position).getGame().equals(mContext.getResources()
-                                                                            .getString(
-                                                                                    R.string.shaking_game_setting_header))) {
-                        intent = new Intent(mContext, ShakingGameActivity.class);
-                    } else if (mData.get(position).getGame().equals(mContext.getResources()
-                                                                            .getString(
-                                                                                    R.string.calculate_game_setting_header))) {
-                        intent = new Intent(mContext, CalculateGameActivity.class);
-                    } else if (mData.get(position).getGame().equals(mContext.getResources()
-                                                                            .getString(
-                                                                                    R.string.tapping_game_setting_header))) {
-                        intent = new Intent(mContext, TappingGameActivity.class);
-                    } else if (mData.get(position).getGame().equals(mContext.getResources()
-                                                                            .getString(
-                                                                                    R.string.Answering_game_setting_header))) {
-                        intent = new Intent(mContext, OptionGameActivity.class);
-                    } else {
-                        intent = new Intent(mContext, RandomNumberGameActivity.class);
-                    }
-                    intent.putExtra("ring", mData.get(position).getRing());
-                    intent.putExtra("sleepFlag", mData.get(position).getSleepFlag());
-
-                    /*deal with sleepAssist*/
-                    Calendar sleepCalender = Calendar.getInstance();
-                    Intent sleepIntent = new Intent(mContext, FloatingImageDisplayService.class);
-                    sleepIntent.putExtra("work", 65 * 1000);
-                    sleepIntent.putExtra("sleep", 1);
-                    if (mData.get(position).getSleepFlag()) {
-                        sleepCalender.set(Calendar.HOUR_OF_DAY, mData.get(position).getSleepHour());
-                        sleepCalender.set(Calendar.MINUTE, mData.get(position).getSleepMinute());
-                        sleepCalender.set(Calendar.SECOND, 0);
-                        sleepCalender.set(Calendar.MILLISECOND, 0);
-                    }
+                    modifyState(true, position);
                     /*deal with frequency*/
                     if (mData.get(position).getFrequency().get(0)) {
                         System.out.println("无重复闹钟");
@@ -205,15 +230,10 @@ public class AlarmItemAdapter extends BaseAdapter {
                                     calendar.getTimeInMillis() + 24 * 60 * 60 * 1000);
                         }
                         int requestCode = position * 10;
-                        PendingIntent tmp = PendingIntent
+                        wakeup = PendingIntent
                                 .getActivity(mContext, requestCode, intent, 0);
-                        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), tmp);
-                        ArrayList<PendingIntent> arrayPi = new ArrayList<>();
-                        for (int j = 0; j < 8; j++) {
-                            arrayPi.add(null);
-                        }
-                        arrayPi.set(0, tmp);
-                        pi.set(position, arrayPi);
+                        alarmManager
+                                .set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), wakeup);
 
                         if (mData.get(position).getSleepFlag()) {
                             if (sleepCalender.getTimeInMillis() <= currentTime.getTimeInMillis()) {
@@ -221,18 +241,11 @@ public class AlarmItemAdapter extends BaseAdapter {
                                         sleepCalender.getTimeInMillis() + 24 * 60 * 60 * 1000);
                             }
                             requestCode = -position * 10;
-                            System.out.println("sleepCalender:" + sleepCalender.getTimeInMillis());
-                            System.out.println("currentTime:" + currentTime.getTimeInMillis());
-                            tmp = PendingIntent.getService(mContext, requestCode, sleepIntent, 0);
+                            sleepAssist = PendingIntent
+                                    .getService(mContext, requestCode, sleepIntent, 0);
                             alarmManager
                                     .set(AlarmManager.RTC_WAKEUP, sleepCalender.getTimeInMillis(),
-                                         tmp);
-                            arrayPi = new ArrayList<>();
-                            for (int j = 0; j < 8; j++) {
-                                arrayPi.add(null);
-                            }
-                            arrayPi.set(0, tmp);
-                            sleepPi.set(position, arrayPi);
+                                         sleepAssist);
                         }
                     } else {
                         System.out.println("每周闹钟");
@@ -247,58 +260,57 @@ public class AlarmItemAdapter extends BaseAdapter {
                                 }
                                 long start_time = calendar.getTimeInMillis()
                                         + 24 * 60 * 60 * 1000 * delta_day;
-                                System.out.println("Calender:" + start_time);
-                                System.out.println("currentTime:" + currentTime.getTimeInMillis());
                                 int requestCode = position * 10 + i;
-                                PendingIntent tmp = PendingIntent
+                                wakeup = PendingIntent
                                         .getActivity(mContext, requestCode, intent, 0);
                                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, start_time,
-                                                          24 * 60 * 60 * 1000 * 7, tmp);
-                                ArrayList<PendingIntent> arrayPi = new ArrayList<>();
-                                for (int j = 0; j < 8; j++) {
-                                    arrayPi.add(null);
-                                }
-                                arrayPi.set(i, tmp);
-                                pi.set(position, arrayPi);
+                                                          24 * 60 * 60 * 1000 * 7, wakeup);
 
                                 if (mData.get(position).getSleepFlag()) {
                                     start_time = sleepCalender.getTimeInMillis()
                                             + 24 * 60 * 60 * 1000 * (delta_day - 1);
-                                    System.out.println("sleepCalender:" + start_time);
-                                    System.out.println(
-                                            "currentTime:" + currentTime.getTimeInMillis());
                                     requestCode = -(position * 10 + i);
-                                    tmp = PendingIntent
+                                    sleepAssist = PendingIntent
                                             .getService(mContext, requestCode, sleepIntent, 0);
                                     alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, start_time,
-                                                              24 * 60 * 60 * 1000 * 7, tmp);
-                                    arrayPi = new ArrayList<>();
-                                    for (int j = 0; j < 8; j++) {
-                                        arrayPi.add(null);
-                                    }
-                                    arrayPi.set(i, tmp);
-                                    sleepPi.set(position, arrayPi);
+                                                              24 * 60 * 60 * 1000 * 7, sleepAssist);
                                 }
                             }
                         }
                     }
                 } else {
-                    ArrayList<PendingIntent> tmpPi = pi.get(position);
-                    ArrayList<PendingIntent> tmpSleepPi = sleepPi.get(position);
-                    for (int i = 0; i < 8; i++) {
-                        PendingIntent tmp = tmpPi.get(i);
-                        if (tmp != null) {
-                            alarmManager.cancel(tmp);
+                    modifyState(false, position);
+                    if (mData.get(position).getFrequency().get(0)) {
+                        System.out.println("关闭无重复闹钟");
+                        int requestCode = position * 10;
+                        wakeup = PendingIntent
+                                .getActivity(mContext, requestCode, intent, 0);
+                        alarmManager.cancel(wakeup);
+
+                        if (mData.get(position).getSleepFlag()) {
+                            requestCode = -position * 10;
+                            sleepAssist = PendingIntent
+                                    .getService(mContext, requestCode, sleepIntent, 0);
+                            alarmManager.cancel(sleepAssist);
                         }
-                        if (tmpSleepPi != null) {
-                            tmp = tmpSleepPi.get(position);
-                            if (tmp != null) {
-                                alarmManager.cancel(tmp);
+                    } else {
+                        System.out.println("关闭每周闹钟");
+                        for (int i = 1; i <= 7; i++) {
+                            if (mData.get(position).getFrequency().get(i)) {
+                                int requestCode = position * 10 + i;
+                                wakeup = PendingIntent
+                                        .getActivity(mContext, requestCode, intent, 0);
+                                alarmManager.cancel(wakeup);
+
+                                if (mData.get(position).getSleepFlag()) {
+                                    requestCode = -(position * 10 + i);
+                                    sleepAssist = PendingIntent
+                                            .getService(mContext, requestCode, sleepIntent, 0);
+                                    alarmManager.cancel(sleepAssist);
+                                }
                             }
                         }
                     }
-                    pi.set(position, null);
-                    sleepPi.set(position, null);
                 }
             }
         });

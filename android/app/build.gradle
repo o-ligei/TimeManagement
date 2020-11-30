@@ -71,6 +71,9 @@ dependencies {
     implementation 'org.java-websocket:Java-WebSocket:1.5.1'
     implementation 'org.slf4j:slf4j-simple:1.7.25'
 
+    implementation 'uk.co.barbuzz:beerprogressview:0.0.6'
+    implementation group: 'com.nineoldandroids', name: 'library', version: '2.4.0'
+
     def nav_version = "2.3.0"
 
     // Java language implementation
