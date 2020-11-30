@@ -17,7 +17,9 @@
     <string name="get_captcha_hint">Get Captcha</string>
 
     <string name="username_hint">input username…</string>
+    <string name="username_warning">The username starts with a letter and is at least four characters long</string>
     <string name="password_hint">input password…</string>
+    <string name="password_warning">The password must contain numbers, uppercase and lowercase letters, and be at least six characters long</string>
 
     <string name="logo_description">This is the logo description.</string>
     <string name="login_usepw_hint">use password?</string>
@@ -147,7 +149,6 @@
     <string name="calculate_description">please type the answer of formula below</string>
     <string name="calculate_title">FORMULA</string>
     <string name="calculate_answer">0</string>
-    <string name="calculate_handson">HANDSON</string>
 
     <!-- strings for about -->
     <string name="about_title">WOWTIME</string>
@@ -207,4 +208,7 @@
     <string name="email">Email:</string>
     <string name="credit">Accumulation:</string>
     <string name="take_screen_shot_and_share">SHOT AND SHARE</string>
+
+    <string name="set_alarm_for_friend">ALARM</string>
+
 </resources>

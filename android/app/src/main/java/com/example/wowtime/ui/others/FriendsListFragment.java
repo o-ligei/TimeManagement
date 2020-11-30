@@ -103,7 +103,7 @@ public class FriendsListFragment extends Fragment {
             public boolean onQueryTextSubmit(String s) {
                 System.out.println("onQueryTextSubmit:" + s);
                 if (s.isEmpty()) {
-                    System.out.println("empty!");
+//                    System.out.println("empty!");
                     FriendsListAdapter friendsListAdapter = new FriendsListAdapter(
                             allfriendsListItems, getContext());
                     listView.setAdapter(friendsListAdapter);
@@ -118,7 +118,7 @@ public class FriendsListFragment extends Fragment {
                 FriendsListAdapter friendsListAdapter = new FriendsListAdapter(
                         searchfriendsListItems, getContext());
                 listView.setAdapter(friendsListAdapter);
-                System.out.println("flush");
+//                System.out.println("flush");
                 return true;
             }
 
