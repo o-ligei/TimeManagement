@@ -59,8 +59,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(MainApplication.getThemeNumber()==1)
-            setTheme(R.style.DarkTheme);
+        if (MainApplication.getThemeNumber() == 1) { setTheme(R.style.DarkTheme); }
         setContentView(R.layout.pomodoro_setting_activity);
 
         //pomodoro.xml
@@ -171,19 +170,21 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     editor.putString("statistic", JSONObject.toJSONString(statisticDay));
                     editor.apply();
                     //achievement
-                    SharedPreferences achievement=PomodoroSettingActivity.super.getSharedPreferences("achievement",MODE_PRIVATE);
+                    SharedPreferences achievement = PomodoroSettingActivity.super
+                            .getSharedPreferences("achievement", MODE_PRIVATE);
                     //次数
-                    int count=Integer.parseInt(achievement.getString("pomodoro_count","0"));
+                    int count = Integer.parseInt(achievement.getString("pomodoro_count", "0"));
                     //累计时长
-                    int time=Integer.parseInt(achievement.getString("pomodoro_time_minite","0"));
-                    count+=1;
-                    time+=(int)(focusedSeconds/60);
-                    SharedPreferences.Editor editorAchievement=achievement.edit();
+                    int time = Integer.parseInt(achievement.getString("pomodoro_time_minite", "0"));
+                    count += 1;
+                    time += (int) (focusedSeconds / 60);
+                    SharedPreferences.Editor editorAchievement = achievement.edit();
                     editorAchievement.putString("pomodoro_count", Integer.toString(count));
                     editorAchievement.putString("pomodoro_time_minite", Integer.toString(time));
                     //单个时长
-                    if(focusedSeconds>=3600)
-                        editorAchievement.putString("pomodoro_single_60","1");
+                    if (focusedSeconds >= 3600) {
+                        editorAchievement.putString("pomodoro_single_60", "1");
+                    }
                     editorAchievement.apply();
                 }
             }.start();

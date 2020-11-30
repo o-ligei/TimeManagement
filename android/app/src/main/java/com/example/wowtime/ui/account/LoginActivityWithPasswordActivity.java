@@ -46,8 +46,7 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(MainApplication.getThemeNumber()==1)
-            setTheme(R.style.DarkTheme);
+        if (MainApplication.getThemeNumber() == 1) { setTheme(R.style.DarkTheme); }
         setContentView(R.layout.login_with_password_activity);
         TextView useCaptchaTextView = findViewById(R.id.textView7);
         useCaptchaTextView.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +134,8 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
                     userid = Objects.requireNonNull(user.get("userId")).toString();
                     assert userid != null;
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
-                    Intent startIntent = new Intent(LoginActivityWithPasswordActivity.this, TWebSocketClientService.class);
+                    Intent startIntent = new Intent(LoginActivityWithPasswordActivity.this,
+                                                    TWebSocketClientService.class);
                     startService(startIntent);
                     Intent intent = new Intent(LoginActivityWithPasswordActivity.this,
                                                MainActivity.class);

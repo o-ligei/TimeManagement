@@ -44,10 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mainSp = super.getSharedPreferences("theme", MODE_PRIVATE);
         themeNumber = mainSp.getInt("theme", 0);
         MainApplication.setThemeNumber(themeNumber);
-        if (themeNumber == 1)
-            setTheme(R.style.DarkTheme);
-        else
-            setTheme(R.style.AppTheme);
+        if (themeNumber == 1) { setTheme(R.style.DarkTheme); } else { setTheme(R.style.AppTheme); }
 //        setContentView(R.layout.main_used_to_debug);
 //        Button button = findViewById(R.id.button);
 //        button.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, PersonInfo.class)));
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 //                v -> startActivity(new Intent(MainActivity.this, TaskListActivity.class)));
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        if(themeNumber==1) {
+        if (themeNumber == 1) {
             DrawerLayout drawerLayout = findViewById(R.id.drawer);
             drawerLayout.setBackgroundColor(Color.parseColor("#aaaaaa"));
         }

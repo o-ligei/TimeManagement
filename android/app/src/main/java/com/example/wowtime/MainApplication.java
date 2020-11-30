@@ -11,7 +11,7 @@ public class MainApplication extends Application {
 
     private static MainApplication mApp;
 
-    private static Integer themeNumber=0;
+    private static Integer themeNumber = 0;
 
     public static MainApplication getInstance() {
         return mApp;

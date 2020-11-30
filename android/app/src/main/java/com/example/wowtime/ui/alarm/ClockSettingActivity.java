@@ -41,8 +41,7 @@ public class ClockSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(MainApplication.getThemeNumber()==1)
-            setTheme(R.style.DarkTheme);
+        if (MainApplication.getThemeNumber() == 1) { setTheme(R.style.DarkTheme); }
         /*initialize*/
         tag = this.getString(R.string.alarm_list_title);
         game = this.getString(R.string.clock_setting_game_default);
@@ -147,14 +146,14 @@ public class ClockSettingActivity extends AppCompatActivity {
                 editor.apply();
                 //achievement
                 //count of alarm
-                SharedPreferences achievement=ClockSettingActivity.super.getSharedPreferences("achievement",MODE_PRIVATE);
-                int count=Integer.parseInt(achievement.getString("alarm_count","0"));
-                count+=1;
-                SharedPreferences.Editor editorAchievement=achievement.edit();
+                SharedPreferences achievement = ClockSettingActivity.super
+                        .getSharedPreferences("achievement", MODE_PRIVATE);
+                int count = Integer.parseInt(achievement.getString("alarm_count", "0"));
+                count += 1;
+                SharedPreferences.Editor editorAchievement = achievement.edit();
                 editorAchievement.putString("alarm_count", Integer.toString(count));
                 //try of sleep alarm
-                if(sleepFlag)
-                    editorAchievement.putString("alarm_sleep","1");
+                if (sleepFlag) { editorAchievement.putString("alarm_sleep", "1"); }
                 editorAchievement.apply();
                 finish();
             }

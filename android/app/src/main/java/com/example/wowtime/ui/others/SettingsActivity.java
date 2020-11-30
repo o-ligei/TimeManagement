@@ -21,22 +21,16 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        themeSp=super.getSharedPreferences("theme",MODE_PRIVATE);
-        Intent intent=getIntent();
-        if(intent!=null)
-            themeNumber = intent.getIntExtra("theme", -1);
-        if(themeNumber==-1)
-            themeNumber=themeSp.getInt("theme",0);
-        else{
+        themeSp = super.getSharedPreferences("theme", MODE_PRIVATE);
+        Intent intent = getIntent();
+        if (intent != null) { themeNumber = intent.getIntExtra("theme", -1); }
+        if (themeNumber == -1) { themeNumber = themeSp.getInt("theme", 0); } else {
             MainApplication.setThemeNumber(themeNumber);
-            SharedPreferences.Editor editor=themeSp.edit();
-            editor.putInt("theme",themeNumber);
+            SharedPreferences.Editor editor = themeSp.edit();
+            editor.putInt("theme", themeNumber);
             editor.apply();
         }
-        if(themeNumber==1)
-            setTheme(R.style.DarkTheme);
-        else
-            setTheme(R.style.AppTheme);
+        if (themeNumber == 1) { setTheme(R.style.DarkTheme); } else { setTheme(R.style.AppTheme); }
         setContentView(R.layout.settings_activity);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -62,17 +56,19 @@ public class SettingsActivity extends AppCompatActivity {
                     return true;
                 });
             }
-            Preference themeChangeButton=findPreference("theme");
+            Preference themeChangeButton = findPreference("theme");
             assert themeChangeButton != null;
             themeChangeButton.setOnPreferenceChangeListener((preference, newValue) -> {
-                Integer theme=0;
-                if(newValue.toString().equals("true")) {
-                    assert getActivity()!=null;
-                    theme=1;
+                Integer theme = 0;
+                if (newValue.toString().equals("true")) {
+                    assert getActivity() != null;
+                    theme = 1;
                 }
-                Toast toast=Toast.makeText(getActivity(),newValue.toString(),Toast.LENGTH_SHORT);
+                Toast toast = Toast
+                        .makeText(getActivity(), newValue.toString(), Toast.LENGTH_SHORT);
                 toast.show();
-                startActivity(new Intent(getActivity(),SettingsActivity.class).putExtra("theme",theme));
+                startActivity(
+                        new Intent(getActivity(), SettingsActivity.class).putExtra("theme", theme));
                 getActivity().finish();
                 return true;
             });

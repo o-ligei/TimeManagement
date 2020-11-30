@@ -67,7 +67,7 @@ public class FriendsListFragment extends Fragment {
         requireActivity().registerReceiver(friendRequestReceiver, intentFilter);
     }
 
-    private void FlushFriendRequest(){
+    private void FlushFriendRequest() {
         System.out.println("flush friend request");
         if (UserInfoAfterLogin.webSocketMessage) {
             friendRequest.setVisibility(View.VISIBLE);
@@ -199,9 +199,10 @@ public class FriendsListFragment extends Fragment {
                 //achievement needs to know the number of friends
                 Integer number = allfriendsListItems.size();
                 assert getActivity() != null;
-                SharedPreferences achievement = getActivity().getSharedPreferences("achievement", Context.MODE_PRIVATE);
+                SharedPreferences achievement = getActivity()
+                        .getSharedPreferences("achievement", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = achievement.edit();
-                editor.putString("friend_have",number.toString());
+                editor.putString("friend_have", number.toString());
                 editor.apply();
             }
         });

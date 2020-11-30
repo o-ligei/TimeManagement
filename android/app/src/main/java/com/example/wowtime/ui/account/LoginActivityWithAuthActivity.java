@@ -42,8 +42,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(MainApplication.getThemeNumber()==1)
-            setTheme(R.style.DarkTheme);
+        if (MainApplication.getThemeNumber() == 1) { setTheme(R.style.DarkTheme); }
         setContentView(R.layout.login_with_auth_activity);
         TextView usePasswordTextView = findViewById(R.id.go_to_another_in_auth);
         usePasswordTextView.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +160,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                     JSONObject user = JSONObject.parseObject(str_user);
                     userid = user.get("userId").toString();
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
-                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this, TWebSocketClientService.class);
+                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this,
+                                                    TWebSocketClientService.class);
                     startService(startIntent);
                     finish();
                     Intent intent = new Intent(LoginActivityWithAuthActivity.this,

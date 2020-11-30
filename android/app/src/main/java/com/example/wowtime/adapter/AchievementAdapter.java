@@ -25,11 +25,12 @@ public class AchievementAdapter extends BaseAdapter {
     ArrayList<String> mContent;
     private Context mContext;
 
-    public AchievementAdapter(ArrayList<String> mData,ArrayList<String> mContent, Context mContext) {
+    public AchievementAdapter(ArrayList<String> mData, ArrayList<String> mContent,
+            Context mContext) {
 
         this.mData = mData;
         this.mContext = mContext;
-        this.mContent=mContent;
+        this.mContent = mContent;
     }
 
     @Override
@@ -58,14 +59,14 @@ public class AchievementAdapter extends BaseAdapter {
 
         txt_aName.setText(mData.get(position));
 
-        ImageView imageView=convertView.findViewById(R.id.achievementIcon);
+        ImageView imageView = convertView.findViewById(R.id.achievementIcon);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, AchivementDetailActivity.class);
                 intent.putExtra("position", position);
-                intent.putExtra("title",mData.get(position));
-                intent.putExtra("content",mContent.get(position));
+                intent.putExtra("title", mData.get(position));
+                intent.putExtra("content", mContent.get(position));
                 intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(intent);
             }
