@@ -6,17 +6,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
+import com.example.wowtime.util.Ajax;
+import com.example.wowtime.util.InternetConstant;
+import com.example.wowtime.util.UserInfoAfterLogin;
 import com.example.wowtime.util.Weekday;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import okhttp3.FormBody;
 
 
 public class ClockSettingActivity extends AppCompatActivity {
@@ -37,22 +44,27 @@ public class ClockSettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /*initialize*/
-        tag = this.getString(R.string.alarm_list_title);
-        game = this.getString(R.string.clock_setting_game_default);
-        ring = "雷达";
+        tag = getResources().getString(R.string.clock_setting_tag_default);
+        game = getResources().getString(R.string.shaking_game_setting_header);
+        ring = getResources().getString(R.string.alarm_ring_radar);
         frequency = new ArrayList<>();
         frequency.add(0, true);
         for (int i = 1; i < 8; i++) {
             frequency.add(i, false);
         }
-        Hour = 0;
-        Minute = 0;
+        Calendar calendar=Calendar.getInstance();
+        Hour = calendar.get(Calendar.HOUR_OF_DAY);
+        Minute = calendar.get(Calendar.MINUTE);
         sleepFlag = false;
         sleepHour = 0;
         sleepMinute = 0;
 
         Intent intent = getIntent();
         position = intent.getIntExtra("position", -1);
+        int userid=intent.getIntExtra("userid",0);
+        String action;
+        action=intent.getStringExtra("action");
+
         //navigate from existed alarm
         if (position != -1) {
             SharedPreferences mySharedPreferences = getSharedPreferences("alarmList",
@@ -101,8 +113,31 @@ public class ClockSettingActivity extends AppCompatActivity {
         repeatBtn.setOnClickListener(v -> startActivity(
                 new Intent(ClockSettingActivity.this, ClockFrequencyActivity.class)));
 
+        if (frequency.get(0)) {
+            repeatBtn.setText(getResources().getString(R.string.alarm_frequency_no_repeat));
+        } else {
+            boolean flag=getResources()
+                    .getString(R.string.alarm_frequency_no_repeat).equals("无重复");
+            Weekday weekday = new Weekday(flag);
+            StringBuilder out;
+            if(flag) {
+                out= new StringBuilder("星期");
+            }
+            else {
+                out= new StringBuilder("");
+            }
+            for (int j = 1; j <= 7; j++) {
+                if (frequency.get(j)) {
+                    out.append(weekday.getDay(j));
+                    out.append(" ");
+                }
+            }
+            repeatBtn.setText(out);
+        }
         TimePicker timePicker = findViewById(R.id.alarmtimePicker);
         timePicker.setIs24HourView(true);
+        timePicker.setHour(Hour);
+        timePicker.setMinute(Minute);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
@@ -114,16 +149,22 @@ public class ClockSettingActivity extends AppCompatActivity {
 
         //save
         Button saveClock = findViewById(R.id.ClockSettingConfirm);
+        if(action!=null&&action.equals("set for friend")){
+            saveClock.setText(getResources().getString(R.string.send_alarm));
+        }
         saveClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlarmListItem alarm = new AlarmListItem(tag, frequency, game, ring, Hour, Minute);
+                if(action!=null&&action.equals("set for friend")) {
+                    send_alarm(userid,alarm);
+                }
                 SharedPreferences mySharedPreferences = getSharedPreferences("alarmList",
                                                                              Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = mySharedPreferences.edit();
                 String shared = mySharedPreferences.getString("list", "");
 //                System.out.println("alarmList:"+shared);
                 List<AlarmListItem> alarmList = new ArrayList<>();
-                AlarmListItem alarm = new AlarmListItem(tag, frequency, game, ring, Hour, Minute);
                 alarm.setSleepFlag(sleepFlag);
                 alarm.setSleepHour(sleepHour);
                 alarm.setSleepMinute(sleepMinute);
@@ -143,8 +184,38 @@ public class ClockSettingActivity extends AppCompatActivity {
         });
 
         Button assistSetting = findViewById(R.id.SleepAssistButton);
+        if(sleepFlag){
+            assistSetting.setText(getResources().getString(R.string.sleep_assist_open));
+        }
+        else{
+            assistSetting.setText(getResources().getString(R.string.sleep_assist_default));
+        }
         assistSetting.setOnClickListener(v -> startActivity(
                 new Intent(ClockSettingActivity.this, SleepAssistSetting.class)));
+    }
+
+    private void send_alarm(int userid,AlarmListItem alarm){
+        String clockSetting= JSON.toJSONString(alarm);
+        FormBody.Builder formBody = new FormBody.Builder();
+        formBody.add("from",String.valueOf(UserInfoAfterLogin.userid));
+        formBody.add("to", String.valueOf(userid));
+        formBody.add("username",UserInfoAfterLogin.username);
+        formBody.add("clocksetting",clockSetting);
+        /*handler*/
+        android.os.Handler handler = new Handler(message -> {
+            if (message.what == InternetConstant.FETCH) {
+                String msg = message.getData().get("msg").toString();
+                if (msg.equals("success")) {
+                    System.out.println("send clock success");
+                } else {
+                    System.out.println("send clock failed");
+                }
+            }
+            return false;
+        });
+
+        Ajax ajax = new Ajax("/Social/SetAlarmForFriend", formBody, handler, InternetConstant.FETCH);
+        ajax.fetch();
     }
 
     @SuppressLint("SetTextI18n")
@@ -170,24 +241,33 @@ public class ClockSettingActivity extends AppCompatActivity {
         frequency = JSONObject.parseArray(tmp, boolean.class);
         Button repeatBtn = findViewById(R.id.ClockRepeatButton);
         if (frequency.get(0)) {
-            repeatBtn.setText("无重复");
+            repeatBtn.setText(getResources().getString(R.string.alarm_frequency_no_repeat));
         } else {
-            Weekday weekday = new Weekday();
-            StringBuilder out = new StringBuilder("星期");
-            for (int i = 1; i <= 7; i++) {
-                if (frequency.get(i)) {
-                    out.append(weekday.getDay(i));
-                    repeatBtn.setText(out);
+            boolean flag=getResources()
+                    .getString(R.string.alarm_frequency_no_repeat).equals("无重复");
+            Weekday weekday = new Weekday(flag);
+            StringBuilder out;
+            if(flag) {
+                 out= new StringBuilder("星期");
+            }
+            else {
+                out= new StringBuilder("");
+            }
+            for (int j = 1; j <= 7; j++) {
+                if (frequency.get(j)) {
+                    out.append(weekday.getDay(j));
+                    out.append(" ");
                 }
             }
+            repeatBtn.setText(out);
         }
 
         Button assistSetting = findViewById(R.id.SleepAssistButton);
         sleepFlag = mySharedPreferences.getBoolean("sleepFlag", false);
         if (sleepFlag) {
-            assistSetting.setText("开启");
+            assistSetting.setText(getResources().getString(R.string.sleep_assist_open));
         } else {
-            assistSetting.setText("关闭");
+            assistSetting.setText(getResources().getString(R.string.sleep_assist_default));
         }
         sleepHour = mySharedPreferences.getInt("sleepHour", 0);
         sleepMinute = mySharedPreferences.getInt("sleepMinute", 0);

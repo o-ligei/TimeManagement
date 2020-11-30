@@ -58,12 +58,12 @@ public class FriendsListAdapter extends BaseAdapter {
         ImageView friendIcon = convertView.findViewById(R.id.UserIcon);
         TextView username = convertView.findViewById(R.id.Username);
         Button btn_set_alarm = convertView.findViewById(R.id.btn_set_alarm_for_friend);
-        btn_set_alarm.setOnClickListener(new View.OnClickListener() {
+        btn_set_alarm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, ClockSettingActivity.class);
                 intent.putExtra("userid", mData.get(position).getUserId());
-                intent.putExtra("action", "set for friend");
+                intent.putExtra("action","set for friend");
                 mContext.startActivity(intent);
             }
         });

@@ -131,8 +131,7 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     username = user.get("username").toString();
                     UserInfoAfterLogin.username = username;
-                    Intent startIntent = new Intent(LoginActivityWithPasswordActivity.this,
-                                                    TWebSocketClientService.class);
+                    Intent startIntent = new Intent(LoginActivityWithPasswordActivity.this, TWebSocketClientService.class);
                     startService(startIntent);
                     Intent intent = new Intent(LoginActivityWithPasswordActivity.this,
                                                MainActivity.class);

@@ -52,6 +52,8 @@
     <string name="alarm_list_title">alarm</string>
     <string name="sleep_assist_title">sleep assist</string>
     <string name="sleep_assist_default">closed</string>
+    <string name="sleep_assist_open">open</string>
+    <string name="send_alarm">send</string>
 
     <!-- Strings used for pomomdoro setting-->
     <string name="pomodoro_setting_title">Setting pomorodo</string>
@@ -115,16 +117,16 @@
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
     <string name="game_setting_header">Game Parameter Setting</string>
-    <string name="blowing_game_setting_header">Blowing Game Setting</string>
-    <string name="shaking_game_setting_header">Shaking Game Setting</string>
+    <string name="blowing_game_setting_header">Blowing Game</string>
+    <string name="shaking_game_setting_header">Shaking Game</string>
     <string name="volume_setting_header">Sensitivity</string>
     <string name="blow_time_setting_header">Duration</string>
     <string name="speed_setting_header">Sensitivity</string>
     <string name="shake_time_setting_header">Duration</string>
-    <string name="random_game_setting_header">Random Number Game Setting</string>
-    <string name="calculate_game_setting_header">Calculating Game Setting</string>
-    <string name="tapping_game_setting_header">Tapping Game Setting</string>
-    <string name="Answering_game_setting_header">Answering Game Setting</string>
+    <string name="random_game_setting_header">Random Number Game</string>
+    <string name="calculate_game_setting_header">Calculating Game</string>
+    <string name="tapping_game_setting_header">Tapping Game</string>
+    <string name="Answering_game_setting_header">Answering Game</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
@@ -210,5 +212,27 @@
     <string name="take_screen_shot_and_share">SHOT AND SHARE</string>
 
     <string name="set_alarm_for_friend">ALARM</string>
+    <string name="receive_alarm_title">alarm send by friend</string>
+    <string name="send_alarm_tag">tag: </string>
+    <string name="send_alarm_time">time: </string>
+    <string name="send_alarm_repeat">repeat: </string>
+    <string name="send_alarm_game">game: </string>
+    <string name="send_alarm_ring">ring: </string>
+    <string name="send_alarm_assist">sleep assist: </string>
+    <string name="send_alarm_assist_time">sleep assist time: </string>
+
+    <!--strings for alarm frequency-->
+    <string name="alarm_frequency_no_repeat">one time</string>
+    <string name="alarm_frequency_Monday">Every Monday</string>
+    <string name="alarm_frequency_Tuesday">Every Tuesday</string>
+    <string name="alarm_frequency_Wednesday">Every Wednesday</string>
+    <string name="alarm_frequency_Thursday">Every Wednesday</string>
+    <string name="alarm_frequency_Friday">Every Friday</string>
+    <string name="alarm_frequency_Saturday">Every Saturday</string>
+    <string name="alarm_frequency_Sunday">Every Sunday</string>
+
+    <!--strings for alarm ring-->
+    <string name="alarm_ring_radar">radar</string>
+    <string name="alarm_ring_classic">classic</string>
 
 </resources>
