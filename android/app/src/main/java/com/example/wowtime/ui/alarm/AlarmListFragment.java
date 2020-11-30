@@ -42,16 +42,17 @@ public class AlarmListFragment extends Fragment {
     }
 
     private class DialogListener implements OnClickListener {
+
         int dialog_num;
         Context context;
 
-        DialogListener(Context mContext){
-            dialog_num=0;
-            this.context=mContext;
+        DialogListener(Context mContext) {
+            dialog_num = 0;
+            this.context = mContext;
         }
 
-        private void setDialog_num(int num){
-            dialog_num=num;
+        private void setDialog_num(int num) {
+            dialog_num = num;
         }
 
         @Override
@@ -61,7 +62,7 @@ public class AlarmListFragment extends Fragment {
             JSONObject json_item = JSONObject.parseObject(item);
             String clocksetting = json_item.getString("clockSetting");
             AlarmListItem alarm = JSONObject.parseObject(clocksetting, AlarmListItem.class);
-            AddAlarm addAlarm=new AddAlarm(context,alarm);
+            AddAlarm addAlarm = new AddAlarm(context, alarm);
             addAlarm.storeAlarm();
             SharedPreferences mySharedPreferences = requireActivity()
                     .getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
@@ -82,7 +83,7 @@ public class AlarmListFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             String alarmArray = intent.getStringExtra("alarmArray");
             System.out.println("alarmArray" + alarmArray);
-            int k=0;
+            int k = 0;
             AlarmArray = JSONObject.parseArray(alarmArray);
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 //                dialog.setMessage("something important");//设置信息具体内容
@@ -168,9 +169,9 @@ public class AlarmListFragment extends Fragment {
                     }
                 }
                 dialog.setMessage(message);
-                DialogListener dialogListener=new DialogListener(context);
+                DialogListener dialogListener = new DialogListener(context);
                 dialogListener.setDialog_num(k);
-                dialog.setPositiveButton("accept",dialogListener);
+                dialog.setPositiveButton("accept", dialogListener);
                 dialog.show();
             }
         }
@@ -198,7 +199,7 @@ public class AlarmListFragment extends Fragment {
         doAlarmReceiver();
         View root = inflater.inflate(R.layout.alarm_list_fragment, container, false);
         System.out.println(UserInfoAfterLogin.userid);
-        listView=root.findViewById(R.id.AlarmCardList);
+        listView = root.findViewById(R.id.AlarmCardList);
         return root;
     }
 
