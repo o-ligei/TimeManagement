@@ -238,4 +238,30 @@
 
   <string name="username_warning">用户名以字母开头，长度至少为四个字符</string>
   <string name="password_warning">密码必须包含数字、大小写字母，长度至少为六个字符</string>
+
+      <!--achievement-->
+    <string name="achievement_header_friend_0">社交新手</string>
+    <string name="achievement_content_friend_0">成功添加1个好友</string>
+    <string name="achievement_header_share_0">分享新手</string>
+    <string name="achievement_content_share_0">分享至其他app 1次</string>
+    <string name="achievement_header_alarm_0">闹钟新手</string>
+    <string name="achievement_content_alarm_0">设置闹钟5次</string>
+    <string name="achievement_header_pomodoro_0">远离手机新手</string>
+    <string name="achievement_content_pomodoro_0">设置远离手机任5五次</string>
+
+    <string name="achievement_header_friend_1">社交达人</string>
+    <string name="achievement_content_friend_1">成功添加10个好友</string>
+    <string name="achievement_header_share_1">分享达人</string>
+    <string name="achievement_content_share_1">分享至其他app 10次</string>
+    <string name="achievement_header_alarm_1">闹钟达人</string>
+    <string name="achievement_content_alarm_1">设置闹钟50次</string>
+    <string name="achievement_header_pomodoro_1">远离手机达人</string>
+    <string name="achievement_content_pomodoro_1">设置远离手机任务50次</string>
+
+    <string name="achievement_header_sleep">睡眠尝试</string>
+    <string name="achievement_content_sleep">设置睡眠闹钟1次</string>
+    <string name="achievement_header_pomodoro_time_0">积少成多</string>
+    <string name="achievement_content_pomodoro_time_0">远离手机任务累计1小时</string>
+    <string name="achievement_header_pomodoro_time_1">持之以恒</string>
+    <string name="achievement_content_pomodoro_time_1">单个远离手机任务1小时</string>
 </resources>

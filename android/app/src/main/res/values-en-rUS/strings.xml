@@ -116,9 +116,12 @@
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
-    <string name="game_setting_header">Game Parameter Setting</string>
-    <string name="blowing_game_setting_header">Blowing Game</string>
-    <string name="shaking_game_setting_header">Shaking Game</string>
+    <string name="game_setting_header">Game Parameter</string>
+    <string name="game_setting">Game Parameter Setting</string>
+    <string name="theme_setting">Night Mode</string>
+    <string name="theme_setting_header">Theme</string>
+    <string name="blowing_game_setting_header">Blowing Game Setting</string>
+    <string name="shaking_game_setting_header">Shaking Game Setting</string>
     <string name="volume_setting_header">Sensitivity</string>
     <string name="blow_time_setting_header">Duration</string>
     <string name="speed_setting_header">Sensitivity</string>
@@ -211,7 +214,32 @@
     <string name="credit">Accumulation:</string>
     <string name="take_screen_shot_and_share">SHOT AND SHARE</string>
 
-    <string name="set_alarm_for_friend">ALARM</string>
+    <string name="achievement_header_friend_0">Social entry task</string>
+    <string name="achievement_content_friend_0">Add 1 friend successfully</string>
+    <string name="achievement_header_share_0">Sharing entry task</string>
+    <string name="achievement_content_share_0">Share to other apps successfully</string>
+    <string name="achievement_header_alarm_0">Alarm entry tasks</string>
+    <string name="achievement_content_alarm_0">Set the alarm 5 times</string>
+    <string name="achievement_header_pomodoro_0">Pomodoro entry tasks</string>
+    <string name="achievement_content_pomodoro_0">Set the pomodoro 5 times</string>
+
+    <string name="achievement_header_friend_1">Social talent</string>
+    <string name="achievement_content_friend_1">Add 10 friends successfully</string>
+    <string name="achievement_header_share_1">Sharing talent</string>
+    <string name="achievement_content_share_1">Share to other apps 10 times</string>
+    <string name="achievement_header_alarm_1">Alarm talent</string>
+    <string name="achievement_content_alarm_1">Set the alarm 50 times</string>
+    <string name="achievement_header_pomodoro_1">Pomodoro talent</string>
+    <string name="achievement_content_pomodoro_1">Set the pomodoro 50 times</string>
+
+    <string name="achievement_header_sleep">Sleeping entry task</string>
+    <string name="achievement_content_sleep">Set the sleeping alarm successfully</string>
+    <string name="achievement_header_pomodoro_time_0">Many a little make a mickle</string>
+    <string name="achievement_content_pomodoro_time_0">Pomodoro time accumulated for one hour</string>
+    <string name="achievement_header_pomodoro_time_1">Keep on carving</string>
+    <string name="achievement_content_pomodoro_time_1">A single pomodoro time for one hour</string>
+
+  <string name="set_alarm_for_friend">ALARM</string>
     <string name="receive_alarm_title">alarm send by friend</string>
     <string name="send_alarm_tag">tag: </string>
     <string name="send_alarm_time">time: </string>

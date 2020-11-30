@@ -10,16 +10,20 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
+import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 import com.example.wowtime.util.Weekday;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -43,6 +47,7 @@ public class ClockSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (MainApplication.getThemeNumber() == 1) { setTheme(R.style.DarkTheme); }
         /*initialize*/
         tag = getResources().getString(R.string.clock_setting_tag_default);
         game = getResources().getString(R.string.shaking_game_setting_header);
@@ -179,6 +184,17 @@ public class ClockSettingActivity extends AppCompatActivity {
                 shared = JSONObject.toJSONString(alarmList);
                 editor.putString("list", shared);
                 editor.apply();
+                //achievement
+                //count of alarm
+                SharedPreferences achievement = ClockSettingActivity.super
+                        .getSharedPreferences("achievement", MODE_PRIVATE);
+                int count = Integer.parseInt(achievement.getString("alarm_count", "0"));
+                count += 1;
+                SharedPreferences.Editor editorAchievement = achievement.edit();
+                editorAchievement.putString("alarm_count", Integer.toString(count));
+                //try of sleep alarm
+                if (sleepFlag) { editorAchievement.putString("alarm_sleep", "1"); }
+                editorAchievement.apply();
                 finish();
             }
         });
