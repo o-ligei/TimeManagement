@@ -10,6 +10,7 @@ public class CreditInfo {
     private Credit credit;
 
     public CreditInfo() {}
+
     public CreditInfo(UserMongoDB userMongoDB) {
         this.userId = userMongoDB.getUserId();
         this.username = userMongoDB.getUsername();
@@ -17,9 +18,14 @@ public class CreditInfo {
     }
 
     public Integer getUserId() {return userId;}
+
     public void setUserId(Integer userId) {this.userId = userId;}
+
     public String getUsername() {return username;}
+
     public void setUsername(String username) {this.username = username;}
+
     public Credit getCredit() {return credit;}
+
     public void setCredit(Credit credit) {this.credit = credit;}
 }
