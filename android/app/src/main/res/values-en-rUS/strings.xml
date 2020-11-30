@@ -263,6 +263,4 @@
     <string name="alarm_ring_radar">radar</string>
     <string name="alarm_ring_classic">classic</string>
 
-    <string name="set_alarm_for_friend">ALARM</string>
-
 </resources>
