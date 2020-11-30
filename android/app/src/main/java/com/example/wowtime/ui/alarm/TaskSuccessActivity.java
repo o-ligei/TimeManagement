@@ -29,9 +29,10 @@ public class TaskSuccessActivity extends AppCompatActivity {
 
         Button back_to_home = findViewById(R.id.btn_back_to_home);
         successView = findViewById(R.id.successText);
-        String successMessage = getIntent().getStringExtra("description");
-        assert successMessage != null;
-        if(!successMessage.isEmpty()){
+//        String successMessage = getIntent().getStringExtra("description");
+        String successMessage = "";
+//        assert successMessage != null;
+        if (!successMessage.isEmpty()) {
             successView.setText(successMessage);
         }
         back_to_home.setOnClickListener(new View.OnClickListener() {
@@ -41,20 +42,24 @@ public class TaskSuccessActivity extends AppCompatActivity {
             }
         });
         btn_shot_and_share = findViewById(R.id.ScreenShotAndShare);
-        btn_shot_and_share.setOnClickListener(v->share(this));
+        btn_shot_and_share.setOnClickListener(v -> share(this));
 
     }
-    public static void share(Activity activity){
+
+    public static void share(Activity activity) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
-        Uri u = Uri.parse(MediaStore.Images.Media.insertImage(activity.getContentResolver(), takeScreenShot(activity), null,null));//将截图bitmap存系统相册
+        Uri u = Uri.parse(MediaStore.Images.Media.insertImage(activity.getContentResolver(),
+                                                              takeScreenShot(activity), null,
+                                                              null));//将截图bitmap存系统相册
         intent.putExtra(Intent.EXTRA_STREAM, u);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(Intent.createChooser(intent, ""));
     }
+
     /**
      * Activity截屏
-     * */
+     */
     public static Bitmap takeScreenShot(Activity pActivity) {
         View view = pActivity.getWindow().getDecorView();
         // 设置是否可以进行绘图缓存
@@ -71,7 +76,7 @@ public class TaskSuccessActivity extends AppCompatActivity {
         int stautsHeight = frame.top;
         Point point = new Point();
         pActivity.getWindowManager().getDefaultDisplay().getSize(point);
-        int width = point.x ;
+        int width = point.x;
         int height = point.y;
         // 根据坐标点和需要的宽和高创建bitmap
         bitmap = Bitmap.createBitmap(bitmap, 0, stautsHeight, width, height - stautsHeight);

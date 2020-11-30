@@ -31,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button btn_register;
     TextView usernameWarning;
     TextView passwordWaring;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

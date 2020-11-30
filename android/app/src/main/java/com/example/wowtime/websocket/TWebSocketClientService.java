@@ -86,7 +86,7 @@ public class TWebSocketClientService extends Service {
         client = new TWebSocketClient(uri) {
             @Override
             public void onMessage(String message) {
-                System.out.println("TWebSocketClientService"+ "收到的消息：" + message);
+                System.out.println("TWebSocketClientService" + "收到的消息：" + message);
                 Log.e("TWebSocketClientService", "收到的消息：" + message);
                 JSONObject jsonObject = JSONObject.parseObject(message);
 //                System.out.println("response:" + response);
@@ -97,9 +97,9 @@ public class TWebSocketClientService extends Service {
                     Intent intent = new Intent();
                     intent.setAction("friend request");
                     sendBroadcast(intent);
-                }else if(msg.equals("new friend alarm")){
+                } else if (msg.equals("new friend alarm")) {
                     JSONArray AlarmArray = JSONObject.parseArray(data);
-                    for(int i = 0; i < AlarmArray.size();i++){
+                    for (int i = 0; i < AlarmArray.size(); i++) {
                         String item = AlarmArray.get(i).toString();
                         JSONObject json_item = JSONObject.parseObject(item);
                         String clocksetting = json_item.getString("clockSetting");
@@ -113,6 +113,7 @@ public class TWebSocketClientService extends Service {
         };
         connect();
     }
+
     /**
      * 连接websocket
      */
