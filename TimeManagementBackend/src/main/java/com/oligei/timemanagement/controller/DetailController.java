@@ -23,40 +23,23 @@ public class DetailController {
     @Autowired
     private DetailService detailService;
 
-    private static final Logger logger = LoggerFactory.getLogger(TimemanagementApplication.class);
-
     @RequestMapping("/SaveDetail")
     public Msg<Boolean> saveDetail(@RequestParam(name = "userid") Integer userId,
-                                  @RequestParam(name = "event") String event,
-                                  @RequestParam(name = "timestamp") String timestamp) {
-        try {
-            return detailService.saveDetail(userId, event, timestamp);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
-        }
+            @RequestParam(name = "event") String event,
+            @RequestParam(name = "timestamp") String timestamp) {
+        return detailService.saveDetail(userId, event, timestamp);
     }
 
     @RequestMapping("/AddScore")
     public Msg<Boolean> addScore(@RequestParam(name = "userid") Integer userId,
-                                 @RequestParam(name = "earn") Integer earn) {
-        try {
-            return detailService.addScore(userId, earn);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
-        }
+            @RequestParam(name = "earn") Integer earn) {
+        return detailService.addScore(userId, earn);
     }
 
     //timestamp = "whole" if searching for all the details
     @RequestMapping("/GetDetail")
     public Msg<List<Detail>> getDetail(@RequestParam(name = "userid") Integer userId,
-                                       @RequestParam(name = "timestamp") String timestamp) {
-        try {
-            return detailService.getDetail(userId, timestamp);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
-        }
+            @RequestParam(name = "timestamp") String timestamp) {
+        return detailService.getDetail(userId, timestamp);
     }
 }

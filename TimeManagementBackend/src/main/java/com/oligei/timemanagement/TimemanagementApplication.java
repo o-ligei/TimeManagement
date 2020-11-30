@@ -16,6 +16,7 @@ public class TimemanagementApplication {
     }
 
     private static final Logger logger = LoggerFactory.getLogger(TimemanagementApplication.class);
+
     public static void main(String[] args) {
         SpringApplication.run(TimemanagementApplication.class, args);
     }

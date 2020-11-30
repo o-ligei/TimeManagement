@@ -76,6 +76,7 @@
 
     <!--strings for option game-->
     <string name="option_game_next">Continue!</string>
+    <string name="option_game_next_question">Next Question!</string>
 
     <!--strings for navigation-->
     <string name="navigation_person_info">Personal information</string>

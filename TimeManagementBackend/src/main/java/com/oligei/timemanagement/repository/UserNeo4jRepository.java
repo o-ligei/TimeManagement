@@ -7,6 +7,7 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import java.util.List;
 
 public interface UserNeo4jRepository extends Neo4jRepository<UserNeo4j, Long> {
+
     UserNeo4j getUserNeo4jByUserId(String userId);
 
     @Query("MATCH (a:tm_users)\n" +

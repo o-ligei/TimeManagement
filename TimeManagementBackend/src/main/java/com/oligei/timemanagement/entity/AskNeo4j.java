@@ -16,17 +16,21 @@ public class AskNeo4j {
     private UserNeo4j friend;
 
     public AskNeo4j() {}
+
     public AskNeo4j(UserNeo4j me, UserNeo4j friend) {
         this.me = me;
         this.friend = friend;
     }
 
     public Long getId() {return id;}
+
     public void setId(Long id) {this.id = id;}
 
     public UserNeo4j getMe() {return me;}
+
     public void setMe(UserNeo4j me) {this.me = me;}
 
     public UserNeo4j getFriend() {return friend;}
+
     public void setFriend(UserNeo4j friend) {this.friend = friend;}
 }
