@@ -85,7 +85,7 @@ public class TWebSocketClientService extends Service {
         client = new TWebSocketClient(uri) {
             @Override
             public void onMessage(String message) {
-                System.out.println("TWebSocketClientService"+ "收到的消息：" + message);
+                System.out.println("TWebSocketClientService" + "收到的消息：" + message);
                 Log.e("TWebSocketClientService", "收到的消息：" + message);
                 JSONObject jsonObject = JSONObject.parseObject(message);
 //                System.out.println("response:" + response);
@@ -103,6 +103,7 @@ public class TWebSocketClientService extends Service {
         };
         connect();
     }
+
     /**
      * 连接websocket
      */

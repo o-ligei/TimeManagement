@@ -34,34 +34,25 @@ public class SocialController {
 
     @RequestMapping("/GetProfile")
     public Msg<List<Profile>> getProfile(@RequestParam(name = "userid") Integer myId,
-                                         @RequestParam(name = "username") String username) {
-        try {
-            return socialService.getProfile(myId, username);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
-        }
+            @RequestParam(name = "username") String username) {
+        return socialService.getProfile(myId, username);
     }
 
     @RequestMapping("/GetFriendsList")
     public Msg<List<Profile>> getFriendsList(@RequestParam(name = "userid") Integer userId) {
-        try {
-            return socialService.getFriendsList(userId);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
-        }
+        return socialService.getFriendsList(userId);
     }
 
     @RequestMapping("/AddFriend")
     public Msg<Boolean> addFriend(@RequestParam(name = "from") Integer from,
-                                  @RequestParam(name = "to") Integer to) {
+            @RequestParam(name = "to") Integer to) {
         try {
             Msg<Boolean> msg = socialService.addFriend(from, to);
-            if (msg.getStatus() == MsgConstant.ALREADY_FRIEND || msg.getStatus() == MsgConstant.ALREADY_SEND_FRIEND_REQUEST || msg.getStatus() == MsgConstant.FOUND_YOURSELF)
-                return msg;
+            if (msg.getStatus() == MsgConstant.ALREADY_FRIEND
+                    || msg.getStatus() == MsgConstant.ALREADY_SEND_FRIEND_REQUEST
+                    || msg.getStatus() == MsgConstant.FOUND_YOURSELF) { return msg; }
             Msg<Boolean> request = new Msg<>(MsgCode.NEW_FRIEND_REQUEST);
-            WebSocketController.sendMessage((JSONObject)JSONObject.toJSON(request), to.toString());
+            WebSocketController.sendMessage((JSONObject) JSONObject.toJSON(request), to.toString());
             return msg;
         } catch (IOException e) {
             logger.error("IOException", e);
@@ -69,25 +60,17 @@ public class SocialController {
         } catch (NotOnlineException e) {
             logger.error("NotOnlineException", e);
             return new Msg<>(MsgCode.SUCCESS);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
         }
     }
 
     @RequestMapping("/GetFriendRequest")
     public Msg<List<Profile>> getFriendRequest(@RequestParam(name = "userid") Integer userId) {
-        try {
-            return socialService.getFriendRequest(userId);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
-        }
+        return socialService.getFriendRequest(userId);
     }
 
     @RequestMapping("/AcceptFriend")
     public Msg<Boolean> acceptFriend(@RequestParam(name = "from") Integer from,
-                                     @RequestParam(name = "to") Integer to) {
+            @RequestParam(name = "to") Integer to) {
         try {
             Msg<Boolean> msg = socialService.acceptFriend(from, to);
             Msg<Boolean> newFriend = new Msg<>(MsgCode.NEW_FRIEND);
@@ -100,17 +83,14 @@ public class SocialController {
         } catch (NotOnlineException e) {
             logger.error("NotOnlineException", e);
             return new Msg<>(MsgCode.SUCCESS);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
         }
     }
 
     @RequestMapping("/SetAlarmForFriend")
     public Msg<Boolean> setAlarmForFriend(@RequestParam(name = "from") Integer from,
-                                          @RequestParam(name = "to") Integer to,
-                                          @RequestParam(name = "username") String username,
-                                          @RequestParam(name = "clocksetting") String clockSetting) {
+            @RequestParam(name = "to") Integer to,
+            @RequestParam(name = "username") String username,
+            @RequestParam(name = "clocksetting") String clockSetting) {
         FriendAlarmMsg friendAlarmMsg = new FriendAlarmMsg(username, clockSetting);
         Msg<FriendAlarmMsg> msg = new Msg<>(MsgCode.NEW_FRIEND_ALARM, friendAlarmMsg);
         try {
@@ -123,19 +103,11 @@ public class SocialController {
         } catch (IOException e) {
             logger.error("IOException", e);
             return new Msg<>(MsgCode.CONNECTION_FAILURE);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
         }
     }
 
     @RequestMapping("/GetAlarmRequest")
     public Msg<List<FriendAlarmMsg>> getAlarmRequest(@RequestParam(name = "userid") Integer userId) {
-        try {
-            return socialService.getAlarmRequest(userId);
-        } catch (NullPointerException e) {
-            logger.error("NullPointerException", e);
-            return new Msg<>(MsgCode.NULL_ARGUMENT);
-        }
+        return socialService.getAlarmRequest(userId);
     }
 }

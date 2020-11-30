@@ -22,6 +22,7 @@ public class UserMongoDB {
     private Credit credit;
 
     public UserMongoDB() {}
+
     public UserMongoDB(Integer userId, String username, Credit credit) {
         this.userId = userId;
         this.username = username;
@@ -31,11 +32,14 @@ public class UserMongoDB {
     public ObjectId get_id() {return _id;}
 
     public Integer getUserId() {return userId;}
+
     public void setUserId(Integer userId) {this.userId = userId;}
 
     public String getUsername() {return username;}
+
     public void setUsername(String username) {this.username = username;}
 
     public Credit getCredit() {return credit;}
+
     public void setCredit(Credit credit) {this.credit = credit;}
 }

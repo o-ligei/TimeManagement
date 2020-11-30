@@ -47,7 +47,8 @@ public class DetailServiceImpl implements DetailService {
     public Msg<List<Detail>> getDetail(Integer userId, String timestamp) {
         Objects.requireNonNull(userId, "null userId --DetailServiceImpl getDetail");
         Objects.requireNonNull(timestamp, "null timestamp --DetailServiceImpl getDetail");
-        if (timestamp.equals("whole")) return new Msg<>(MsgCode.SUCCESS, detailDao.getDetailsByUserId(userId));
-        return new Msg<>(MsgCode.SUCCESS, detailDao.getDetailsByUserIdAndTimestampGreaterThanEqual(userId, FormatUtil.strToTimestamp(timestamp)));
+        if (timestamp.equals("whole")) { return new Msg<>(MsgCode.SUCCESS, detailDao.getDetailsByUserId(userId)); }
+        return new Msg<>(MsgCode.SUCCESS, detailDao
+                .getDetailsByUserIdAndTimestampGreaterThanEqual(userId, FormatUtil.strToTimestamp(timestamp)));
     }
 }
