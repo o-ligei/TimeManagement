@@ -1,15 +1,22 @@
 package com.example.wowtime.websocket;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Service;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.R;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 import java.net.URI;
@@ -97,14 +104,13 @@ public class TWebSocketClientService extends Service {
                     Intent intent = new Intent();
                     intent.setAction("friend request");
                     sendBroadcast(intent);
-                } else if (msg.equals("new friend alarm")) {
+                }else if(msg.equals("new friend alarm")||msg.equals("remain friend alarm")){
+                    System.out.println("receive clock from friend");
                     JSONArray AlarmArray = JSONObject.parseArray(data);
-                    for (int i = 0; i < AlarmArray.size(); i++) {
-                        String item = AlarmArray.get(i).toString();
-                        JSONObject json_item = JSONObject.parseObject(item);
-                        String clocksetting = json_item.getString("clockSetting");
-                        String username = json_item.getString("username");
-                    }
+                    Intent intent = new Intent();
+                    intent.setAction("friend alarm");
+                    intent.putExtra("alarmArray", JSON.toJSONString(AlarmArray));
+                    sendBroadcast(intent);
                 }
 
 //                checkLockAndShowNotification(message);
