@@ -15,7 +15,7 @@ public class AliSmsUtil {
     private static final String accessKeyId = "LTAI4G3C3cjjsFabv1Vgcscu";
     private static final String accessKeySecret = "vCNGDwdL95rUtAncfz8gkqH9ipH5sl";
 
-    public static void sendALiSms(String phone, String code) throws Exception{
+    public static void sendALiSms(String phone, String code) throws Exception {
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
         IAcsClient client = new DefaultAcsClient(profile);
 

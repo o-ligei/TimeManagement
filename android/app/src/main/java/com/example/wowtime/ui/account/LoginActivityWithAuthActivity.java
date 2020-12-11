@@ -9,22 +9,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.ui.MainActivity;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 import com.example.wowtime.websocket.TWebSocketClientService;
 
+import org.json.JSONException;
+
 import java.io.IOException;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.json.JSONException;
 
 //import org.json.JSONObject;
 
@@ -37,6 +42,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (MainApplication.getThemeNumber() == 1) { setTheme(R.style.DarkTheme); }
         setContentView(R.layout.login_with_auth_activity);
         TextView usePasswordTextView = findViewById(R.id.go_to_another_in_auth);
         usePasswordTextView.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +163,8 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     username = user.get("username").toString();
                     UserInfoAfterLogin.username = username;
-                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this, TWebSocketClientService.class);
+                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this,
+                                                    TWebSocketClientService.class);
                     startService(startIntent);
                     finish();
                     Intent intent = new Intent(LoginActivityWithAuthActivity.this,

@@ -18,11 +18,59 @@ public class AchievementActivity extends AppCompatActivity {
         setContentView(R.layout.achievement_activity);
 
         ArrayList<String> arr = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
-            String title = "achievement" + i;
-            arr.add(title);
-        }
-        AchievementAdapter adapter = new AchievementAdapter(arr, getApplicationContext());
+//        for (int i = 0; i < 9; i++) {
+//            String title = "achievement" + i;
+//            arr.add(title);
+//        }
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_friend_0));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_share_0));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_alarm_0));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_pomodoro_0));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_friend_1));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_share_1));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_alarm_1));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_pomodoro_1));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_sleep));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_pomodoro_time_0));
+        arr.add((String) getBaseContext().getResources()
+                                         .getText(R.string.achievement_header_pomodoro_time_1));
+
+        ArrayList<String> arrContent = new ArrayList<>();
+        arrContent.add((String) getBaseContext().getResources()
+                                                .getText(R.string.achievement_content_friend_0));//0
+        arrContent.add((String) getBaseContext().getResources()
+                                                .getText(R.string.achievement_content_share_0));
+        arrContent.add((String) getBaseContext().getResources()
+                                                .getText(R.string.achievement_content_alarm_0));//2
+        arrContent.add((String) getBaseContext().getResources().getText(
+                R.string.achievement_content_pomodoro_0));//3
+        arrContent.add((String) getBaseContext().getResources()
+                                                .getText(R.string.achievement_content_friend_1));//4
+        arrContent.add((String) getBaseContext().getResources()
+                                                .getText(R.string.achievement_content_share_1));//5
+        arrContent.add((String) getBaseContext().getResources()
+                                                .getText(R.string.achievement_content_alarm_1));//6
+        arrContent.add((String) getBaseContext().getResources().getText(
+                R.string.achievement_content_pomodoro_1));//7
+        arrContent.add((String) getBaseContext().getResources()
+                                                .getText(R.string.achievement_content_sleep));//8
+        arrContent.add((String) getBaseContext().getResources().getText(
+                R.string.achievement_content_pomodoro_time_0));//9
+        arrContent.add((String) getBaseContext().getResources().getText(
+                R.string.achievement_content_pomodoro_time_1));//10
+
+        AchievementAdapter adapter = new AchievementAdapter(arr, arrContent,
+                                                            getApplicationContext());
         GridView gridView = findViewById(R.id.AchievementTable);
         gridView.setAdapter(adapter);
     }
