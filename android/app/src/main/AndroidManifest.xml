@@ -96,6 +96,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.games.OptionGameResultActivity"/>
+        <activity android:name=".ui.others.AchivementDetailActivity"/>
     </application>
 
 </manifest>

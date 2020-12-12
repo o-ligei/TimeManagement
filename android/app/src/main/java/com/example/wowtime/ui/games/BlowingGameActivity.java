@@ -18,11 +18,13 @@ import com.example.wowtime.service.Accumulation;
 import com.example.wowtime.service.Credit;
 import com.example.wowtime.util.AudioRecordManger;
 import com.example.wowtime.util.InternetConstant;
+import uk.co.barbuzz.beerprogressview.BeerProgressView;
 
 public class BlowingGameActivity extends AppCompatActivity {
 
     private MediaPlayer mp;
     private ProgressBar progressBar;
+    BeerProgressView beerProgressView;
     private TextView progressValue;
 
     String ringName = null;
@@ -63,6 +65,7 @@ public class BlowingGameActivity extends AppCompatActivity {
                 progressBar.setProgress(100 * blowCount / NEED_COUNT);
                 progressValue
                         .setText(new StringBuffer().append(progressBar.getProgress()).append("%"));
+                beerProgressView.setBeerProgress(100 * blowCount / NEED_COUNT);
                 System.out.println(blowCount);
             }
         }
@@ -93,7 +96,8 @@ public class BlowingGameActivity extends AppCompatActivity {
         setContentView(R.layout.blowing_game_activity);
         progressBar = findViewById(R.id.progress1);
         progressValue = findViewById(R.id.progress_value1);
-
+        beerProgressView = (BeerProgressView) findViewById(R.id.beerProgressView);
+        beerProgressView.setMax(100);
         Intent intent = getIntent();
         ringName = intent.getStringExtra("ring");
         sleepFlag = intent.getBooleanExtra("sleepFlag", false);

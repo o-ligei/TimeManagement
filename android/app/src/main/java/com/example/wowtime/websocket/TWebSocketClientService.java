@@ -1,14 +1,22 @@
 package com.example.wowtime.websocket;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Service;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.R;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 import java.net.URI;
@@ -89,14 +97,22 @@ public class TWebSocketClientService extends Service {
                 Log.e("TWebSocketClientService", "收到的消息：" + message);
                 JSONObject jsonObject = JSONObject.parseObject(message);
 //                System.out.println("response:" + response);
-                String msg = null;
-                msg = jsonObject.getString("msg");
+                String msg = jsonObject.getString("msg");
+                String data = jsonObject.getString("data");
                 if (msg.equals("remain friend request") || msg.equals("new friend request")) {
                     UserInfoAfterLogin.webSocketMessage = true;
+                    Intent intent = new Intent();
+                    intent.setAction("friend request");
+                    sendBroadcast(intent);
+                }else if(msg.equals("new friend alarm")||msg.equals("remain friend alarm")){
+                    System.out.println("receive clock from friend");
+                    JSONArray AlarmArray = JSONObject.parseArray(data);
+                    Intent intent = new Intent();
+                    intent.setAction("friend alarm");
+                    intent.putExtra("alarmArray", JSON.toJSONString(AlarmArray));
+                    sendBroadcast(intent);
                 }
-                Intent intent = new Intent();
-                intent.setAction("friend request");
-                sendBroadcast(intent);
+
 //                checkLockAndShowNotification(message);
             }
 

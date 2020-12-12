@@ -21,8 +21,8 @@ public class RingSettingActivity extends AppCompatActivity {
         setContentView(R.layout.ring_setting_activity);
 
         ArrayList<String> arr = new ArrayList<>();
-        arr.add("radar");
-        arr.add("classic");
+        arr.add(getResources().getString(R.string.alarm_ring_radar));
+        arr.add(getResources().getString(R.string.alarm_ring_classic));
         RingItemAdapter adapter = new RingItemAdapter(arr, getApplicationContext());
 //        ArrayAdapter<String> adapter=new ArrayAdapter<>(this,R.layout.ring_list_item,arr);
         ListView listView = findViewById(R.id.RingSettingList);
