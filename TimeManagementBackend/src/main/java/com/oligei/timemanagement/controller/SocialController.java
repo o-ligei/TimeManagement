@@ -110,4 +110,14 @@ public class SocialController {
     public Msg<List<FriendAlarmMsg>> getAlarmRequest(@RequestParam(name = "userid") Integer userId) {
         return socialService.getAlarmRequest(userId);
     }
+
+    @RequestMapping("/KMeans")
+    public Msg<Boolean> kMeans() {
+        return socialService.kMeans();
+    }
+
+    @RequestMapping("/RecommendFriend")
+    public Msg<List<Profile>> recommendFriend(@RequestParam(name = "userid") Integer userId) {
+        return socialService.recommendFriend(userId);
+    }
 }
