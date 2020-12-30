@@ -135,6 +135,7 @@ public class SocialServiceImpl implements SocialService {
             if (cnt >= 10) { break; }
             cnt++;
         }
+        if (cnt == 0) return new Msg<>(MsgCode.NO_RECOMMEND_FRIEND, profiles);
         return new Msg<>(MsgCode.SUCCESS, profiles);
     }
 }
