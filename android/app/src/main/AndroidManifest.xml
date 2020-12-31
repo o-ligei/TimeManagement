@@ -1,96 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.wowtime" >
-
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
-    <uses-permission android:name="android.permission.STATUS_BAR"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission xmlns:tools="http://schemas.android.com/tools"
-        android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions" />
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.example.wowtime">
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        tools:targetApi="m"
-        android:name = "com.example.wowtime.util.ContextUtil"
-        >
-        <activity android:name=".ui.alarm.SleepAssistSetting"/>
+      android:allowBackup="true"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/app_name"
+      android:name=".util.ContextUtil"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:supportsRtl="true"
+      android:theme="@style/AppTheme"
+      android:usesCleartextTraffic="true"
+      tools:targetApi="m">
+        <activity android:name=".ui.account.RecommendFriendActivity"></activity>
+        <activity android:name=".ui.alarm.SleepAssistSetting" />
         <activity
-            android:name=".ui.others.Sunflower"
-            android:theme="@style/AppTheme.NoActionBar"/>
+          android:name=".ui.others.Sunflower"
+          android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.MainActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
+          android:label="@string/app_name"
+          android:launchMode="singleTop"
+          android:name=".ui.MainActivity"
+          android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name=".websocket.TWebSocketClientService"
-            android:enabled="true"
-            android:exported="true" />
-        <activity android:name=".ui.account.InternetFriendRequestActivity"/>
-        <activity android:name=".ui.others.InternetFriendListActivity" />
+
+        <activity android:name=".ui.account.InternetFriendRequestActivity" />
+
+        <activity android:name=".ui.account.InternetFriendListActivity" />
         <activity android:name=".ui.games.TappingGameActivity" />
         <activity android:name=".ui.account.EmailActivateActivity" />
         <activity android:name=".ui.alarm.AlarmPlay" />
         <activity android:name=".ui.alarm.ClockFrequencyActivity" />
         <activity android:name=".ui.alarm.TagSettingActivity" />
-        <activity android:name=".ui.games.RandomNumberGameActivity"/>
+        <activity android:name=".ui.games.RandomNumberGameActivity" />
         <activity android:name=".ui.account.PasswordChangeActivity" />
         <activity android:name=".ui.account.CaptchaConfirmActivity" />
-        <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
-        <activity android:name=".ui.games.BlowingGameActivity"/>
-        <activity android:name=".ui.games.ShakingGameActivity"/>
+        <activity android:name=".ui.games.BlowingGameActivity" />
+
+        <activity android:name=".ui.games.ShakingGameActivity" />
+
         <activity android:name=".ui.others.AboutActivity" />
-        <activity android:name=".ui.games.CalculateGameActivity"/>
+        <activity android:name=".ui.games.CalculateGameActivity" />
         <activity
-            android:name=".ui.others.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+          android:label="@string/title_activity_settings"
+          android:name=".ui.others.SettingsActivity" />
         <activity android:name=".ui.others.SpeechRecognizeActivity" />
         <activity android:name=".ui.others.CreditDetailListActivity" />
         <activity
-            android:name=".ui.pomodoro.GameSettingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+          android:name=".ui.pomodoro.GameSettingActivity"
+          android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.alarm.RingSettingActivity" />
         <activity android:name=".ui.alarm.TaskListActivity" />
-        <activity android:name=".ui.alarm.TaskSuccessActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+          android:name=".ui.alarm.TaskSuccessActivity"
+          android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.pomodoro.WhiteListActivity" />
         <activity android:name=".ui.account.RegisterActivity" />
         <activity android:name=".ui.account.LoginActivityWithPasswordActivity" />
         <activity android:name=".ui.statistic.StatisticDayActivity" />
         <activity
-            android:name=".ui.alarm.ClockSettingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+          android:name=".ui.alarm.ClockSettingActivity"
+          android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.account.LoginActivityWithAuthActivity" />
         <activity android:name=".ui.others.AchievementActivity" />
         <activity android:name=".ui.statistic.StatisticWeekActivity" />
         <activity android:name=".ui.statistic.StatisticYearActivity" />
         <activity
-            android:name=".ui.pomodoro.PomodoroSettingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+          android:name=".ui.pomodoro.PomodoroSettingActivity"
+          android:theme="@style/AppTheme.NoActionBar" />
+        <service
+          android:enabled="true"
+          android:exported="true"
+          android:name=".websocket.TWebSocketClientService" />
+        <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
         <activity android:name=".ui.others.GameSettingsActivity" />
-        <activity android:name=".ui.games.OptionGameActivity"/>
-        <activity android:name=".ui.games.OptionGameResultActivity"/>
-        <activity android:name=".ui.others.AchivementDetailActivity"/>
+        <activity android:name=".ui.games.OptionGameActivity" />
+        <activity android:name=".ui.games.OptionGameResultActivity" />
+        <activity android:name=".ui.others.AchivementDetailActivity" />
     </application>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
+    <uses-permission
+      android:name="android.permission.STATUS_BAR"
+      tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-permission xmlns:tools="http://schemas.android.com/tools"
+      android:name="android.permission.PACKAGE_USAGE_STATS"
+      tools:ignore="ProtectedPermissions" />
 
 </manifest>
