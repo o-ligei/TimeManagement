@@ -4,7 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".ui.others.FriendsListFragment">
+  tools:context=".ui.account.FriendsListFragment">
 
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/constraintLayout2"
@@ -33,10 +33,29 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
+  <TextView
+    android:id="@+id/recommend_notice"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="@string/recommend_friend_notice"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="@+id/friends_list"
+    app:layout_constraintTop_toBottomOf="@+id/friend_notice" />
   <ListView
     android:id="@+id/friends_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/recommend_notice" />
+  <TextView
+    android:id="@+id/text_login_first"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/login_first"
+    android:textSize="28sp"
+    app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/friend_notice" />

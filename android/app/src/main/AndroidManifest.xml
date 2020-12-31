@@ -13,7 +13,11 @@
     android:theme="@style/AppTheme"
     android:usesCleartextTraffic="true"
     tools:targetApi="m">
+<<<<<<< HEAD
     <activity android:name=".OnboardingActivity"></activity>
+=======
+    <activity android:name=".ui.account.RecommendFriendActivity"></activity>
+>>>>>>> a22da16a9a57d2c57035c8490e2e96fe93630637
     <activity android:name=".ui.alarm.SleepAssistSetting" />
     <activity
       android:name=".ui.others.Sunflower"
@@ -32,7 +36,11 @@
 
     <activity android:name=".ui.account.InternetFriendRequestActivity" />
 
+<<<<<<< HEAD
     <activity android:name=".ui.others.InternetFriendListActivity" />
+=======
+    <activity android:name=".ui.account.InternetFriendListActivity" />
+>>>>>>> a22da16a9a57d2c57035c8490e2e96fe93630637
     <activity android:name=".ui.games.TappingGameActivity" />
     <activity android:name=".ui.account.EmailActivateActivity" />
     <activity android:name=".ui.alarm.AlarmPlay" />
@@ -74,8 +82,21 @@
     <activity
       android:name=".ui.pomodoro.PomodoroSettingActivity"
       android:theme="@style/AppTheme.NoActionBar" />
+<<<<<<< HEAD
     <activity android:name=".ui.others.GameSettingsActivity" />
     <activity android:name=".ui.games.OptionGameActivity"></activity>
+=======
+
+    <activity android:name=".ui.others.GameSettingsActivity" />
+    <activity android:name=".ui.games.OptionGameActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
+>>>>>>> a22da16a9a57d2c57035c8490e2e96fe93630637
     <activity android:name=".ui.games.OptionGameResultActivity" />
     <activity android:name=".ui.others.AchivementDetailActivity" />
     <service
@@ -84,6 +105,10 @@
       android:name=".websocket.TWebSocketClientService" />
     <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
   </application>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a22da16a9a57d2c57035c8490e2e96fe93630637
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
   <uses-permission android:name="android.permission.INTERNET" />

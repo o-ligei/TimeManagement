@@ -187,6 +187,7 @@
   <string name="iat_cancel">取消</string>
 
   <string name="friend_request_notice">收到好友请求</string>
+  <string name="recommend_friend_notice">有您的推荐好友请查收</string>
 
   <string name="iat_recognize_hint">关键词：闹钟，几点，比如您可以说：请订个一点的闹钟</string>
   <!--    <string name="text_tts_source">科大讯飞作为中国最大的智能语音技术提供商，在智能语音技术领域有着长期的研究积累，并在中文语音合成、语音识别、口语评测等多项技术上拥有国际领先的成果。科大讯飞是我国唯一以语音技术为产业化方向的“国家863计划成果产业化基地”…</string>-->
@@ -226,8 +227,6 @@
   <string name="alarm_ring_radar">雷达</string>
   <string name="alarm_ring_classic">经典</string>
 
-  <string name="take_screen_shot_and_share">截屏分享</string>
-  <string name="set_alarm_for_friend">设闹钟</string>
 
   <!--strings for option game-->
   <string name="option_game_next">继续!</string>
@@ -258,7 +257,6 @@
     <string name="achievement_content_pomodoro_time_0">远离手机任务累计1小时</string>
     <string name="achievement_header_pomodoro_time_1">持之以恒</string>
     <string name="achievement_content_pomodoro_time_1">单个远离手机任务1小时</string>
-
     <!-- string for onboard-->
     <string name="on_board_title_1">趣味闹钟</string>
     <string name="on_board_title_2">远离手机</string>
@@ -269,4 +267,6 @@
 
     <!-- string for guide-->
     <string name="alarm_guide">设置几点入睡</string>
+    <string name="login_first">尚未登录</string>
+    <string name="quit_login">退出登录</string>
 </resources>
