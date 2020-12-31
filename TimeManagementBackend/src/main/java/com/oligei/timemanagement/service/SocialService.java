@@ -22,4 +22,8 @@ public interface SocialService {
     Msg<Boolean> saveAlarmForFriend(Integer from, Integer to, FriendAlarmMsg friendAlarmMsg);
 
     Msg<List<FriendAlarmMsg>> getAlarmRequest(Integer userId);
+
+    Msg<Boolean> kMeans();
+
+    Msg<List<Profile>> recommendFriend(Integer userId);
 }

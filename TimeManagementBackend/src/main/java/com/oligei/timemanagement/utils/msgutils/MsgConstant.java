@@ -25,6 +25,7 @@ public final class MsgConstant {
     public static final Integer REMAIN_FRIEND_ALARM = 220;
     public static final Integer SHORT_PASSWORD = 221;
     public static final Integer WEAK_PASSWORD = 222;
+    public static final Integer NO_RECOMMEND_FRIEND = 223;
 
     public static final String SUCCESS_MESSAGE = "success";
     public static final String WRONG_PASSWORD_MESSAGE = "wrong password";
@@ -49,6 +50,7 @@ public final class MsgConstant {
     public static final String REMAIN_FRIEND_ALARM_MESSAGE = "remain friend alarm";
     public static final String SHORT_PASSWORD_MESSAGE = "password is too short";
     public static final String WEAK_PASSWORD_MESSAGE = "password is too weak";
+    public static final String NO_RECOMMEND_FRIEND_MESSAGE = "no friend recommendation";
 
     public static final Integer NULL_ARGUMENT = -1;
     public static final Integer WRONG_ARGUMENT = -2;

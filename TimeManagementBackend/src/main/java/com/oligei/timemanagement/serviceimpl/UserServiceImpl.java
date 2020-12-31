@@ -40,6 +40,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EmailUtil emailUtil;
 
+    @Autowired
+    private AliSmsUtil aliSmsUtil;
+
     private ExpiringMap<String, String> captchaMap = ExpiringMap.builder()
                                                                 .maxSize(5000)
                                                                 .expiration(5, TimeUnit.MINUTES)
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserService {
             result.put("token", token);
             result.put("user", existed_user);
             return new Msg<>(MsgCode.SUCCESS, result);
-        } else { return new Msg<>(MsgCode.WRONG_PASSWORD); }
+        } else { System.out.println(password+",,,"+existed_user.getPassword()); return new Msg<>(MsgCode.WRONG_PASSWORD); }
     }
 
     @Override
@@ -88,7 +91,7 @@ public class UserServiceImpl implements UserService {
         Integer random = (int) ((Math.random() * 9 + 1) * 100000);
         String code = random.toString();
         try {
-            AliSmsUtil.sendALiSms(phone, code);
+            aliSmsUtil.sendALiSms(phone, code);
         } catch (Exception e) {
             e.printStackTrace();
             return new Msg<>(MsgCode.SMS_SEND_FAILURE);

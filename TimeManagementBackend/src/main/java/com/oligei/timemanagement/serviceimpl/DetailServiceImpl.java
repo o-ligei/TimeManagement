@@ -4,6 +4,7 @@ import com.oligei.timemanagement.dao.DetailDao;
 import com.oligei.timemanagement.dao.UserDao;
 import com.oligei.timemanagement.entity.Detail;
 import com.oligei.timemanagement.entity.UserMongoDB;
+import com.oligei.timemanagement.entity.UserNeo4j;
 import com.oligei.timemanagement.service.DetailService;
 import com.oligei.timemanagement.utils.FormatUtil;
 import com.oligei.timemanagement.utils.msgutils.Msg;
@@ -30,6 +31,9 @@ public class DetailServiceImpl implements DetailService {
         Objects.requireNonNull(event, "null event --DetailServiceImpl saveDetail");
         Objects.requireNonNull(timestamp, "null timestamp --DetailServiceImpl saveDetail");
         detailDao.save(new Detail(userId, event, FormatUtil.strToTimestamp(timestamp)));
+        UserNeo4j userNeo4j = userDao.getUserNeo4jByUserId(userId);
+        userNeo4j.saveRecord(FormatUtil.strToTimestamp(timestamp));
+        userDao.save(userNeo4j);
         return new Msg<>(MsgCode.SUCCESS);
     }
 
