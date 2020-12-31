@@ -68,9 +68,7 @@ public class PersonInfoFragment extends Fragment {
         phoneNumberText = root.findViewById(R.id.PhoneNumber);
         loginText = root.findViewById(R.id.textLoginFirst);
 
-        if(UserInfoAfterLogin.userid != -1)
-            loginText.setVisibility(View.INVISIBLE);
-        else{
+        if (UserInfoAfterLogin.userid != -1) { loginText.setVisibility(View.INVISIBLE); } else {
             loginText.setOnClickListener(v -> startActivity(
                     new Intent(getActivity(), LoginActivityWithAuthActivity.class)));
             return root;
@@ -100,8 +98,7 @@ public class PersonInfoFragment extends Fragment {
         formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
 
         Handler handler = new Handler(message -> {
-            if(message.what != InternetConstant.FETCH)
-                return false;
+            if (message.what != InternetConstant.FETCH) { return false; }
             String msg = message.getData().get("msg").toString();
             String str_data = message.getData().get("data").toString();
             String username = null;
@@ -133,7 +130,7 @@ public class PersonInfoFragment extends Fragment {
             return false;
         });
 
-        Ajax ajax = new Ajax("/User/GetPersonalProfile",formBody,handler,InternetConstant.FETCH);
+        Ajax ajax = new Ajax("/User/GetPersonalProfile", formBody, handler, InternetConstant.FETCH);
         ajax.fetch();
 
 //        new Thread(new Runnable() {

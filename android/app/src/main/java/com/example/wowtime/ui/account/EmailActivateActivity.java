@@ -82,7 +82,7 @@ public class EmailActivateActivity extends AppCompatActivity {
         formBody.add("captcha", captchaInput.getText().toString());
 
         Handler handler = new Handler(message -> {
-            if(message.what == InternetConstant.FETCH){
+            if (message.what == InternetConstant.FETCH) {
                 String msg = message.getData().get("msg").toString();
                 Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
                 toast.show();
@@ -91,10 +91,11 @@ public class EmailActivateActivity extends AppCompatActivity {
                     intent = new Intent(EmailActivateActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }}
+                }
+            }
             return false;
         });
-        Ajax ajax = new Ajax("/User/ActivateEmail",formBody,handler,InternetConstant.FETCH);
+        Ajax ajax = new Ajax("/User/ActivateEmail", formBody, handler, InternetConstant.FETCH);
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {

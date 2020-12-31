@@ -197,13 +197,15 @@
   <string name="text_begin">请开始说话…</string>
   <string name="text_begin_recognizer">开始音频流识别</string>
 
-  <string name="forget_password">忘记密码</string>
+  <string name="forget_password">忘记密码?</string>
   <string name="username">用户名:</string>
   <string name="phonenumber">手机号:</string>
   <string name="email">邮箱:</string>
   <string name="credit">养分:</string>
 
+  <string name="take_screen_shot_and_share">截屏分享</string>
 
+  <string name="set_alarm_for_friend">设闹钟</string>
   <string name="receive_alarm_title">好友为你设置的闹钟</string>
   <string name="send_alarm_tag">标签： </string>
   <string name="send_alarm_time">时间： </string>
@@ -227,8 +229,6 @@
   <string name="alarm_ring_radar">雷达</string>
   <string name="alarm_ring_classic">经典</string>
 
-  <string name="take_screen_shot_and_share">截屏分享</string>
-  <string name="set_alarm_for_friend">设闹钟</string>
 
   <!--strings for option game-->
   <string name="option_game_next">继续!</string>

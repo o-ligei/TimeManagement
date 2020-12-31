@@ -20,6 +20,7 @@ import okhttp3.FormBody.Builder;
 
 
 public class RecommendFriendActivity extends AppCompatActivity {
+
     ListView listView;
     ArrayList<InternetFriendItem> list = new ArrayList<>();
     InternetFriendItemAdapter friendsListAdapter;
@@ -29,22 +30,22 @@ public class RecommendFriendActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend_friend);
         listView = findViewById(R.id.friend_internet_list_r);
-        friendsListAdapter = new InternetFriendItemAdapter(list,getApplicationContext());
+        friendsListAdapter = new InternetFriendItemAdapter(list, getApplicationContext());
         listView.setAdapter(friendsListAdapter);
         GetRecommendFriend();
     }
 
-    private void GetRecommendFriend(){
+    private void GetRecommendFriend() {
         FormBody.Builder formBody = new Builder();
-        formBody.add("userid",String.valueOf(UserInfoAfterLogin.userid));
+        formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
 
         Handler handler = new Handler(message -> {
-            if(message.what == InternetConstant.FETCH){
+            if (message.what == InternetConstant.FETCH) {
                 String str_data = message.getData().get("data").toString();
                 JSONArray jsonArray = null;
                 try {
                     jsonArray = new JSONArray(str_data);
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 list.clear();
@@ -68,7 +69,7 @@ public class RecommendFriendActivity extends AppCompatActivity {
             return false;
         });
 
-        Ajax ajax = new Ajax("/Social/RecommendFriend",formBody,handler,InternetConstant.FETCH);
+        Ajax ajax = new Ajax("/Social/RecommendFriend", formBody, handler, InternetConstant.FETCH);
         ajax.fetch();
     }
 }

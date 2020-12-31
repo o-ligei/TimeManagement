@@ -39,7 +39,7 @@ public class InternetFriendRequestActivity extends AppCompatActivity {
         formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
 
         Handler handler = new Handler(message -> {
-            if(message.what == InternetConstant.FETCH){
+            if (message.what == InternetConstant.FETCH) {
 //                JSONObject jsonObject = null;
                 String str_data = message.getData().get("data").toString();
                 JSONArray jsonArray = null;
@@ -72,7 +72,7 @@ public class InternetFriendRequestActivity extends AppCompatActivity {
             }
             return false;
         });
-        Ajax ajax = new Ajax("/Social/GetFriendRequest",formBody,handler,InternetConstant.FETCH);
+        Ajax ajax = new Ajax("/Social/GetFriendRequest", formBody, handler, InternetConstant.FETCH);
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {

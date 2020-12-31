@@ -109,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
         formBody.add("captcha", captchaTextView.getText().toString());
 
         Handler handler = new Handler(message -> {
-            if(message.what == InternetConstant.FETCH){
+            if (message.what == InternetConstant.FETCH) {
 //                JSONObject jsonObject = null;
                 String msg = message.getData().get("msg").toString();
 //                try {
@@ -134,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         });
 
-        Ajax ajax = new Ajax("/User/Register",formBody,handler,InternetConstant.FETCH);
+        Ajax ajax = new Ajax("/User/Register", formBody, handler, InternetConstant.FETCH);
         ajax.fetch();
 //        new Thread(new Runnable() {
 //            @Override

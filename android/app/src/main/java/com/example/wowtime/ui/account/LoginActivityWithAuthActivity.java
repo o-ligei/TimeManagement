@@ -169,11 +169,12 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                     JSONObject user = JSONObject.parseObject(str_user);
                     userid = user.get("userId").toString();
                     username = user.get("username").toString();
-                    SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                    SharedPreferences sharedPreferences = getSharedPreferences("userInfo",
+                                                                               Context.MODE_PRIVATE);
                     Editor editor = sharedPreferences.edit();
 //                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
-                    editor.putInt("userId",Integer.valueOf(userid));
-                    editor.putString("userName",username);
+                    editor.putInt("userId", Integer.valueOf(userid));
+                    editor.putString("userName", username);
                     editor.apply();
                     UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     UserInfoAfterLogin.username = username;

@@ -6,7 +6,9 @@ import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AliSmsUtil {
 
     private static final String product = "Dysmsapi";
@@ -15,7 +17,7 @@ public class AliSmsUtil {
     private static final String accessKeyId = "LTAI4G3C3cjjsFabv1Vgcscu";
     private static final String accessKeySecret = "vCNGDwdL95rUtAncfz8gkqH9ipH5sl";
 
-    public static void sendALiSms(String phone, String code) throws Exception {
+    public void sendALiSms(String phone, String code) throws Exception {
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
         IAcsClient client = new DefaultAcsClient(profile);
 

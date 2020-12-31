@@ -98,10 +98,9 @@ public class FriendsListFragment extends Fragment {
         loginFirstText = root.findViewById(R.id.text_login_first);
         RecommendFriend = root.findViewById(R.id.recommend_notice);
 
-        if(UserInfoAfterLogin.userid != -1) {
+        if (UserInfoAfterLogin.userid != -1) {
             loginFirstText.setVisibility(View.INVISIBLE);
-        }
-        else{
+        } else {
             RecommendFriend.setVisibility(View.INVISIBLE);
             friendRequest.setVisibility(View.INVISIBLE);
             loginFirstText.setOnClickListener(v -> startActivity(
@@ -109,12 +108,12 @@ public class FriendsListFragment extends Fragment {
             return root;
         }
 
-
 //        if(GetRecommendFriend() == 0){
 //            RecommendFriend.setVisibility(View.INVISIBLE);
 //        }else{
 //            RecommendFriend.setVisibility(View.VISIBLE);
-            RecommendFriend.setOnClickListener(v->startActivity(new Intent(getActivity(),RecommendFriendActivity.class)));
+        RecommendFriend.setOnClickListener(
+                v -> startActivity(new Intent(getActivity(), RecommendFriendActivity.class)));
 //        }
 
         friendsListAdapter = new FriendsListAdapter(allfriendsListItems, getContext());
@@ -163,8 +162,7 @@ public class FriendsListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         System.out.println("resume!");
-        if(UserInfoAfterLogin.userid == -1)
-            return;
+        if (UserInfoAfterLogin.userid == -1) { return; }
         OKGetFriends();
         doRegisterReceiver();
         FlushFriendRequest();
@@ -175,7 +173,7 @@ public class FriendsListFragment extends Fragment {
         formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
 
         Handler handler = new Handler(message -> {
-            if(message.what == InternetConstant.FETCH){
+            if (message.what == InternetConstant.FETCH) {
 //                JSONObject jsonObject = null;
                 String str_data = message.getData().get("data").toString();
                 System.out.println(str_data);
@@ -217,7 +215,7 @@ public class FriendsListFragment extends Fragment {
             return false;
         });
 
-        Ajax ajax = new Ajax("/Social/GetFriendsList",formBody,handler,InternetConstant.FETCH);
+        Ajax ajax = new Ajax("/Social/GetFriendsList", formBody, handler, InternetConstant.FETCH);
         ajax.fetch();
 //        new Thread(new Runnable() {
 //            @Override
