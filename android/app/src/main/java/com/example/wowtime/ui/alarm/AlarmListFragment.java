@@ -219,13 +219,14 @@ public class AlarmListFragment extends Fragment {
         listView.setAdapter(adapter);
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 //        SharedPreferences mySharedPreferences= requireActivity().getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
 //        SharedPreferences.Editor editor = mySharedPreferences.edit();
 //        editor.clear();
 //        editor.apply();
-//    }
+        requireActivity().unregisterReceiver(friendAlarmReceiver);
+    }
 
 }

@@ -204,7 +204,7 @@ public class ClockSettingActivity extends AppCompatActivity {
         if(getResources().getString(R.string.alarm_guide).equals("设置几点入睡")){
             NewbieGuide.with(ClockSettingActivity.this)
                        .setLabel("guide1")
-                       .alwaysShow(true)
+//                       .alwaysShow(true)
                        .addGuidePage(GuidePage.newInstance()
                                               .addHighLight(assistSetting)
                                               .setLayoutRes(R.layout.alarm_guide))
@@ -212,7 +212,7 @@ public class ClockSettingActivity extends AppCompatActivity {
         }else{
             NewbieGuide.with(ClockSettingActivity.this)
                        .setLabel("guide1")
-                       .alwaysShow(true)
+//                       .alwaysShow(true)
                        .addGuidePage(GuidePage.newInstance()
                                               .addHighLight(assistSetting)
                                               .setLayoutRes(R.layout.alarm_guide_en))

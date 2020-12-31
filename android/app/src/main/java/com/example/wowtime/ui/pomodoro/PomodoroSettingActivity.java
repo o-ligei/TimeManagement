@@ -80,7 +80,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         if(getResources().getString(R.string.alarm_guide).equals("设置几点入睡")){
             NewbieGuide.with(PomodoroSettingActivity.this)
                        .setLabel("guide1")
-                       .alwaysShow(true)
+//                       .alwaysShow(true)
                        .addGuidePage(GuidePage.newInstance()
                                               .addHighLight(timePicker)
                                               .setLayoutRes(R.layout.phone_guide_1))
@@ -94,7 +94,7 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         }else{
             NewbieGuide.with(PomodoroSettingActivity.this)
                        .setLabel("guide1")
-                       .alwaysShow(true)
+//                       .alwaysShow(true)
                        .addGuidePage(GuidePage.newInstance()
                                               .addHighLight(timePicker)
                                               .setLayoutRes(R.layout.phone_guide_en_1))
