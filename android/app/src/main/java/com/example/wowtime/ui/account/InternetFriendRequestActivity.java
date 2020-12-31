@@ -42,7 +42,6 @@ public class InternetFriendRequestActivity extends AppCompatActivity {
             if (message.what == InternetConstant.FETCH) {
 //                JSONObject jsonObject = null;
                 String str_data = message.getData().get("data").toString();
-                System.out.println("friend" + str_data);
                 JSONArray jsonArray = null;
                 try {
 //                    jsonObject = new JSONObject(result);
