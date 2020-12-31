@@ -204,13 +204,13 @@ public class FriendsListFragment extends Fragment {
                 }
                 friendsListAdapter.notifyDataSetChanged();
                 //achievement needs to know the number of friends
-                Integer number = allfriendsListItems.size();
+//                Integer number = allfriendsListItems.size();
                 assert getActivity() != null;
-                SharedPreferences achievement = getActivity()
-                        .getSharedPreferences("achievement", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = achievement.edit();
-                editor.putString("friend_have", number.toString());
-                editor.apply();
+//                SharedPreferences achievement = getActivity()
+//                        .getSharedPreferences("achievement", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = achievement.edit();
+//                editor.putString("friend_have", number.toString());
+//                editor.apply();
             }
             return false;
         });

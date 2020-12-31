@@ -42,6 +42,7 @@ public class InternetFriendRequestActivity extends AppCompatActivity {
             if (message.what == InternetConstant.FETCH) {
 //                JSONObject jsonObject = null;
                 String str_data = message.getData().get("data").toString();
+                System.out.println("friend"+str_data);
                 JSONArray jsonArray = null;
                 try {
 //                    jsonObject = new JSONObject(result);
@@ -73,6 +74,7 @@ public class InternetFriendRequestActivity extends AppCompatActivity {
             return false;
         });
         Ajax ajax = new Ajax("/Social/GetFriendRequest", formBody, handler, InternetConstant.FETCH);
+        ajax.fetch();
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
