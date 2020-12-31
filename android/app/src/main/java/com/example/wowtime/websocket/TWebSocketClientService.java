@@ -104,7 +104,7 @@ public class TWebSocketClientService extends Service {
                     Intent intent = new Intent();
                     intent.setAction("friend request");
                     sendBroadcast(intent);
-                }else if(msg.equals("new friend alarm")||msg.equals("remain friend alarm")){
+                } else if (msg.equals("new friend alarm") || msg.equals("remain friend alarm")) {
                     System.out.println("receive clock from friend");
                     JSONArray AlarmArray = JSONObject.parseArray(data);
                     Intent intent = new Intent();

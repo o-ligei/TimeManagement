@@ -118,17 +118,17 @@ public class AlarmItemAdapter extends BaseAdapter {
         List<Boolean> frequency = new ArrayList<>();
         frequency = mData.get(position).getFrequency();
         if (frequency.get(0)) {
-            txt_frequency.setText(mContext.getResources().getString(R.string.alarm_frequency_no_repeat));
+            txt_frequency
+                    .setText(mContext.getResources().getString(R.string.alarm_frequency_no_repeat));
         } else {
-            boolean flag=mContext.getResources()
-                    .getString(R.string.alarm_frequency_no_repeat).equals("无重复");
+            boolean flag = mContext.getResources()
+                                   .getString(R.string.alarm_frequency_no_repeat).equals("无重复");
             Weekday weekday = new Weekday(flag);
             StringBuilder out;
-            if(flag) {
-                out= new StringBuilder("星期");
-            }
-            else {
-                out= new StringBuilder("");
+            if (flag) {
+                out = new StringBuilder("星期");
+            } else {
+                out = new StringBuilder("");
             }
             for (int j = 1; j <= 7; j++) {
                 if (frequency.get(j)) {

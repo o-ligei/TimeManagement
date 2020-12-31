@@ -1,5 +1,6 @@
 package com.example.wowtime.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -23,11 +24,13 @@ import com.example.wowtime.R;
 import com.example.wowtime.databinding.ActivityMainBinding;
 import com.example.wowtime.ui.alarm.AlarmListFragment;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
-import com.example.wowtime.ui.others.FriendsListFragment;
-import com.example.wowtime.ui.others.InternetFriendListActivity;
+import com.example.wowtime.ui.account.FriendsListFragment;
+import com.example.wowtime.ui.account.InternetFriendListActivity;
 import com.example.wowtime.ui.others.SpeechRecognizeActivity;
 import com.example.wowtime.ui.pomodoro.PomodoroListFragment;
 import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
+import com.example.wowtime.util.UserInfoAfterLogin;
+import com.example.wowtime.websocket.TWebSocketClientService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -69,6 +72,18 @@ public class MainActivity extends AppCompatActivity {
                                                 appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navigationMain, navController);
         });
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo",
+                                                                   Context.MODE_PRIVATE);
+        Integer userId = sharedPreferences.getInt("userId", -1);
+        String userName = sharedPreferences.getString("userNmae", "");
+        UserInfoAfterLogin.userid = userId;
+        UserInfoAfterLogin.username = userName;
+
+        if (userId != -1) {
+            Intent startIntent = new Intent(MainActivity.this,
+                                            TWebSocketClientService.class);
+            startService(startIntent);
+        }
 
         FloatingActionButton button = findViewById(R.id.fab_main);
         button.setOnClickListener(v -> {
@@ -79,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             if (c == PomodoroListFragment.class) {
                 startActivity(new Intent(MainActivity.this, PomodoroSettingActivity.class));
             }
-            if (c == FriendsListFragment.class) {
+            if ((c == FriendsListFragment.class) && (UserInfoAfterLogin.userid != -1)) {
                 startActivity(new Intent(MainActivity.this, InternetFriendListActivity.class));
             }
         });
@@ -99,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 //        } else {
 //            startService(startIntent);
 //        }
+
         System.out.println("MainActivity create done!");
     }
 
