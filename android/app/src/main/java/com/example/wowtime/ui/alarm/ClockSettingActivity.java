@@ -15,10 +15,11 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.app.hubert.guide.NewbieGuide;
+import com.app.hubert.guide.model.GuidePage;
 import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
-import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
@@ -200,6 +201,24 @@ public class ClockSettingActivity extends AppCompatActivity {
         });
 
         Button assistSetting = findViewById(R.id.SleepAssistButton);
+        if(getResources().getString(R.string.alarm_guide).equals("设置几点入睡")){
+            NewbieGuide.with(ClockSettingActivity.this)
+                       .setLabel("guide1")
+                       .alwaysShow(true)
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(assistSetting)
+                                              .setLayoutRes(R.layout.alarm_guide))
+                       .show();
+        }else{
+            NewbieGuide.with(ClockSettingActivity.this)
+                       .setLabel("guide1")
+                       .alwaysShow(true)
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(assistSetting)
+                                              .setLayoutRes(R.layout.alarm_guide_en))
+                       .show();
+        }
+
         if(sleepFlag){
             assistSetting.setText(getResources().getString(R.string.sleep_assist_open));
         }
