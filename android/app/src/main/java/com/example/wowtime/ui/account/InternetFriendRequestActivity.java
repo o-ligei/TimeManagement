@@ -73,6 +73,7 @@ public class InternetFriendRequestActivity extends AppCompatActivity {
             return false;
         });
         Ajax ajax = new Ajax("/Social/GetFriendRequest", formBody, handler, InternetConstant.FETCH);
+        ajax.fetch();
 //        new Thread(new Runnable() {
 //            @Override
 //            public void run() {
