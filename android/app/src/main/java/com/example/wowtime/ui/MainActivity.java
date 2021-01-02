@@ -27,7 +27,7 @@ import com.example.wowtime.databinding.ActivityMainBinding;
 import com.example.wowtime.ui.alarm.AlarmListFragment;
 import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.others.BoardingSupportFragment;
-import com.example.wowtime.ui.others.FriendsListFragment;
+import com.example.wowtime.ui.account.FriendsListFragment;
 import com.example.wowtime.ui.account.InternetFriendListActivity;
 import com.example.wowtime.ui.others.SpeechRecognizeActivity;
 import com.example.wowtime.ui.pomodoro.PomodoroListFragment;
@@ -106,7 +106,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, PomodoroSettingActivity.class));
             }
             if ((c == FriendsListFragment.class) && (UserInfoAfterLogin.userid != -1)) {
+                System.out.println("go to internet friend list");
                 startActivity(new Intent(MainActivity.this, InternetFriendListActivity.class));
+            }
+            else{
+                System.out.println(c);
+                System.out.println(FriendsListFragment.class);
+                System.out.println(c == FriendsListFragment.class);
+                System.out.println(UserInfoAfterLogin.userid != -1);
             }
         });
 

@@ -269,4 +269,7 @@
     <string name="alarm_guide">设置几点入睡</string>
     <string name="login_first">尚未登录</string>
     <string name="quit_login">退出登录</string>
+
+  <string name="set_alarm_for_friend">闹钟</string>
+  <string name="take_screen_shot_and_share">截图分享</string>
 </resources>

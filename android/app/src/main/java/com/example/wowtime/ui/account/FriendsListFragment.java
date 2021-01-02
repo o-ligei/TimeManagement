@@ -27,6 +27,7 @@ import com.example.wowtime.util.UserInfoAfterLogin;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import okhttp3.FormBody;
 import okhttp3.FormBody.Builder;
@@ -168,10 +169,18 @@ public class FriendsListFragment extends Fragment {
         FlushFriendRequest();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        requireActivity().unregisterReceiver(friendRequestReceiver);
+    }
+
     private void OKGetFriends() {
         FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
         formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
-
+        SharedPreferences achievement = requireActivity()
+                                               .getSharedPreferences("achievement", Context.MODE_PRIVATE);
         Handler handler = new Handler(message -> {
             if (message.what == InternetConstant.FETCH) {
 //                JSONObject jsonObject = null;
@@ -205,9 +214,7 @@ public class FriendsListFragment extends Fragment {
                 friendsListAdapter.notifyDataSetChanged();
                 //achievement needs to know the number of friends
                 Integer number = allfriendsListItems.size();
-                assert getActivity() != null;
-                SharedPreferences achievement = getActivity()
-                        .getSharedPreferences("achievement", Context.MODE_PRIVATE);
+//                assert getActivity() != null;
                 SharedPreferences.Editor editor = achievement.edit();
                 editor.putString("friend_have", number.toString());
                 editor.apply();
