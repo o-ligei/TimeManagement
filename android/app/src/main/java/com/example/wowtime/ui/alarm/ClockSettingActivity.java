@@ -254,8 +254,8 @@ public class ClockSettingActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         SharedPreferences mySharedPreferences = getSharedPreferences("clock",
                                                                      Activity.MODE_PRIVATE);
         tag = mySharedPreferences.getString("tag", tag);
