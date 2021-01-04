@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/navigation_friends"
-        android:name="com.example.wowtime.ui.others.FriendsListFragment"
+        android:name="com.example.wowtime.ui.account.FriendsListFragment"
         android:label="@string/navigation_friends"
         tools:layout="@layout/fragment_nav_list" />
 

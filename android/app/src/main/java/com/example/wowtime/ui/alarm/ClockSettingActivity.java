@@ -15,10 +15,11 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.app.hubert.guide.NewbieGuide;
+import com.app.hubert.guide.model.GuidePage;
 import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
-import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
@@ -57,7 +58,7 @@ public class ClockSettingActivity extends AppCompatActivity {
         for (int i = 1; i < 8; i++) {
             frequency.add(i, false);
         }
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         Hour = calendar.get(Calendar.HOUR_OF_DAY);
         Minute = calendar.get(Calendar.MINUTE);
         sleepFlag = false;
@@ -66,9 +67,9 @@ public class ClockSettingActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         position = intent.getIntExtra("position", -1);
-        int userid=intent.getIntExtra("userid",0);
+        int userid = intent.getIntExtra("userid", 0);
         String action;
-        action=intent.getStringExtra("action");
+        action = intent.getStringExtra("action");
 
         //navigate from existed alarm
         if (position != -1) {
@@ -121,15 +122,14 @@ public class ClockSettingActivity extends AppCompatActivity {
         if (frequency.get(0)) {
             repeatBtn.setText(getResources().getString(R.string.alarm_frequency_no_repeat));
         } else {
-            boolean flag=getResources()
+            boolean flag = getResources()
                     .getString(R.string.alarm_frequency_no_repeat).equals("无重复");
             Weekday weekday = new Weekday(flag);
             StringBuilder out;
-            if(flag) {
-                out= new StringBuilder("星期");
-            }
-            else {
-                out= new StringBuilder("");
+            if (flag) {
+                out = new StringBuilder("星期");
+            } else {
+                out = new StringBuilder("");
             }
             for (int j = 1; j <= 7; j++) {
                 if (frequency.get(j)) {
@@ -154,15 +154,15 @@ public class ClockSettingActivity extends AppCompatActivity {
 
         //save
         Button saveClock = findViewById(R.id.ClockSettingConfirm);
-        if(action!=null&&action.equals("set for friend")){
+        if (action != null && action.equals("set for friend")) {
             saveClock.setText(getResources().getString(R.string.send_alarm));
         }
         saveClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlarmListItem alarm = new AlarmListItem(tag, frequency, game, ring, Hour, Minute);
-                if(action!=null&&action.equals("set for friend")) {
-                    send_alarm(userid,alarm);
+                if (action != null && action.equals("set for friend")) {
+                    send_alarm(userid, alarm);
                 }
                 SharedPreferences mySharedPreferences = getSharedPreferences("alarmList",
                                                                              Activity.MODE_PRIVATE);
@@ -200,23 +200,40 @@ public class ClockSettingActivity extends AppCompatActivity {
         });
 
         Button assistSetting = findViewById(R.id.SleepAssistButton);
+        if(getResources().getString(R.string.alarm_guide).equals("设置几点入睡")){
+            NewbieGuide.with(ClockSettingActivity.this)
+                       .setLabel("guide1")
+//                       .alwaysShow(true)
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(assistSetting)
+                                              .setLayoutRes(R.layout.alarm_guide))
+                       .show();
+        }else{
+            NewbieGuide.with(ClockSettingActivity.this)
+                       .setLabel("guide1")
+//                       .alwaysShow(true)
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(assistSetting)
+                                              .setLayoutRes(R.layout.alarm_guide_en))
+                       .show();
+        }
+
         if(sleepFlag){
             assistSetting.setText(getResources().getString(R.string.sleep_assist_open));
-        }
-        else{
+        } else {
             assistSetting.setText(getResources().getString(R.string.sleep_assist_default));
         }
         assistSetting.setOnClickListener(v -> startActivity(
                 new Intent(ClockSettingActivity.this, SleepAssistSetting.class)));
     }
 
-    private void send_alarm(int userid,AlarmListItem alarm){
-        String clockSetting= JSON.toJSONString(alarm);
+    private void send_alarm(int userid, AlarmListItem alarm) {
+        String clockSetting = JSON.toJSONString(alarm);
         FormBody.Builder formBody = new FormBody.Builder();
-        formBody.add("from",String.valueOf(UserInfoAfterLogin.userid));
+        formBody.add("from", String.valueOf(UserInfoAfterLogin.userid));
         formBody.add("to", String.valueOf(userid));
-        formBody.add("username",UserInfoAfterLogin.username);
-        formBody.add("clocksetting",clockSetting);
+        formBody.add("username", UserInfoAfterLogin.username);
+        formBody.add("clocksetting", clockSetting);
         /*handler*/
         android.os.Handler handler = new Handler(message -> {
             if (message.what == InternetConstant.FETCH) {
@@ -230,14 +247,15 @@ public class ClockSettingActivity extends AppCompatActivity {
             return false;
         });
 
-        Ajax ajax = new Ajax("/Social/SetAlarmForFriend", formBody, handler, InternetConstant.FETCH);
+        Ajax ajax = new Ajax("/Social/SetAlarmForFriend", formBody, handler,
+                             InternetConstant.FETCH);
         ajax.fetch();
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
         SharedPreferences mySharedPreferences = getSharedPreferences("clock",
                                                                      Activity.MODE_PRIVATE);
         tag = mySharedPreferences.getString("tag", tag);
@@ -259,15 +277,14 @@ public class ClockSettingActivity extends AppCompatActivity {
         if (frequency.get(0)) {
             repeatBtn.setText(getResources().getString(R.string.alarm_frequency_no_repeat));
         } else {
-            boolean flag=getResources()
+            boolean flag = getResources()
                     .getString(R.string.alarm_frequency_no_repeat).equals("无重复");
             Weekday weekday = new Weekday(flag);
             StringBuilder out;
-            if(flag) {
-                 out= new StringBuilder("星期");
-            }
-            else {
-                out= new StringBuilder("");
+            if (flag) {
+                out = new StringBuilder("星期");
+            } else {
+                out = new StringBuilder("");
             }
             for (int j = 1; j <= 7; j++) {
                 if (frequency.get(j)) {
