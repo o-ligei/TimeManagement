@@ -54,7 +54,9 @@ public final class MsgConstant {
 
     public static final Integer NULL_ARGUMENT = -1;
     public static final Integer WRONG_ARGUMENT = -2;
+    public static final Integer NOT_AUTHENTICATED = -3;
 
     public static final String NULL_ARGUMENT_MESSAGE = "null argument";
     public static final String WRONG_ARGUMENT_MESSAGE = "wrong argument";
+    public static final String NOT_AUTHENTICATED_MESSAGE = "authentication failure";
 }
