@@ -13,6 +13,7 @@
     android:theme="@style/AppTheme"
     android:usesCleartextTraffic="true"
     tools:targetApi="m">
+    <activity android:name=".OnboardingActivity"></activity>
     <activity android:name=".ui.account.RecommendFriendActivity"></activity>
     <activity android:name=".ui.alarm.SleepAssistSetting" />
     <activity
@@ -74,7 +75,6 @@
     <activity
       android:name=".ui.pomodoro.PomodoroSettingActivity"
       android:theme="@style/AppTheme.NoActionBar" />
-
     <activity android:name=".ui.others.GameSettingsActivity" />
     <activity android:name=".ui.games.OptionGameActivity"/>
     <activity android:name=".ui.games.OptionGameResultActivity" />
@@ -85,7 +85,6 @@
       android:name=".websocket.TWebSocketClientService" />
     <service android:name=".ui.pomodoro.FloatingImageDisplayService" />
   </application>
-
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
   <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
   <uses-permission android:name="android.permission.INTERNET" />

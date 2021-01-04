@@ -81,6 +81,14 @@ dependencies {
     implementation 'uk.co.barbuzz:beerprogressview:0.0.6'
     implementation group: 'com.nineoldandroids', name: 'library', version: '2.4.0'
 
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'androidx.leanback:leanback:1.0.0'
+
+    compile 'com.github.huburt-Hu:NewbieGuide:v2.0.1'
+
     def nav_version = "2.3.0"
 
     // Java language implementation

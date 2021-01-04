@@ -165,6 +165,7 @@ public class FriendsListFragment extends Fragment {
     }
 
     private void GetFriends(String result) throws JSONException {
+        System.out.println(getActivity());
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -206,5 +207,11 @@ public class FriendsListFragment extends Fragment {
                 editor.apply();
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        requireActivity().unregisterReceiver(friendRequestReceiver);
     }
 }

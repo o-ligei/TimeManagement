@@ -263,7 +263,17 @@
     <!--strings for alarm ring-->
     <string name="alarm_ring_radar">radar</string>
     <string name="alarm_ring_classic">classic</string>
+
+    <!-- string for onboard-->
+    <string name="on_board_title_1">alarm</string>
+    <string name="on_board_title_2">away_from_phone</string>
+    <string name="on_board_title_3">reward</string>
+    <string name="on_board_des_1">set by yourself</string>
+    <string name="on_board_des_2">tomato clock</string>
+    <string name="on_board_des_3">growth of sunflower</string>
+
+    <!-- string for guide-->
+    <string name="alarm_guide">set which time to sleep</string>
     <string name="login_first">login first</string>
     <string name="quit_login">login quit</string>
-
 </resources>
