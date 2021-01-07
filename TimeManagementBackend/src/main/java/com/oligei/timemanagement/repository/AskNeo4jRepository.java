@@ -6,9 +6,8 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 
 public interface AskNeo4jRepository extends Neo4jRepository<AskNeo4j, Long> {
 
-    @Query("MATCH (a:tm_users)-[r:ASK]->(b:tm_users)\n" +
-            "WHERE a.userid = $from AND b.userid = $to\n" +
-            "RETURN r")
+    @Query("MATCH p=(a:tm_users{userid: $from})-[:ASK]->(b:tm_users{userid: $to})\n" +
+            "RETURN p")
     AskNeo4j getAskRelation(String from, String to);
 
     @Query("MATCH (a:tm_users),(b:tm_users)\n" +

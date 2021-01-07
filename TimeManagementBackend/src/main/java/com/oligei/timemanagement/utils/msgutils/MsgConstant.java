@@ -21,6 +21,11 @@ public final class MsgConstant {
     public static final Integer NEW_FRIEND = 216;
     public static final Integer EMAIL_EXISTED = 217;
     public static final Integer FOUND_YOURSELF = 218;
+    public static final Integer NEW_FRIEND_ALARM = 219;
+    public static final Integer REMAIN_FRIEND_ALARM = 220;
+    public static final Integer SHORT_PASSWORD = 221;
+    public static final Integer WEAK_PASSWORD = 222;
+    public static final Integer NO_RECOMMEND_FRIEND = 223;
 
     public static final String SUCCESS_MESSAGE = "success";
     public static final String WRONG_PASSWORD_MESSAGE = "wrong password";
@@ -41,8 +46,17 @@ public final class MsgConstant {
     public static final String NEW_FRIEND_MESSAGE = "new friend";
     public static final String EMAIL_EXISTED_MESSAGE = "email existed";
     public static final String FOUND_YOURSELF_MESSAGE = "found yourself";
+    public static final String NEW_FRIEND_ALARM_MESSAGE = "new friend alarm";
+    public static final String REMAIN_FRIEND_ALARM_MESSAGE = "remain friend alarm";
+    public static final String SHORT_PASSWORD_MESSAGE = "password is too short";
+    public static final String WEAK_PASSWORD_MESSAGE = "password is too weak";
+    public static final String NO_RECOMMEND_FRIEND_MESSAGE = "no friend recommendation";
 
     public static final Integer NULL_ARGUMENT = -1;
+    public static final Integer WRONG_ARGUMENT = -2;
+    public static final Integer NOT_AUTHENTICATED = -3;
 
     public static final String NULL_ARGUMENT_MESSAGE = "null argument";
+    public static final String WRONG_ARGUMENT_MESSAGE = "wrong argument";
+    public static final String NOT_AUTHENTICATED_MESSAGE = "authentication failure";
 }

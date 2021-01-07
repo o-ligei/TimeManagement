@@ -26,7 +26,6 @@ public class UserIconDefault {
     }
 
     public UserIconDefault() {
-        for (int i=1;i<=5;i++)
-            defaultUserIcon.add(convertFileToBase64("static/icon"+i+".jpg"));
+        for (int i = 1; i <= 5; i++) { defaultUserIcon.add(convertFileToBase64("static/icon" + i + ".jpg")); }
     }
 }

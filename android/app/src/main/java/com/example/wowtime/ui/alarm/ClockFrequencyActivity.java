@@ -22,14 +22,14 @@ public class ClockFrequencyActivity extends AppCompatActivity {
         flag = false;
 
         ArrayList<String> arr = new ArrayList<>();
-        arr.add("无重复");
-        arr.add("每周一");
-        arr.add("每周二");
-        arr.add("每周三");
-        arr.add("每周四");
-        arr.add("每周五");
-        arr.add("每周六");
-        arr.add("每周日");
+        arr.add(getResources().getString(R.string.alarm_frequency_no_repeat));
+        arr.add(getResources().getString(R.string.alarm_frequency_Monday));
+        arr.add(getResources().getString(R.string.alarm_frequency_Tuesday));
+        arr.add(getResources().getString(R.string.alarm_frequency_Wednesday));
+        arr.add(getResources().getString(R.string.alarm_frequency_Thursday));
+        arr.add(getResources().getString(R.string.alarm_frequency_Friday));
+        arr.add(getResources().getString(R.string.alarm_frequency_Saturday));
+        arr.add(getResources().getString(R.string.alarm_frequency_Sunday));
 //        arr.add("每天");
 
 //        RingItemAdapter adapter=new RingItemAdapter(arr,getApplicationContext());

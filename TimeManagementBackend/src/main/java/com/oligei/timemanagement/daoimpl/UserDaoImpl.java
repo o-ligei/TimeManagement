@@ -49,14 +49,19 @@ public class UserDaoImpl implements UserDao {
             userMongoDBRepository.save(userMongoDB);
             userNeo4jRepository.save(userNeo4j);
             return saved_user;
-        }
-        else return userRepository.save(user);
+        } else { return userRepository.save(user); }
     }
 
     @Override
     public UserMongoDB save(UserMongoDB userMongoDB) {
         Objects.requireNonNull(userMongoDB, "null userMongoDB --UserDaoImpl save");
         return userMongoDBRepository.save(userMongoDB);
+    }
+
+    @Override
+    public UserNeo4j save(UserNeo4j userNeo4j) {
+        Objects.requireNonNull(userNeo4j, "null userNeo4j --UserDaoImpl save");
+        return userNeo4jRepository.save(userNeo4j);
     }
 
     @Override
@@ -87,5 +92,10 @@ public class UserDaoImpl implements UserDao {
     public List<UserNeo4j> getFriendsList(Integer userId) {
         Objects.requireNonNull(userId, "null userId --UserDaoImpl getFriendsList");
         return userNeo4jRepository.getFriendsList(userId.toString());
+    }
+
+    @Override
+    public List<UserNeo4j> getAllUsers() {
+        return userNeo4jRepository.getAllUsers();
     }
 }

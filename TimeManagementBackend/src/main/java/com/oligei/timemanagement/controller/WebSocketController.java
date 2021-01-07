@@ -3,6 +3,7 @@ package com.oligei.timemanagement.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.oligei.timemanagement.TimemanagementApplication;
+import com.oligei.timemanagement.dto.FriendAlarmMsg;
 import com.oligei.timemanagement.dto.Profile;
 import com.oligei.timemanagement.entity.UserNeo4j;
 import com.oligei.timemanagement.exceptions.NotOnlineException;
@@ -50,14 +51,18 @@ public class WebSocketController {
         webSocketMap.put(userId, this);
         try {
             Msg<List<Profile>> existFriendRequest = socialService.getFriendRequest(Integer.valueOf(userId));
-            existFriendRequest.setStatus(MsgConstant.REMAIN_FRIEND_REQUEST);
-            existFriendRequest.setMsg(MsgConstant.REMAIN_FRIEND_REQUEST_MESSAGE);
-            Msg<Boolean> msg = new Msg<>(MsgCode.SUCCESS, true);
-            if (existFriendRequest.getData().isEmpty()) sendMessage((JSONObject) JSONObject.toJSON(msg), userId);
-            else {
-                existFriendRequest.setData(new ArrayList<>());
-                sendMessage((JSONObject) JSONObject.toJSON(existFriendRequest), userId);
+            Msg<List<FriendAlarmMsg>> friendAlarmRequest = socialService.getAlarmRequest(Integer.valueOf(userId));
+            if (!existFriendRequest.getData().isEmpty()) {
+                Msg<List<Profile>> existFriendMsg = new Msg<>(MsgCode.REMAIN_FRIEND_REQUEST, new ArrayList<>());
+                sendMessage((JSONObject) JSONObject.toJSON(existFriendMsg), userId);
             }
+            if (!friendAlarmRequest.getData().isEmpty()) {
+                Msg<List<FriendAlarmMsg>> existAlarmMsg = new Msg<>(MsgCode.REMAIN_FRIEND_ALARM,
+                                                                    friendAlarmRequest.getData());
+                sendMessage((JSONObject) JSONObject.toJSON(existAlarmMsg), userId);
+            }
+            Msg<Boolean> loginSuccessMsg = new Msg<>(MsgCode.SUCCESS, true);
+            sendMessage((JSONObject) JSONObject.toJSON(loginSuccessMsg), userId);
         } catch (IOException e) {
             logger.error("IOException", e);
         } catch (NotOnlineException e) {
@@ -78,7 +83,7 @@ public class WebSocketController {
         Objects.requireNonNull(jsonObject, "null message --WebSocketController sendMessage");
         Objects.requireNonNull(toUserId, "null toUserId --WebSocketController sendMessage");
         WebSocketController webSocketController = webSocketMap.get(toUserId);
-        if (webSocketController == null) throw new NotOnlineException(MsgConstant.NOT_ONLINE_MESSAGE);
+        if (webSocketController == null) { throw new NotOnlineException(MsgConstant.NOT_ONLINE_MESSAGE); }
         String message = JSON.toJSONString(jsonObject);
         webSocketController.sendMessageHelper(message);
     }
