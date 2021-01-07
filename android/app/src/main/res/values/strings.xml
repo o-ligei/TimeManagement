@@ -232,6 +232,9 @@
   <string name="option_game_next">继续!</string>
   <string name="option_game_next_question">下一题!</string>
 
+  <string name="username_warning">用户名以字母开头，长度至少为四个字符</string>
+  <string name="password_warning">密码必须包含数字、大小写字母，长度至少为六个字符</string>
+
       <!--achievement-->
     <string name="achievement_header_friend_0">社交新手</string>
     <string name="achievement_content_friend_0">成功添加1个好友</string>
