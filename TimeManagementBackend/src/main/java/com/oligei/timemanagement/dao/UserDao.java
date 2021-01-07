@@ -18,9 +18,13 @@ public interface UserDao {
 
     UserMongoDB save(UserMongoDB userMongoDB);
 
+    UserNeo4j save(UserNeo4j userNeo4j);
+
     UserNeo4j getUserNeo4jByUserId(Integer userId);
 
     List<UserNeo4j> getUserNeo4jsByUsername(String username);
 
     List<UserNeo4j> getFriendsList(Integer userId);
+
+    List<UserNeo4j> getAllUsers();
 }

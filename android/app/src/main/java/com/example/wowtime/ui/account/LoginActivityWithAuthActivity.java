@@ -1,6 +1,9 @@
 package com.example.wowtime.ui.account;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +41,7 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
     EditText phoneText;
     EditText captchaText;
     Button btn_login;
+    TextView forgetPasswordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,10 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
 
         phoneText = findViewById(R.id.phone_input_in_auth);
         captchaText = findViewById(R.id.captcha_input_in_auth);
+        forgetPasswordText = findViewById(R.id.text_forget_password);
+        forgetPasswordText.setOnClickListener(v -> startActivity(
+                new Intent(LoginActivityWithAuthActivity.this, CaptchaConfirmActivity.class)
+                        .putExtra("target", "password")));
 
 //        Button login = findViewById(R.id.button6);
 //        login.setOnClickListener(v -> startActivity(new Intent(LoginActivity1.this, PersonInfo.class)));
@@ -160,10 +168,19 @@ public class LoginActivityWithAuthActivity extends AppCompatActivity {
                     str_user = data.get("user").toString();
                     JSONObject user = JSONObject.parseObject(str_user);
                     userid = user.get("userId").toString();
-                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     username = user.get("username").toString();
+                    SharedPreferences sharedPreferences = getSharedPreferences("userInfo",
+                                                                               Context.MODE_PRIVATE);
+                    Editor editor = sharedPreferences.edit();
+//                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
+                    editor.putInt("userId", Integer.valueOf(userid));
+                    editor.putString("userName", username);
+                    editor.apply();
+                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     UserInfoAfterLogin.username = username;
-                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this, TWebSocketClientService.class);
+//                    UserInfoAfterLogin.username = username;
+                    Intent startIntent = new Intent(LoginActivityWithAuthActivity.this,
+                                                    TWebSocketClientService.class);
                     startService(startIntent);
                     finish();
                     Intent intent = new Intent(LoginActivityWithAuthActivity.this,

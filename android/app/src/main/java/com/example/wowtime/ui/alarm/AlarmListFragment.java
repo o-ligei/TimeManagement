@@ -196,7 +196,6 @@ public class AlarmListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        doAlarmReceiver();
         View root = inflater.inflate(R.layout.alarm_list_fragment, container, false);
         System.out.println(UserInfoAfterLogin.userid);
         listView = root.findViewById(R.id.AlarmCardList);
@@ -206,6 +205,7 @@ public class AlarmListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        doAlarmReceiver();
         SharedPreferences mySharedPreferences = requireActivity()
                 .getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
         String shared = mySharedPreferences.getString("list", "");
@@ -219,13 +219,15 @@ public class AlarmListFragment extends Fragment {
         listView.setAdapter(adapter);
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
+    @Override
+    public void onStop() {
+        super.onStop();
 //        SharedPreferences mySharedPreferences= requireActivity().getSharedPreferences("alarmList", Activity.MODE_PRIVATE);
 //        SharedPreferences.Editor editor = mySharedPreferences.edit();
 //        editor.clear();
 //        editor.apply();
-//    }
+
+        requireActivity().unregisterReceiver(friendAlarmReceiver);
+    }
 
 }

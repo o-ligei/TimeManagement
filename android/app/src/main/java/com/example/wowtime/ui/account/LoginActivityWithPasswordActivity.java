@@ -1,6 +1,9 @@
 package com.example.wowtime.ui.account;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -34,14 +37,8 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
 
     EditText phoneText;
     EditText passwordText;
+    TextView forgetPasswordText;
 
-//    URI uri = URI.create(websocket_host+"/Socket/"+ UserInfoAfterLogin.userid);
-//    URI uri = URI.create("ws://192.168.1.101:8080/Socket/1");
-//    TWebSocketClient client = new TWebSocketClient(uri);
-
-    //
-//        System.out.println(websocket_host+"/Socket/"+ UserInfoAfterLogin.userid);
-//
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +70,14 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
 
         phoneText = findViewById(R.id.phone_input_in_pass);
         passwordText = findViewById(R.id.password_input_in_pass);
+        forgetPasswordText = findViewById(R.id.text_forget_password);
+        forgetPasswordText.setOnClickListener(v -> startActivity(
+                new Intent(LoginActivityWithPasswordActivity.this, CaptchaConfirmActivity.class)
+                        .putExtra("target", "password")));
 
         Button btn_login = findViewById(R.id.btn_login_in_pass);
         btn_login.setOnClickListener(v -> OKLoginWitchPass());
 
-//        try {
-//            client.connectBlocking();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 
     private void OKLoginWitchPass() {
@@ -133,10 +129,21 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
                     str_user = Objects.requireNonNull(data.get("user")).toString();
                     JSONObject user = JSONObject.parseObject(str_user);
                     userid = Objects.requireNonNull(user.get("userId")).toString();
-                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
+//                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     username = user.get("username").toString();
+//                    UserInfoAfterLogin.username = username;
+                    SharedPreferences sharedPreferences = getSharedPreferences("userInfo",
+                                                                               Context.MODE_PRIVATE);
+                    Editor editor = sharedPreferences.edit();
+//                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
+                    editor.putInt("userId", Integer.valueOf(userid));
+                    editor.putString("userName", username);
+                    editor.apply();
+                    UserInfoAfterLogin.userid = Integer.valueOf(userid);
                     UserInfoAfterLogin.username = username;
-                    Intent startIntent = new Intent(LoginActivityWithPasswordActivity.this, TWebSocketClientService.class);
+//                    UserInfoAfterLogin.username = username;
+                    Intent startIntent = new Intent(LoginActivityWithPasswordActivity.this,
+                                                    TWebSocketClientService.class);
                     startService(startIntent);
                     Intent intent = new Intent(LoginActivityWithPasswordActivity.this,
                                                MainActivity.class);

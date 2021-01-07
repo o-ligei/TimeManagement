@@ -22,12 +22,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.app.hubert.guide.NewbieGuide;
+import com.app.hubert.guide.model.GuidePage;
 import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.PomodoroListItem;
 import com.example.wowtime.dto.StatisticDayItem;
 import com.example.wowtime.service.Accumulation;
 import com.example.wowtime.service.Credit;
+import com.example.wowtime.ui.alarm.ClockSettingActivity;
 import com.example.wowtime.ui.alarm.TaskSuccessActivity;
 import com.example.wowtime.util.InternetConstant;
 
@@ -73,6 +76,36 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         timePicker3 = findViewById(R.id.PomodorotimePicker3);
         timePicker3.setIs24HourView(true);
         ApkTool.resizePikcer(timePicker3);
+
+        if(getResources().getString(R.string.alarm_guide).equals("设置几点入睡")){
+            NewbieGuide.with(PomodoroSettingActivity.this)
+                       .setLabel("guide1")
+//                       .alwaysShow(true)
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(timePicker)
+                                              .setLayoutRes(R.layout.phone_guide_1))
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(timePicker2)
+                                              .setLayoutRes(R.layout.phone_guide_2))
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(timePicker3)
+                                              .setLayoutRes(R.layout.phone_guide_3))
+                       .show();
+        }else{
+            NewbieGuide.with(PomodoroSettingActivity.this)
+                       .setLabel("guide1")
+//                       .alwaysShow(true)
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(timePicker)
+                                              .setLayoutRes(R.layout.phone_guide_en_1))
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(timePicker2)
+                                              .setLayoutRes(R.layout.phone_guide_en_2))
+                       .addGuidePage(GuidePage.newInstance()
+                                              .addHighLight(timePicker3)
+                                              .setLayoutRes(R.layout.phone_guide_en_3))
+                       .show();
+        }
 
         Spinner spinner = findViewById(R.id.PomodoroModeSpinner);
         TextView spinnerText = findViewById(R.id.PomodoroSelectModeText);

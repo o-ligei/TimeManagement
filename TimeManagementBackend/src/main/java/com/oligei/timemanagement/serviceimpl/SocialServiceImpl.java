@@ -8,8 +8,13 @@ import com.oligei.timemanagement.entity.AskNeo4j;
 import com.oligei.timemanagement.entity.SetNeo4j;
 import com.oligei.timemanagement.entity.UserNeo4j;
 import com.oligei.timemanagement.service.SocialService;
+import com.oligei.timemanagement.utils.clusterutils.Cluster;
+import com.oligei.timemanagement.utils.clusterutils.KMeans;
+import com.oligei.timemanagement.utils.clusterutils.Point;
 import com.oligei.timemanagement.utils.msgutils.Msg;
 import com.oligei.timemanagement.utils.msgutils.MsgCode;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +30,8 @@ public class SocialServiceImpl implements SocialService {
 
     @Autowired
     private FriendDao friendDao;
+
+    private Set<Cluster> clusterSet = new HashSet<>();
 
     @Override
     public Msg<List<Profile>> getProfile(Integer myId, String username) {
@@ -97,5 +104,38 @@ public class SocialServiceImpl implements SocialService {
             friendAlarmMsgs.add(new FriendAlarmMsg(setNeo4j.getUsername(), setNeo4j.getClockSetting()));
         }
         return new Msg<>(MsgCode.SUCCESS, friendAlarmMsgs);
+    }
+
+    @Override
+    public Msg<Boolean> kMeans() {
+        List<UserNeo4j> users = userDao.getAllUsers();
+        KMeans kMeans = new KMeans(8, users);
+        clusterSet = kMeans.run();
+        for (Cluster cluster : clusterSet) {
+            System.out.println(cluster);
+        }
+        return new Msg<>(MsgCode.SUCCESS);
+    }
+
+    @Override
+    public Msg<List<Profile>> recommendFriend(Integer userId) {
+        Objects.requireNonNull(userId, "null userId --SocialServiceImpl recommendFriend");
+        Cluster clusterForUser = new Cluster();
+        for (Cluster cluster : clusterSet) {
+            if (cluster.getMembers().containsKey(userId)) {
+                clusterForUser = cluster;
+                break;
+            }
+        }
+        List<Profile> profiles = new ArrayList<>();
+        int cnt = 0;
+        for (Point point : clusterForUser.getMembers().values()) {
+            if (point.getId() == userId) { continue; }
+            profiles.add(new Profile(userDao.getUserNeo4jByUserId(point.getId())));
+            if (cnt >= 10) { break; }
+            cnt++;
+        }
+        if (cnt == 0) return new Msg<>(MsgCode.NO_RECOMMEND_FRIEND, profiles);
+        return new Msg<>(MsgCode.SUCCESS, profiles);
     }
 }
