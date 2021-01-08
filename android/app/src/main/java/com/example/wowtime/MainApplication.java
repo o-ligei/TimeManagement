@@ -13,6 +13,8 @@ public class MainApplication extends Application {
 
     private static Integer themeNumber = 0;
 
+    private static Integer userId=-1;
+
     public static MainApplication getInstance() {
         return mApp;
     }
@@ -30,4 +32,13 @@ public class MainApplication extends Application {
     public static Integer getThemeNumber() {
         return themeNumber;
     }
+
+    public static Integer getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(Integer userId) {
+        MainApplication.userId = userId;
+    }
+
 }

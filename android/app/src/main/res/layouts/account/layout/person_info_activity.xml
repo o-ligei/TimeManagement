@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
-                android:text="ziliuziliu"
+                android:text=""
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
-                android:text="152"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/credit"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
-                android:text="ziliuziliu"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/username"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -162,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
-                android:text="13615519527"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/phonenumber"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -201,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
-                android:text="ziliuziliu@sjtu.edu.cn"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/email"
                 app:layout_constraintTop_toTopOf="parent" />
