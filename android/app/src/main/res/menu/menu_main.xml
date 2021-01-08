@@ -17,7 +17,9 @@
         <item
             android:id="@id/navigation_log_in"
             android:icon="@drawable/ic_round_person_24"
-            android:title="@string/navigation_login" />
+            android:title="@string/navigation_login"
+          android:visible="false"
+          />
         <item
             android:id="@id/navigation_person_info"
             android:icon="@drawable/ic_round_person_24"

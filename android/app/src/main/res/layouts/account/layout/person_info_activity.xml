@@ -14,18 +14,30 @@
         tools:layout_editor_absoluteY="87dp">
 
         <TextView
-            android:id="@+id/forgetPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:text="@string/forget_password"
-            android:textColor="@color/secondary_text"
-            android:textSize="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
-
+          android:id="@+id/resetPassword"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="80dp"
+          android:text="@string/password_change_title"
+          android:textColor="@color/secondary_text"
+          android:textSize="14dp"
+          app:layout_constraintBottom_toTopOf="@+id/textLoginFirst"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.501"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+          app:layout_constraintVertical_bias="0.0" />
+        <TextView
+          android:id="@+id/textLoginFirst"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="96dp"
+          android:text="@string/login_first"
+          android:textSize="28sp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.501"
+          app:layout_constraintStart_toStartOf="parent" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
             android:layout_width="300dp"
@@ -51,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
-                android:text="ziliuziliu"
+                android:text=""
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
-                android:text="152"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/credit"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -112,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
-                android:text="ziliuziliu"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/username"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -150,7 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
-                android:text="13615519527"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/phonenumber"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -189,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="120dp"
-                android:text="ziliuziliu@sjtu.edu.cn"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/email"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -1,12 +1,15 @@
-package com.example.wowtime.ui.others;
+package com.example.wowtime.ui.account;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.InternetFriendItemAdapter;
 import com.example.wowtime.dto.InternetFriendItem;
+import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;
 import java.io.IOException;
@@ -55,38 +58,18 @@ public class InternetFriendListActivity extends AppCompatActivity {
     }
 
     private void OKGetInternetFriends(String s) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-                formBody.add("username", s);
-                formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
-                Request request = new Request.Builder()
-                        .url(InternetConstant.host + "/Social/GetProfile").post(formBody.build())
-                        .build();
-                try {
-                    Response response = client.newCall(request).execute();//发送请求
-                    String result = response.body().string();
-                    GetInternetFriends(result);
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
+        FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+        formBody.add("username", s);
+        formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
 
-    private void GetInternetFriends(String result) throws JSONException {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("result:" + result);
-                JSONObject jsonObject = null;
-                String str_data = null;
+        Handler handler = new Handler(message -> {
+            if (message.what == InternetConstant.FETCH) {
+//                JSONObject jsonObject = null;
+                String str_data = message.getData().get("data").toString();
                 JSONArray jsonArray = null;
                 try {
-                    jsonObject = new JSONObject(result);
-                    str_data = jsonObject.get("data").toString();
+//                    jsonObject = new JSONObject(result);
+//                    str_data = jsonObject.get("data").toString();
                     jsonArray = new JSONArray(str_data);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -111,6 +94,11 @@ public class InternetFriendListActivity extends AppCompatActivity {
                 }
                 friendsListAdapter.notifyDataSetChanged();
             }
+            return false;
         });
+        Ajax ajax = new Ajax("/Social/GetProfile", formBody, handler, InternetConstant.FETCH);
+        ajax.fetch();
     }
+
+
 }
