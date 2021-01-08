@@ -31,7 +31,6 @@ public class RegisterActivity extends AppCompatActivity {
     TextView passwordTextView;
     TextView captchaTextView;
     Button btn_register;
-    TextView usernameWarning;
     TextView passwordWaring;
 
     @Override
@@ -43,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity {
         phoneTextView = findViewById(R.id.phone_input);
         passwordTextView = findViewById(R.id.passsword_input);
         captchaTextView = findViewById(R.id.captcha_input);
-        usernameWarning = findViewById(R.id.username_warning);
         passwordWaring = findViewById(R.id.password_warning);
 
 //        usernameWarning.setVisibility(View.INVISIBLE);
