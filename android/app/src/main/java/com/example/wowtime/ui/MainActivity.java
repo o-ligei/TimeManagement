@@ -94,6 +94,18 @@ public class MainActivity extends AppCompatActivity {
                                                 appBarConfiguration);
             NavigationUI.setupWithNavController(binding.navigationMain, navController);
         });
+        sharedPreferences = getSharedPreferences("userInfo",
+                                                                   Context.MODE_PRIVATE);
+        Integer userId = sharedPreferences.getInt("userId", -1);
+        String userName = sharedPreferences.getString("userNmae", "");
+        UserInfoAfterLogin.userid = userId;
+        UserInfoAfterLogin.username = userName;
+
+        if (userId != -1) {
+            Intent startIntent = new Intent(MainActivity.this,
+                                            TWebSocketClientService.class);
+            startService(startIntent);
+        }
 
         if (userId != -1) {
             Intent startIntent = new Intent(MainActivity.this,
