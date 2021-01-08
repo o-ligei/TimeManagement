@@ -89,14 +89,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/Credit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="120dp"
-                android:text="152"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/credit"
-                app:layout_constraintTop_toTopOf="parent" />
+              android:id="@+id/Credit"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="88dp"
+              android:text="152"
+              android:textSize="16sp"
+              app:layout_constraintStart_toStartOf="@id/credit"
+              app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -120,15 +120,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/Username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="120dp"
-                android:text="ziliuziliu"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/username"
-                app:layout_constraintTop_toTopOf="parent" />
-
+              android:id="@+id/Username"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="88dp"
+              android:text="ziliuziliu"
+              android:textSize="16sp"
+              app:layout_constraintStart_toStartOf="@id/username"
+              app:layout_constraintTop_toTopOf="parent" />
             <ImageView
                 android:id="@+id/modifyUsername"
                 android:layout_width="wrap_content"
@@ -158,15 +157,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/PhoneNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="120dp"
-                android:text="13615519527"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/phonenumber"
-                app:layout_constraintTop_toTopOf="parent" />
-
+              android:id="@+id/PhoneNumber"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="88dp"
+              android:text="13615519527"
+              android:textSize="16sp"
+              app:layout_constraintStart_toStartOf="@id/phonenumber"
+              app:layout_constraintTop_toTopOf="parent" />
             <ImageView
                 android:id="@+id/modifyPhoneNumber"
                 android:layout_width="wrap_content"
@@ -197,14 +195,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/Email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="120dp"
-                android:text="ziliuziliu@sjtu.edu.cn"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/email"
-                app:layout_constraintTop_toTopOf="parent" />
+              android:id="@+id/Email"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="88dp"
+              android:text="ziliuziliu@sjtu.edu.cn"
+              android:textSize="16sp"
+              app:layout_constraintStart_toStartOf="@id/email"
+              app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/modifyEmail"
