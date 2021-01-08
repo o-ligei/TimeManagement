@@ -241,7 +241,7 @@
     <string name="achievement_header_alarm_0">闹钟新手</string>
     <string name="achievement_content_alarm_0">设置闹钟5次</string>
     <string name="achievement_header_pomodoro_0">远离手机新手</string>
-    <string name="achievement_content_pomodoro_0">设置远离手机任5五次</string>
+    <string name="achievement_content_pomodoro_0">设置远离手机任务5次</string>
 
     <string name="achievement_header_friend_1">社交达人</string>
     <string name="achievement_content_friend_1">成功添加10个好友</string>
