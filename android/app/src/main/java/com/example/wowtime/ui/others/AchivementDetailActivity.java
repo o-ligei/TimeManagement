@@ -44,6 +44,12 @@ public class AchivementDetailActivity extends AppCompatActivity {
                 achieveDetail = "已添加" + count + "个好友";
                 break;
             }
+            case 1:{
+                int count = Integer.parseInt(achievement.getString("share_count", "0"));
+                if (count >= 1) { achieve = true; }
+                achieveDetail = "已分享" + count + "次";
+                break;
+            }
             case 2: {
                 int count = Integer.parseInt(achievement.getString("alarm_count", "0"));
                 if (count >= 5) { achieve = true; }
