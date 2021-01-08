@@ -149,6 +149,27 @@ public class FloatingImageDisplayService extends Service {
                 intent.putExtra("fromScreenSaver", 1);
                 startActivity(intent);
             });
+            Button giveup=displayView.findViewById(R.id.dummy_button);
+            giveup.setOnClickListener(v -> {
+                isStarted = false;
+
+                timingTimer.cancel();
+                timingTask.cancel();
+                workTimer.cancel();
+                workTimerTask.cancel();
+                restTimer.cancel();
+                restTimerTask.cancel();
+                monitorTimer.cancel();
+                monitorTimerTask.cancel();
+                time=0;
+
+                try {
+                    windowManager.removeView(displayView);
+                } catch (Exception e) {
+                    System.out.println("it's in rest or whitelist\n" + e.toString());
+                }
+
+            });
 
             if (windowManager == null) {
                 //something cannot understand happened

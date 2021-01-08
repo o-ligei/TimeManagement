@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.FriendsListAdapter;
 import com.example.wowtime.dto.FriendsListItem;
@@ -129,7 +130,6 @@ public class FriendsListFragment extends Fragment {
             public boolean onQueryTextSubmit(String s) {
                 System.out.println("onQueryTextSubmit:" + s);
                 if (s.isEmpty()) {
-//                    System.out.println("empty!");
                     FriendsListAdapter friendsListAdapter = new FriendsListAdapter(
                             allfriendsListItems, getContext());
                     listView.setAdapter(friendsListAdapter);
@@ -156,6 +156,8 @@ public class FriendsListFragment extends Fragment {
             }
         });
 
+        OKGetRecommendFriend();
+
         return root;
     }
 
@@ -173,7 +175,8 @@ public class FriendsListFragment extends Fragment {
     public void onStop() {
         super.onStop();
 
-        requireActivity().unregisterReceiver(friendRequestReceiver);
+        if(UserInfoAfterLogin.userid != -1)
+            requireActivity().unregisterReceiver(friendRequestReceiver);
     }
 
     private void OKGetFriends() {
@@ -213,7 +216,10 @@ public class FriendsListFragment extends Fragment {
                 }
                 friendsListAdapter.notifyDataSetChanged();
                 //achievement needs to know the number of friends
-                Integer number = allfriendsListItems.size();
+                Integer number;
+                if(MainApplication.getUserId()!=-1)
+                     number = allfriendsListItems.size();
+                else number=0;
 //                assert getActivity() != null;
                 SharedPreferences.Editor editor = achievement.edit();
                 editor.putString("friend_have", number.toString());
@@ -224,128 +230,46 @@ public class FriendsListFragment extends Fragment {
 
         Ajax ajax = new Ajax("/Social/GetFriendsList", formBody, handler, InternetConstant.FETCH);
         ajax.fetch();
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                OkHttpClient client = new OkHttpClient();
-//                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-//                System.out.println(UserInfoAfterLogin.userid);
-//                formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));
-//                Request request = new Request.Builder()
-//                        .url(InternetConstant.host + "/Social/GetFriendsList")
-//                        .post(formBody.build()).build();
-//                try {
-//                    Response response = client.newCall(request).execute();//发送请求
-//                    String result = response.body().string();
-//                    System.out.println("result"+result);
-//                    GetFriends(result);
-//                } catch (IOException | JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
     }
 
-//    private void OKGetRecommendFriend(){
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                OkHttpClient client = new OkHttpClient();
-//                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
-//                formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));//传递键值对参数
-//                Request request = new Request.Builder()
-//                        .url(InternetConstant.host + "/Social/RecommendFriend")
-//                        .post(formBody.build()).build();
-//                try {
-//                    Response response = client.newCall(request).execute();//发送请求
-//                    String result = response.body().string();
-//                    GetRecommendFriend(result);
-//                } catch (IOException | JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-//    }
-//
-//    private int GetRecommendFriend(String result) throws JSONException{
-//        getActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                JSONObject jsonObject = JSONObject.
-//                String str_data = message.getData().get("data").toString();
-//                JSONArray jsonArray = null;
-//                try {
-//                    jsonArray = new JSONArray(str_data);
-//                }catch (JSONException e){
-//                    e.printStackTrace();
-//                }
-////                size = jsonArray.length();
-//            }
-//        });
-//    }
-//    private int GetRecommendFriend(){
-//        FormBody.Builder formBody = new Builder();
-//        formBody.add("userid",String.valueOf(UserInfoAfterLogin.userid));
-//        int size = 0;
-//        Handler handler = new Handler(message -> {
-//            if(message.what == InternetConstant.FETCH){
-//                String str_data = message.getData().get("data").toString();
-//                JSONArray jsonArray = null;
-//                try {
-//                    jsonArray = new JSONArray(str_data);
-//                }catch (JSONException e){
-//                    e.printStackTrace();
-//                }
-////                size = jsonArray.length();
-//            }
-//            return false;
-//        });
-//
-//        Ajax ajax = new Ajax("/Social/RecommendFriend",formBody,handler,InternetConstant.FETCH);
-//        ajax.fetch();
-//
-//    }
-//    private void GetFriends(String result) throws JSONException {
-//        getActivity().runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println("result:" + result);
-//                JSONObject jsonObject = null;
-//                String str_data = null;
-//                JSONArray jsonArray = null;
-//                try {
-//                    jsonObject = new JSONObject(result);
-//                    str_data = jsonObject.get("data").toString();
-//                    jsonArray = new JSONArray(str_data);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                allfriendsListItems.clear();
-//                for (int i = 0; i < jsonArray.length(); i++) {
-//                    System.out.println(i + " item");
-//                    JSONObject item = null;
-//                    FriendsListItem listItem = null;
-//                    try {
-//                        item = (JSONObject) jsonArray.get(i);
-//                        listItem = new FriendsListItem(
-//                                Integer.valueOf(item.get("userId").toString()),
-//                                String.valueOf(item.get("userIcon")),
-//                                String.valueOf(item.get("username")));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                    allfriendsListItems.add(listItem);
-//                }
-//                friendsListAdapter.notifyDataSetChanged();
-//                //achievement needs to know the number of friends
-//                Integer number = allfriendsListItems.size();
-//                assert getActivity() != null;
-//                SharedPreferences achievement = getActivity()
-//                        .getSharedPreferences("achievement", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = achievement.edit();
-//                editor.putString("friend_have", number.toString());
-//                editor.apply();
-//            }
-//        });
-//    }
+    void OKGetRecommendFriend() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpClient client = new OkHttpClient();
+                FormBody.Builder formBody = new FormBody.Builder();//创建表单请求体
+                formBody.add("userid", String.valueOf(UserInfoAfterLogin.userid));//传递键值对参数
+                Request request = new Request.Builder()
+                        .url(InternetConstant.host + "/Social/RecommendFriend")
+                        .post(formBody.build()).build(); //TODO:change the url
+                try {
+                    Response response = client.newCall(request).execute();
+                    String result = response.body().string();
+                    GetRecommendFriend(result);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    void GetRecommendFriend(String result){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                JSONObject jsonObject = null;
+                String msg = "";
+                System.out.println("recommend:"+result);
+                try {
+                    jsonObject = new JSONObject(result);
+                    msg = jsonObject.get("msg").toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(msg);
+                if(msg.equals("no friend recommendation"))
+                    RecommendFriend.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
 }

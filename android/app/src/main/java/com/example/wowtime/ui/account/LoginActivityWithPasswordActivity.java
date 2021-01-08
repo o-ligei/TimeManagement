@@ -62,7 +62,7 @@ public class LoginActivityWithPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
                 Intent signUpIntent = new Intent(LoginActivityWithPasswordActivity.this,
-                                                 TaskSuccessActivity.class);
+                                                 RegisterActivity.class);
                 startActivity(signUpIntent);
             }
         });

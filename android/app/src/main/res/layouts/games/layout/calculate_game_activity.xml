@@ -35,6 +35,8 @@
         android:layout_height="49dp"
         android:layout_marginBottom="204dp"
         android:onClick="judgeAnswer"
+      android:background="@drawable/button_circle_shape"
+      android:textColor="#ffffff"
         android:text="@string/handson"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

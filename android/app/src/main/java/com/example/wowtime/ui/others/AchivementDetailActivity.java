@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 
 public class AchivementDetailActivity extends AppCompatActivity {
@@ -38,8 +39,15 @@ public class AchivementDetailActivity extends AppCompatActivity {
         switch (position) {
             case 0: {
                 int count = Integer.parseInt(achievement.getString("friend_have", "0"));
+                if(MainApplication.getUserId()==-1)count=0;
                 if (count != 0) { achieve = true; }
                 achieveDetail = "已添加" + count + "个好友";
+                break;
+            }
+            case 1:{
+                int count = Integer.parseInt(achievement.getString("share_count", "0"));
+                if (count >= 1) { achieve = true; }
+                achieveDetail = "已分享" + count + "次";
                 break;
             }
             case 2: {
@@ -56,8 +64,15 @@ public class AchivementDetailActivity extends AppCompatActivity {
             }
             case 4: {
                 int count = Integer.parseInt(achievement.getString("friend_have", "0"));
+                if(MainApplication.getUserId()==-1)count=0;
                 if (count >= 10) { achieve = true; }
                 achieveDetail = "已添加" + count + "个好友";
+                break;
+            }
+            case 5:{
+                int count = Integer.parseInt(achievement.getString("share_count", "0"));
+                if (count >= 10) { achieve = true; }
+                achieveDetail = "已分享" + count + "次";
                 break;
             }
             case 6: {

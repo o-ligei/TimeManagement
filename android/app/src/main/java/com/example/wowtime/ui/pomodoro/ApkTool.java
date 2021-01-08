@@ -22,9 +22,7 @@ import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-/**
- * Created by gray_dog3 on 16/3/3. 扫描本地安装的应用,工具类
- */
+
 public class ApkTool {
 
     static String TAG = "ApkTool";
