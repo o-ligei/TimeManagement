@@ -98,7 +98,6 @@ public class InternetFriendListActivity extends AppCompatActivity {
         });
         Ajax ajax = new Ajax("/Social/GetProfile", formBody, handler, InternetConstant.FETCH);
         ajax.fetch();
-
     }
 
 

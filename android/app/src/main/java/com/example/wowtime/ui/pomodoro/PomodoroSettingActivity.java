@@ -58,6 +58,112 @@ public class PomodoroSettingActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
     }
 
+    public static String secondToTime(long second) {
+        long hours = second / 3600;            //转换小时
+        second = second % 3600;                //剩余秒数
+        long minutes = second / 60;            //转换分钟
+        second = second % 60;                //剩余秒数
+        return hours + "h" + minutes+"min";
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    //float window
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void startFloatingImageDisplayService(View view, int time, int rest) {
+        if (FloatingImageDisplayService.isStarted) {
+            System.out.println("Floating window is already start!");
+            return;
+        }
+        if (!Settings.canDrawOverlays(this)) {
+            try {
+                Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Looper.prepare();
+                Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
+                Looper.loop();
+            }
+            startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                              Uri.parse("package:" + getPackageName())), 1);
+        } else {
+            System.out.println("Floating window starts!");
+            startService(
+                    new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class).
+                                                                                                       putExtra(
+                                                                                                               "work",
+                                                                                                               time)
+                                                                                               .putExtra(
+                                                                                                       "rest",
+                                                                                                       rest));
+//            startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
+        }
+    }
+
+    //grant authorization of floatingWindow
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (!Settings.canDrawOverlays(this)) {
+                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
+//                startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void jumpFromExisted() {
+        String stringList = pomodoroSp.getString("pomodoroList", "");
+        List<PomodoroListItem> pomodoroListItems = JSON
+                .parseArray(stringList, PomodoroListItem.class);
+        assert (pomodoroListItems != null);
+
+        PomodoroListItem pomodoroListItem = pomodoroListItems.get(position);
+        setFromExisted(timePicker, pomodoroListItem.getTotalGap());
+        setFromExisted(timePicker2, pomodoroListItem.getWorkGap());
+        setFromExisted(timePicker3, pomodoroListItem.getRestGap());
+        editText.setText(pomodoroListItem.getName());
+        mode = pomodoroListItem.getMode();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void setFromExisted(TimePicker tmpTimePicker, int time) {
+        int hour = time / 60;
+        tmpTimePicker.setHour(hour);
+        tmpTimePicker.setMinute(time - hour * 60);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void jumpFromCreate() {
+        timePicker.setHour(1);
+        timePicker.setMinute(10);
+        timePicker2.setHour(0);
+        timePicker2.setMinute(32);
+        timePicker3.setHour(0);
+        timePicker3.setMinute(3);
+        editText.setText(getResources().getText(R.string.pomodoro_default_name));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private int getTimeFromPickerMS(TimePicker tmpTimePicker) {
+        int hour = tmpTimePicker.getHour();
+        int minite = tmpTimePicker.getMinute();
+        return 1000 * (hour * 3600 + minite * 60);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private int getTimeFromPickerMIN(TimePicker tmpTimePicker) {
+        int hour = tmpTimePicker.getHour();
+        int minite = tmpTimePicker.getMinute();
+        return hour * 60 + minite;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,14 +285,19 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                     focusedSeconds = FloatingImageDisplayService.setIsCanceled(true);
                     FloatingImageDisplayService.setTime(0);
                     System.out.println("cancel successfully?");
-                    runOnUiThread(() -> {
-                        Credit credit = new Credit();
-                        credit.modifyCredit(InternetConstant.away_from_phone, "awayFromPhone");
-                        Accumulation accumulation = new Accumulation(getApplicationContext());
-                        accumulation.addAccumulation(InternetConstant.away_from_phone);
-                        startActivity(new Intent(PomodoroSettingActivity.this,
-                                                 TaskSuccessActivity.class));
-                    });
+                    int times=totalTime/(time+rest);
+                    if(focusedSeconds*1000>=totalTime-rest*(times+1)-10000) {
+                        System.out.println("jump from pomodoro to success");
+                        runOnUiThread(() -> {
+                            Credit credit = new Credit();
+                            credit.modifyCredit(InternetConstant.away_from_phone, "awayFromPhone");
+                            Accumulation accumulation = new Accumulation(getApplicationContext());
+                            accumulation.addAccumulation(InternetConstant.away_from_phone);
+                            startActivity(new Intent(PomodoroSettingActivity.this,
+                                                     TaskSuccessActivity.class)
+                                                  .putExtra("description",secondToTime(focusedSeconds)));
+                        });
+                    }
 
                     List<StatisticDayItem> statisticDay;
                     String statisticDayString = pomodoroSp.getString("statistic", "");
@@ -253,103 +364,5 @@ public class PomodoroSettingActivity extends AppCompatActivity {
                            Toast.LENGTH_LONG).show();
             finish();
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    //float window
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void startFloatingImageDisplayService(View view, int time, int rest) {
-        if (FloatingImageDisplayService.isStarted) {
-            System.out.println("Floating window is already start!");
-            return;
-        }
-        if (!Settings.canDrawOverlays(this)) {
-            try {
-                Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
-            } catch (Exception e) {
-                Looper.prepare();
-                Toast.makeText(this, "当前无权限，请授权", Toast.LENGTH_SHORT).show();
-                Looper.loop();
-            }
-            startActivityForResult(new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                              Uri.parse("package:" + getPackageName())), 1);
-        } else {
-            System.out.println("Floating window starts!");
-            startService(
-                    new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class).
-                                                                                                       putExtra(
-                                                                                                               "work",
-                                                                                                               time)
-                                                                                               .putExtra(
-                                                                                                       "rest",
-                                                                                                       rest));
-//            startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
-        }
-    }
-
-    //grant authorization of floatingWindow
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if (!Settings.canDrawOverlays(this)) {
-                Toast.makeText(this, "授权失败", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "授权成功", Toast.LENGTH_SHORT).show();
-//                startService(new Intent(PomodoroSettingActivity.this, FloatingImageDisplayService.class));
-            }
-        }
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void jumpFromExisted() {
-        String stringList = pomodoroSp.getString("pomodoroList", "");
-        List<PomodoroListItem> pomodoroListItems = JSON
-                .parseArray(stringList, PomodoroListItem.class);
-        assert (pomodoroListItems != null);
-
-        PomodoroListItem pomodoroListItem = pomodoroListItems.get(position);
-        setFromExisted(timePicker, pomodoroListItem.getTotalGap());
-        setFromExisted(timePicker2, pomodoroListItem.getWorkGap());
-        setFromExisted(timePicker3, pomodoroListItem.getRestGap());
-        editText.setText(pomodoroListItem.getName());
-        mode = pomodoroListItem.getMode();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void setFromExisted(TimePicker tmpTimePicker, int time) {
-        int hour = time / 60;
-        tmpTimePicker.setHour(hour);
-        tmpTimePicker.setMinute(time - hour * 60);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void jumpFromCreate() {
-        timePicker.setHour(1);
-        timePicker.setMinute(10);
-        timePicker2.setHour(0);
-        timePicker2.setMinute(32);
-        timePicker3.setHour(0);
-        timePicker3.setMinute(3);
-        editText.setText(getResources().getText(R.string.pomodoro_default_name));
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private int getTimeFromPickerMS(TimePicker tmpTimePicker) {
-        int hour = tmpTimePicker.getHour();
-        int minite = tmpTimePicker.getMinute();
-        return 1000 * (hour * 3600 + minite * 60);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private int getTimeFromPickerMIN(TimePicker tmpTimePicker) {
-        int hour = tmpTimePicker.getHour();
-        int minite = tmpTimePicker.getMinute();
-        return hour * 60 + minite;
     }
 }

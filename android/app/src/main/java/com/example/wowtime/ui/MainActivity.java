@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -72,8 +74,17 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.setBackgroundColor(Color.parseColor("#aaaaaa"));
         }
         setSupportActionBar(binding.toolbarMain);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_person_info, R.id.navigation_sunflower, R.id.navigation_clock,
+
+        sharedPreferences = getSharedPreferences("userInfo",
+                                                 Context.MODE_PRIVATE);
+        Integer userId = sharedPreferences.getInt("userId", -1);
+        String userName = sharedPreferences.getString("userName", "");
+        UserInfoAfterLogin.userid = userId;
+        UserInfoAfterLogin.username = userName;
+        MainApplication.setUserId(userId);
+
+        AppBarConfiguration appBarConfiguration= new AppBarConfiguration.Builder(
+                R.id.navigation_log_in,R.id.navigation_person_info, R.id.navigation_sunflower, R.id.navigation_clock,
                 R.id.navigation_away_from_phone, R.id.navigation_friends,
                 R.id.navigation_statistics, R.id.navigation_achievement)
                 .setDrawerLayout(binding.drawer).build();
@@ -89,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
         String userName = sharedPreferences.getString("userNmae", "");
         UserInfoAfterLogin.userid = userId;
         UserInfoAfterLogin.username = userName;
+
+        if (userId != -1) {
+            Intent startIntent = new Intent(MainActivity.this,
+                                            TWebSocketClientService.class);
+            startService(startIntent);
+        }
 
         if (userId != -1) {
             Intent startIntent = new Intent(MainActivity.this,
@@ -156,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onRestart() {
+        System.out.println("mainActivity restart!");
         super.recreate();
         super.onRestart();
     }
