@@ -29,9 +29,9 @@ public class TaskSuccessActivity extends AppCompatActivity {
 
         Button back_to_home = findViewById(R.id.btn_back_to_home);
         successView = findViewById(R.id.successText);
-//        String successMessage = getIntent().getStringExtra("description");
-        String successMessage = "";
-//        assert successMessage != null;
+        String successMessage = getIntent().getStringExtra("description");
+        if(successMessage==null)successMessage="";
+        assert successMessage != null;
         if (!successMessage.isEmpty()) {
             successView.setText(successMessage);
         }
