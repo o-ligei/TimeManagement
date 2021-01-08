@@ -55,6 +55,8 @@
       android:layout_width="100dp"
       android:layout_height="60dp"
       android:layout_marginTop="16dp"
+      android:background="@drawable/button_circle_shape"
+      android:textColor="#ffffff"
       android:text="@string/blowing_button_text"
       android:textSize="18sp"
       app:layout_constraintEnd_toEndOf="parent"

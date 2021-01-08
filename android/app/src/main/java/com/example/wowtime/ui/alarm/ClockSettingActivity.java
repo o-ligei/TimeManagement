@@ -20,7 +20,6 @@ import com.app.hubert.guide.model.GuidePage;
 import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
-import com.example.wowtime.ui.pomodoro.PomodoroSettingActivity;
 import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
 import com.example.wowtime.util.UserInfoAfterLogin;

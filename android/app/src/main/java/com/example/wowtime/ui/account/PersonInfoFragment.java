@@ -1,6 +1,7 @@
 package com.example.wowtime.ui.account;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
+import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.service.Accumulation;
 import com.example.wowtime.util.Ajax;
@@ -68,7 +71,10 @@ public class PersonInfoFragment extends Fragment {
         phoneNumberText = root.findViewById(R.id.PhoneNumber);
         loginText = root.findViewById(R.id.textLoginFirst);
 
-        if (UserInfoAfterLogin.userid != -1) { loginText.setVisibility(View.INVISIBLE); } else {
+        if (UserInfoAfterLogin.userid != -1) {
+            loginText.setVisibility(View.INVISIBLE);
+        } else {
+            forgetPassword.setVisibility(View.INVISIBLE);
             loginText.setOnClickListener(v -> startActivity(
                     new Intent(getActivity(), LoginActivityWithAuthActivity.class)));
             return root;
