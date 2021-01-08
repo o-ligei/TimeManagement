@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.example.wowtime.MainApplication;
 import com.example.wowtime.R;
 import com.example.wowtime.adapter.FriendsListAdapter;
 import com.example.wowtime.dto.FriendsListItem;
@@ -213,7 +214,10 @@ public class FriendsListFragment extends Fragment {
                 }
                 friendsListAdapter.notifyDataSetChanged();
                 //achievement needs to know the number of friends
-                Integer number = allfriendsListItems.size();
+                Integer number;
+                if(MainApplication.getUserId()!=-1)
+                     number = allfriendsListItems.size();
+                else number=0;
 //                assert getActivity() != null;
                 SharedPreferences.Editor editor = achievement.edit();
                 editor.putString("friend_have", number.toString());
