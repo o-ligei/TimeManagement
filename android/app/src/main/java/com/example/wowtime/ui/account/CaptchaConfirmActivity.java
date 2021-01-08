@@ -61,7 +61,7 @@ public class CaptchaConfirmActivity extends AppCompatActivity {
                 try {
                     Response response = client.newCall(request).execute();
                     String result = response.body().string();
-                    GetCaptcha();
+                    GetCaptcha(result);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -69,10 +69,20 @@ public class CaptchaConfirmActivity extends AppCompatActivity {
         }).start();
     }
 
-    void GetCaptcha() {
+    void GetCaptcha(String result) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                JSONObject jsonObject = null;
+                String msg = "";
+                try {
+                    jsonObject = new JSONObject(result);
+                    msg = jsonObject.get("msg").toString();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                toast.show();
                 btn_handson.setEnabled(true);
             }
         });

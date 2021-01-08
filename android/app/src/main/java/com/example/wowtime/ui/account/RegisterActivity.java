@@ -46,8 +46,8 @@ public class RegisterActivity extends AppCompatActivity {
         usernameWarning = findViewById(R.id.username_warning);
         passwordWaring = findViewById(R.id.password_warning);
 
-        usernameWarning.setVisibility(View.INVISIBLE);
-        passwordWaring.setVisibility(View.INVISIBLE);
+//        usernameWarning.setVisibility(View.INVISIBLE);
+//        passwordWaring.setVisibility(View.INVISIBLE);
         Button btn_getCaptcha = findViewById(R.id.btn_getCaptcha);
 //        btn_getCaptcha.setEnabled(false);
 //
