@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/CreditConstraintLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/midday"
-    tools:context=".ui.others.Sunflower">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/CreditConstraintLayout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/midday"
+  tools:context=".ui.others.Sunflower">
 
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/linearLayout3"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="@drawable/night"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent">-->
+  <!--    <LinearLayout-->
+  <!--        android:id="@+id/linearLayout3"-->
+  <!--        android:layout_width="match_parent"-->
+  <!--        android:layout_height="wrap_content"-->
+  <!--        android:background="@drawable/night"-->
+  <!--        android:orientation="horizontal"-->
+  <!--        app:layout_constraintStart_toStartOf="parent"-->
+  <!--        app:layout_constraintTop_toTopOf="parent">-->
 
-    <TextView
-        android:id="@+id/CreditNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_weight="1"
-        android:background="#FFFFFF"
-        android:gravity="center_horizontal"
-        android:textColor="#050505"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <!--    </LinearLayout>-->
+  <TextView
+    android:id="@+id/CreditNumber"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_weight="1"
+    android:background="#FFFFFF"
+    android:gravity="center_horizontal"
+    android:textColor="#050505"
+    android:textSize="30sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+  <!--    </LinearLayout>-->
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/Sunflower"-->
-    <!--        android:layout_width="fill_parent"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:scaleType="fitXY"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"-->
-    <!--        android:src="@drawable/night"/>-->
+  <!--    <ImageView-->
+  <!--        android:id="@+id/Sunflower"-->
+  <!--        android:layout_width="fill_parent"-->
+  <!--        android:layout_height="0dp"-->
+  <!--        android:scaleType="fitXY"-->
+  <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+  <!--        app:layout_constraintStart_toStartOf="parent"-->
+  <!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"-->
+  <!--        android:src="@drawable/night"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

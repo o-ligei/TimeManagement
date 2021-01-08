@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.alibaba.fastjson.JSONObject;
+import com.example.wowtime.R;
 import com.example.wowtime.dto.AlarmListItem;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +14,19 @@ public class AddAlarm {
     AlarmListItem newAlarm;
     private Context mContext;
 
-//    public AddAlarm(Context mContext){
-//        this.mContext = mContext;
-//        ArrayList<Boolean> options=new ArrayList<>();
-//        for (int i=0;i<8;i++){
-//            options.add(false);
-//        }
-//        newAlarm=new AlarmListItem("made by voice",options,"使劲摇摇摇","radar",0,0);
-//    }
+    public AddAlarm(Context mContext) {
+        this.mContext = mContext;
+        ArrayList<Boolean> options = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            options.add(false);
+        }
+        newAlarm = new AlarmListItem("made by voice", options, "使劲摇摇摇", "radar", 0, 0);
+    }
+
+    public AddAlarm(Context mContext, AlarmListItem alarmListItem) {
+        this.mContext = mContext;
+        newAlarm = alarmListItem;
+    }
 
     public AddAlarm(boolean flag, int weekday, int hour, Context mContext) {
         this.mContext = mContext;
@@ -33,7 +39,8 @@ public class AddAlarm {
         } else {
             options.set(weekday, true);
         }
-        newAlarm = new AlarmListItem("made by voice", options, "使劲摇摇摇", "radar", hour, 0);
+        String game = mContext.getResources().getString(R.string.blowing_game_setting_header);
+        newAlarm = new AlarmListItem("made by voice", options, game, "radar", hour, 0);
     }
 
     public void setTime(int hour, int minute) {

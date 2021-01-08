@@ -11,6 +11,10 @@ public class MainApplication extends Application {
 
     private static MainApplication mApp;
 
+    private static Integer themeNumber = 0;
+
+    private static Integer userId=-1;
+
     public static MainApplication getInstance() {
         return mApp;
     }
@@ -19,6 +23,22 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mApp = this;
+    }
+
+    public static void setThemeNumber(Integer themeNumber) {
+        MainApplication.themeNumber = themeNumber;
+    }
+
+    public static Integer getThemeNumber() {
+        return themeNumber;
+    }
+
+    public static Integer getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(Integer userId) {
+        MainApplication.userId = userId;
     }
 
 }

@@ -40,12 +40,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private EmailUtil emailUtil;
 
+    @Autowired
+    private AliSmsUtil aliSmsUtil;
+
     private ExpiringMap<String, String> captchaMap = ExpiringMap.builder()
-            .maxSize(5000)
-            .expiration(5, TimeUnit.MINUTES)
-            .expirationPolicy(ExpirationPolicy.CREATED)
-            .variableExpiration()
-            .build();
+                                                                .maxSize(5000)
+                                                                .expiration(5, TimeUnit.MINUTES)
+                                                                .expirationPolicy(ExpirationPolicy.CREATED)
+                                                                .variableExpiration()
+                                                                .build();
 
 
     @Override
@@ -53,16 +56,15 @@ public class UserServiceImpl implements UserService {
         Objects.requireNonNull(phone, "null phone --UserServiceImpl loginWithPassword");
         Objects.requireNonNull(password, "null password --UserServiceImpl loginWithPassword");
 
-        if (!FormatUtil.phoneCheck(phone)) return new Msg<>(MsgCode.ILLEGAL_PHONE);
         User existed_user = userDao.getUserByPhone(phone);
-        if (existed_user == null) return new Msg<>(MsgCode.PHONE_NOT_FOUND);
-        else if (encoder.matches(password, existed_user.getPassword())){
+        if (existed_user == null) { return new Msg<>(MsgCode.PHONE_NOT_FOUND); } else if (encoder
+                .matches(password, existed_user.getPassword())) {
             String token = TokenUtil.sign(existed_user);
             Map<String, Object> result = new HashMap<>();
             result.put("token", token);
             result.put("user", existed_user);
             return new Msg<>(MsgCode.SUCCESS, result);
-        } else return new Msg<>(MsgCode.WRONG_PASSWORD);
+        } else { System.out.println(password+",,,"+existed_user.getPassword()); return new Msg<>(MsgCode.WRONG_PASSWORD); }
     }
 
     @Override
@@ -70,13 +72,10 @@ public class UserServiceImpl implements UserService {
         Objects.requireNonNull(phone, "null phone --UserServiceImpl loginWithCaptcha");
         Objects.requireNonNull(captcha, "null captcha --UserServiceImpl loginWithCaptcha");
 
-        if (!FormatUtil.phoneCheck(phone)) return new Msg<>(MsgCode.ILLEGAL_PHONE);
         User existed_user = userDao.getUserByPhone(phone);
-        if (existed_user == null) return new Msg<>(MsgCode.PHONE_NOT_FOUND);
-        else {
-            MsgCode msgCode = phoneCaptchaHelper(phone, captcha);
-            if (msgCode.getStatus() != MsgConstant.SUCCESS)
-                return new Msg<>(msgCode);
+        if (existed_user == null) { return new Msg<>(MsgCode.PHONE_NOT_FOUND); } else {
+            MsgCode msgCode = captchaHelper(phone, captcha);
+            if (msgCode.getStatus() != MsgConstant.SUCCESS) { return new Msg<>(msgCode); }
             Map<String, Object> result = new HashMap<>();
             String token = TokenUtil.sign(existed_user);
             result.put("token", token);
@@ -86,14 +85,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Msg<Boolean> sendCaptchaToPhone(String phone){
+    public Msg<Boolean> sendCaptchaToPhone(String phone) {
         Objects.requireNonNull(phone, "null phone --UserServiceImpl sendCaptcha");
 
-        if (!FormatUtil.phoneCheck(phone)) return new Msg<>(MsgCode.ILLEGAL_PHONE);
-        Integer random=(int)((Math.random()*9+1)*100000);
-        String code=random.toString();
+        Integer random = (int) ((Math.random() * 9 + 1) * 100000);
+        String code = random.toString();
         try {
-            AliSmsUtil.sendALiSms(phone, code);
+            aliSmsUtil.sendALiSms(phone, code);
         } catch (Exception e) {
             e.printStackTrace();
             return new Msg<>(MsgCode.SMS_SEND_FAILURE);
@@ -107,15 +105,13 @@ public class UserServiceImpl implements UserService {
         Objects.requireNonNull(phone, "null phone --UserServiceImpl sendCaptchaToEmail");
         Objects.requireNonNull(email, "null email --UserServiceImpl sendCaptchaToEmail");
 
-        if (!FormatUtil.phoneCheck(phone)) return new Msg<>(MsgCode.ILLEGAL_PHONE);
-        if (!FormatUtil.emailCheck(email)) return new Msg<>(MsgCode.ILLEGAL_EMAIL);
         User existed_user = userDao.getUserByPhone(phone);
-        if (existed_user == null) return new Msg<>(MsgCode.PHONE_NOT_FOUND);
-        Integer random=(int)((Math.random()*9+1)*100000);
-        String code=random.toString();
+        if (existed_user == null) { return new Msg<>(MsgCode.PHONE_NOT_FOUND); }
+        Integer random = (int) ((Math.random() * 9 + 1) * 100000);
+        String code = random.toString();
         try {
             String title = "OligeiWeb注册码";
-            String content = "您的验证码为："+code+"。请于五分钟内验证邮箱！";
+            String content = "您的验证码为：" + code + "。请于五分钟内验证邮箱！";
             emailUtil.sendEmail(email, title, content);
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,14 +127,11 @@ public class UserServiceImpl implements UserService {
         Objects.requireNonNull(email, "null email --UserServiceImpl activateEmail");
         Objects.requireNonNull(captcha, "null captcha --UserServiceImpl activateEmail");
 
-        if (!FormatUtil.phoneCheck(phone)) return new Msg<>(MsgCode.ILLEGAL_PHONE);
-        if (!FormatUtil.emailCheck(email)) return new Msg<>(MsgCode.ILLEGAL_EMAIL);
         User existed_user = userDao.getUserByPhone(phone);
-        if (existed_user == null) return new Msg<>(MsgCode.PHONE_NOT_FOUND);
-        MsgCode msgCode = emailCaptchaHelper(email, captcha);
-        if (msgCode.getStatus() != MsgConstant.SUCCESS)
-            return new Msg<>(msgCode);
-        if (existed_user.getEmail() != null) return new Msg<>(MsgCode.EMAIL_EXISTED);
+        if (existed_user == null) { return new Msg<>(MsgCode.PHONE_NOT_FOUND); }
+        MsgCode msgCode = captchaHelper(email, captcha);
+        if (msgCode.getStatus() != MsgConstant.SUCCESS) { return new Msg<>(msgCode); }
+        if (existed_user.getEmail() != null) { return new Msg<>(MsgCode.EMAIL_EXISTED); }
         existed_user.setEmail(email);
         userDao.save(existed_user, false);
         return new Msg<>(MsgCode.SUCCESS);
@@ -151,12 +144,10 @@ public class UserServiceImpl implements UserService {
         Objects.requireNonNull(password, "null password --UserServiceImpl register");
         Objects.requireNonNull(captcha, "null captcha --UserServiceImpl register");
 
-        if (!FormatUtil.phoneCheck(phone)) return new Msg<>(MsgCode.ILLEGAL_PHONE);
         User existed_user = userDao.getUserByPhone(phone);
-        if (existed_user != null) return new Msg<>(MsgCode.PHONE_FOUND);
-        MsgCode msgCode = phoneCaptchaHelper(phone, captcha);
-        if (msgCode.getStatus() != MsgConstant.SUCCESS)
-            return new Msg<>(msgCode);
+        if (existed_user != null) { return new Msg<>(MsgCode.PHONE_FOUND); }
+        MsgCode msgCode = captchaHelper(phone, captcha);
+        if (msgCode.getStatus() != MsgConstant.SUCCESS) { return new Msg<>(msgCode); }
         User user = userDao.save(new User(username, phone, encoder.encode(password), "user"), true);
         String token = TokenUtil.sign(user);
         Map<String, Object> result = new HashMap<>();
@@ -170,7 +161,8 @@ public class UserServiceImpl implements UserService {
         Objects.requireNonNull(userId, "null userId --UserServiceImpl getPersonalProfile");
         User user = userDao.getUserByUserId(userId);
         UserNeo4j userNeo4j = userDao.getUserNeo4jByUserId(userId);
-        Profile profile = new Profile(userId, user.getUsername(), userNeo4j.getUserIcon(), user.getPhone(), user.getEmail());
+        Profile profile = new Profile(userId, user.getUsername(), userNeo4j.getUserIcon(), user.getPhone(),
+                                      user.getEmail());
         return new Msg<>(MsgCode.SUCCESS, profile);
     }
 
@@ -186,6 +178,7 @@ public class UserServiceImpl implements UserService {
         Objects.requireNonNull(phone, "null phone --UserServiceImpl resetPassword");
         Objects.requireNonNull(password, "null password --UserServiceImpl resetPassword");
         User user = userDao.getUserByPhone(phone);
+        if (user == null) { return new Msg<>(MsgCode.PHONE_NOT_FOUND); }
         user.setPassword(encoder.encode(password));
         userDao.save(user, false);
         return new Msg<>(MsgCode.SUCCESS);
@@ -195,28 +188,17 @@ public class UserServiceImpl implements UserService {
     public Msg<Boolean> verifyCaptcha(String phone, String captcha) {
         Objects.requireNonNull(phone, "null phone --UserServiceImpl verifyCaptcha");
         Objects.requireNonNull(captcha, "null captcha --UserServiceImpl verifyCaptcha");
-        return new Msg<>(phoneCaptchaHelper(phone, captcha));
+        return new Msg<>(captchaHelper(phone, captcha));
     }
 
-    private MsgCode phoneCaptchaHelper(String phone, String captcha) {
-        Objects.requireNonNull(phone, "null phone --UserServiceImpl verifyCaptchaHelper");
+    private MsgCode captchaHelper(String key, String captcha) {
+        Objects.requireNonNull(key, "null key --UserServiceImpl verifyCaptchaHelper");
         Objects.requireNonNull(captcha, "null captcha --UserServiceImpl verifyCaptchaHelper");
-        if (captcha.equals("000000")) return MsgCode.SUCCESS;
-        String existed_captcha = captchaMap.get(phone);
+        if (captcha.equals("000000")) { return MsgCode.SUCCESS; }
+        String existed_captcha = captchaMap.get(key);
         System.out.println(existed_captcha);
-        if (existed_captcha == null) return MsgCode.EXPIRED_CAPTCHA;
-        if (!existed_captcha.equals(captcha)) return MsgCode.WRONG_CAPTCHA;
-        return MsgCode.SUCCESS;
-    }
-
-    private MsgCode emailCaptchaHelper(String email, String captcha) {
-        Objects.requireNonNull(email, "null email --UserServiceImpl verifyCaptchaHelper");
-        Objects.requireNonNull(captcha, "null captcha --UserServiceImpl verifyCaptchaHelper");
-        if (captcha.equals("000000")) return MsgCode.SUCCESS;
-        String existed_captcha = captchaMap.get(email);
-        System.out.println(existed_captcha);
-        if (existed_captcha == null) return MsgCode.EXPIRED_CAPTCHA;
-        if (!existed_captcha.equals(captcha)) return MsgCode.WRONG_CAPTCHA;
+        if (existed_captcha == null) { return MsgCode.EXPIRED_CAPTCHA; }
+        if (!existed_captcha.equals(captcha)) { return MsgCode.WRONG_CAPTCHA; }
         return MsgCode.SUCCESS;
     }
 }

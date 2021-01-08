@@ -27,12 +27,13 @@
         android:id="@+id/btn_back_to_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/button_circle_shape"
         android:text="@string/back_to_home"
         android:textColor="#ffffff"
-        android:background="@drawable/button_circle_shape"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.321"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -47,4 +48,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_done_24" />
+
+    <Button
+        android:id="@+id/ScreenShotAndShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/button_circle_shape"
+        android:text="@string/take_screen_shot_and_share"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.684"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/successText"
+        android:layout_width="wrap_content"
+        android:layout_height="115dp"
+        android:layout_marginTop="40dp"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+      android:textSize="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SuccessNotice" />
 </androidx.constraintlayout.widget.ConstraintLayout>

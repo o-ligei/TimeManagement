@@ -2,12 +2,14 @@ package com.example.wowtime.ui.account;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.wowtime.R;
 import com.example.wowtime.ui.MainActivity;
+import com.example.wowtime.util.Ajax;
 import com.example.wowtime.util.InternetConstant;
 import java.io.IOException;
 import okhttp3.FormBody;
@@ -56,7 +58,7 @@ public class EmailActivateActivity extends AppCompatActivity {
                 try {
                     Response response = client.newCall(request).execute();//发送请求
                     String result = response.body().string();
-                    GetCaptcha();
+                    GetCaptcha(result);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -64,39 +66,7 @@ public class EmailActivateActivity extends AppCompatActivity {
         }).start();
     }
 
-    void GetCaptcha() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                btn_handson.setEnabled(true);
-            }
-        });
-    }
-
-    void OkHandsOn() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpClient client = new OkHttpClient();
-                FormBody.Builder formBody = new FormBody.Builder();
-                formBody.add("phone", phone);
-                formBody.add("email", emailInput.getText().toString());
-                formBody.add("captcha", captchaInput.getText().toString());
-                Request request = new Request.Builder()
-                        .url(InternetConstant.host + "/User/ActivateEmail").post(formBody.build())
-                        .build();
-                try {
-                    Response response = client.newCall(request).execute();//发送请求
-                    String result = response.body().string();
-                    HandsOn(result);
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    void HandsOn(String result) throws JSONException {
+    void GetCaptcha(String result) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -110,6 +80,22 @@ public class EmailActivateActivity extends AppCompatActivity {
                 }
                 Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
                 toast.show();
+                btn_handson.setEnabled(true);
+            }
+        });
+    }
+
+    void OkHandsOn() {
+        FormBody.Builder formBody = new FormBody.Builder();
+        formBody.add("phone", phone);
+        formBody.add("email", emailInput.getText().toString());
+        formBody.add("captcha", captchaInput.getText().toString());
+
+        Handler handler = new Handler(message -> {
+            if (message.what == InternetConstant.FETCH) {
+                String msg = message.getData().get("msg").toString();
+                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                toast.show();
                 if (msg.equals("success")) {
                     Intent intent = null;
                     intent = new Intent(EmailActivateActivity.this, MainActivity.class);
@@ -117,6 +103,53 @@ public class EmailActivateActivity extends AppCompatActivity {
                     finish();
                 }
             }
+            return false;
         });
+        Ajax ajax = new Ajax("/User/ActivateEmail", formBody, handler, InternetConstant.FETCH);
+        ajax.fetch();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                OkHttpClient client = new OkHttpClient();
+//
+//
+//
+//
+//                Request request = new Request.Builder()
+//                        .url(InternetConstant.host + "/User/ActivateEmail").post(formBody.build())
+//                        .build();
+//                try {
+//                    Response response = client.newCall(request).execute();//发送请求
+//                    String result = response.body().string();
+//                    HandsOn(result);
+//                } catch (IOException | JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
     }
+
+//    void HandsOn(String result) throws JSONException {
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                JSONObject jsonObject = null;
+//                String msg = "";
+//                try {
+//                    jsonObject = new JSONObject(result);
+//                    msg = jsonObject.get("msg").toString();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+//                toast.show();
+//                if (msg.equals("success")) {
+//                    Intent intent = null;
+//                    intent = new Intent(EmailActivateActivity.this, MainActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }
+//            }
+//        });
+//    }
 }
