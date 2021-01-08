@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             startService(startIntent);
         }
 
+
         if (userId != -1) {
             Intent startIntent = new Intent(MainActivity.this,
                                             TWebSocketClientService.class);

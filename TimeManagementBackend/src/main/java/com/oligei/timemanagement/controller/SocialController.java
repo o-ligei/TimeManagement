@@ -11,6 +11,7 @@ import com.oligei.timemanagement.service.SocialService;
 import com.oligei.timemanagement.utils.msgutils.Msg;
 import com.oligei.timemanagement.utils.msgutils.MsgCode;
 import com.oligei.timemanagement.utils.msgutils.MsgConstant;
+import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +93,9 @@ public class SocialController {
             @RequestParam(name = "username") String username,
             @RequestParam(name = "clocksetting") String clockSetting) {
         FriendAlarmMsg friendAlarmMsg = new FriendAlarmMsg(username, clockSetting);
-        Msg<FriendAlarmMsg> msg = new Msg<>(MsgCode.NEW_FRIEND_ALARM, friendAlarmMsg);
+        List<FriendAlarmMsg> friendAlarmMsgList = new ArrayList<>();
+        friendAlarmMsgList.add(friendAlarmMsg);
+        Msg<List<FriendAlarmMsg>> msg = new Msg<>(MsgCode.NEW_FRIEND_ALARM, friendAlarmMsgList);
         try {
             WebSocketController.sendMessage((JSONObject) JSONObject.toJSON(msg), to.toString());
             return new Msg<>(MsgCode.SUCCESS);
