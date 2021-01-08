@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
@@ -130,6 +131,11 @@ public class StatisticDayActivity extends AppCompatActivity {
 
 //        pie.setBackgroundColor(0xFFFFCCBC);
         pie.setNoDataText(String.valueOf(R.string.statistic_no_data));//设置当chart为空时显示的描述文字。
+        if(list.size()==0){
+            TextView textView=findViewById(R.id.noData);
+            textView.setVisibility(View.VISIBLE);
+            pie.setVisibility(View.INVISIBLE);
+        }
         pie.setUsePercentValues(true);//使用百分比显示
         pie.setExtraOffsets(15, 0, 15, 0);//设置图表上下左右的偏移，类似于外边距
         pie.setDragDecelerationFrictionCoef(0.95f);

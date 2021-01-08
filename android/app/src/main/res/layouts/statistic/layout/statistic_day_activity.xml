@@ -52,6 +52,19 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
+  <TextView
+    android:id="@+id/noData"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="300dp"
+    android:text="@string/statistic_no_data"
+    android:textSize="20sp"
+    android:visibility="invisible"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    />
+
         <TextView
             android:id="@+id/textViewDayBottom"
             android:layout_width="wrap_content"
