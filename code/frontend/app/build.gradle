@@ -1,0 +1,126 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    defaultConfig {
+        applicationId "com.example.wowtime"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/account',
+                            'src/main/res/layouts/alarm',
+                            'src/main/res/layouts/games',
+                            'src/main/res/layouts/others',
+                            'src/main/res/layouts/pomodoro',
+                            'src/main/res/layouts/statistic',
+                            'src/main/res/layouts/main',
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    testImplementation 'org.robolectric:robolectric:4.4'
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+//    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+//    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'androidx.drawerlayout:drawerlayout:1.1.1'
+    implementation 'androidx.preference:preference:1.1.1'
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    androidTestImplementation 'org.mockito:mockito-core:1.10.19'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.github.clans:fab:1.6.4'
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+
+    implementation 'com.alibaba:fastjson:1.2.4'
+    implementation 'org.java-websocket:Java-WebSocket:1.5.1'
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
+
+    implementation 'uk.co.barbuzz:beerprogressview:0.0.6'
+    implementation group: 'com.nineoldandroids', name: 'library', version: '2.4.0'
+
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'androidx.leanback:leanback:1.0.0'
+
+    compile 'com.github.huburt-Hu:NewbieGuide:v2.0.1'
+
+    def nav_version = "2.3.0"
+
+    // Java language implementation
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    // Kotlin
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    //object->json string
+    implementation 'com.alibaba:fastjson:1.2.4'
+
+//    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//    testImplementation "org.robolectric:robolectric:4.4"
+//    testImplementation "junit:junit:4.13"
+    testImplementation "org.assertj:assertj-core:2.6.0"
+    testImplementation "org.robolectric:robolectric:4.4"
+
+// PowerMock brings in the mockito dependency
+    testImplementation 'org.powermock:powermock-module-junit4:1.6.5'
+    testImplementation 'org.powermock:powermock-module-junit4-rule:1.6.5'
+    testImplementation 'org.powermock:powermock-api-mockito:1.6.5'
+    testImplementation 'org.powermock:powermock-classloading-xstream:1.6.5'
+}

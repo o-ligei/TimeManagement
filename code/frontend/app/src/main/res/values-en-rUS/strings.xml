@@ -1,0 +1,278 @@
+<resources>
+    <string name="app_name">HiTime</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="test_message">Enter a message</string>
+    <string name="button_send">send</string>
+    <string name="phone_hint">please input phone number…</string>
+    <string name="captcha_hint">please input captcha…</string>
+    <string name="get_captcha_hint">Get Captcha</string>
+
+    <string name="username_hint">input username…</string>
+    <string name="password_hint">input password…</string>
+    <string name="password_warning">The password must contain numbers and letters, and be at least six characters long</string>
+
+    <string name="logo_description">This is the logo description.</string>
+    <string name="login_usepw_hint">use password?</string>
+    <string name="login_useregis_hint">register</string>
+    <string name="login_message">login</string>
+    <string name="white_list_name">white list</string>
+
+
+    <string name="register_message">register</string>
+    <string name="register_getCaptcha">get CAPTCHA</string>
+    <string name="login_usecapt_hint">use captcha?</string>
+    <string name="friends_list_name">friends</string>
+    <string name="friends_list_sort_hint">search…</string>
+    <string name="credit_detail_list_name">credit detail</string>
+
+
+    <!-- Strings used for clock setting-->
+    <string name="clock_setting_title">Setting alarm</string>
+    <string name="clock_setting_store">Store</string>
+    <string name="clock_setting_tag_title">Label</string>
+    <string name="clock_setting_tag_default">Alarm</string>
+    <string name="clock_setting_ring_title">Ring</string>
+    <string name="clock_setting_ring_default">Radar</string>
+    <string name="clock_setting_game_title">Game</string>
+    <string name="clock_setting_game_default">Random</string>
+    <string name="clock_setting_repeat_title">repeat</string>
+    <string name="clock_setting_repeat_select">everyday</string>
+    <string name="ring_setting_title">Setting ring</string>
+    <string name="game_setting_title">Select game</string>
+    <string name="alarm_list_title">alarm</string>
+    <string name="sleep_assist_title">sleep assist</string>
+    <string name="sleep_assist_default">closed</string>
+    <string name="sleep_assist_open">open</string>
+    <string name="send_alarm">send</string>
+
+    <!-- Strings used for pomomdoro setting-->
+    <string name="pomodoro_setting_title">Setting pomorodo</string>
+    <string name="pomodoro_setting_time">Total duration</string>
+    <string name="pomodoro_mode">Select mode</string>
+    <string name="pomodoro_rest1">Be focused for</string>
+    <string name="pomodoro_rest2">Allow to rest for</string>
+    <string name="item_application_name">QQ</string>
+    <string name="pomodoro_save_successfully">Save successfully</string>
+    <string name="pomodoro_default_name">away from phone</string>
+    <string name="pomodoro_delete_title">delete this task?</string>
+    <string name="pomodoro_delete_confirm">Yes</string>
+    <string name="pomodoro_delete_cancel">Cancel</string>
+
+    <!--strings for tapping game-->
+    <string name="tapping_game_rule">Tap 20 greens, and dont tap reds!</string>
+    <string name="tapping_game_start">Start!</string>
+    <string name="tapping_game_success">Success</string>
+    <string name="tapping_game_failure">Failure</string>
+
+    <!--strings for option game-->
+    <string name="option_game_next">Continue!</string>
+    <string name="option_game_next_question">Next Question!</string>
+
+    <!--strings for navigation-->
+    <string name="navigation_person_info">Personal information</string>
+    <string name="navigation_login">Log in</string>
+    <string name="navigation_sunflower">Sunflower</string>
+    <string name="navigation_clock">Alarm</string>
+    <string name="navigation_away_from_phone">Away from phone</string>
+    <string name="navigation_friends">Friends</string>
+    <string name="navigation_statistic">Statistics</string>
+    <string name="navigation_achievement">Achievement</string>
+    <string name="navigation_setting">Setting</string>
+    <string name="navigation_about">About</string>
+
+    <string name="personinfo_name">info</string>
+    <string name="friendslist_name">friends</string>
+    <string name="creditdetail_name">credit detail</string>
+
+
+    <!--strings for statistic-->
+    <string name="statistic_day_title">daily summary</string>
+    <string name="statistic_day_content">Come and see what you\'ve done today</string>
+    <string name="statistic_no_data">No plan today</string>
+    <string name="statistic_week_title">Summary of recent 7 days</string>
+    <string name="statistic_year_title">2020Overview</string>
+    <string name="statistic_switch_today">today</string>
+    <string name="statistic_switch_week">week</string>
+    <string name="statistic_switch_year">year</string>
+
+
+    <!--strings for task list-->
+    <string name="task_list">TASK LIST</string>
+    <string name="task_name">TASK NAME</string>
+    <string name="task_success">TASK COMPLETED!</string>
+    <string name="back_to_home">BACK TO HOME</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+    <string name="game_setting_header">Game Parameter</string>
+    <string name="game_setting">Game Parameter Setting</string>
+    <string name="theme_setting">Night Mode</string>
+    <string name="theme_setting_header">Theme</string>
+    <string name="blowing_game_setting_header">Blowing Game Setting</string>
+    <string name="shaking_game_setting_header">Shaking Game Setting</string>
+    <string name="volume_setting_header">Sensitivity</string>
+    <string name="blow_time_setting_header">Duration</string>
+    <string name="speed_setting_header">Sensitivity</string>
+    <string name="shake_time_setting_header">Duration</string>
+    <string name="random_game_setting_header">Random Number Game</string>
+    <string name="calculate_game_setting_header">Calculating Game</string>
+    <string name="tapping_game_setting_header">Tapping Game</string>
+    <string name="Answering_game_setting_header">Answering Game</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+
+    <!-- strings for game -->
+    <string name="shaking_notice">shake the phone</string>
+    <string name="blowing_notice">blow the phone</string>
+    <string name="blowing_button_text">hold down to blow</string>
+    <!--strings for menu-->
+    <string name="menu_exit">exit</string>
+
+
+    <!-- string for calculate -->
+    <string name="calculate_description">please type the answer of formula below</string>
+    <string name="calculate_title">FORMULA</string>
+    <string name="calculate_answer">0</string>
+
+    <!-- strings for about -->
+    <string name="about_title">WOWTIME</string>
+    <string name="about_content">本产品自成一体，运行于安卓系统，基于帮助用户管理时间的目的，主要为用户提供两方面的服务。一方面用一定的激励机制帮助用户指定个性化的作息计划。另一方面则是提供远离手机的服务，使用户在一段时间内不去启动手机，从而帮助用户减少手机的依赖。</string>
+
+
+    <string name="title_activity_screen_saver">Screen Saver</string>
+    <string name="screen_saver_button">quit</string>
+    <string name="screen_saver_content">STUDY\nFOR THE RISE OF CHINA</string>
+    <string name="screen_saver_title">You have been focused for</string>
+
+    <string name="pomodoro_list_title">POMODORA</string>
+    <string name="pomodoro_start_button">START</string>
+
+    <!--strings for random number input -->
+    <string name="number_input_title">please input number below：</string>
+    <string name="handson">HANDSON</string>
+
+    <!--strings for confirm captcha -->
+    <string name="phone_input">please input the phone number</string>
+    <string name="captcha_input">please input the captcha</string>
+    <string name="get_captcha">get captcha</string>
+
+    <!--strings for password change -->
+    <string name="password_change_title">change password</string>
+    <string name="new_password">new password</string>
+    <string name="new_password_confirm">confirm password</string>
+
+    <!--strings for email activate-->
+    <string name="email_activate_title">activate email</string>
+    <string name="email_hint">please input the email</string>
+
+    <string name="add_friend">ADD</string>
+    <string name="already_add_friend">ALREADY ADD</string>
+    <string name="accept_friend">ACCEPT</string>
+    <string name="already_accept_friend">ALREADY ACCEPT</string>
+    <string name="app_id">5f9fbccc</string>
+
+    <string name="iat_recognize">start</string>
+    <string name="iat_stop">stop</string>
+    <string name="iat_cancel">cancel</string>
+
+    <string name="friend_request_notice">get friend request</string>
+    <string name="recommend_friend_notice">Recommend friend!</string>
+
+    <string name="iat_recognize_hint">关键词：闹钟，几点，比如您可以说：请订个一点的闹钟</string>
+    <!--    <string name="text_tts_source">科大讯飞作为中国最大的智能语音技术提供商，在智能语音技术领域有着长期的研究积累，并在中文语音合成、语音识别、口语评测等多项技术上拥有国际领先的成果。科大讯飞是我国唯一以语音技术为产业化方向的“国家863计划成果产业化基地”…</string>-->
+    <!--    <string name="text_tts_source_en">iFLYTEK is a national key software enterprise dedicated to the research of intelligent speech and language technologies, development of software and chip products, provision of speech information services, and integration of E-government systems. The intelligent speech technology of iFLYTEK, the core technology of the company, represents the top level in the world.</string>-->
+    <!--    <string name="text_isr_abnf_hint">\t上传内容为：\n\t#ABNF 1.0 gb2312;\n\tlanguage zh-CN;\n\tmode voice;\n\troot $main;\n\t$main = $place1 到$place2 ;\n\t$place1 = 北京 | 武汉 | 南京 | 天津 | 东京;\n\t$place2 = 上海 | 合肥;</string>-->
+    <!--    <string name="text_understand_hint">\t您可以说：\n\t今天的天气怎么样?\n\t北京到上海的火车?\n\t来首歌吧?\n\n\t更多语义请登录：\n\thttp://aiui.xfyun.cn/ \n\t配置您的专属语义吧!</string>-->
+    <!-- 听写 -->
+    <string name="text_begin">请开始说话…</string>
+    <string name="text_begin_recognizer">开始音频流识别</string>
+
+    <string name="forget_password">forget password?</string>
+    <string name="username">Username:</string>
+    <string name="phonenumber">Phone:</string>
+    <string name="email">Email:</string>
+    <string name="credit">Accumulation:</string>
+    <string name="take_screen_shot_and_share">SHOT AND SHARE</string>
+
+    <string name="achievement_header_friend_0">Social entry task</string>
+    <string name="achievement_content_friend_0">Add 1 friend successfully</string>
+    <string name="achievement_header_share_0">Sharing entry task</string>
+    <string name="achievement_content_share_0">Share to other apps successfully</string>
+    <string name="achievement_header_alarm_0">Alarm entry tasks</string>
+    <string name="achievement_content_alarm_0">Set the alarm 5 times</string>
+    <string name="achievement_header_pomodoro_0">Pomodoro entry tasks</string>
+    <string name="achievement_content_pomodoro_0">Set the pomodoro 5 times</string>
+
+    <string name="achievement_header_friend_1">Social talent</string>
+    <string name="achievement_content_friend_1">Add 10 friends successfully</string>
+    <string name="achievement_header_share_1">Sharing talent</string>
+    <string name="achievement_content_share_1">Share to other apps 10 times</string>
+    <string name="achievement_header_alarm_1">Alarm talent</string>
+    <string name="achievement_content_alarm_1">Set the alarm 50 times</string>
+    <string name="achievement_header_pomodoro_1">Pomodoro talent</string>
+    <string name="achievement_content_pomodoro_1">Set the pomodoro 50 times</string>
+
+    <string name="achievement_header_sleep">Sleeping entry task</string>
+    <string name="achievement_content_sleep">Set the sleeping alarm successfully</string>
+    <string name="achievement_header_pomodoro_time_0">Many a little make a mickle</string>
+    <string name="achievement_content_pomodoro_time_0">Pomodoro time accumulated for one hour</string>
+    <string name="achievement_header_pomodoro_time_1">Keep on carving</string>
+    <string name="achievement_content_pomodoro_time_1">A single pomodoro time for one hour</string>
+
+  <string name="set_alarm_for_friend">ALARM</string>
+    <string name="receive_alarm_title">alarm send by friend</string>
+    <string name="send_alarm_tag">tag: </string>
+    <string name="send_alarm_time">time: </string>
+    <string name="send_alarm_repeat">repeat: </string>
+    <string name="send_alarm_game">game: </string>
+    <string name="send_alarm_ring">ring: </string>
+    <string name="send_alarm_assist">sleep assist: </string>
+    <string name="send_alarm_assist_time">sleep assist time: </string>
+
+    <!--strings for alarm frequency-->
+    <string name="alarm_frequency_no_repeat">one time</string>
+    <string name="alarm_frequency_Monday">Every Monday</string>
+    <string name="alarm_frequency_Tuesday">Every Tuesday</string>
+    <string name="alarm_frequency_Wednesday">Every Wednesday</string>
+    <string name="alarm_frequency_Thursday">Every Wednesday</string>
+    <string name="alarm_frequency_Friday">Every Friday</string>
+    <string name="alarm_frequency_Saturday">Every Saturday</string>
+    <string name="alarm_frequency_Sunday">Every Sunday</string>
+
+    <!--strings for alarm ring-->
+    <string name="alarm_ring_radar">radar</string>
+    <string name="alarm_ring_classic">classic</string>
+
+    <!-- string for onboard-->
+    <string name="on_board_title_1">alarm</string>
+    <string name="on_board_title_2">away_from_phone</string>
+    <string name="on_board_title_3">reward</string>
+    <string name="on_board_des_1">set by yourself</string>
+    <string name="on_board_des_2">tomato clock</string>
+    <string name="on_board_des_3">growth of sunflower</string>
+
+    <!-- string for guide-->
+    <string name="alarm_guide">set which time to sleep</string>
+    <string name="login_first">login first</string>
+    <string name="quit_login">login quit</string>
+</resources>

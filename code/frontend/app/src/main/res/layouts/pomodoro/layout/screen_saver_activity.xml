@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/black"
+    tools:context=".ui.pomodoro.ScreenSaverActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?metaButtonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fullscreen_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:keepScreenOn="true"
+                android:text="@string/screen_saver_content"
+                android:textColor="#FFFFFF"
+                android:textSize="50sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/saver_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/screen_saver_title"
+                android:textSize="40sp"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="50dp"
+                />
+
+            <TextView
+                android:id="@+id/saver_gone_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 : 15 :10"
+                android:textSize="60sp"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/saver_title"
+                />
+
+            <Button
+                android:id="@+id/dummy_button"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/screen_saver_button"
+                android:background="@android:color/white"
+                app:layout_constraintEnd_toEndOf="@id/white_list_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="50dp"/>
+
+            <Button
+                android:id="@+id/white_list_button"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:background="@drawable/button_circle_shape"
+                android:text="@string/white_list_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/dummy_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="50dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</FrameLayout>

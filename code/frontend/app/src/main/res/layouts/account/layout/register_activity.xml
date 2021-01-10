@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.account.RegisterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/captcha_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_layout">
+
+        <Button
+            android:id="@+id/btn_getCaptcha"
+            android:layout_width="93dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="40dp"
+            android:background="@drawable/button_circle_shape"
+            android:text="@string/register_getCaptcha"
+            android:textColor="#ffffff"
+            app:layout_constraintStart_toEndOf="@id/captcha_input"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/captcha_input"
+            android:layout_width="97dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="180dp"
+            android:ems="10"
+            android:hint="@string/captcha_hint"
+            android:inputType="textPersonName"
+            app:layout_constraintBaseline_toBaselineOf="@+id/btn_getCaptcha"
+          app:layout_constraintEnd_toEndOf="parent"
+          tools:ignore="NotSibling" />
+
+        <ImageView
+            android:id="@+id/captcha_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="36dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_closed_caption_24" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/password_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_layout">
+
+        <ImageView
+            android:id="@+id/password_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_lock_24" />
+
+        <EditText
+            android:id="@+id/passsword_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="@string/password_hint"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/password_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:text="@string/password_warning"
+            android:textColor="@android:color/holo_red_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/phone_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username_layout">
+
+        <ImageView
+            android:id="@+id/phone_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_phone" />
+
+        <EditText
+            android:id="@+id/phone_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="@string/phone_hint"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/username_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/username_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="@string/username_hint"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/username_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="118dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/button_circle_shape"
+        android:text="@string/register_message"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

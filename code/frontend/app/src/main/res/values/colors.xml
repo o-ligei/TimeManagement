@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <color name="colorPrimary">#FFB6C1</color>-->
+<!--    <color name="colorPrimaryDark">#DB7089</color>-->
+<!--    <color name="colorAccent">#FF7F50</color>-->
+<!--    <color name="lightOrange">#FDD290</color>-->
+<!--    <color name="lightPink">#ffccbc</color>-->
+
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+
+    <color name="colorPrimary">#FDD692</color>
+    <color name="colorPrimaryDark">#FDC092</color>
+    <color name="colorAccent">#754F44</color>
+    <color name="lightOrange">#FFFFFF</color>
+    <color name="lightPink">#FFFFFF</color>
+
+<!--    <color name="colorPrimary">#FF5722</color>-->
+<!--    &lt;!&ndash;    <color name="colorPrimary">#FF7F50</color>&ndash;&gt;-->
+<!--    <color name="colorPrimaryDark">#E64A19</color>-->
+<!--    &lt;!&ndash;    <color name="colorPrimaryDark">#E65A19</color>&ndash;&gt;-->
+<!--    <color name="colorPrimaryLight">#FFCCBC</color>-->
+<!--    &lt;!&ndash;    <color name="colorAccent">#03A9F4</color>&ndash;&gt;-->
+<!--    <color name="colorAccent">#03C4F4</color>-->
+
+
+
+    <!--    <color name="lightOrange">#FADBAD</color>-->
+<!--    <color name="lightPink">#FFCCBC</color>-->
+
+
+
+    <color name="primary">#FF5722</color>
+    <color name="primary_dark">#E64A19</color>
+    <color name="primary_light">#FFCCBC</color>
+    <color name="accent">#FF9800</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+    <color name="lightPurple">#CB72D8</color>
+    <color name="lightRed">#D8728A</color>
+    <color name="lightBlue">#8FDCD9</color>
+    <color name="lightGreen">#9DDC98</color>
+    <color name="lavender">#B2B5EA</color>
+    <color name="white">#ffffff</color>
+
+    <color name="black_overlay">#66000000</color>
+</resources>
