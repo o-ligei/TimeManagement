@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="select_day">
-        <item>强模式</item>
-        <item>弱模式</item>
-    </string-array>
-</resources>
